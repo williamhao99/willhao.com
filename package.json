@@ -1,0 +1,21 @@
+{
+  "name": "willhao.info",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "spotify-auth": "node scripts/spotify-auth.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "next": "^15.3.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
+}
