@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * BASE SITE PAGE: Blog Listing
  *
@@ -7,9 +5,13 @@
  * Organized by date with links to individual posts.
  */
 
-import { useState } from "react";
 import Link from "next/link";
 import { PageHeader, NavigationBar, Footer } from "../../components";
+
+export const metadata = {
+  title: "Blog",
+  description: "Personal reflections of my time in college, experiences, hobbies, and anything else I think of.",
+};
 
 // Placeholder blog posts for demo purposes
 const placeholderPosts = [

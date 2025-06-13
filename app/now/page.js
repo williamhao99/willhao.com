@@ -1,6 +1,9 @@
-"use client";
-
 import { PageHeader, NavigationBar, Footer } from "../../components";
+
+export const metadata = {
+  title: "Now",
+  description: "An updated page of what I'm currently working on.",
+};
 
 export default function Now() {
   return (
