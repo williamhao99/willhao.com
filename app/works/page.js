@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Works",
-  description: "Portfolio and projects by Will Hao",
+  description: "A list of projects I've created, and my work experience history.",
 };
 
 export default function Works() {

@@ -2,7 +2,7 @@ import { PageHeader, NavigationBar, Footer } from "../../components";
 
 export const metadata = {
   title: "Timeline",
-  description: "My journey and experiences",
+  description: "A timeline of my personal life, student, and career milestones.",
 };
 
 export default function Timeline() {

@@ -38,7 +38,7 @@ export const metadata = {
   authors: [{ name: "Will Hao" }],
   creator: "Will Hao",
   openGraph: {
-    title: "Will Hao - UT Austin Mathematics Student",
+    title: "Will Hao - Personal Portfolio",
     description:
       "Will Hao - UT Austin Class of 2028, Mathematics + Plan II Honors student. Personal website showcasing academic work, chess achievements, and blog posts.",
     url: "https://willhao.com",
@@ -46,19 +46,19 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/images/profile-photo.jpg",
-        width: 1200,
-        height: 630,
+        url: "/favicons/William Hao-3-2.png",
+        width: 512,
+        height: 512,
         alt: "Will Hao",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Will Hao - UT Austin Mathematics Student",
+    title: "Will Hao - Personal Portfolio",
     description:
       "Will Hao - UT Austin Class of 2028, Mathematics + Plan II Honors student. Personal website showcasing academic work, chess achievements, and blog posts.",
-    images: ["/images/profile-photo.jpg"],
+    images: ["/favicons/William Hao-3-2.png"],
   },
   robots: {
     index: true,

@@ -3,7 +3,7 @@ export default function StructuredData() {
     "@type": "Person",
     name: "Will Hao",
     alternateName: "William Hao",
-    description: "UT Austin Mathematics and Plan II Honors student",
+    description: "Personal portfolio of Will Hao, UT Austin Mathematics and Plan II Honors student",
     jobTitle: "Mathematics Student",
     url: "https://willhao.com",
     sameAs: [
@@ -24,7 +24,7 @@ export default function StructuredData() {
       "Academic Research",
       "Fitness",
     ],
-    image: "https://willhao.com/images/profile-photo.jpg",
+    image: "https://willhao.com/favicons/William Hao-3-2.png",
   };
 
   const websiteSchema = {
@@ -37,7 +37,7 @@ export default function StructuredData() {
       name: "Will Hao",
     },
     description:
-      "Personal website of Will Hao, UT Austin Mathematics and Plan II Honors student",
+      "Personal portfolio of Will Hao, UT Austin Mathematics and Plan II Honors student",
     potentialAction: {
       "@type": "SearchAction",
       target: {
