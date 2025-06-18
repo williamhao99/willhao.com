@@ -22,7 +22,7 @@ export default function Home() {
           <section className="container medium section-hero">
             <div className="hero-content">
               <h1 className="h1 hero-title">
-                I'm Will — welcome to my website!
+                I'm Will Hao — welcome to my website!
               </h1>
               <p className="body-1 hero-desc">
                 I am a rising sophomore at UT Austin, and this website serves as
