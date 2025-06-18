@@ -128,6 +128,46 @@ h6 {
   font-weight: var(--font-weight-bold);
 }
 
+/* Blog content spacing */
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6 {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-content h1:first-child,
+.page-content h2:first-child,
+.page-content h3:first-child,
+.page-content h4:first-child,
+.page-content h5:first-child,
+.page-content h6:first-child {
+  margin-top: 0;
+}
+
+/* Paragraph spacing */
+.page-content p {
+  margin-bottom: 1.5rem;
+}
+
+.page-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Reusable separator */
+.content-separator {
+  margin: 3rem 0;
+  border-top: 1px solid rgb(0 0 0 / 25%);
+  width: 100%;
+}
+
+:root[data-theme="dark"] .content-separator {
+  border-top: 1px solid rgb(255 255 255 / 30%);
+}
+
 h1 {
   font-size: var(--h1-size);
 }
@@ -1555,4 +1595,63 @@ button {
   border-color: var(--secondary-text-color);
   color: var(--primary-text-color);
   opacity: 1; /* Override default link opacity */
+}
+
+/* ====================================
+     PDF Viewer Components
+   ==================================== */
+/* Button colors, using theme defaults */
+:root {
+  --btn-bg: var(--background-color);
+  --btn-text: var(--primary-text-color);
+  --btn-border: var(--divider-color);
+  --btn-hover: color-mix(
+    in srgb,
+    var(--background-color) 80%,
+    var(--primary-text-color) 20%
+  );
+  --btn-active-bg: var(--brand-color);
+  --btn-active-bdr: var(--brand-color);
+}
+
+/* Viewer wrapper & iframe */
+.pdf-viewer-wrap {
+  margin-top: 1rem;
+  display: none;
+}
+.pdf-viewer {
+  width: 100%;
+  height: 800px;
+  border: none;
+}
+.pdf-picker {
+  display: grid;
+  gap: 0.25rem;
+  margin: 1rem 0;
+}
+
+/* PDF picker button styles */
+.pdf-picker-btn {
+  padding: 0.6rem 1rem;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: 1px solid var(--btn-border);
+  border-radius: 0.4rem;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.25rem 0;
+}
+.pdf-picker-btn:hover {
+  background: var(--btn-hover);
+}
+.pdf-picker-btn.active {
+  background: var(--btn-active-bg);
+  border-color: var(--btn-active-bdr);
+  color: white;
 }

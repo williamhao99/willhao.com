@@ -38,17 +38,19 @@ export default function Works() {
               <div className="card">
                 <div className="card-wrapper">
                   <h3 className="h3 card-title">
-                    Project Placeholder
+                    UT Math Directed Reading Program Presentation
                     <span className="card-arrow">↗</span>
                   </h3>
                   <div className="sub-heading card-excerpt">
-                    Placeholder description.
+                    The math talk and presentation I gave for the UT Math DRP
+                    Symposium on April 24, 2025, along with my personal
+                    experiences and takeaways.
                   </div>
                 </div>
                 <Link
-                  href="/works/project1-placeholder-link"
+                  href="/works/drp-math-talk"
                   className="u-permalink"
-                  aria-label="Project Placeholder"
+                  aria-label="UT Math Directed Reading Program Presentation"
                 ></Link>
               </div>
               <div className="card">

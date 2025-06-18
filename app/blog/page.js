@@ -10,18 +10,41 @@ import { PageHeader, NavigationBar, Footer } from "../../components";
 
 export const metadata = {
   title: "Blog",
-  description: "Personal reflections of my time in college, experiences, hobbies, and anything else I think of.",
+  description:
+    "Personal reflections of my time in college, experiences, hobbies, and anything else I think of.",
 };
 
-// Placeholder blog posts for demo purposes
-const placeholderPosts = [
+// Blog posts data
+const blogPosts = [
+  {
+    id: "3",
+    title: "(WIP) Personal health and fitness", // TODO: WRITE THE POST
+    slug: "personal-health-and-fitness",
+    excerpt:
+      "Knowledge I've learned about sports, fitness, weightlifting, and more throughout my life. This page will be continually updated.",
+    published_at: "2025-05-15T18:30:00.000Z",
+    visibility: "public",
+    type: "post",
+    status: "published",
+  },
+  {
+    id: "2",
+    title: "(WIP) Winter break Asia trip", // TODO: WRITE THE POST
+    slug: "winter-break-asia-trip",
+    excerpt:
+      "My winter break trip to Asia. Highlights, reflections, and cool food.",
+    published_at: "2025-01-13T19:00:00.000Z",
+    visibility: "public",
+    type: "post",
+    status: "published",
+  },
   {
     id: "1",
-    title: "Placeholder Post",
-    slug: "this-page-does-not-exist",
+    title: "Freshman year of college",
+    slug: "freshman-year",
     excerpt:
-      "This is a placeholder blog post. Your actual content will appear here once you start writing.",
-    published_at: "2024-12-15T10:00:00.000Z",
+      "A reflection and recap of my freshman year (Fall 2024 & Spring 2025), covering courses, extracurriculars, and personal growth.",
+    published_at: "2025-05-12T18:30:00.000Z",
     visibility: "public",
     type: "post",
     status: "published",
@@ -29,10 +52,10 @@ const placeholderPosts = [
 ];
 
 export default function Blog() {
-  // Filter only published posts (all our placeholders are published)
-  const publishedPosts = placeholderPosts.filter(
-    (post) => post.type === "post" && post.status === "published",
-  );
+  // Filter only published posts and sort by date (most recent first)
+  const publishedPosts = blogPosts
+    .filter((post) => post.type === "post" && post.status === "published")
+    .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
 
   return (
     <div className="site">
@@ -104,7 +127,7 @@ export default function Blog() {
                           <div className="feed-icon">→</div>
                         </div>
                         <Link
-                          href={`/blog/post1-placeholder-link`}
+                          href={`/blog/${post.slug}`}
                           className="u-permalink"
                           aria-label={post.title}
                         ></Link>

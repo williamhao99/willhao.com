@@ -2,7 +2,7 @@ import { useApiData } from "@/lib/hooks/useApiData";
 
 export default function ChessWidget() {
   const { data, loading, error } = useApiData("/api/chess", {
-    refetchInterval: 30 * 1000,
+    refetchInterval: 5 * 60 * 1000,
   });
 
   const uscfRating = 1815;

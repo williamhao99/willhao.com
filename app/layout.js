@@ -1,5 +1,6 @@
 import { Noto_Sans, Noto_Serif } from "next/font/google";
 import "./globals.css";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const noto_sans = Noto_Sans({
   subsets: ["latin"],
@@ -31,7 +32,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${noto_sans.variable} ${noto_serif.variable}`}>
-      <head></head>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body>{children}</body>
     </html>
   );

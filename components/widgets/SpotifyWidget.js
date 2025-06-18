@@ -80,11 +80,33 @@ export default function SpotifyWidget() {
 
   const displayInfo = getDisplayInfo();
 
-  // Check if text should scroll based on length
+  // Helper function to check if text contains Asian characters
+  const containsAsianCharacters = (text) => {
+    if (!text) return false;
+    // Asian character ranges:
+    // \u3040-\u309f: Hiragana
+    // \u30a0-\u30ff: Katakana
+    // \u3400-\u4dbf: CJK Extension A
+    // \u4e00-\u9fff: CJK Unified Ideographs (Chinese, Japanese Kanji, Korean Hanja)
+    // \uac00-\ud7af: Hangul (Korean)
+    // \uf900-\ufaff: CJK Compatibility Ideographs
+    // \u3000-\u303f: CJK Symbols and Punctuation
+    return /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af\uf900-\ufaff]/.test(
+      text,
+    );
+  };
+
+  // Check if text should scroll based on length and language
+  const getScrollThreshold = (text) => {
+    return containsAsianCharacters(text) ? 15 : 30;
+  };
+
   const shouldTrackScroll =
-    displayInfo.trackName && displayInfo.trackName.length > 30;
+    displayInfo.trackName &&
+    displayInfo.trackName.length > getScrollThreshold(displayInfo.trackName);
   const shouldArtistScroll =
-    displayInfo.artistName && displayInfo.artistName.length > 30;
+    displayInfo.artistName &&
+    displayInfo.artistName.length > getScrollThreshold(displayInfo.artistName);
 
   // Dynamic calculation effect
   useLayoutEffect(() => {

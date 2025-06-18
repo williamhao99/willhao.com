@@ -1,8 +1,8 @@
-# willhao.info
+# willhao.com
 
 A personal portfolio website built with Next.js, featuring real-time API widgets and a showcase of my work and experiences.
 
-**Live Site**: [willhao.info](https://willhao.info)
+**Live Site**: [willhao.com](https://willhao.com)
 
 ## Pages & Features
 
@@ -46,6 +46,7 @@ This project uses **Prettier** for consistent code formatting across all files:
 - **Integration**: Works with most editors
 
 ### Prettier Commands
+
 ```bash
 # Format all files
 npm run format
@@ -55,17 +56,20 @@ npm run format:check
 ```
 
 ### Editor Setup
+
 For VS Code, install the Prettier extension and enable "Format on Save" in settings.
 
 ## Setup
 
 1. **Clone the repository**
+
    ```bash
-   git clone https://github.com/williamhao99/willhao.info.git
-   cd willhao.info
+   git clone https://github.com/williamhao99/willhao.com.git
+   cd willhao.com
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -73,6 +77,7 @@ For VS Code, install the Prettier extension and enable "Format on Save" in setti
 3. **Create environment file**
 
    Copy `.env.local.example` to `.env.local` and add your API credentials:
+
    ```env
    CLASH_API_TOKEN=your_clash_api_token
    CLASH_PLAYER_TAG=your_player_tag
@@ -82,6 +87,7 @@ For VS Code, install the Prettier extension and enable "Format on Save" in setti
    ```
 
 4. **Run the development server**
+
    ```bash
    npm run dev
    ```
@@ -93,6 +99,7 @@ For VS Code, install the Prettier extension and enable "Format on Save" in setti
 ## API Configuration
 
 ### Spotify Setup
+
 1. Create a Spotify app at [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
 2. Run the auth helper to get your refresh token:
    ```bash
@@ -101,10 +108,12 @@ For VS Code, install the Prettier extension and enable "Format on Save" in setti
 3. Follow the instructions to authorize and get your refresh token
 
 ### Clash of Clans Setup
+
 1. Get your API token from the [Clash of Clans Developer Portal](https://developer.clashofclans.com/)
 2. Find your player tag in-game (looks like #xxxxxxxx)
 
 ### Chess.com Setup
+
 No API key required, because the Chess.com API is public and rate-limited.
 
 Note: Ran into Cloudflare blocking API requests from my server's IP - had to contact Chess.com support to fix.
@@ -116,21 +125,24 @@ Note: Ran into Cloudflare blocking API requests from my server's IP - had to con
 This site is deployed on a DigitalOcean droplet using their Node.js template. Here's the complete setup process I followed:
 
 #### 1. Initial Droplet Setup
+
 1. Create a new droplet using the **Node.js** template from DigitalOcean
 2. Add your SSH key and create the droplet
 
 #### 2. Domain Configuration
+
 1. Point your domain's A record to the droplet's IP address
 2. Wait for DNS propagation
 
 #### 3. Deploy the Application
+
 ```bash
 # Connect to your droplet
 ssh root@your-server-ip
 
 # Clone your repository
-git clone https://github.com/williamhao99/willhao.info.git
-cd willhao.info
+git clone https://github.com/williamhao99/willhao.com.git
+cd willhao.com
 
 # Install dependencies
 npm install
@@ -144,6 +156,7 @@ npm run build
 ```
 
 #### 4. Set Up Process Manager (PM2)
+
 ```bash
 # Install PM2 globally
 npm install -g pm2
@@ -159,20 +172,22 @@ pm2 startup
 ```
 
 #### 5. Set Up Reverse Proxy (Nginx)
+
 ```bash
 # Install Nginx
 sudo apt update
 sudo apt install nginx
 
 # Create Nginx configuration
-sudo nano /etc/nginx/sites-available/willhao.info
+sudo nano /etc/nginx/sites-available/willhao.com
 ```
 
 Add this configuration:
+
 ```nginx
 server {
     listen 80;
-    server_name willhao.info www.willhao.info;
+    server_name willhao.com www.willhao.com;
 
     location / {
         proxy_pass http://localhost:3000;
@@ -190,12 +205,13 @@ server {
 
 ```bash
 # Enable the site
-sudo ln -s /etc/nginx/sites-available/willhao.info /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/willhao.com /etc/nginx/sites-enabled/
 sudo nginx -t  # Test configuration
 sudo systemctl restart nginx
 ```
 
 #### 6. Set Up HTTPS with Let's Encrypt - Certbot
+
 ```bash
 # Update your package list
 sudo apt update
@@ -204,10 +220,11 @@ sudo apt update
 sudo apt install certbot python3-certbot-nginx
 
 # Get SSL certificate
-sudo certbot --nginx -d willhao.info -d www.willhao.info
+sudo certbot --nginx -d willhao.com -d www.willhao.com
 ```
 
 #### 7. Configure Firewall
+
 ```bash
 # Enable UFW
 sudo ufw enable
@@ -220,6 +237,7 @@ sudo ufw status
 ```
 
 ### Why DigitalOcean Droplet?
+
 - **Static IP**: Some APIs (like Clash of Clans) require whitelisting specific IP addresses
 - **Full Control**: Complete server access for custom configurations
 - **Good Pricing**: More affordable than managed hosting for this use case - $6/month
@@ -250,6 +268,6 @@ This is my personal portfolio website. The code is available for viewing only. P
 
 **Will Hao**
 
-- Website: [willhao.info](https://willhao.info)
+- Website: [willhao.com](https://willhao.com)
 - GitHub: [@williamhao99](https://github.com/williamhao99)
 - Email: william.hao.55@gmail.com
