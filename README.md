@@ -162,7 +162,7 @@ npm run build
 npm install -g pm2
 
 # Start the application with PM2
-pm2 start npm --name "willhao-info" -- start
+pm2 start npm --name "willhao.com" -- start
 
 # Save PM2 configuration
 pm2 save
