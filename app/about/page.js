@@ -3,6 +3,10 @@ import { PageHeader, NavigationBar, Footer } from "../../components";
 export const metadata = {
   title: "About",
   description: "Learn more about Will Hao",
+  openGraph: {
+    title: "Will Hao - About",
+    description: "Learn more about Will Hao",
+  },
 };
 
 export default function About() {

@@ -12,6 +12,10 @@ export const metadata = {
   title: "Blog",
   description:
     "Personal reflections of my time in college, experiences, hobbies, and anything else I think of.",
+  openGraph: {
+    title: "Will Hao - Blog",
+    description: "Personal reflections of my time in college, experiences, hobbies, and anything else I think of.",
+  },
 };
 
 // Blog posts data

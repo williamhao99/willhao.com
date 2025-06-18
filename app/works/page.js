@@ -11,6 +11,10 @@ import Link from "next/link";
 export const metadata = {
   title: "Works",
   description: "A list of projects I've created, and my work experience history.",
+  openGraph: {
+    title: "Will Hao - Works",
+    description: "A list of projects I've created, and my work experience history.",
+  },
 };
 
 export default function Works() {
