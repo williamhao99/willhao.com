@@ -2,10 +2,12 @@ import { PageHeader, NavigationBar, Footer } from "../../components";
 
 export const metadata = {
   title: "Timeline",
-  description: "A timeline of my personal life, student, and career milestones.",
+  description:
+    "A timeline of my personal life, student, and career milestones.",
   openGraph: {
     title: "Will Hao - Timeline",
-    description: "A timeline of my personal life, student, and career milestones.",
+    description:
+      "A timeline of my personal life, student, and career milestones.",
   },
 };
 

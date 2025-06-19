@@ -3,7 +3,8 @@ export default function StructuredData() {
     "@type": "Person",
     name: "Will Hao",
     alternateName: "William Hao",
-    description: "Personal portfolio of Will Hao, UT Austin Mathematics and Plan II Honors student",
+    description:
+      "Personal portfolio of Will Hao, UT Austin Mathematics and Plan II Honors student",
     jobTitle: "Mathematics Student",
     url: "https://willhao.com",
     sameAs: [

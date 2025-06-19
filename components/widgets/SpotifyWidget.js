@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 import { useApiData } from "@/lib/hooks/useApiData";
 import { SpotifyIcon } from "../index";
 
@@ -80,43 +80,22 @@ export default function SpotifyWidget() {
 
   const displayInfo = getDisplayInfo();
 
-  // Helper function to check if text contains Asian characters
-  const containsAsianCharacters = (text) => {
-    if (!text) return false;
-    // Asian character ranges:
-    // \u3040-\u309f: Hiragana
-    // \u30a0-\u30ff: Katakana
-    // \u3400-\u4dbf: CJK Extension A
-    // \u4e00-\u9fff: CJK Unified Ideographs (Chinese, Japanese Kanji, Korean Hanja)
-    // \uac00-\ud7af: Hangul (Korean)
-    // \uf900-\ufaff: CJK Compatibility Ideographs
-    // \u3000-\u303f: CJK Symbols and Punctuation
-    return /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af\uf900-\ufaff]/.test(
-      text,
-    );
-  };
+  // Dynamic overflow detection (not hard-coded anymore)
+  const [shouldTrackScroll, setShouldTrackScroll] = useState(false);
+  const [shouldArtistScroll, setShouldArtistScroll] = useState(false);
 
-  // Check if text should scroll based on length and language. Hard-coded numbers for now
-  const getScrollThreshold = (text) => {
-    return containsAsianCharacters(text) ? 14 : 32;
-  };
-
-  const shouldTrackScroll =
-    displayInfo.trackName &&
-    displayInfo.trackName.length > getScrollThreshold(displayInfo.trackName);
-  const shouldArtistScroll =
-    displayInfo.artistName &&
-    displayInfo.artistName.length > getScrollThreshold(displayInfo.artistName);
-
-  // Dynamic calculation effect
+  // Dynamic overflow detection and scroll calculation
   useLayoutEffect(() => {
-    const calculateScroll = (textRef) => {
+    const checkOverflow = (textRef, setShouldScroll) => {
       if (textRef.current && containerRef.current) {
         const textWidth = textRef.current.scrollWidth;
         const containerWidth = containerRef.current.offsetWidth;
+        const isOverflowing = textWidth > containerWidth;
 
-        // Only scroll if the text is wider than its container
-        if (textWidth > containerWidth) {
+        setShouldScroll(isOverflowing);
+
+        // Set scroll distance if overflowing
+        if (isOverflowing) {
           const scrollDistance = containerWidth - textWidth - 10; // Nudge the final resting position
           textRef.current.style.setProperty(
             "--scroll-end-x",
@@ -126,14 +105,19 @@ export default function SpotifyWidget() {
       }
     };
 
-    if (shouldTrackScroll) calculateScroll(trackRef);
-    if (shouldArtistScroll) calculateScroll(artistRef);
-  }, [
-    displayInfo.trackName,
-    displayInfo.artistName,
-    shouldTrackScroll,
-    shouldArtistScroll,
-  ]);
+    // Check both track and artist for overflow
+    if (displayInfo.trackName && trackRef.current) {
+      checkOverflow(trackRef, setShouldTrackScroll);
+    } else {
+      setShouldTrackScroll(false);
+    }
+
+    if (displayInfo.artistName && artistRef.current) {
+      checkOverflow(artistRef, setShouldArtistScroll);
+    } else {
+      setShouldArtistScroll(false);
+    }
+  }, [displayInfo.trackName, displayInfo.artistName]);
 
   const widgetClass = `spotify-widget ${
     displayInfo.isPlaying ? "playing" : "not-playing"
