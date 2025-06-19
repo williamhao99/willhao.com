@@ -96,9 +96,9 @@ export default function SpotifyWidget() {
     );
   };
 
-  // Check if text should scroll based on length and language
+  // Check if text should scroll based on length and language. Hard-coded numbers for now
   const getScrollThreshold = (text) => {
-    return containsAsianCharacters(text) ? 15 : 30;
+    return containsAsianCharacters(text) ? 14 : 32;
   };
 
   const shouldTrackScroll =

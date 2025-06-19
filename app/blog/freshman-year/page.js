@@ -205,14 +205,14 @@ export default function FreshmanYearPage() {
                     className="pdf-picker-btn"
                     data-pdf="/documents/William Hao - World Lit Althusser essay.pdf"
                   >
-                    World Lit – Althusser Essay
+                    World Lit - Althusser Essay
                   </button>
 
                   <button
                     className="pdf-picker-btn"
                     data-pdf="/documents/William Hao - World Lit Zizek_Arendt essay.pdf"
                   >
-                    World Lit – Zizek/Arendt Essay
+                    World Lit - Zizek/Arendt Essay
                   </button>
                 </section>
 
@@ -254,7 +254,7 @@ export default function FreshmanYearPage() {
                   Being surrounded by upperclassmen, many of whom had offers at
                   well-known companies this summer, I often felt like I did not
                   belong in the same room. However, I've definitely been
-                  inspired by the work I see in this club – it's motivated me to
+                  inspired by the work I see in this club - it's motivated me to
                   study CS and finance this summer more in-depth. I hope that
                   next semester I can contribute even more, by being more
                   knowledgeable as a whole. Overall I am relatively satisfied
@@ -297,7 +297,7 @@ export default function FreshmanYearPage() {
                 <p className="body-1">
                   All in all I'd say I had a successful first-year. I could have
                   been more productive at times, but I achieved most of the
-                  goals I set out for myself at the beginning – having a 4.0
+                  goals I set out for myself at the beginning - having a 4.0
                   GPA, being consistent in the gym for my physical health,
                   joining a preprofessional org, and making some good friends
                   (and girlfriend too 😄).
