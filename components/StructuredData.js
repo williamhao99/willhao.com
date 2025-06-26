@@ -4,8 +4,8 @@ export default function StructuredData() {
     name: "Will Hao",
     alternateName: "William Hao",
     description:
-      "Personal portfolio of Will Hao, UT Austin Mathematics and Plan II Honors student",
-    jobTitle: "Mathematics Student",
+      "Personal portfolio of Will Hao, UT Austin Computer Science and Mathematics student",
+    jobTitle: "Computer Science Student",
     url: "https://willhao.com",
     sameAs: [
       "https://www.linkedin.com/in/william-a-hao/",
@@ -38,7 +38,7 @@ export default function StructuredData() {
       name: "Will Hao",
     },
     description:
-      "Personal portfolio of Will Hao, UT Austin Mathematics and Plan II Honors student",
+      "Personal portfolio of Will Hao, UT Austin Computer Science and Mathematics student",
     potentialAction: {
       "@type": "SearchAction",
       target: {

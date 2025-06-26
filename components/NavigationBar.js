@@ -93,7 +93,7 @@ export default function NavigationBar({ posts = [], pages = [] }) {
               </Link>
             </div>
             <div className="sub-heading tagline">
-              UT Austin '28, Mathematics + Plan II Honors
+              UT Austin '28, Computer Science + Mathematics
             </div>
           </div>
         </div>

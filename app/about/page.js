@@ -27,8 +27,7 @@ export default function About() {
               <div className="page-content">
                 <p className="body-1">
                   Hi! My name is William Hao (I go by Will), and I am currently
-                  a rising sophomore at UT Austin double majoring in Mathematics
-                  and Plan II Honors.
+                  a rising sophomore at UT Austin double majoring in Computer Science and Mathematics.
                 </p>
 
                 <p className="body-1">

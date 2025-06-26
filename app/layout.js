@@ -22,13 +22,13 @@ export const metadata = {
     default: "Will Hao - Portfolio",
   },
   description:
-    "Will Hao - UT Austin Class of 2028, Mathematics + Plan II Honors student. Personal website showcasing academic work, chess achievements, and blog posts.",
+    "Will Hao - UT Austin Class of 2028, Computer Science + Mathematics student. Personal website showcasing academic work, chess achievements, and blog posts.",
   keywords: [
     "Will Hao",
     "William Hao",
     "UT Austin",
     "Mathematics",
-    "Plan II",
+    "Computer Science",
     "Portfolio",
     "University of Texas",
     "Chess",
@@ -40,7 +40,7 @@ export const metadata = {
   openGraph: {
     title: "Will Hao - Personal Portfolio",
     description:
-      "Will Hao - UT Austin Class of 2028, Mathematics + Plan II Honors student. Personal website showcasing academic work, chess achievements, and blog posts.",
+      "Will Hao - UT Austin Class of 2028, Computer Science + Mathematics student. Personal website showcasing academic work, chess achievements, and blog posts.",
     url: "https://willhao.com",
     siteName: "Will Hao",
     type: "website",
@@ -57,7 +57,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Will Hao - Personal Portfolio",
     description:
-      "Will Hao - UT Austin Class of 2028, Mathematics + Plan II Honors student. Personal website showcasing academic work, chess achievements, and blog posts.",
+      "Will Hao - UT Austin Class of 2028, Computer Science + Mathematics student. Personal website showcasing academic work, chess achievements, and blog posts.",
     images: ["/favicons/William Hao-3-2.png"],
   },
   robots: {
