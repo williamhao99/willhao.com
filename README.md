@@ -24,7 +24,7 @@ A clean, responsive Next.js site with:
 
 - Hero section and about pages
 - Portfolio and blog
-- "Now" and timeline pages
+- "Now" page
 - Real‑time widgets (Chess.com, Clash of Clans, Spotify)
 - SEO‑friendly metadata and analytics
 

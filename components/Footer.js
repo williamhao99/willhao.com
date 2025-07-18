@@ -50,9 +50,6 @@ export default function Footer() {
               <Link href="/now" className="footer-link">
                 Now
               </Link>
-              <Link href="/timeline" className="footer-link">
-                Timeline
-              </Link>
             </nav>
           </div>
 

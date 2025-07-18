@@ -70,7 +70,6 @@ export default function NavigationBar({ posts = [], pages = [] }) {
     { href: "/works", label: "Works" },
     { href: "/blog", label: "Blog" },
     { href: "/now", label: "Now" },
-    { href: "/timeline", label: "Timeline" },
   ];
 
   return (

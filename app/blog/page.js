@@ -22,7 +22,7 @@ export const metadata = {
 // Blog posts data
 const blogPosts = [
   {
-    id: "3",
+    id: "2",
     title: "(WIP) Personal health and fitness", // TODO: WRITE THE POST
     slug: "personal-health-and-fitness",
     excerpt:
@@ -32,17 +32,7 @@ const blogPosts = [
     type: "post",
     status: "published",
   },
-  {
-    id: "2",
-    title: "(WIP) Winter break Asia trip", // TODO: WRITE THE POST
-    slug: "winter-break-asia-trip",
-    excerpt:
-      "My winter break trip to Asia. Highlights, reflections, and cool food.",
-    published_at: "2025-01-13T19:00:00.000Z",
-    visibility: "public",
-    type: "post",
-    status: "published",
-  },
+
   {
     id: "1",
     title: "Freshman year of college",

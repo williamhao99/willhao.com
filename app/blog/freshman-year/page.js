@@ -167,11 +167,7 @@ export default function FreshmanYearPage() {
           <p className="body-1">
             Those were probably my most memorable experiences for that semester,
             but I'm likely forgetting a few. Anyhow, I had a 1-month winter
-            break after that. See my{" "}
-            <a href="/blog/winter-break-asia-trip">
-              <strong>post about my trip to Asia</strong>
-            </a>{" "}
-            for more details.
+            break after that, where I went to China and Japan.
           </p>
 
           {/* Separator */}
