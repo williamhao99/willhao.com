@@ -111,7 +111,7 @@ export default function NavigationBar({ posts = [], pages = [] }) {
 
           <div className="head-actions">
             <button
-              className="theme-toggle icon-btn visible-desktop"
+              className="theme-toggle icon-btn"
               aria-label="Toggle theme"
               onClick={toggleTheme}
             >

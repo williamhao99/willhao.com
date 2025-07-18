@@ -6,7 +6,7 @@
  */
 
 import Link from "next/link";
-import { PageHeader, NavigationBar, Footer } from "../../components";
+import { PageHeader, PageLayout } from "../../components";
 
 export const metadata = {
   title: "Blog",
@@ -63,90 +63,82 @@ export default function Blog() {
     .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
 
   return (
-    <div className="site">
-      <NavigationBar />
+    <PageLayout>
+      {/* Page Header */}
+      <PageHeader
+        title="Blog"
+        description="Personal reflections of my time in college, experiences, hobbies, and anything else I think of."
+        isHero={true}
+      />
 
-      <div className="site-content">
-        <main className="site-main">
-          {/* Page Header */}
-          <PageHeader
-            title="Blog"
-            description="Personal reflections of my time in college, experiences, hobbies, and anything else I think of."
-            isHero={true}
-          />
+      {/* Blog Feed */}
+      <section className="section-wrap">
+        <div className="container medium">
+          <div className="post-feed">
+            {publishedPosts.map((post, index) => {
+              const date = new Date(post.published_at);
+              const year = date.getFullYear();
+              const dayMonth = date.toLocaleDateString("en-US", {
+                day: "2-digit",
+                month: "short",
+              });
 
-          {/* Blog Feed */}
-          <section className="section-wrap">
-            <div className="container medium">
-              <div className="post-feed">
-                {publishedPosts.map((post, index) => {
-                  const date = new Date(post.published_at);
-                  const year = date.getFullYear();
-                  const dayMonth = date.toLocaleDateString("en-US", {
-                    day: "2-digit",
-                    month: "short",
-                  });
+              return (
+                <article
+                  key={post.id}
+                  className={`feed blog-wrapper blog-post-year-${year}`}
+                >
+                  {/* Date wrapper - always shown for blog style */}
+                  <div className="blog-date-wrapper">
+                    <div className="section-title blog-year-label">
+                      {year} BLOG
+                    </div>
+                  </div>
 
-                  return (
-                    <article
-                      key={post.id}
-                      className={`feed blog-wrapper blog-post-year-${year}`}
-                    >
-                      {/* Date wrapper - always shown for blog style */}
-                      <div className="blog-date-wrapper">
-                        <div className="section-title blog-year-label">
-                          {year} BLOG
-                        </div>
+                  {/* Post Content */}
+                  <div
+                    className="feed-wrapper"
+                    style={{ position: "relative" }}
+                  >
+                    <h2 className="body-1 feed-title">{post.title}</h2>
+                    {post.excerpt && (
+                      <div className="feed-excerpt">
+                        {post.excerpt.substring(0, 100)}...
                       </div>
-
-                      {/* Post Content */}
+                    )}
+                    <div className="dot-spacer"></div>
+                    <div className="feed-right">
                       <div
-                        className="feed-wrapper"
-                        style={{ position: "relative" }}
+                        className={`feed-visibility feed-visibility-${post.visibility || "public"}`}
                       >
-                        <h2 className="body-1 feed-title">{post.title}</h2>
-                        {post.excerpt && (
-                          <div className="feed-excerpt">
-                            {post.excerpt.substring(0, 100)}...
-                          </div>
-                        )}
-                        <div className="dot-spacer"></div>
-                        <div className="feed-right">
-                          <div
-                            className={`feed-visibility feed-visibility-${post.visibility || "public"}`}
-                          >
-                            <svg
-                              className="icon"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M12.729 1.2l3.346 6.629 6.44.638-4.2 4.478 1.47 7.027L12 16.13 4.215 19.97l1.47-7.027-4.2-4.478 6.44-.638L12.729 1.2zM12 3.209L9.62 8.13l-5.512.55 3.561 3.795-1.241 5.947L12 15.387l5.572 3.035-1.241-5.947 3.561-3.795-5.512-.55L12 3.209z" />
-                            </svg>
-                          </div>
-                          <time
-                            className="body-1 feed-calendar"
-                            dateTime={date.toISOString()}
-                          >
-                            {dayMonth}
-                          </time>
-                          <div className="feed-icon">→</div>
-                        </div>
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="u-permalink"
-                          aria-label={post.title}
-                        ></Link>
+                        <svg
+                          className="icon"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M12.729 1.2l3.346 6.629 6.44.638-4.2 4.478 1.47 7.027L12 16.13 4.215 19.97l1.47-7.027-4.2-4.478 6.44-.638L12.729 1.2zM12 3.209L9.62 8.13l-5.512.55 3.561 3.795-1.241 5.947L12 15.387l5.572 3.035-1.241-5.947 3.561-3.795-5.512-.55L12 3.209z" />
+                        </svg>
                       </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
-
-      <Footer />
-    </div>
+                      <time
+                        className="body-1 feed-calendar"
+                        dateTime={date.toISOString()}
+                      >
+                        {dayMonth}
+                      </time>
+                      <div className="feed-icon">→</div>
+                    </div>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="u-permalink"
+                      aria-label={post.title}
+                    ></Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </PageLayout>
   );
 }
