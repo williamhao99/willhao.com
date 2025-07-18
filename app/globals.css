@@ -990,8 +990,10 @@ button {
 }
 
 :root[data-theme="dark"] .spotify-widget.playing .spotify-status {
-  color: #1ed760;
+  color: var(--spotify-green);
 }
+
+
 
 @keyframes spotifyPulse {
   0%,
@@ -1681,12 +1683,12 @@ button {
   .site-footer .wave-separator {
     margin: 0rem 0;
   }
-      .site-footer .wave-separator:last-of-type {
-      margin-bottom: 1.5rem;
-    }
-    .footer-copy {
-      padding-top: 1.5rem;
-    }
+  .site-footer .wave-separator:last-of-type {
+    margin-bottom: 1.5rem;
+  }
+  .footer-copy {
+    padding-top: 1.5rem;
+  }
   .section-wrap {
     padding: 2rem 0;
   }

@@ -7,15 +7,21 @@
     "start": "next start",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "spotify-auth": "node scripts/spotify-auth.js"
+    "spotify-auth": "node scripts/spotify-auth.js",
+    "update-widgets": "curl -s http://localhost:3000/api/cron/update-widgets | jq .",
+    "dev:updater": "node scripts/dev-updater.js",
+    "db:setup": "psql -d willhao_db -f database/schema.sql",
+    "db:reset": "dropdb willhao_db && createdb willhao_db && npm run db:setup"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
     "next": "^15.3.3",
+    "pg": "^8.12.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@types/pg": "^8.11.10",
     "prettier": "^3.5.3"
   }
 }

@@ -22,10 +22,19 @@ export default function SpotifyWidget() {
       };
     }
 
-    if (error || (data && !data.trackName && !data.isPlaying)) {
+    if (error) {
       return {
         statusLabel: "",
-        trackName: "Unable to fetch Spotify data",
+        trackName: "Unable to fetch data",
+        artistName: "",
+        isPlaying: false,
+      };
+    }
+
+    if (!data || (!data.trackName && !data.isPlaying)) {
+      return {
+        statusLabel: "",
+        trackName: "No recent activity",
         artistName: "",
         isPlaying: false,
       };
@@ -55,8 +64,8 @@ export default function SpotifyWidget() {
     }
 
     return {
-      statusLabel: "No recent activity",
-      trackName: "Spotify",
+      statusLabel: "",
+      trackName: "No recent activity",
       artistName: "",
       isPlaying: false,
     };

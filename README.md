@@ -1,6 +1,6 @@
 # willhao.com
 
-My personal portfolio website built with Next.js.
+My personal portfolio website built with Next.js and PostgreSQL.
 
 **Live Site:** [willhao.com](https://willhao.com)
 
@@ -12,26 +12,29 @@ My personal portfolio website built with Next.js.
 2. [Features](#features)
 3. [Tech Stack](#tech-stack)
 4. [Setup](#setup)
-5. [Deployment](#deployment)
-6. [Security](#security)
-7. [Contact](#contact)
+5. [Documentation](#documentation)
+6. [Contact](#contact)
 
 ---
 
 ## Overview
 
-A clean, responsive Next.js site with:
+A modern, data-driven Next.js portfolio website featuring:
 
 - Hero section and about pages
-- Portfolio and blog
-- "Now" page
-- Real‑time widgets (Chess.com, Clash of Clans, Spotify)
-- SEO‑friendly metadata and analytics
+- Portfolio and blog with dynamic content
+- "Now" page with real-time updates
+- Real‑time widgets (Chess.com, Clash of Clans, Spotify) with database-first architecture
+- Ultra-fast API responses with background data updates
+- Historical data tracking and analytics
 
 ## Features
 
 - **Responsive Design:** Mobile‑first, CSS variables, dark/light toggle
-- **Widgets:** Live API data for chess, gaming, and music
+- **Database-First APIs:** Ultra-fast responses (<50ms) with background updates
+- **PostgreSQL Database:** Persistent data storage with historical tracking
+- **No Rate Limits:** Unlimited concurrent requests on all widget APIs
+- **Multi-layer Caching:** Smart caching with automatic cleanup
 - **SEO & Sharing:** OpenGraph, Twitter Cards, JSON‑LD, dynamic sitemap, robots.txt
 - **Analytics:** GA4 via Google Tag Manager
 
@@ -39,7 +42,9 @@ A clean, responsive Next.js site with:
 
 - **Framework:** Next.js 15 (App Router)
 - **UI:** React 19, CSS with CSS variables
-- **Data:** Chess.com API, Clash of Clans API, Spotify Web API
+- **Database:** PostgreSQL 15 with connection pooling
+- **APIs:** Chess.com API, Clash of Clans API, Spotify Web API
+- **Background Processing:** Unified widget updater (30s intervals)
 - **Analytics & SEO:** GA4, GTM, structured data, dynamic sitemap, robots.txt
 - **Deployment:** DigitalOcean Droplet, Nginx, PM2, Certbot
 
@@ -58,36 +63,48 @@ A clean, responsive Next.js site with:
    npm install
    ```
 
-3. **Configure environment**
+3. **Set up database**
+
+   ```bash
+   # Install PostgreSQL, then:
+   createdb willhao_db
+   psql -d willhao_db -f database/schema.sql
+   ```
+
+4. **Configure environment**
 
    ```bash
    cp .env.local.example .env.local
-   # Add API keys in .env.local
+   # Add API keys and database credentials
    ```
 
-4. **Run in development**
+5. **Run development server**
 
    ```bash
    npm run dev
    ```
 
-5. **Visit** [http://localhost:3000](http://localhost:3000)
+6. **Start widget updater** (in separate terminal for real-time updates)
 
-## Deployment
+   ```bash
+   npm run dev:updater
+   ```
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for full server setup instructions.
+7. **Visit** [http://localhost:3000](http://localhost:3000)
 
-## Security
+## Documentation
 
-- **Rate Limiting:** 20 req/min per IP
-- **Caching:** 2‑minute smart cache for API calls
-- **Env Vars:** Sensitive tokens in `.env.local`
+Complete technical documentation is available in the [`docs/`](./docs/) folder:
+
+- **[Architecture Overview](./docs/WIDGET_ARCHITECTURE.md)** - System architecture and design
+- **[Database Setup](./docs/DATABASE.md)** - Database schema and configuration
+- **[Deployment Guide](./docs/DEPLOYMENT.md)** - Production deployment instructions
+- **[Website Management](./docs/WEBSITE_MANAGEMENT.md)** - Operations and maintenance
 
 ## Contact
 
 **Will Hao**
 
+- Website: [willhao.com](https://willhao.com)
 - GitHub: [@williamhao99](https://github.com/williamhao99)
-- Email: [william.hao.55@gmail.com](mailto:william.hao.55@gmail.com)
-
----
+- LinkedIn: [william-a-hao](https://www.linkedin.com/in/william-a-hao/)
