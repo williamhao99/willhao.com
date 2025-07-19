@@ -1,0 +1,106 @@
+/* Base widget styles shared by all widgets */
+.widget {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid var(--divider-color);
+  background: var(--background-color);
+  transition: all 0.2s var(--animation-base);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.widget:hover {
+  border-color: var(--brand-color);
+  box-shadow: 0 4px 16px rgba(0, 85, 170, 0.12);
+}
+
+:root[data-theme="dark"] .widget {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="dark"] .widget:hover {
+  box-shadow: 0 4px 16px rgba(0, 85, 170, 0.2);
+}
+
+/* Base link styles */
+.widgetLink {
+  height: 98px;
+  min-height: 98px;
+  max-height: 98px;
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Base left section */
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* Base username */
+.username {
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--secondary-text-color);
+  font-family: var(--font-base);
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 5rem;
+}
+
+/* Common widget row */
+.widgetRow {
+  justify-content: space-between;
+  width: 100%;
+  gap: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Common data label/value pattern (used by chess and clash) */
+.dataLabel {
+  font-size: 1rem;
+  color: var(--tertiary-text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.dataValue {
+  font-size: 1.8rem;
+  color: var(--primary-text-color);
+  font-family: var(--font-serif);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+/* Loading states */
+.skeleton {
+  opacity: 0.6;
+}
+
+.loadingText {
+  opacity: 0.6;
+}
+
+.loadingDots {
+  opacity: 0.6;
+}
+
+/* Error states */
+.errorText {
+  color: var(--tertiary-text-color);
+  opacity: 0.6;
+}

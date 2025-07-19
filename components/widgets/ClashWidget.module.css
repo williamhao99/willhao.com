@@ -1,0 +1,99 @@
+/* Clash Widget specific styles */
+.clashWidget {
+  composes: widget from "./Widget.module.css";
+}
+
+.clashLink {
+  composes: widgetLink from "./Widget.module.css";
+  min-height: 8rem;
+  padding: 1.6rem 1.8rem;
+}
+
+.leftSection {
+  composes: leftSection from "./Widget.module.css";
+}
+
+.username {
+  composes: username from "./Widget.module.css";
+}
+
+.widgetRow {
+  composes: widgetRow from "./Widget.module.css";
+}
+
+/* Clash-specific row layout */
+.clashRow {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 3.5rem;
+  width: auto;
+}
+
+/* Town hall section */
+.townhall {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 6.5rem;
+}
+
+.thEmoji {
+  font-size: 2rem;
+}
+
+.thLevel {
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-text-color);
+  font-family: var(--font-serif);
+}
+
+/* Trophies column */
+.trophiesCol {
+  justify-content: center;
+  gap: 1rem;
+  min-width: 7.5rem;
+  margin-right: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trophyRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.trophyLabel {
+  composes: dataLabel from "./Widget.module.css";
+}
+
+.trophyValue {
+  composes: dataValue from "./Widget.module.css";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Loading and error states */
+.skeleton {
+  composes: skeleton from "./Widget.module.css";
+}
+
+.loadingText {
+  composes: loadingText from "./Widget.module.css";
+}
+
+.loadingDots {
+  composes: loadingDots from "./Widget.module.css";
+}
+
+.errorText {
+  composes: errorText from "./Widget.module.css";
+}

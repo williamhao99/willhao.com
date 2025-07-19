@@ -1,6 +1,7 @@
 import { useRef, useLayoutEffect, useState } from "react";
 import { useApiData } from "@/lib/hooks/useApiData";
 import { SpotifyIcon } from "../index";
+import styles from "./SpotifyWidget.module.css";
 
 // spotify music widget
 export default function SpotifyWidget() {
@@ -125,37 +126,37 @@ export default function SpotifyWidget() {
   }, [displayInfo.trackName, displayInfo.artistName]);
 
   // widget CSS classes based on state
-  const widgetClass = `spotify-widget ${
-    displayInfo.isPlaying ? "playing" : "not-playing"
-  } ${loading ? "loading" : ""} ${error ? "error" : ""}`;
+  const widgetClass = `${styles.spotifyWidget} ${
+    displayInfo.isPlaying ? styles.playing : styles.notPlaying
+  } ${loading ? styles.loading : ""} ${error ? styles.error : ""}`;
 
   // main widget content
   const content = (
     <>
-      <div className="spotify-left-section">
+      <div className={styles.leftSection}>
         <SpotifyIcon size={28} />
       </div>
-      <div className="spotify-info-centered" ref={containerRef}>
-        <div className="spotify-status">
+      <div className={styles.infoCentered} ref={containerRef}>
+        <div className={styles.status}>
           <span
-            className={`last-played ${loading && !data ? "loading-dots" : ""}`}
+            className={`${styles.lastPlayed} ${loading && !data ? styles.loadingDots : ""}`}
           >
             {displayInfo.statusLabel}
           </span>
         </div>
-        <div className="spotify-track">
+        <div className={styles.track}>
           <span
             ref={trackRef}
-            className={`track-name ${
-              loading && !data ? "loading-text" : ""
-            } ${shouldTrackScroll ? "scrolling" : ""}`}
+            className={`${styles.trackName} ${
+              loading && !data ? styles.loadingText : ""
+            } ${shouldTrackScroll ? styles.scrolling : ""}`}
           >
             {displayInfo.trackName}
           </span>
           {displayInfo.artistName && (
             <span
               ref={artistRef}
-              className={`artist-name ${shouldArtistScroll ? "scrolling" : ""}`}
+              className={`${styles.artistName} ${shouldArtistScroll ? styles.scrolling : ""}`}
             >
               {displayInfo.artistName}
             </span>
@@ -172,7 +173,7 @@ export default function SpotifyWidget() {
           href={displayInfo.trackUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="spotify-link"
+          className={styles.spotifyLink}
           aria-label={`Listen to ${displayInfo.trackName} on Spotify`}
         >
           {content}
@@ -182,7 +183,7 @@ export default function SpotifyWidget() {
           href="https://open.spotify.com/user/williamhao99?si=a55b81b68fab41dc"
           target="_blank"
           rel="noopener noreferrer"
-          className="spotify-link"
+          className={styles.spotifyLink}
           aria-label="View Spotify profile"
         >
           {content}

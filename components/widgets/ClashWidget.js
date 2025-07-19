@@ -1,4 +1,5 @@
 import { useApiData } from "@/lib/hooks/useApiData";
+import styles from "./ClashWidget.module.css";
 
 // clash of clans stats widget
 export default function ClashWidget() {
@@ -39,58 +40,65 @@ export default function ClashWidget() {
   // get town hall level display
   const getTownHallLevel = () => {
     if (loading && !data)
-      return <span className="th-level loading-dots">TH?</span>;
+      return (
+        <span className={`${styles.thLevel} ${styles.loadingDots}`}>TH?</span>
+      );
     if (error || !data?.townHallLevel)
-      return <span className="th-level error-text">TH?</span>;
-    return <span className="th-level">TH{data?.townHallLevel || "?"}</span>;
+      return (
+        <span className={`${styles.thLevel} ${styles.errorText}`}>TH?</span>
+      );
+    return (
+      <span className={styles.thLevel}>TH{data?.townHallLevel || "?"}</span>
+    );
   };
 
   // get trophy value for current/best
   const getTrophyValue = (type) => {
     const value = type === "current" ? data?.trophies : data?.bestTrophies;
-    if (loading && !data) return <span className="loading-dots">...</span>;
+    if (loading && !data)
+      return <span className={styles.loadingDots}>...</span>;
     if (error || !data?.townHallLevel)
-      return <span className="error-text">—</span>;
+      return <span className={styles.errorText}>—</span>;
     return formatTrophies(value);
   };
 
   return (
     <div
-      className={`clash-widget ${loading ? "loading" : ""} ${error ? "error" : ""}`}
+      className={`${styles.clashWidget} ${loading ? styles.loading : ""} ${error ? styles.error : ""}`}
     >
-      <div className="clash-link">
-        <div className="widget-row">
-          <div className="clash-left-section">
+      <div className={styles.clashLink}>
+        <div className={styles.widgetRow}>
+          <div className={styles.leftSection}>
             <div
-              className={`clash-icon ${loading && !data ? "skeleton" : ""}`}
+              className={`${styles.clashIcon} ${loading && !data ? styles.skeleton : ""}`}
               aria-hidden="true"
             >
               {icon}
             </div>
             <div
-              className={`widget-username ${loading && !data ? "loading-text" : ""}`}
+              className={`${styles.username} ${loading && !data ? styles.loadingText : ""}`}
             >
               {getUsername()}
             </div>
           </div>
-          <div className="clash-row">
-            <div className="clash-townhall">
-              <span className="th-emoji">🏰</span>
+          <div className={styles.clashRow}>
+            <div className={styles.townhall}>
+              <span className={styles.thEmoji}>🏰</span>
               {getTownHallLevel()}
             </div>
-            <div className="clash-trophies-col">
-              <div className="trophy-row">
-                <span className="trophy-label">CURRENT</span>
-                <span className="trophy-value">
+            <div className={styles.trophiesCol}>
+              <div className={styles.trophyRow}>
+                <span className={styles.trophyLabel}>CURRENT</span>
+                <span className={styles.trophyValue}>
                   <span role="img" aria-label="trophy">
                     🏆
                   </span>
                   {getTrophyValue("current")}
                 </span>
               </div>
-              <div className="trophy-row">
-                <span className="trophy-label">BEST</span>
-                <span className="trophy-value">
+              <div className={styles.trophyRow}>
+                <span className={styles.trophyLabel}>BEST</span>
+                <span className={styles.trophyValue}>
                   <span role="img" aria-label="star">
                     ⭐
                   </span>

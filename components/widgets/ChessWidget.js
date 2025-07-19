@@ -1,4 +1,5 @@
 import { useApiData } from "@/lib/hooks/useApiData";
+import styles from "./ChessWidget.module.css";
 
 // chess rating widget
 export default function ChessWidget() {
@@ -35,7 +36,11 @@ export default function ChessWidget() {
   // render rating with loading/error states
   const renderRatingValue = (type) => {
     if (loading && !data)
-      return <span className="rating-value loading-dots">...</span>;
+      return (
+        <span className={`${styles.ratingValue} ${styles.loadingDots}`}>
+          ...
+        </span>
+      );
     // error or null ratings
     if (
       error ||
@@ -44,58 +49,62 @@ export default function ChessWidget() {
         !data.blitz?.rating &&
         !data.bullet?.rating)
     )
-      return <span className="rating-value error-text">—</span>;
+      return (
+        <span className={`${styles.ratingValue} ${styles.errorText}`}>—</span>
+      );
     if (type === "uscf")
-      return <span className="rating-value">{uscfRating}</span>;
+      return <span className={styles.ratingValue}>{uscfRating}</span>;
     return (
-      <span className="rating-value">{formatRating(data?.[type]?.rating)}</span>
+      <span className={styles.ratingValue}>
+        {formatRating(data?.[type]?.rating)}
+      </span>
     );
   };
 
   return (
     <div
-      className={`chess-widget ${loading ? "loading" : ""} ${error ? "error" : ""}`}
+      className={`${styles.chessWidget} ${loading ? styles.loading : ""} ${error ? styles.error : ""}`}
     >
       <a
         href="https://chess.com/member/javablob"
         target="_blank"
         rel="noopener noreferrer"
-        className="chess-link"
+        className={styles.chessLink}
         aria-label="View chess profile"
       >
-        <div className="widget-row">
-          <div className="chess-left-section">
+        <div className={styles.widgetRow}>
+          <div className={styles.leftSection}>
             <div
-              className={`chess-icon ${loading && !data ? "skeleton" : ""}`}
+              className={`${styles.icon} ${loading && !data ? styles.skeleton : ""}`}
               aria-hidden="true"
             >
               {icon}
             </div>
             <div
-              className={`widget-username ${loading && !data ? "loading-text" : ""}`}
+              className={`${styles.username} ${loading && !data ? styles.loadingText : ""}`}
             >
               javablob
             </div>
           </div>
-          <div className="chess-info">
-            <div className="chess-ratings">
-              <div className="rating-row">
-                <div className="rating-item">
-                  <span className="rating-label">Rapid</span>
+          <div className={styles.info}>
+            <div className={styles.ratings}>
+              <div className={styles.ratingRow}>
+                <div className={styles.ratingItem}>
+                  <span className={styles.ratingLabel}>Rapid</span>
                   {renderRatingValue("rapid")}
                 </div>
-                <div className="rating-item">
-                  <span className="rating-label">Blitz</span>
+                <div className={styles.ratingItem}>
+                  <span className={styles.ratingLabel}>Blitz</span>
                   {renderRatingValue("blitz")}
                 </div>
               </div>
-              <div className="rating-row">
-                <div className="rating-item">
-                  <span className="rating-label">Bullet</span>
+              <div className={styles.ratingRow}>
+                <div className={styles.ratingItem}>
+                  <span className={styles.ratingLabel}>Bullet</span>
                   {renderRatingValue("bullet")}
                 </div>
-                <div className="rating-item">
-                  <span className="rating-label">USCF</span>
+                <div className={styles.ratingItem}>
+                  <span className={styles.ratingLabel}>USCF</span>
                   {renderRatingValue("uscf")}
                 </div>
               </div>
