@@ -35,7 +35,7 @@ git clone https://github.com/williamhao99/willhao.com.git
 cd willhao.com
 npm install
 # Create .env.local with your API credentials:
-# CLASH_API_TOKEN, CLASH_PLAYER_TAG, SPOTIFY_CLIENT_ID, 
+# CLASH_API_TOKEN, CLASH_PLAYER_TAG, SPOTIFY_CLIENT_ID,
 # SPOTIFY_CLIENT_SECRET, SPOTIFY_REFRESH_TOKEN
 npm run build
 ```

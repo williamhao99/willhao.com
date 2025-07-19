@@ -4,7 +4,7 @@ export default function StructuredData() {
     name: "Will Hao",
     alternateName: "William Hao",
     description:
-      "Personal portfolio of Will Hao, UT Austin Computer Science and Mathematics student",
+      "Will Hao - UT Austin Class of 2028, Computer Science + Mathematics student. Portfolio showcasing academic work, blog posts, and more.",
     jobTitle: "Computer Science Student",
     url: "https://willhao.com",
     sameAs: [
@@ -25,7 +25,7 @@ export default function StructuredData() {
       "Academic Research",
       "Fitness",
     ],
-    image: "https://willhao.com/favicons/William Hao-3-2.png",
+    image: "https://willhao.com/favicons/william-hao-banner.png",
   };
 
   const websiteSchema = {
@@ -38,7 +38,7 @@ export default function StructuredData() {
       name: "Will Hao",
     },
     description:
-      "Personal portfolio of Will Hao, UT Austin Computer Science and Mathematics student",
+      "Will Hao - UT Austin Class of 2028, Computer Science + Mathematics student. Portfolio showcasing academic work, blog posts, and more.",
     potentialAction: {
       "@type": "SearchAction",
       target: {
