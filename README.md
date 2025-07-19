@@ -79,7 +79,7 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for full server setup instructions.
 
 ## Security
 
-- **Rate Limiting:** 20 req/min per IP
+- **Rate Limiting:** 100 req/min per IP
 - **Caching:** 2‑minute smart cache for API calls
 - **Env Vars:** Sensitive tokens in `.env.local`
 
