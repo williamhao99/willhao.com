@@ -1,3 +1,5 @@
+"use client";
+
 import { useApiData } from "@/lib/hooks/useApiData";
 import styles from "./ChessWidget.module.css";
 

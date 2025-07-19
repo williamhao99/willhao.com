@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useLayoutEffect, useState } from "react";
 import { useApiData } from "@/lib/hooks/useApiData";
 import { SpotifyIcon } from "../index";

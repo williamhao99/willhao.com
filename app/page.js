@@ -1,5 +1,3 @@
-"use client";
-
 // Homepage - hero section & widgets
 
 import { PageLayout } from "@/components";

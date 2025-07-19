@@ -1,3 +1,5 @@
+"use client";
+
 import { useApiData } from "@/lib/hooks/useApiData";
 import styles from "./ClashWidget.module.css";
 
