@@ -1,9 +1,4 @@
-/**
- * BASE SITE PAGE: Blog Listing
- *
- * Archive-style listing of all blog posts.
- * Organized by date with links to individual posts.
- */
+// Blog listing page
 
 import Link from "next/link";
 import { PageHeader, PageLayout } from "../../components";
@@ -19,11 +14,11 @@ export const metadata = {
   },
 };
 
-// Blog posts data
+// blog posts
 const blogPosts = [
   {
     id: "2",
-    title: "(WIP) Personal health and fitness", // TODO: WRITE THE POST
+    title: "(WIP) Personal health and fitness", // TODO: finish
     slug: "personal-health-and-fitness",
     excerpt:
       "Knowledge I've learned about sports, fitness, weightlifting, and more throughout my life. This page will be continually updated.",
@@ -47,25 +42,26 @@ const blogPosts = [
 ];
 
 export default function Blog() {
-  // Filter only published posts and sort by date (most recent first)
+  // filter & sort posts
   const publishedPosts = blogPosts
     .filter((post) => post.type === "post" && post.status === "published")
     .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
 
   return (
     <PageLayout>
-      {/* Page Header */}
+      {/* header */}
       <PageHeader
         title="Blog"
         description="Personal reflections of my time in college, experiences, hobbies, and anything else I think of."
         isHero={true}
       />
 
-      {/* Blog Feed */}
+      {/* blog feed */}
       <section className="section-wrap">
         <div className="container medium">
           <div className="post-feed">
             {publishedPosts.map((post, index) => {
+              // format post date
               const date = new Date(post.published_at);
               const year = date.getFullYear();
               const dayMonth = date.toLocaleDateString("en-US", {
@@ -78,14 +74,14 @@ export default function Blog() {
                   key={post.id}
                   className={`feed blog-wrapper blog-post-year-${year}`}
                 >
-                  {/* Date wrapper - always shown for blog style */}
+                  {/* date wrapper */}
                   <div className="blog-date-wrapper">
                     <div className="section-title blog-year-label">
                       {year} BLOG
                     </div>
                   </div>
 
-                  {/* Post Content */}
+                  {/* content */}
                   <div
                     className="feed-wrapper"
                     style={{ position: "relative" }}

@@ -1,13 +1,15 @@
 import { useApiData } from "@/lib/hooks/useApiData";
 
+// chess rating widget
 export default function ChessWidget() {
   const { data, loading, error } = useApiData("/api/chess", {
     refetchInterval: 5 * 60 * 1000,
   });
 
-  const uscfRating = 1815;
+  const uscfRating = 1815; // static USCF rating
   const formatRating = (rating) => (rating ? Math.round(rating) : "—");
 
+  // chess piece SVG icon
   const icon = (
     <svg
       width="24"
@@ -30,10 +32,11 @@ export default function ChessWidget() {
     </svg>
   );
 
+  // render rating with loading/error states
   const renderRatingValue = (type) => {
     if (loading && !data)
       return <span className="rating-value loading-dots">...</span>;
-    // Check for error state or if all ratings are null (indicating API failure)
+    // error or null ratings
     if (
       error ||
       (data &&

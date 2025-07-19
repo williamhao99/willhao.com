@@ -4,14 +4,14 @@ import { useEffect } from "react";
 
 export default function PdfViewer() {
   useEffect(() => {
-    // PDF toggle functionality
+    // PDF toggle handler
     const handlePdfToggle = (e) => {
       const btn = e.target.closest(".pdf-toggle");
       if (!btn) return;
 
       const src = encodeURI(btn.dataset.pdf) + "#toolbar=0";
 
-      // look for or create a viewer right after the button
+      // create viewer if needed
       let wrap = btn.nextElementSibling;
       if (!wrap || !wrap.classList.contains("pdf-viewer-wrap")) {
         wrap = document.createElement("div");
@@ -27,12 +27,12 @@ export default function PdfViewer() {
       const open = getComputedStyle(wrap).display !== "none";
 
       if (open) {
-        // hide
+        // hide viewer
         frame.src = "about:blank";
         wrap.style.display = "none";
         btn.classList.remove("active");
       } else {
-        // show
+        // show viewer
         frame.src = src;
         wrap.style.display = "block";
         btn.classList.add("active");
@@ -40,7 +40,7 @@ export default function PdfViewer() {
       }
     };
 
-    // PDF picker functionality
+    // PDF picker handler
     const handlePdfPicker = (e) => {
       const btn = e.target.closest(".pdf-picker-btn");
       if (!btn) return;
@@ -48,7 +48,7 @@ export default function PdfViewer() {
       const picker = btn.closest(".pdf-picker");
       const src = encodeURI(btn.dataset.pdf) + "#toolbar=0";
 
-      // create or reuse the shared viewer after the picker section
+      // create shared viewer
       let wrap = picker.nextElementSibling;
       if (!wrap || !wrap.classList.contains("pdf-viewer-wrap")) {
         wrap = document.createElement("div");
@@ -62,7 +62,7 @@ export default function PdfViewer() {
 
       const frame = wrap.querySelector("iframe");
 
-      // collapse if this button is already active
+      // toggle if active
       const viewerOpen = getComputedStyle(wrap).display !== "none";
       if (btn.classList.contains("active") && viewerOpen) {
         frame.src = "about:blank";
@@ -71,7 +71,7 @@ export default function PdfViewer() {
         return;
       }
 
-      // highlight active button & load PDF
+      // set active & load
       picker
         .querySelectorAll(".pdf-picker-btn")
         .forEach((b) => b.classList.remove("active"));
@@ -82,16 +82,16 @@ export default function PdfViewer() {
       frame.focus();
     };
 
-    // Add event listeners
+    // event listeners
     document.addEventListener("click", handlePdfToggle);
     document.addEventListener("click", handlePdfPicker);
 
-    // Cleanup
+    // cleanup
     return () => {
       document.removeEventListener("click", handlePdfToggle);
       document.removeEventListener("click", handlePdfPicker);
     };
   }, []);
 
-  return null; // This component doesn't render anything
+  return null; // no render
 }

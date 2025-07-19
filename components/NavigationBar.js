@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
+// theme toggle icon
 function ThemeToggleIcon() {
   return (
     <div className="theme-toggle-icon">
@@ -16,25 +17,27 @@ function ThemeToggleIcon() {
   );
 }
 
+// main navigation component
 export default function NavigationBar({ posts = [], pages = [] }) {
   const [theme, setTheme] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
 
+  // theme initialization & system preference handling
   useEffect(() => {
-    // Check for system color scheme preference
+    // check system preference
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
     ).matches;
     const savedTheme = localStorage.getItem("theme");
 
-    // If no saved theme, use system preference
+    // use system if no saved theme
     const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
     setTheme(initialTheme);
     document.documentElement.setAttribute("data-theme", initialTheme);
     setIsMounted(true);
 
-    // Listen for system theme changes
+    // listen for system changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (e) => {
       if (!localStorage.getItem("theme")) {
@@ -51,6 +54,7 @@ export default function NavigationBar({ posts = [], pages = [] }) {
     };
   }, []);
 
+  // toggle between light/dark theme
   const toggleTheme = () => {
     if (!isMounted || theme === null) return;
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -59,11 +63,13 @@ export default function NavigationBar({ posts = [], pages = [] }) {
     localStorage.setItem("theme", newTheme);
   };
 
+  // check if link is active
   const isActiveLink = (href) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
 
+  // navigation links
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
@@ -131,6 +137,7 @@ export default function NavigationBar({ posts = [], pages = [] }) {
               src="/images/profile-photo.jpg"
               alt="Will Hao"
               className="profile-image"
+              // fallback to initials on error
               onError={(e) => {
                 e.target.style.display = "none";
                 e.target.nextElementSibling.style.display = "flex";

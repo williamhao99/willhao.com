@@ -1,12 +1,15 @@
 import { useApiData } from "@/lib/hooks/useApiData";
 
+// clash of clans stats widget
 export default function ClashWidget() {
   const { data, loading, error } = useApiData("/api/clash", {
     refetchInterval: 30 * 1000,
   });
 
+  // format trophy count
   const formatTrophies = (trophies) => (trophies ? String(trophies) : "0");
 
+  // clash icon image
   const icon = (
     <svg
       width="32"
@@ -25,13 +28,15 @@ export default function ClashWidget() {
     </svg>
   );
 
+  // get username with error handling
   const getUsername = () => {
     if (loading && !data) return "...";
-    // Check for the error state and if the data is the default fallback
+    // error or no data
     if (error || !data?.townHallLevel) return "API Error";
     return data?.name || "Player";
   };
 
+  // get town hall level display
   const getTownHallLevel = () => {
     if (loading && !data)
       return <span className="th-level loading-dots">TH?</span>;
@@ -40,6 +45,7 @@ export default function ClashWidget() {
     return <span className="th-level">TH{data?.townHallLevel || "?"}</span>;
   };
 
+  // get trophy value for current/best
   const getTrophyValue = (type) => {
     const value = type === "current" ? data?.trophies : data?.bestTrophies;
     if (loading && !data) return <span className="loading-dots">...</span>;

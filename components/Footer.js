@@ -5,6 +5,7 @@ import InstagramIcon from "./icons/InstagramIcon";
 import GitHubIcon from "./icons/GitHubIcon";
 import SpotifyIcon from "./icons/SpotifyIcon";
 
+// social media links
 const socialLinks = [
   {
     name: "LinkedIn",
@@ -24,6 +25,7 @@ const socialLinks = [
   },
 ];
 
+// site footer component
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -57,6 +59,7 @@ export default function Footer() {
           <div className="footer-section">
             <h3 className="footer-title">Connect</h3>
             <div className="social-links">
+              {/* render social links */}
               {socialLinks.map(({ name, url, Icon }) => (
                 <a
                   key={name}

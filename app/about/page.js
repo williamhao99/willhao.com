@@ -1,8 +1,4 @@
-/**
- * BASE SITE PAGE: About
- *
- * Personal information and background page.
- */
+// About page - personal info
 
 import {
   PageHeader,

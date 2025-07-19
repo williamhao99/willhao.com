@@ -14,6 +14,7 @@ export const metadata = {
   },
 };
 
+// current status page
 export default function Now() {
   return (
     <PageLayout>

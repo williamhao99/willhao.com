@@ -2,16 +2,18 @@ import { useRef, useLayoutEffect, useState } from "react";
 import { useApiData } from "@/lib/hooks/useApiData";
 import { SpotifyIcon } from "../index";
 
+// spotify music widget
 export default function SpotifyWidget() {
   const { data, loading, error } = useApiData("/api/spotify", {
-    refetchInterval: 5 * 1000, // 5 seconds for more real-time music updates
+    refetchInterval: 5 * 1000, // 5s intervals
   });
 
-  // Refs to hold DOM elements
+  // DOM refs
   const containerRef = useRef(null);
   const trackRef = useRef(null);
   const artistRef = useRef(null);
 
+  // determine display state & content
   const getDisplayInfo = () => {
     if (loading && !data) {
       return {
@@ -62,6 +64,7 @@ export default function SpotifyWidget() {
     };
   };
 
+  // format relative time
   const getTimeAgo = (date) => {
     const now = new Date();
     const diffMs = now - date;
@@ -78,14 +81,16 @@ export default function SpotifyWidget() {
     }
   };
 
+  // get current display info
   const displayInfo = getDisplayInfo();
 
-  // Dynamic overflow detection (not hard-coded anymore)
+  // dynamic overflow detection
   const [shouldTrackScroll, setShouldTrackScroll] = useState(false);
   const [shouldArtistScroll, setShouldArtistScroll] = useState(false);
 
-  // Dynamic overflow detection and scroll calculation
+  // overflow detection & scroll calc
   useLayoutEffect(() => {
+    // check text overflow & set scroll distance
     const checkOverflow = (textRef, setShouldScroll) => {
       if (textRef.current && containerRef.current) {
         const textWidth = textRef.current.scrollWidth;
@@ -94,9 +99,9 @@ export default function SpotifyWidget() {
 
         setShouldScroll(isOverflowing);
 
-        // Set scroll distance if overflowing
+        // calc scroll distance
         if (isOverflowing) {
-          const scrollDistance = containerWidth - textWidth - 10; // Nudge the final resting position
+          const scrollDistance = containerWidth - textWidth - 10; // scroll distance
           textRef.current.style.setProperty(
             "--scroll-end-x",
             `${scrollDistance}px`,
@@ -105,7 +110,7 @@ export default function SpotifyWidget() {
       }
     };
 
-    // Check both track and artist for overflow
+    // check overflow
     if (displayInfo.trackName && trackRef.current) {
       checkOverflow(trackRef, setShouldTrackScroll);
     } else {
@@ -119,10 +124,12 @@ export default function SpotifyWidget() {
     }
   }, [displayInfo.trackName, displayInfo.artistName]);
 
+  // widget CSS classes based on state
   const widgetClass = `spotify-widget ${
     displayInfo.isPlaying ? "playing" : "not-playing"
   } ${loading ? "loading" : ""} ${error ? "error" : ""}`;
 
+  // main widget content
   const content = (
     <>
       <div className="spotify-left-section">

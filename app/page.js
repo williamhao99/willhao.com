@@ -1,20 +1,15 @@
 "use client";
 
-/**
- * BASE SITE PAGE: Homepage
- *
- * The main landing page of the website.
- * Contains hero section, widgets, and basic layout
- */
+// Homepage - hero section & widgets
 
 import { PageLayout } from "@/components";
 import { SpotifyWidget, ChessWidget, ClashWidget } from "@/components/widgets";
 
-// Main Home Page
+// home page
 export default function Home() {
   return (
     <PageLayout>
-      {/* Hero Section - homepage-specific, inlined */}
+      {/* hero section */}
       <section className="container medium section-hero">
         <div className="hero-content">
           <h1 className="h1 hero-title">

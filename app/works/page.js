@@ -1,9 +1,4 @@
-/**
- * BASE SITE PAGE: Works/Portfolio
- *
- * Showcase page for projects and work experience.
- * Links to individual project pages and content.
- */
+// Works/portfolio page
 
 import { PageHeader, PageLayout, SectionWrapper } from "../../components";
 import Link from "next/link";
@@ -22,14 +17,14 @@ export const metadata = {
 export default function Works() {
   return (
     <PageLayout>
-      {/* Page Header */}
+      {/* header */}
       <PageHeader
         title="Works"
         description="A list of projects I've created, and my work experience history."
         isHero={true}
       />
 
-      {/* Personal Projects Section */}
+      {/* projects */}
       <SectionWrapper className="section-personal-project">
         <div className="blog-year-label">
           <h2 className="section-title">Creating</h2>
@@ -71,7 +66,7 @@ export default function Works() {
         </div>
       </SectionWrapper>
 
-      {/* Experience Section */}
+      {/* experience */}
       <SectionWrapper className="experiences section-experiences">
         <div className="blog-year-label">
           <h2 className="section-title">Experience</h2>

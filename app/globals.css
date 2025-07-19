@@ -1,9 +1,7 @@
-/* ====================================
-   ORGANIZED GLOBAL STYLES
-   ==================================== */
+/* Global styles */
 
 :root {
-  /* Color Palette */
+  /* colors */
   --primary-text-color: hsla(214, 70%, 4%, 0.92);
   --secondary-text-color: hsla(0, 0%, 2%, 0.7);
   --tertiary-text-color: hsla(0, 0%, 2%, 0.55);
@@ -17,7 +15,7 @@
   --input-background-color: rgb(0 0 0/8%);
   --background-color: #f5f5f5;
 
-  /* Typography */
+  /* typography */
   --font-serif: "Noto Serif", "Noto Serif Fallback", Georgia, serif;
   --font-base:
     "Noto Sans", "Noto Sans Fallback", -apple-system, BlinkMacSystemFont,
@@ -27,7 +25,7 @@
   --base-text-size: 1.8rem;
   --font-size-xl: 1.25rem;
 
-  /* Spacing & Layout */
+  /* spacing */
   --head-nav-gap: 2.8rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -38,15 +36,15 @@
   --border-radius: 0.375rem;
   --border-radius-lg: 0.5rem;
 
-  /* Shadows */
+  /* shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
-  /* Transitions */
+  /* transitions */
   --transition-base: 0.2s ease-in-out;
   --animation-base: ease-in-out;
 
-  /* Utility */
+  /* utility */
   --border-color: #dee2e6;
 }
 
@@ -64,8 +62,8 @@
 }
 
 /* ====================================
-     Base Styles
-     ==================================== */
+       Base Styles
+       ==================================== */
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -124,7 +122,7 @@ h6 {
   font: var(--font-weight-bold) 1em/1.25 var(--font-serif);
 }
 
-/* Blog content spacing */
+/* blog spacing */
 .page-content h1,
 .page-content h2,
 .page-content h3,
@@ -143,7 +141,7 @@ h6 {
   margin-top: 0;
 }
 
-/* Paragraph spacing */
+/* paragraph spacing */
 .page-content p {
   margin: 0 0 1.5rem;
 }
@@ -152,7 +150,7 @@ h6 {
   margin-bottom: 0;
 }
 
-/* Reusable separator */
+/* separator */
 .content-separator {
   margin: 3rem 0;
   border-top: 1px solid rgb(0 0 0 / 25%);
@@ -187,182 +185,16 @@ button {
 }
 
 /* ====================================
-     Animation & Interaction Utilities
-     ==================================== */
-/* Base transitions for interactive elements */
-.transition-base {
-  transition: all var(--transition-base);
-}
-
-.transition-transform {
-  transition: transform var(--transition-base);
-}
-
-.transition-colors {
-  transition:
-    color var(--transition-base),
-    background-color var(--transition-base),
-    border-color var(--transition-base);
-}
-
-/* Hover transforms */
-.hover-lift:hover {
-  transform: translateY(-2px);
-}
-
-.hover-scale:hover {
-  transform: scale(1.05);
-}
-
-.hover-slide:hover {
-  transform: translateX(4px);
-}
-
-/* ====================================
-     Typography Utilities
-     ==================================== */
-/* Text alignment */
+       Typography Utilities
+       ==================================== */
+/* text align */
 .text-center {
   text-align: center;
 }
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
 
-/* Spacing utilities */
-.mt-1 {
-  margin-top: 1rem;
-}
+/* spacing utils */
 .mt-2 {
   margin-top: 2rem;
-}
-.mt-3 {
-  margin-top: 3rem;
-}
-.mb-1 {
-  margin-bottom: 1rem;
-}
-.mb-2 {
-  margin-bottom: 2rem;
-}
-.mb-3 {
-  margin-bottom: 3rem;
-}
-.ml-1 {
-  margin-left: 1rem;
-}
-.ml-2 {
-  margin-left: 2rem;
-}
-.mr-1 {
-  margin-right: 1rem;
-}
-.mr-2 {
-  margin-right: 2rem;
-}
-.my-1 {
-  margin: 1rem 0;
-}
-.my-2 {
-  margin: 2rem 0;
-}
-.my-3 {
-  margin: 3rem 0;
-}
-.mx-1 {
-  margin: 0 1rem;
-}
-.mx-2 {
-  margin: 0 2rem;
-}
-
-/* Display utilities */
-.d-none {
-  display: none;
-}
-.d-block {
-  display: block;
-}
-.d-flex {
-  display: flex;
-}
-.position-relative {
-  position: relative;
-}
-
-/* Flex utilities */
-.flex-column {
-  flex-direction: column;
-}
-.flex-row {
-  flex-direction: row;
-}
-.align-start {
-  align-items: flex-start;
-}
-.align-center {
-  align-items: center;
-}
-.align-end {
-  align-items: flex-end;
-}
-.justify-start {
-  justify-content: flex-start;
-}
-.justify-center {
-  justify-content: center;
-}
-.justify-end {
-  justify-content: flex-end;
-}
-.justify-between {
-  justify-content: space-between;
-}
-.justify-around {
-  justify-content: space-around;
-}
-.flex-1 {
-  flex: 1;
-}
-.flex-shrink-0 {
-  flex-shrink: 0;
-}
-.flex-grow {
-  flex-grow: 1;
-}
-
-/* Gap utilities */
-.gap-1 {
-  gap: 1rem;
-}
-.gap-2 {
-  gap: 2rem;
-}
-.gap-3 {
-  gap: 3rem;
-}
-.gap-half {
-  gap: 0.5rem;
-}
-
-/* Image utilities */
-.img-rounded {
-  border-radius: 8px;
-}
-.img-full {
-  width: 100%;
-  height: auto;
-}
-
-/* Embed utilities */
-.embed-container {
-  width: 100%;
-  height: 500px;
-  border: none;
-  margin: 0 0 2rem;
 }
 
 .section-title {
@@ -380,8 +212,8 @@ button {
 }
 
 /* ====================================
-     Layout Utilities
-     ==================================== */
+       Layout Utilities
+       ==================================== */
 .site {
   min-height: 100vh;
   display: flex;
@@ -423,8 +255,8 @@ button {
 }
 
 /* ====================================
-     Header
-     ==================================== */
+       Header
+       ==================================== */
 .site-header {
   position: relative;
   padding: 2rem 0;
@@ -512,8 +344,8 @@ button {
 }
 
 /* ====================================
-     Navigation
-     ==================================== */
+       Navigation
+       ==================================== */
 .nav-link {
   color: var(--secondary-text-color);
   font-size: 1.6rem;
@@ -609,8 +441,8 @@ button {
 }
 
 /* ====================================
-     Theme Toggle Button
-     ==================================== */
+       Theme Toggle Button
+       ==================================== */
 .theme-toggle {
   background: none;
   border: none;
@@ -724,8 +556,8 @@ button {
 }
 
 /* ====================================
-     Hero Section
-     ==================================== */
+       Hero Section
+       ==================================== */
 .hero-wrapper h1 {
   margin-bottom: 1rem;
 }
@@ -785,9 +617,9 @@ button {
 }
 
 /* ====================================
-     Widgets - Consolidated Styles
-     ==================================== */
-/* Shared widget styles */
+       Widgets - Consolidated Styles
+       ==================================== */
+/* widget styles */
 .chess-widget,
 .clash-widget,
 .spotify-widget {
@@ -823,7 +655,7 @@ button {
   box-shadow: 0 4px 16px rgba(0, 85, 170, 0.2);
 }
 
-/* Shared link styles */
+/* link styles */
 .chess-link,
 .clash-link,
 .spotify-link {
@@ -835,7 +667,7 @@ button {
   align-items: center;
 }
 
-/* Unique link adjustments */
+/* link adjustments */
 .spotify-link {
   gap: 1.6rem;
 }
@@ -847,7 +679,7 @@ button {
   padding: 1.6rem 1.8rem;
 }
 
-/* Shared left section styles */
+/* left section styles */
 .chess-left-section,
 .clash-left-section,
 .spotify-left-section {
@@ -889,7 +721,7 @@ button {
   max-width: 5rem;
 }
 
-/* Spotify Widget */
+/* spotify widget */
 .spotify-info-centered {
   flex: 1;
   min-width: 0;
@@ -1003,7 +835,7 @@ button {
   }
 }
 
-/* Chess Widget */
+/* chess widget */
 .chess-info {
   flex: 1;
   min-width: 0;
@@ -1048,7 +880,7 @@ button {
   line-height: 1;
 }
 
-/* Clash Widget */
+/* clash widget */
 .clash-townhall {
   display: flex;
   flex-direction: row;
@@ -1124,8 +956,8 @@ button {
 }
 
 /* ====================================
-     Footer
-     ==================================== */
+       Footer
+       ==================================== */
 .site-footer {
   padding: 6rem 0 3rem 0;
   margin-top: auto;
@@ -1170,7 +1002,7 @@ button {
   transition: all 0.2s var(--animation-base);
   border-radius: 6px;
 }
-/* Shared interactive styles */
+/* interactive styles */
 .footer-link:hover,
 .social-link:hover {
   color: var(--brand-color);
@@ -1232,8 +1064,8 @@ button {
 }
 
 /* ====================================
-     Feed & Blog
-     ==================================== */
+       Feed & Blog
+       ==================================== */
 .post-feed {
   margin-top: -1.5rem;
 }
@@ -1334,8 +1166,8 @@ button {
 }
 
 /* ====================================
-     Cards
-     ==================================== */
+       Cards
+       ==================================== */
 .cards {
   position: relative;
 }
@@ -1412,14 +1244,14 @@ button {
 }
 
 /* ====================================
-     Social Link Theming
-     ==================================== */
-/* Common hover transform for all social links */
+       Social Link Theming
+       ==================================== */
+/* social hover */
 .social-link:hover svg {
   transform: scale(1.1);
 }
 
-/* Individual social link colors */
+/* social colors */
 .social-link[title="LinkedIn"] svg {
   color: #0077b5;
 }
@@ -1448,7 +1280,7 @@ button {
   color: #1ed760;
 }
 
-/* Dark theme overrides for GitHub */
+/* github dark theme */
 :root[data-theme="dark"] .social-link[title="GitHub"] svg {
   color: #f0f6fc;
 }
@@ -1478,9 +1310,9 @@ button {
 }
 
 /* ====================================
-     Media Queries - Organized by breakpoint
-     ==================================== */
-/* Mobile First: Extra Small (< 480px) */
+       Media Queries - Organized by breakpoint
+       ==================================== */
+/* < 480px */
 @media (max-width: 480px) {
   .chess-link,
   .clash-link,
@@ -1514,7 +1346,7 @@ button {
   }
 }
 
-/* Small (< 575px) */
+/* < 575px */
 @media (max-width: 575px) {
   .blog-wrapper .feed-excerpt {
     display: none;
@@ -1529,7 +1361,7 @@ button {
   }
 }
 
-/* Medium (< 767px) */
+/* < 767px */
 @media (max-width: 767px) {
   .hero-widgets {
     grid-template-columns: 1fr;
@@ -1681,12 +1513,12 @@ button {
   .site-footer .wave-separator {
     margin: 0rem 0;
   }
-      .site-footer .wave-separator:last-of-type {
-      margin-bottom: 1.5rem;
-    }
-    .footer-copy {
-      padding-top: 1.5rem;
-    }
+  .site-footer .wave-separator:last-of-type {
+    margin-bottom: 1.5rem;
+  }
+  .footer-copy {
+    padding-top: 1.5rem;
+  }
   .section-wrap {
     padding: 2rem 0;
   }
@@ -1697,13 +1529,13 @@ button {
     max-width: 160px;
   }
 
-  /* Blog body text - smaller on mobile */
+  /* blog mobile text */
   .body-1 {
     font-size: 1.6rem;
     line-height: 2.8rem;
   }
 
-  /* Fix works page header alignment - match blog year label spacing */
+  /* works header align */
   .feed-header .feed-header-title {
     padding-top: 2rem;
     margin-bottom: 2rem;
@@ -1715,7 +1547,7 @@ button {
     padding: 0;
   }
 
-  /* Responsive utilities - consolidated here */
+  /* responsive utils */
   .responsive-grid-2 {
     grid-template-columns: 1fr;
     gap: 1.2rem;
@@ -1777,9 +1609,9 @@ button {
 }
 
 /* ====================================
-     Responsive Utilities
-   ==================================== */
-/* Base responsive containers */
+       Responsive Utilities
+     ==================================== */
+/* responsive containers */
 .responsive-grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1793,9 +1625,9 @@ button {
 }
 
 /* ====================================
-     Button Components - Consolidated
-   ==================================== */
-/* Base button styles */
+       Button Components - Consolidated
+     ==================================== */
+/* base buttons */
 .button {
   display: inline-block;
   padding: 0.8rem 1.6rem;
@@ -1817,7 +1649,7 @@ button {
   opacity: 1;
 }
 
-/* PDF picker button styles */
+/* pdf picker */
 .pdf-picker-btn {
   display: flex;
   justify-content: flex-start;
@@ -1848,9 +1680,9 @@ button {
 }
 
 /* ====================================
-     PDF Viewer Components
-   ==================================== */
-/* Viewer wrapper & iframe */
+       PDF Viewer Components
+     ==================================== */
+/* pdf viewer */
 .pdf-viewer-wrap {
   margin-top: 1rem;
   display: none;

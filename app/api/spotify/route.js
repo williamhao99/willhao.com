@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { fetchSpotifyStats } from "@/lib/widgetApiBackend";
 import { checkRateLimit } from "@/lib/rateLimiter";
 
+// spotify music API endpoint
 export async function GET(request) {
-  // Check rate limit
+  // rate limit check
   if (!checkRateLimit(request)) {
     return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
   }
