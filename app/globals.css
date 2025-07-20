@@ -396,10 +396,6 @@ button {
   background: var(--brand-color);
 }
 
-.visible-desktop {
-  display: block;
-}
-
 .header-profile {
   position: absolute;
   top: 0;
@@ -975,21 +971,6 @@ button {
        ==================================== */
 /* < 480px */
 @media (max-width: 480px) {
-  .chess-link,
-  .clash-link,
-  .spotify-link {
-    gap: 1rem;
-    padding: 1rem 1.2rem;
-  }
-  .track-name {
-    font-size: 1.3rem;
-  }
-  .chess-widget,
-  .clash-widget,
-  .spotify-widget {
-    max-width: 300px;
-  }
-
   .nav-link {
     font-size: 1.3rem;
     padding: 0.15rem 0.25rem;
@@ -1032,38 +1013,9 @@ button {
     padding: 0 var(--container-padding);
   }
 
-  .chess-widget,
-  .clash-widget,
-  .spotify-widget {
-    max-width: 350px;
-    margin: 0 auto;
-  }
   .kg-grid-2col {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-  }
-  .chess-link,
-  .clash-link,
-  .spotify-link {
-    padding: 1.2rem 1.4rem;
-    gap: 1.2rem;
-    min-height: 6rem;
-  }
-  .clash-link {
-    min-height: 7rem;
-  }
-  .chess-icon {
-    width: 2.4rem;
-    height: 2.4rem;
-  }
-  .track-name {
-    font-size: 1.4rem;
-  }
-  .spotify-status {
-    font-size: 1.1rem;
-  }
-  .last-played {
-    font-size: 1rem;
   }
 
   .h1 {
@@ -1207,16 +1159,6 @@ button {
   .feed-header {
     padding: 0;
   }
-
-  /* responsive utils */
-  .responsive-grid-2 {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-
-  .responsive-stack {
-    gap: 1rem;
-  }
 }
 
 @media (min-width: 768px) {
@@ -1267,22 +1209,6 @@ button {
     width: 12rem;
     height: 12rem;
   }
-}
-
-/* ====================================
-       Responsive Utilities
-     ==================================== */
-/* responsive containers */
-.responsive-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.responsive-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
 }
 
 /* ====================================

@@ -19,8 +19,8 @@ export default function StructuredData() {
     },
     knowsAbout: [
       "Mathematics",
-      "Chess",
       "Computer Science",
+      "Chess",
       "Finance",
       "Academic Research",
       "Fitness",

@@ -104,3 +104,17 @@
   color: var(--tertiary-text-color);
   opacity: 0.6;
 }
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  .widget {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .widget {
+    max-width: 90%;
+  }
+}

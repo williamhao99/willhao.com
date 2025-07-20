@@ -10,6 +10,7 @@
 
 .leftSection {
   composes: leftSection from "./Widget.module.css";
+  margin-left: 0.4rem;
 }
 
 /* Spotify info section */
