@@ -12,7 +12,7 @@ export default function StructuredData() {
       "https://github.com/williamhao99",
       "https://www.instagram.com/william.a.hao/",
     ],
-    studiesAt: {
+    affiliation: {
       "@type": "CollegeOrUniversity",
       name: "University of Texas at Austin",
       url: "https://www.utexas.edu",

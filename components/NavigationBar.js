@@ -83,20 +83,16 @@ export default function NavigationBar({ posts = [], pages = [] }) {
       <div className="header-inner container">
         <div className="header-brand">
           <div className="head-brand">
-            <div className="header-logo-text">
-              <Link href="/" className="header-logo">
-                <figure className="head-logo">
-                  <Image
-                    src="/favicons/William Hao-3-2.png"
-                    alt="William Hao"
-                    width={200}
-                    height={50}
-                    priority
-                    className="logo-image"
-                  />
-                </figure>
-              </Link>
-            </div>
+            <Link href="/" className="header-logo">
+              <Image
+                src="/favicons/William Hao-3-2.png"
+                alt="William Hao"
+                width={200}
+                height={50}
+                priority
+                className="logo-image"
+              />
+            </Link>
             <div className="sub-heading tagline">
               UT Austin '28, Computer Science + Mathematics
             </div>
@@ -113,16 +109,13 @@ export default function NavigationBar({ posts = [], pages = [] }) {
               {label}
             </Link>
           ))}
-
-          <div className="head-actions">
-            <button
-              className="theme-toggle icon-btn"
-              aria-label="Toggle theme"
-              onClick={toggleTheme}
-            >
-              <ThemeToggleIcon />
-            </button>
-          </div>
+          <button
+            className="theme-toggle icon-btn"
+            aria-label="Toggle theme"
+            onClick={toggleTheme}
+          >
+            <ThemeToggleIcon />
+          </button>
         </nav>
 
         {/* Wave separator positioned right below nav.header-menu */}

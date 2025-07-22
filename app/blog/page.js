@@ -1,5 +1,6 @@
 // Blog listing page
 
+import React from "react";
 import Link from "next/link";
 import { PageHeader, PageLayout } from "../../components";
 
@@ -47,6 +48,21 @@ export default function Blog() {
     .filter((post) => post.type === "post" && post.status === "published")
     .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
 
+  // group posts by year
+  const postsByYear = publishedPosts.reduce((groups, post) => {
+    const year = new Date(post.published_at).getFullYear();
+    if (!groups[year]) {
+      groups[year] = [];
+    }
+    groups[year].push(post);
+    return groups;
+  }, {});
+
+  // sort years in descending order
+  const sortedYears = Object.keys(postsByYear).sort(
+    (a, b) => parseInt(b) - parseInt(a),
+  );
+
   return (
     <PageLayout>
       {/* header */}
@@ -60,68 +76,58 @@ export default function Blog() {
       <section className="section-wrap">
         <div className="container medium">
           <div className="post-feed">
-            {publishedPosts.map((post, index) => {
-              // format post date
-              const date = new Date(post.published_at);
-              const year = date.getFullYear();
-              const dayMonth = date.toLocaleDateString("en-US", {
-                day: "2-digit",
-                month: "short",
-              });
+            {sortedYears.map((year) => (
+              <React.Fragment key={year}>
+                {/* year header */}
+                <h2 className="section-title blog-year-label">{year}</h2>
 
-              return (
-                <article
-                  key={post.id}
-                  className={`feed blog-wrapper blog-post-year-${year}`}
-                >
-                  {/* date wrapper */}
-                  <div className="blog-date-wrapper">
-                    <div className="section-title blog-year-label">
-                      {year} BLOG
-                    </div>
-                  </div>
+                {/* posts for this year */}
+                {postsByYear[year].map((post) => {
+                  const date = new Date(post.published_at);
+                  const dayMonth = date.toLocaleDateString("en-US", {
+                    day: "2-digit",
+                    month: "short",
+                  });
 
-                  {/* content */}
-                  <div
-                    className="feed-wrapper"
-                    style={{ position: "relative" }}
-                  >
-                    <h2 className="body-1 feed-title">{post.title}</h2>
-                    {post.excerpt && (
-                      <div className="feed-excerpt">
-                        {post.excerpt.substring(0, 100)}...
-                      </div>
-                    )}
-                    <div className="dot-spacer"></div>
-                    <div className="feed-right">
-                      <div
-                        className={`feed-visibility feed-visibility-${post.visibility || "public"}`}
-                      >
-                        <svg
-                          className="icon"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
+                  return (
+                    <article key={post.id} className="feed">
+                      <h3 className="body-1 feed-title">{post.title}</h3>
+                      {post.excerpt && (
+                        <div className="feed-excerpt">
+                          {post.excerpt.substring(0, 100)}...
+                        </div>
+                      )}
+                      <div className="dot-spacer"></div>
+                      <div className="feed-right">
+                        <div
+                          className={`feed-visibility feed-visibility-${post.visibility || "public"}`}
                         >
-                          <path d="M12.729 1.2l3.346 6.629 6.44.638-4.2 4.478 1.47 7.027L12 16.13 4.215 19.97l1.47-7.027-4.2-4.478 6.44-.638L12.729 1.2zM12 3.209L9.62 8.13l-5.512.55 3.561 3.795-1.241 5.947L12 15.387l5.572 3.035-1.241-5.947 3.561-3.795-5.512-.55L12 3.209z" />
-                        </svg>
+                          <svg
+                            className="icon"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M12.729 1.2l3.346 6.629 6.44.638-4.2 4.478 1.47 7.027L12 16.13 4.215 19.97l1.47-7.027-4.2-4.478 6.44-.638L12.729 1.2zM12 3.209L9.62 8.13l-5.512.55 3.561 3.795-1.241 5.947L12 15.387l5.572 3.035-1.241-5.947 3.561-3.795-5.512-.55L12 3.209z" />
+                          </svg>
+                        </div>
+                        <time
+                          className="body-1 feed-calendar"
+                          dateTime={date.toISOString()}
+                        >
+                          {dayMonth}
+                        </time>
+                        <div className="feed-icon">→</div>
                       </div>
-                      <time
-                        className="body-1 feed-calendar"
-                        dateTime={date.toISOString()}
-                      >
-                        {dayMonth}
-                      </time>
-                      <div className="feed-icon">→</div>
-                    </div>
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="u-permalink"
-                      aria-label={post.title}
-                    ></Link>
-                  </div>
-                </article>
-              );
-            })}
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="u-permalink"
+                        aria-label={post.title}
+                      />
+                    </article>
+                  );
+                })}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </section>

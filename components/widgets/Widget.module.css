@@ -1,4 +1,4 @@
-/* Base widget styles shared by all widgets */
+/* +++ BASE WIDGET STYLES */
 .widget {
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@
   box-shadow: 0 4px 16px rgba(0, 85, 170, 0.2);
 }
 
-/* Base link styles */
+/* +++ BASE LINK STYLES */
 .widgetLink {
   height: 98px;
   min-height: 98px;
@@ -36,7 +36,7 @@
   align-items: center;
 }
 
-/* Base left section */
+/* +++ BASE LEFT SECTION */
 .leftSection {
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@
   flex-shrink: 0;
 }
 
-/* Base username */
+/* +++ BASE USERNAME */
 .username {
   font-size: 1.2rem;
   font-weight: var(--font-weight-bold);
@@ -59,7 +59,7 @@
   max-width: 5rem;
 }
 
-/* Common widget row */
+/* +++ COMMON WIDGET ROW */
 .widgetRow {
   justify-content: space-between;
   width: 100%;
@@ -68,7 +68,7 @@
   align-items: center;
 }
 
-/* Common data label/value pattern (used by chess and clash) */
+/* +++ DATA LABEL/VALUE PATTERN */
 .dataLabel {
   font-size: 1rem;
   color: var(--tertiary-text-color);
@@ -86,7 +86,7 @@
   line-height: 1;
 }
 
-/* Loading states */
+/* +++ LOADING STATES */
 .skeleton {
   opacity: 0.6;
 }
@@ -99,13 +99,13 @@
   opacity: 0.6;
 }
 
-/* Error states */
+/* +++ ERROR STATES */
 .errorText {
   color: var(--tertiary-text-color);
   opacity: 0.6;
 }
 
-/* Mobile responsiveness */
+/* +++ MOBILE RESPONSIVENESS */
 @media (max-width: 767px) {
   .widget {
     max-width: 90%;

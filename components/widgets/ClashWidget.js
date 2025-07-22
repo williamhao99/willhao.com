@@ -72,8 +72,9 @@ export default function ClashWidget() {
         <div className={styles.widgetRow}>
           <div className={styles.leftSection}>
             <div
-              className={`${styles.clashIcon} ${loading && !data ? styles.skeleton : ""}`}
+              className={loading && !data ? styles.skeleton : ""}
               aria-hidden="true"
+              style={{ fontSize: "2.8rem" }}
             >
               {icon}
             </div>

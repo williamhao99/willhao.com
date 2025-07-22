@@ -1,4 +1,4 @@
-/* Spotify Widget specific styles */
+/* +++ SPOTIFY WIDGET STYLES */
 .spotifyWidget {
   composes: widget from "./Widget.module.css";
 }
@@ -13,7 +13,7 @@
   margin-left: 0.4rem;
 }
 
-/* Spotify info section */
+/* +++ INFO SECTION */
 .infoCentered {
   flex: 1;
   min-width: 0;
@@ -57,7 +57,7 @@
   max-width: 100%;
 }
 
-/* Scrolling text animation */
+/* +++ SCROLLING ANIMATION */
 .trackName.scrolling,
 .artistName.scrolling {
   animation: marquee 7s linear infinite;
@@ -67,7 +67,7 @@
   --scroll-end-x: -100%;
 }
 
-/* Status display */
+/* +++ STATUS DISPLAY */
 .status {
   display: flex;
   align-items: center;
@@ -83,7 +83,7 @@
   font-size: 1.1rem;
 }
 
-/* Playing state */
+/* +++ PLAYING STATE */
 .playing {
   animation: spotifyPulse 2s ease-in-out infinite;
 }
@@ -96,11 +96,7 @@
   color: #1ed760;
 }
 
-/* Loading and error states */
-.skeleton {
-  composes: skeleton from "./Widget.module.css";
-}
-
+/* +++ LOADING STATES */
 .loadingText {
   composes: loadingText from "./Widget.module.css";
 }
@@ -109,11 +105,7 @@
   composes: loadingDots from "./Widget.module.css";
 }
 
-.errorText {
-  composes: errorText from "./Widget.module.css";
-}
-
-/* Animations */
+/* +++ ANIMATIONS */
 @keyframes marquee {
   0% {
     transform: translateX(0);

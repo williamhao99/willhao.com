@@ -38,7 +38,7 @@ export default function Footer() {
         <div className="footer-main">
           {/* Quick Links */}
           <div className="footer-section">
-            <h3 className="footer-title">Explore</h3>
+            <h2 className="footer-title">Explore</h2>
             <nav className="footer-nav">
               <Link href="/about" className="footer-link">
                 About
@@ -57,7 +57,7 @@ export default function Footer() {
 
           {/* Connect Section */}
           <div className="footer-section">
-            <h3 className="footer-title">Connect</h3>
+            <h2 className="footer-title">Connect</h2>
             <div className="social-links">
               {/* render social links */}
               {socialLinks.map(({ name, url, Icon }) => (

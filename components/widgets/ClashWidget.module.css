@@ -1,4 +1,4 @@
-/* Clash Widget specific styles */
+/* +++ CLASH WIDGET STYLES */
 .clashWidget {
   composes: widget from "./Widget.module.css";
 }
@@ -21,7 +21,7 @@
   composes: widgetRow from "./Widget.module.css";
 }
 
-/* Clash-specific row layout */
+/* +++ CLASH ROW LAYOUT */
 .clashRow {
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@
   width: auto;
 }
 
-/* Town hall section */
+/* +++ TOWN HALL SECTION */
 .townhall {
   display: flex;
   flex-direction: row;
@@ -50,7 +50,7 @@
   font-family: var(--font-serif);
 }
 
-/* Trophies column */
+/* +++ TROPHIES COLUMN */
 .trophiesCol {
   justify-content: center;
   gap: 1rem;
@@ -81,7 +81,7 @@
   gap: 0.5rem;
 }
 
-/* Loading and error states */
+/* +++ LOADING & ERROR STATES */
 .skeleton {
   composes: skeleton from "./Widget.module.css";
 }
@@ -98,7 +98,7 @@
   composes: errorText from "./Widget.module.css";
 }
 
-/* Mobile responsiveness */
+/* +++ MOBILE RESPONSIVENESS */
 @media (max-width: 767px) {
   .clashRow {
     gap: 5.5rem;

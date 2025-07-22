@@ -26,51 +26,43 @@ export default function Works() {
 
       {/* projects */}
       <SectionWrapper className="section-personal-project">
-        <div className="blog-year-label">
-          <h2 className="section-title">Creating</h2>
-        </div>
-        <div className="cards kg-grid kg-grid-2col">
-          <div className="card">
-            <div className="card-wrapper">
-              <h3 className="h3 card-title">
-                UT Math Directed Reading Program Presentation
-                <span className="card-arrow">↗</span>
-              </h3>
-              <div className="sub-heading card-excerpt">
-                The math talk and presentation I gave for the UT Math DRP
-                Symposium on April 24, 2025, along with my personal experiences
-                and takeaways.
-              </div>
+        <h2 className="section-title">Creating</h2>
+        <div className="kg-grid-2col">
+          <article className="card">
+            <h3 className="h3 card-title">
+              UT Math Directed Reading Program Presentation
+              <span className="card-arrow">↗</span>
+            </h3>
+            <div className="sub-heading card-excerpt">
+              The math talk and presentation I gave for the UT Math DRP
+              Symposium on April 24, 2025, along with my personal experiences
+              and takeaways.
             </div>
             <Link
               href="/works/drp-math-talk"
               className="u-permalink"
               aria-label="UT Math Directed Reading Program Presentation"
-            ></Link>
-          </div>
-          <div className="card">
-            <div className="card-wrapper">
-              <h3 className="h3 card-title">
-                Project Placeholder 2<span className="card-arrow">↗</span>
-              </h3>
-              <div className="sub-heading card-excerpt">
-                Placeholder description.
-              </div>
+            />
+          </article>
+          <article className="card">
+            <h3 className="h3 card-title">
+              Project Placeholder 2<span className="card-arrow">↗</span>
+            </h3>
+            <div className="sub-heading card-excerpt">
+              Placeholder description.
             </div>
             <Link
               href="/works/project2-placeholder-link"
               className="u-permalink"
               aria-label="Project Placeholder 2"
-            ></Link>
-          </div>
+            />
+          </article>
         </div>
       </SectionWrapper>
 
       {/* experience */}
-      <SectionWrapper className="experiences section-experiences">
-        <div className="blog-year-label">
-          <h2 className="section-title">Experience</h2>
-        </div>
+      <SectionWrapper className="section-experiences">
+        <h2 className="section-title">Experience</h2>
         <div className="experience-item">
           <h3 className="h3">Job Title placeholder</h3>
           <p className="sub-heading">Work experience details</p>

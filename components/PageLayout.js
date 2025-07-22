@@ -7,9 +7,7 @@ export default function PageLayout({ children, includePdfViewer = false }) {
   return (
     <div className="site">
       <NavigationBar />
-      <div className="site-content">
-        <main className="site-main">{children}</main>
-      </div>
+      <main className="site-content">{children}</main>
       <Footer />
       {/* pdf viewer for works pages */}
       {includePdfViewer && <PdfViewer />}
