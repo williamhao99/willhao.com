@@ -2,6 +2,7 @@
 
 import { useApiData } from "@/lib/hooks/useApiData";
 import styles from "./ClashWidget.module.css";
+import ClashIcon from "@/components/icons/ClashIcon";
 
 // clash of clans stats widget
 export default function ClashWidget() {
@@ -12,24 +13,6 @@ export default function ClashWidget() {
   // format trophy count
   const formatTrophies = (trophies) => (trophies ? String(trophies) : "0");
 
-  // clash icon image
-  const icon = (
-    <svg
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <image
-        href="/images/clash-of-clans-icon.png"
-        x="0"
-        y="0"
-        width="32"
-        height="32"
-        style={{ borderRadius: "4px", objectFit: "cover" }}
-      />
-    </svg>
-  );
 
   // get username with error handling
   const getUsername = () => {
@@ -76,7 +59,7 @@ export default function ClashWidget() {
               aria-hidden="true"
               style={{ fontSize: "2.8rem" }}
             >
-              {icon}
+              <ClashIcon size={32} />
             </div>
             <div
               className={`${styles.username} ${loading && !data ? styles.loadingText : ""}`}
