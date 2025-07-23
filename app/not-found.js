@@ -3,8 +3,7 @@ import {
   PageHeader,
   PageLayout,
   SectionWrapper,
-  ContentLayout,
-} from "../components";
+} from "@/components";
 
 export const metadata = {
   title: "Page Not Found",
@@ -16,7 +15,7 @@ export default function NotFound() {
     <PageLayout>
       <PageHeader title="404" description="Page Not Found" isHero={true} />
       <SectionWrapper>
-        <ContentLayout>
+        <div className="page-content">
           <p className="text-center">
             The page you are looking for does not exist.
           </p>
@@ -25,7 +24,7 @@ export default function NotFound() {
               ← Back to Home
             </Link>
           </div>
-        </ContentLayout>
+        </div>
       </SectionWrapper>
     </PageLayout>
   );

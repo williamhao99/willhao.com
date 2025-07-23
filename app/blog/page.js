@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { PageHeader, PageLayout } from "../../components";
+import { PageHeader, PageLayout } from "@/components";
 
 export const metadata = {
   title: "Blog",
@@ -43,14 +43,20 @@ const blogPosts = [
 ];
 
 export default function Blog() {
+  // safe date parsing function
+  const parseDate = (dateString) => {
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? new Date() : date;
+  };
+
   // filter & sort posts
   const publishedPosts = blogPosts
     .filter((post) => post.type === "post" && post.status === "published")
-    .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+    .sort((a, b) => parseDate(b.published_at) - parseDate(a.published_at));
 
   // group posts by year
   const postsByYear = publishedPosts.reduce((groups, post) => {
-    const year = new Date(post.published_at).getFullYear();
+    const year = parseDate(post.published_at).getFullYear();
     if (!groups[year]) {
       groups[year] = [];
     }
@@ -83,7 +89,7 @@ export default function Blog() {
 
                 {/* posts for this year */}
                 {postsByYear[year].map((post) => {
-                  const date = new Date(post.published_at);
+                  const date = parseDate(post.published_at);
                   const dayMonth = date.toLocaleDateString("en-US", {
                     day: "2-digit",
                     month: "short",

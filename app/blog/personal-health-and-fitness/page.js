@@ -8,8 +8,7 @@ import {
   PageHeader,
   PageLayout,
   SectionWrapper,
-  ContentLayout,
-} from "../../../components";
+} from "@/components";
 
 export const metadata = {
   title: "(WIP) Personal health and fitness",
@@ -26,7 +25,7 @@ export default function PersonalHealthAndFitness() {
         isHero={true}
       />
       <SectionWrapper>
-        <ContentLayout>
+        <div className="page-content">
           <h2 className="h2">Why I Started</h2>
 
           <div className="content-separator"></div>
@@ -44,7 +43,7 @@ export default function PersonalHealthAndFitness() {
           <div className="content-separator"></div>
 
           <h2 className="h2">Other information that has helped me</h2>
-        </ContentLayout>
+        </div>
       </SectionWrapper>
     </PageLayout>
   );

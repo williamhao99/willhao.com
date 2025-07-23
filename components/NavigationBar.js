@@ -18,18 +18,29 @@ function ThemeToggleIcon() {
 }
 
 // main navigation component
-export default function NavigationBar({ posts = [], pages = [] }) {
+export default function NavigationBar() {
   const [theme, setTheme] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
 
   // theme initialization & system preference handling
   useEffect(() => {
-    // check system preference
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const savedTheme = localStorage.getItem("theme");
+    // check system preference with fallback
+    const prefersDark = window.matchMedia
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+      : false;
+    
+    // safe localStorage access
+    const getSavedTheme = () => {
+      try {
+        return localStorage.getItem("theme");
+      } catch (error) {
+        console.warn("localStorage not available:", error);
+        return null;
+      }
+    };
+
+    const savedTheme = getSavedTheme();
 
     // use system if no saved theme
     const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
@@ -38,19 +49,26 @@ export default function NavigationBar({ posts = [], pages = [] }) {
     setIsMounted(true);
 
     // listen for system changes
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = window.matchMedia
+      ? window.matchMedia("(prefers-color-scheme: dark)")
+      : null;
+    
     const handleChange = (e) => {
-      if (!localStorage.getItem("theme")) {
+      if (!getSavedTheme()) {
         const newTheme = e.matches ? "dark" : "light";
         setTheme(newTheme);
         document.documentElement.setAttribute("data-theme", newTheme);
       }
     };
 
-    mediaQuery.addEventListener("change", handleChange);
+    if (mediaQuery) {
+      mediaQuery.addEventListener("change", handleChange);
+    }
 
     return () => {
-      mediaQuery.removeEventListener("change", handleChange);
+      if (mediaQuery) {
+        mediaQuery.removeEventListener("change", handleChange);
+      }
     };
   }, []);
 
@@ -60,7 +78,13 @@ export default function NavigationBar({ posts = [], pages = [] }) {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
+    
+    // safe localStorage save
+    try {
+      localStorage.setItem("theme", newTheme);
+    } catch (error) {
+      console.warn("Failed to save theme:", error);
+    }
   };
 
   // check if link is active
@@ -82,20 +106,18 @@ export default function NavigationBar({ posts = [], pages = [] }) {
     <header className="site-header">
       <div className="header-inner container">
         <div className="header-brand">
-          <div className="head-brand">
-            <Link href="/" className="header-logo">
-              <Image
-                src="/favicons/William Hao-3-2.png"
-                alt="William Hao"
-                width={200}
-                height={50}
-                priority
-                className="logo-image"
-              />
-            </Link>
-            <div className="sub-heading tagline">
-              UT Austin '28, Computer Science + Mathematics
-            </div>
+          <Link href="/" className="header-logo">
+            <Image
+              src="/favicons/william-hao-banner.png"
+              alt="William Hao"
+              width={200}
+              height={50}
+              priority
+              className="logo-image"
+            />
+          </Link>
+          <div className="sub-heading tagline">
+            UT Austin '28, Computer Science + Mathematics
           </div>
         </div>
 

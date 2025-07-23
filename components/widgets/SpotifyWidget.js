@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useLayoutEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useApiData } from "@/lib/hooks/useApiData";
-import { SpotifyIcon } from "../index";
+import { SpotifyIcon } from "@/components";
 import styles from "./SpotifyWidget.module.css";
 
 // spotify music widget
@@ -91,8 +91,8 @@ export default function SpotifyWidget() {
   const [shouldTrackScroll, setShouldTrackScroll] = useState(false);
   const [shouldArtistScroll, setShouldArtistScroll] = useState(false);
 
-  // overflow detection & scroll calc
-  useLayoutEffect(() => {
+  // overflow detection & scroll calc (use useEffect for SSR compatibility)  
+  useEffect(() => {
     // check text overflow & set scroll distance
     const checkOverflow = (textRef, setShouldScroll) => {
       if (textRef.current && containerRef.current) {
@@ -139,31 +139,27 @@ export default function SpotifyWidget() {
         <SpotifyIcon size={28} />
       </div>
       <div className={styles.infoCentered} ref={containerRef}>
-        <div className={styles.status}>
+        <span
+          className={`${styles.lastPlayed} ${loading && !data ? styles.loadingDots : ""}`}
+        >
+          {displayInfo.statusLabel}
+        </span>
+        <span
+          ref={trackRef}
+          className={`${styles.trackName} ${
+            loading && !data ? styles.loadingText : ""
+          } ${shouldTrackScroll ? styles.scrolling : ""}`}
+        >
+          {displayInfo.trackName}
+        </span>
+        {displayInfo.artistName && (
           <span
-            className={`${styles.lastPlayed} ${loading && !data ? styles.loadingDots : ""}`}
+            ref={artistRef}
+            className={`${styles.artistName} ${shouldArtistScroll ? styles.scrolling : ""}`}
           >
-            {displayInfo.statusLabel}
+            {displayInfo.artistName}
           </span>
-        </div>
-        <div className={styles.track}>
-          <span
-            ref={trackRef}
-            className={`${styles.trackName} ${
-              loading && !data ? styles.loadingText : ""
-            } ${shouldTrackScroll ? styles.scrolling : ""}`}
-          >
-            {displayInfo.trackName}
-          </span>
-          {displayInfo.artistName && (
-            <span
-              ref={artistRef}
-              className={`${styles.artistName} ${shouldArtistScroll ? styles.scrolling : ""}`}
-            >
-              {displayInfo.artistName}
-            </span>
-          )}
-        </div>
+        )}
       </div>
     </>
   );

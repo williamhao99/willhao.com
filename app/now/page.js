@@ -2,8 +2,7 @@ import {
   PageHeader,
   PageLayout,
   SectionWrapper,
-  ContentLayout,
-} from "../../components";
+} from "@/components";
 
 export const metadata = {
   title: "Now",
@@ -25,7 +24,7 @@ export default function Now() {
       />
 
       <SectionWrapper>
-        <ContentLayout>
+        <div className="page-content">
           <h2 className="h2">Summer Plans</h2>
           <p className="body-1">• Continue developing this website</p>
           <p className="body-1">
@@ -50,7 +49,7 @@ export default function Now() {
           <p className="body-1">• Gym 4x + cardio 3x</p>
 
           <br />
-        </ContentLayout>
+        </div>
       </SectionWrapper>
     </PageLayout>
   );

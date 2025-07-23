@@ -8,8 +8,7 @@ import {
   PageHeader,
   PageLayout,
   SectionWrapper,
-  ContentLayout,
-} from "../../../components";
+} from "@/components";
 
 export const metadata = {
   title: "Freshman year of college",
@@ -26,9 +25,9 @@ export default function FreshmanYearPage() {
         isHero={true}
       />
       <SectionWrapper>
-        <ContentLayout>
+        <div className="page-content">
           {/* Kite Festival Image */}
-          <div style={{ marginBottom: "2rem", textAlign: "center" }}>
+          <figure className="content-image">
             <img
               src="/images/kites_freshman-year.jpg"
               alt="Austin ABC Zilker Kite Festival"
@@ -36,20 +35,13 @@ export default function FreshmanYearPage() {
                 width: "100%",
                 height: "auto",
                 borderRadius: "8px",
-                marginBottom: "1rem",
               }}
             />
-            <div
-              style={{
-                padding: "0.5rem",
-                fontSize: "1.6rem",
-                color: "var(--secondary-text-color)",
-              }}
-            >
+            <figcaption>
               Austin's annual ABC Zilker Kite Festival that I went to on April
               5th, 2025
-            </div>
-          </div>
+            </figcaption>
+          </figure>
 
           {/* Separator */}
           <div className="content-separator"></div>
@@ -102,7 +94,7 @@ export default function FreshmanYearPage() {
           </p>
 
           {/* B Team eSports Lounge Image */}
-          <div style={{ margin: "2rem 0", textAlign: "center" }}>
+          <figure className="content-image">
             <img
               src="/images/b-team-lounge_freshman-year.jpg"
               alt="B Team at UT eSports Lounge"
@@ -110,20 +102,13 @@ export default function FreshmanYearPage() {
                 width: "100%",
                 height: "auto",
                 borderRadius: "8px",
-                marginBottom: "1rem",
               }}
             />
-            <div
-              style={{
-                padding: "0.5rem",
-                fontSize: "1.6rem",
-                color: "var(--secondary-text-color)",
-              }}
-            >
+            <figcaption>
               B Team (me on the far right), after playing a match in the UT
               eSports Lounge
-            </div>
-          </div>
+            </figcaption>
+          </figure>
 
           <p className="body-1">
             I explored many other campus clubs as well, going to various org
@@ -298,7 +283,7 @@ export default function FreshmanYearPage() {
             that, I'll have to somehow squeeze out ~2-3 hours more every day,
             which means less doomscrolling 😦.
           </p>
-        </ContentLayout>
+        </div>
       </SectionWrapper>
     </PageLayout>
   );

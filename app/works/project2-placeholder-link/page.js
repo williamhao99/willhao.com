@@ -8,8 +8,7 @@ import {
   PageHeader,
   PageLayout,
   SectionWrapper,
-  ContentLayout,
-} from "../../../components";
+} from "@/components";
 
 export const metadata = {
   title: "Project Placeholder 2",
@@ -25,9 +24,9 @@ export default function ProjectPlaceholder2Page() {
         isHero={true}
       />
       <SectionWrapper>
-        <ContentLayout>
+        <div className="page-content">
           <p>Description for the second project.</p>
-        </ContentLayout>
+        </div>
       </SectionWrapper>
     </PageLayout>
   );

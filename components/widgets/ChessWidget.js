@@ -88,27 +88,25 @@ export default function ChessWidget() {
               javablob
             </div>
           </div>
-          <div className={styles.info}>
-            <div className={styles.ratings}>
-              <div className={styles.ratingRow}>
-                <div className={styles.ratingItem}>
-                  <span className={styles.ratingLabel}>Rapid</span>
-                  {renderRatingValue("rapid")}
-                </div>
-                <div className={styles.ratingItem}>
-                  <span className={styles.ratingLabel}>Blitz</span>
-                  {renderRatingValue("blitz")}
-                </div>
+          <div className={styles.ratings}>
+            <div className={styles.ratingRow}>
+              <div className={styles.ratingItem}>
+                <span className={styles.ratingLabel}>Rapid</span>
+                {renderRatingValue("rapid")}
               </div>
-              <div className={styles.ratingRow}>
-                <div className={styles.ratingItem}>
-                  <span className={styles.ratingLabel}>Bullet</span>
-                  {renderRatingValue("bullet")}
-                </div>
-                <div className={styles.ratingItem}>
-                  <span className={styles.ratingLabel}>USCF</span>
-                  {renderRatingValue("uscf")}
-                </div>
+              <div className={styles.ratingItem}>
+                <span className={styles.ratingLabel}>Blitz</span>
+                {renderRatingValue("blitz")}
+              </div>
+            </div>
+            <div className={styles.ratingRow}>
+              <div className={styles.ratingItem}>
+                <span className={styles.ratingLabel}>Bullet</span>
+                {renderRatingValue("bullet")}
+              </div>
+              <div className={styles.ratingItem}>
+                <span className={styles.ratingLabel}>USCF</span>
+                {renderRatingValue("uscf")}
               </div>
             </div>
           </div>

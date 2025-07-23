@@ -52,12 +52,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  padding-right: 2rem;
 }
 
 .ratingRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.4rem;
+  gap: 5.5rem;
   align-items: center;
 }
 
@@ -91,4 +92,15 @@
 
 .errorText {
   composes: errorText from "./Widget.module.css";
+}
+
+/* +++ MOBILE RESPONSIVENESS */
+@media (max-width: 767px) {
+  .ratings {
+    padding-right: 3rem;
+  }
+  
+  .ratingRow {
+    gap: 8rem;
+  }
 }

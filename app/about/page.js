@@ -4,8 +4,7 @@ import {
   PageHeader,
   PageLayout,
   SectionWrapper,
-  ContentLayout,
-} from "../../components";
+} from "@/components";
 
 export const metadata = {
   title: "About",
@@ -26,7 +25,7 @@ export default function About() {
       />
 
       <SectionWrapper>
-        <ContentLayout>
+        <div className="page-content">
           <p className="body-1">
             Hi! My name is William Hao (I go by Will), and I am currently a
             rising sophomore at UT Austin double majoring in Computer Science
@@ -67,7 +66,7 @@ export default function About() {
           <p className="body-1">
             Random fun fact: I can solve a Rubik's cube in under 20 seconds
           </p>
-        </ContentLayout>
+        </div>
       </SectionWrapper>
     </PageLayout>
   );

@@ -8,8 +8,7 @@ import {
   PageHeader,
   PageLayout,
   SectionWrapper,
-  ContentLayout,
-} from "../../../components";
+} from "@/components";
 
 export const metadata = {
   title: "UT Math Directed Reading Program Presentation",
@@ -26,7 +25,7 @@ export default function DrpMathTalkPage() {
         isHero={true}
       />
       <SectionWrapper>
-        <ContentLayout>
+        <div className="page-content">
           {/* Downloadable PDF Links */}
           <div style={{ marginBottom: "2rem" }}>
             <p className="body-1">
@@ -177,7 +176,7 @@ export default function DrpMathTalkPage() {
               DRP notes&nbsp;4-7
             </button>
           </section>
-        </ContentLayout>
+        </div>
       </SectionWrapper>
     </PageLayout>
   );

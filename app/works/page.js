@@ -1,6 +1,6 @@
 // Works/portfolio page
 
-import { PageHeader, PageLayout, SectionWrapper } from "../../components";
+import { PageHeader, PageLayout, SectionWrapper } from "@/components";
 import Link from "next/link";
 
 export const metadata = {

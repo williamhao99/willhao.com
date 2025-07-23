@@ -26,7 +26,6 @@
   --font-size-xl: 1.25rem;
 
   /* +++ SPACING */
-  --head-nav-gap: 2.8rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
@@ -120,6 +119,11 @@ h6 {
   font: var(--font-weight-bold) 1em/1.25 var(--font-serif);
 }
 
+/* page content base styles */
+.page-content {
+  width: 100%;
+}
+
 /* blog spacing */
 .page-content h1,
 .page-content h2,
@@ -146,6 +150,25 @@ h6 {
 
 .page-content p:last-child {
   margin-bottom: 0;
+}
+
+/* content images */
+.content-image {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.content-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.content-image figcaption {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1.6rem;
+  color: var(--secondary-text-color);
 }
 
 /* separator */
@@ -269,23 +292,16 @@ button {
 
 .header-brand {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
   flex-shrink: 0;
   width: 100%;
   margin: 0;
   line-height: 1;
 }
 
-.head-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  align-items: flex-start;
-}
-
-.header-logo,
-.head-logo {
+.header-logo {
   margin: 0;
   font-size: 2.4rem;
   font-weight: 700;
@@ -322,13 +338,6 @@ button {
   grid-column: 2;
 }
 
-.head-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  flex-shrink: 0;
-  grid-column: 3;
-}
 
 /* +++ NAVIGATION */
 .nav-link {
@@ -837,13 +846,6 @@ button {
   transition: all 0.2s var(--animation-base);
 }
 
-.feed-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-lg) 0;
-  margin: 0 0 var(--spacing-sm);
-}
 
 /* +++ SOCIAL LINK THEMING */
 /* social hover */
@@ -1000,14 +1002,6 @@ button {
   .header-menu::-webkit-scrollbar {
     display: none;
   }
-  .header-menu .head-actions {
-    margin-left: auto;
-    flex-shrink: 0;
-    padding-left: 0.5rem;
-  }
-  .head-actions {
-    gap: 0.5rem;
-  }
   .nav-link {
     font-size: 1.4rem;
     padding: 0.2rem 0.3rem;
@@ -1113,9 +1107,6 @@ button {
     font-size: 1.6rem;
     padding: 0.4rem 0.6rem;
     font-weight: var(--font-weight-bold);
-  }
-  .head-actions {
-    gap: 1rem;
   }
   .profile-photo {
     width: 12rem;
