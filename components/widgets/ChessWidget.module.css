@@ -1,4 +1,4 @@
-/* +++ CHESS WIDGET STYLES */
+/* Chess widget */
 .chessWidget {
   composes: widget from "./Widget.module.css";
 }
@@ -20,7 +20,7 @@
   composes: widgetRow from "./Widget.module.css";
 }
 
-/* +++ CHESS ICON */
+/* Icon */
 .icon {
   display: flex;
   align-items: center;
@@ -39,7 +39,7 @@
   height: 100%;
 }
 
-/* +++ CHESS INFO SECTION */
+/* Info */
 .info {
   flex: 1;
   min-width: 0;
@@ -77,7 +77,7 @@
   composes: dataValue from "./Widget.module.css";
 }
 
-/* +++ LOADING & ERROR STATES */
+/* Loading & error */
 .skeleton {
   composes: skeleton from "./Widget.module.css";
 }
@@ -94,12 +94,12 @@
   composes: errorText from "./Widget.module.css";
 }
 
-/* +++ MOBILE RESPONSIVENESS */
+/* Responsive */
 @media (max-width: 767px) {
   .ratings {
     padding-right: 3rem;
   }
-  
+
   .ratingRow {
     gap: 8rem;
   }

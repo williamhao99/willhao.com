@@ -2,9 +2,9 @@ import { fetchChessStats } from "@/lib/widgetApiBackend";
 import { NextResponse } from "next/server";
 import { checkRateLimit } from "@/lib/rateLimiter";
 
-// chess stats API endpoint
+// Chess stats
 export async function GET(request) {
-  // rate limit check
+  // Rate limit
   if (!checkRateLimit(request)) {
     return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
   }

@@ -18,7 +18,8 @@ export default function PdfViewer() {
         wrap.className = "pdf-viewer-wrap";
         const frame = document.createElement("iframe");
         frame.className = "pdf-viewer";
-        frame.loading = "lazy";
+        // render PDF eagerly for faster interaction
+        frame.loading = "eager";
         wrap.appendChild(frame);
         btn.after(wrap);
       }
@@ -27,13 +28,14 @@ export default function PdfViewer() {
       const open = getComputedStyle(wrap).display !== "none";
 
       if (open) {
-        // hide viewer
-        frame.src = "about:blank";
+        // hide viewer (keep src so reopening is instant)
         wrap.style.display = "none";
         btn.classList.remove("active");
       } else {
-        // show viewer
-        frame.src = src;
+        // show viewer; only set src if changing
+        if (frame.src !== src && frame.getAttribute("src") !== src) {
+          frame.src = src;
+        }
         wrap.style.display = "block";
         btn.classList.add("active");
         frame.focus();
@@ -55,7 +57,7 @@ export default function PdfViewer() {
         wrap.className = "pdf-viewer-wrap";
         const frame = document.createElement("iframe");
         frame.className = "pdf-viewer";
-        frame.loading = "lazy";
+        frame.loading = "eager";
         wrap.appendChild(frame);
         picker.after(wrap);
       }
@@ -65,7 +67,6 @@ export default function PdfViewer() {
       // toggle if active
       const viewerOpen = getComputedStyle(wrap).display !== "none";
       if (btn.classList.contains("active") && viewerOpen) {
-        frame.src = "about:blank";
         wrap.style.display = "none";
         btn.classList.remove("active");
         return;
@@ -77,19 +78,42 @@ export default function PdfViewer() {
         .forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
 
-      frame.src = src;
+      if (frame.src !== src && frame.getAttribute("src") !== src) {
+        frame.src = src;
+      }
       wrap.style.display = "block";
       frame.focus();
+    };
+
+    // Prefetch PDFs on hover/touch
+    const preloaded = new Set();
+    const handlePdfHover = (e) => {
+      const btn = e.target.closest(".pdf-picker-btn");
+      if (!btn) return;
+      const href = btn.dataset.pdf;
+      if (!href || preloaded.has(href)) return;
+      try {
+        const link = document.createElement("link");
+        link.rel = "prefetch";
+        link.as = "document";
+        link.href = href;
+        document.head.appendChild(link);
+        preloaded.add(href);
+      } catch {}
     };
 
     // event listeners
     document.addEventListener("click", handlePdfToggle);
     document.addEventListener("click", handlePdfPicker);
+    document.addEventListener("mouseover", handlePdfHover, { passive: true });
+    document.addEventListener("touchstart", handlePdfHover, { passive: true });
 
     // cleanup
     return () => {
       document.removeEventListener("click", handlePdfToggle);
       document.removeEventListener("click", handlePdfPicker);
+      document.removeEventListener("mouseover", handlePdfHover);
+      document.removeEventListener("touchstart", handlePdfHover);
     };
   }, []);
 

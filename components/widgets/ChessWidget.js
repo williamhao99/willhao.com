@@ -1,6 +1,7 @@
 "use client";
 
 import { useApiData } from "@/lib/hooks/useApiData";
+import { CHESS_USERNAME } from "@/lib/config";
 import styles from "./ChessWidget.module.css";
 import ChessIcon from "@/components/icons/ChessIcon";
 
@@ -47,7 +48,7 @@ export default function ChessWidget() {
       className={`${styles.chessWidget} ${loading ? styles.loading : ""} ${error ? styles.error : ""}`}
     >
       <a
-        href="https://chess.com/member/javablob"
+        href={`https://chess.com/member/${CHESS_USERNAME}`}
         target="_blank"
         rel="noopener noreferrer"
         className={styles.chessLink}
@@ -64,7 +65,7 @@ export default function ChessWidget() {
             <div
               className={`${styles.username} ${loading && !data ? styles.loadingText : ""}`}
             >
-              javablob
+              {CHESS_USERNAME}
             </div>
           </div>
           <div className={styles.ratings}>

@@ -1,21 +1,19 @@
-/* +++ GLOBAL STYLES */
+/* Global */
 
 :root {
-  /* +++ COLORS */
+  /* Colors */
   --primary-text-color: hsla(214, 70%, 4%, 0.92);
   --secondary-text-color: hsla(0, 0%, 2%, 0.7);
   --tertiary-text-color: hsla(0, 0%, 2%, 0.55);
   --white-color: #fff;
   --color-lighter-gray: #f6f6f6;
-  --color-dark-gray: #444;
   --color-darker-gray: #15171a;
   --brand-color: #0055aa;
-  --orange-color: #ffc107;
   --divider-color: rgb(0 0 0/10%);
   --input-background-color: rgb(0 0 0/8%);
   --background-color: #f5f5f5;
 
-  /* +++ TYPOGRAPHY */
+  /* Typography */
   --font-serif: "Noto Serif", "Noto Serif Fallback", Georgia, serif;
   --font-base:
     "Noto Sans", "Noto Sans Fallback", -apple-system, BlinkMacSystemFont,
@@ -23,27 +21,24 @@
   --font-weight-regular: 400;
   --font-weight-bold: 600;
   --base-text-size: 1.8rem;
-  --font-size-xl: 1.25rem;
 
-  /* +++ SPACING */
+  /* Spacing */
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
-  --spacing-3xl: 4rem;
-  --container-max-width: 1200px;
   --container-padding: clamp(1.5rem, 3vw, 2rem);
   --border-radius: 0.375rem;
   --border-radius-lg: 0.5rem;
 
-  /* +++ SHADOWS */
+  /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
-  /* +++ TRANSITIONS */
+  /* Transitions */
   --transition-base: 0.2s ease-in-out;
   --animation-base: ease-in-out;
 
-  /* +++ UTILITY */
+  /* Utility */
   --border-color: #dee2e6;
 }
 
@@ -56,11 +51,10 @@
   --background-color: #17191e;
   --border-color: #495057;
   --color-lighter-gray: rgb(255 255 255/5%);
-  --color-dark-gray: #bbb;
   --color-darker-gray: #fff;
 }
 
-/* +++ BASE STYLES */
+/* Base */
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -119,12 +113,12 @@ h6 {
   font: var(--font-weight-bold) 1em/1.25 var(--font-serif);
 }
 
-/* page content base styles */
+/* Page content */
 .page-content {
   width: 100%;
 }
 
-/* blog spacing */
+/* Blog spacing */
 .page-content h1,
 .page-content h2,
 .page-content h3,
@@ -143,7 +137,7 @@ h6 {
   margin-top: 0;
 }
 
-/* paragraph spacing */
+/* Paragraph spacing */
 .page-content p {
   margin: 0 0 1.5rem;
 }
@@ -152,7 +146,7 @@ h6 {
   margin-bottom: 0;
 }
 
-/* content images */
+/* Content images */
 .content-image {
   margin: 2rem 0;
   text-align: center;
@@ -171,7 +165,7 @@ h6 {
   color: var(--secondary-text-color);
 }
 
-/* separator */
+/* Separator */
 .content-separator {
   margin: 3rem 0;
   border-top: 1px solid rgb(0 0 0 / 25%);
@@ -205,13 +199,13 @@ button {
   transition: all var(--transition-base);
 }
 
-/* +++ TYPOGRAPHY UTILITIES */
-/* text align */
+/* Typography utils */
+/* Text align */
 .text-center {
   text-align: center;
 }
 
-/* spacing utils */
+/* Spacing */
 .mt-2 {
   margin-top: 2rem;
 }
@@ -231,7 +225,7 @@ button {
   font: var(--font-weight-regular) 1.4rem/2.4rem var(--font-base);
 }
 
-/* +++ LAYOUT UTILITIES */
+/* Layout */
 .site {
   min-height: 100vh;
   display: flex;
@@ -270,7 +264,7 @@ button {
   grid-template-columns: repeat(2, 1fr);
 }
 
-/* +++ HEADER */
+/* Header */
 .site-header {
   position: relative;
   padding: 2rem 0;
@@ -339,7 +333,7 @@ button {
 }
 
 
-/* +++ NAVIGATION */
+/* Navigation */
 .nav-link {
   color: var(--secondary-text-color);
   font-size: 1.6rem;
@@ -397,6 +391,7 @@ button {
 }
 
 .profile-photo {
+  position: relative;
   width: 8rem;
   height: 8rem;
   border-radius: 50%;
@@ -430,7 +425,7 @@ button {
   display: block;
 }
 
-/* +++ THEME TOGGLE BUTTON */
+/* Theme toggle */
 .theme-toggle {
   background: none;
   border: none;
@@ -543,7 +538,7 @@ button {
   opacity: 0;
 }
 
-/* +++ HERO SECTION */
+/* Hero */
 .page-header-title {
   margin-bottom: 1rem;
 }
@@ -602,7 +597,7 @@ button {
   max-width: 60rem;
 }
 
-/* +++ FOOTER */
+/* Footer */
 .site-footer {
   padding: 6rem 0 3rem 0;
   margin-top: auto;
@@ -708,7 +703,7 @@ button {
   margin: 2rem 0;
 }
 
-/* +++ FEED & BLOG */
+/* Feed & blog */
 .post-feed {
   margin-top: -1.5rem;
 }
@@ -789,7 +784,7 @@ button {
   margin-bottom: 2rem;
 }
 
-/* +++ CARDS */
+/* Cards */
 .card {
   position: relative;
   transition: all 0.2s var(--animation-base);
@@ -847,13 +842,13 @@ button {
 }
 
 
-/* +++ SOCIAL LINK THEMING */
-/* social hover */
+/* Social link theming */
+/* Hover */
 .social-link:hover svg {
   transform: scale(1.1);
 }
 
-/* social colors */
+/* Social brand colors */
 .social-link[title="LinkedIn"] svg {
   color: #0077b5;
 }
@@ -882,7 +877,7 @@ button {
   color: #1ed760;
 }
 
-/* github dark theme */
+/* GitHub dark theme */
 :root[data-theme="dark"] .social-link[title="GitHub"] svg {
   color: #f0f6fc;
 }
@@ -911,7 +906,7 @@ button {
   width: 1.8rem;
 }
 
-/* +++ MEDIA QUERIES */
+/* Media queries */
 /* < 480px */
 @media (max-width: 480px) {
   .nav-link {
@@ -1133,8 +1128,8 @@ button {
   }
 }
 
-/* +++ BUTTON COMPONENTS */
-/* base buttons */
+/* Buttons */
+/* Base */
 .button {
   display: inline-block;
   padding: 0.8rem 1.6rem;
@@ -1156,7 +1151,7 @@ button {
   opacity: 1;
 }
 
-/* pdf picker */
+/* PDF picker */
 .pdf-picker-btn {
   display: flex;
   justify-content: flex-start;
@@ -1168,9 +1163,13 @@ button {
   font: inherit;
   font-weight: var(--font-weight-bold);
   text-align: center;
-  transition: all var(--transition-base);
+  transition: border-color 0.1s ease, transform 0.1s ease;
   cursor: pointer;
   background: var(--background-color);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  outline: none;
 }
 
 .pdf-picker-btn:hover {
@@ -1180,14 +1179,21 @@ button {
   opacity: 1;
 }
 
+/* Consistent focus styling without blue underline */
+.pdf-picker-btn:focus { outline: none; text-decoration: none; }
+.pdf-picker-btn:focus-visible {
+  outline: 2px solid var(--brand-color);
+  outline-offset: 2px;
+  text-decoration: none;
+}
+
 .pdf-picker-btn.active {
   background: var(--brand-color);
   border-color: var(--brand-color);
   color: white;
 }
 
-/* +++ PDF VIEWER COMPONENTS */
-/* pdf viewer */
+/* PDF viewer */
 .pdf-viewer-wrap {
   margin-top: 1rem;
   display: none;

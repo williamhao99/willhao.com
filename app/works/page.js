@@ -44,19 +44,22 @@ export default function Works() {
               aria-label="UT Math Directed Reading Program Presentation"
             />
           </article>
-          <article className="card">
-            <h3 className="h3 card-title">
-              Project Placeholder 2<span className="card-arrow">↗</span>
-            </h3>
-            <div className="sub-heading card-excerpt">
-              Placeholder description.
-            </div>
-            <Link
-              href="/works/project2-placeholder-link"
-              className="u-permalink"
-              aria-label="Project Placeholder 2"
-            />
-          </article>
+          {/**
+           * Hidden (WIP): Project Placeholder 2 — keep route live, hide card
+           <article className="card">
+             <h3 className="h3 card-title">
+               Project Placeholder 2<span className="card-arrow">↗</span>
+             </h3>
+             <div className="sub-heading card-excerpt">
+               Placeholder description.
+             </div>
+             <Link
+               href="/works/project2-placeholder-link"
+               className="u-permalink"
+               aria-label="Project Placeholder 2"
+             />
+           </article>
+           */}
         </div>
       </SectionWrapper>
 

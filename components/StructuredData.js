@@ -49,7 +49,7 @@ export default function StructuredData() {
     },
   };
 
-  // Combined schema with single context declaration
+  // Combine schemas under one context
   const combinedSchema = {
     "@context": "https://schema.org",
     "@graph": [personSchema, websiteSchema],

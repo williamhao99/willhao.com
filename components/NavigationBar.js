@@ -3,10 +3,11 @@
 // components/NavigationBar.js
 import Link from "next/link";
 import Image from "next/image";
+import bannerImg from "../public/favicons/william-hao-banner.png";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-// theme toggle icon
+// Theme toggle icon
 function ThemeToggleIcon() {
   return (
     <div className="theme-toggle-icon">
@@ -17,68 +18,32 @@ function ThemeToggleIcon() {
   );
 }
 
-// main navigation component
+// Navigation bar
 export default function NavigationBar() {
-  const [theme, setTheme] = useState(null);
+  const [theme, setTheme] = useState("dark");
   const [isMounted, setIsMounted] = useState(false);
+  const [profileImageError, setProfileImageError] = useState(false);
   const pathname = usePathname();
 
-  // theme initialization & system preference handling
+  // Theme: default dark, prefer saved
   useEffect(() => {
-    // check system preference with fallback
-    const prefersDark = window.matchMedia
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-      : false;
-    
-    // safe localStorage access
-    const getSavedTheme = () => {
-      try {
-        return localStorage.getItem("theme");
-      } catch (error) {
-        console.warn("localStorage not available:", error);
-        return null;
-      }
-    };
-
-    const savedTheme = getSavedTheme();
-
-    // use system if no saved theme
-    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+    let initialTheme = "dark";
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") initialTheme = saved;
+    } catch {}
     setTheme(initialTheme);
     document.documentElement.setAttribute("data-theme", initialTheme);
     setIsMounted(true);
-
-    // listen for system changes
-    const mediaQuery = window.matchMedia
-      ? window.matchMedia("(prefers-color-scheme: dark)")
-      : null;
-    
-    const handleChange = (e) => {
-      if (!getSavedTheme()) {
-        const newTheme = e.matches ? "dark" : "light";
-        setTheme(newTheme);
-        document.documentElement.setAttribute("data-theme", newTheme);
-      }
-    };
-
-    if (mediaQuery) {
-      mediaQuery.addEventListener("change", handleChange);
-    }
-
-    return () => {
-      if (mediaQuery) {
-        mediaQuery.removeEventListener("change", handleChange);
-      }
-    };
   }, []);
 
-  // toggle between light/dark theme
+  // Toggle theme
   const toggleTheme = () => {
     if (!isMounted || theme === null) return;
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
-    
+
     // safe localStorage save
     try {
       localStorage.setItem("theme", newTheme);
@@ -87,13 +52,13 @@ export default function NavigationBar() {
     }
   };
 
-  // check if link is active
+  // Active link helper
   const isActiveLink = (href) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
 
-  // navigation links
+  // Links
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
@@ -108,7 +73,7 @@ export default function NavigationBar() {
         <div className="header-brand">
           <Link href="/" className="header-logo">
             <Image
-              src="/favicons/william-hao-banner.png"
+              src={bannerImg}
               alt="William Hao"
               width={200}
               height={50}
@@ -127,6 +92,7 @@ export default function NavigationBar() {
               key={href}
               href={href}
               className={isActiveLink(href) ? "nav-link active" : "nav-link"}
+              aria-current={isActiveLink(href) ? "page" : undefined}
             >
               {label}
             </Link>
@@ -146,23 +112,23 @@ export default function NavigationBar() {
         </div>
 
         {/* Profile Photo - Independent Element */}
-        <div className="header-profile">
-          <div className="profile-photo">
-            <img
-              src="/images/profile-photo.jpg"
-              alt="Will Hao"
-              className="profile-image"
-              // fallback to initials on error
-              onError={(e) => {
-                e.target.style.display = "none";
-                e.target.nextElementSibling.style.display = "flex";
-              }}
-            />
-            <div className="profile-ph" style={{ display: "none" }}>
-              WH
+          <div className="header-profile">
+            <div className="profile-photo">
+              {!profileImageError ? (
+                <Image
+                  src="/images/profile-photo.jpg"
+                  alt="Will Hao"
+                  fill
+                  sizes="(max-width: 767px) 6.5rem, 12rem"
+                  className="profile-image"
+                  onError={() => setProfileImageError(true)}
+                  priority
+                />
+              ) : (
+                <div className="profile-ph">WH</div>
+              )}
             </div>
           </div>
-        </div>
       </div>
     </header>
   );

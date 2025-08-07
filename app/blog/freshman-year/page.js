@@ -9,6 +9,9 @@ import {
   PageLayout,
   SectionWrapper,
 } from "@/components";
+import Image from "next/image";
+import kiteImg from "../../../public/images/kites_freshman-year.jpg";
+import loungeImg from "../../../public/images/b-team-lounge_freshman-year.jpg";
 
 export const metadata = {
   title: "Freshman year of college",
@@ -28,14 +31,12 @@ export default function FreshmanYearPage() {
         <div className="page-content">
           {/* Kite Festival Image */}
           <figure className="content-image">
-            <img
-              src="/images/kites_freshman-year.jpg"
+            <Image
+              src={kiteImg}
               alt="Austin ABC Zilker Kite Festival"
-              style={{
-                width: "100%",
-                height: "auto",
-                borderRadius: "8px",
-              }}
+              sizes="100vw"
+              placeholder="empty"
+              priority={false}
             />
             <figcaption>
               Austin's annual ABC Zilker Kite Festival that I went to on April
@@ -95,14 +96,12 @@ export default function FreshmanYearPage() {
 
           {/* B Team eSports Lounge Image */}
           <figure className="content-image">
-            <img
-              src="/images/b-team-lounge_freshman-year.jpg"
+            <Image
+              src={loungeImg}
               alt="B Team at UT eSports Lounge"
-              style={{
-                width: "100%",
-                height: "auto",
-                borderRadius: "8px",
-              }}
+              sizes="100vw"
+              placeholder="empty"
+              priority={false}
             />
             <figcaption>
               B Team (me on the far right), after playing a match in the UT

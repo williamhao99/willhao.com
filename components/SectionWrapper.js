@@ -5,7 +5,7 @@ export default function SectionWrapper({
   containerSize = "medium",
   as = "section",
 }) {
-  // dynamic component type
+  // Allow changing the HTML tag
   const Component = as;
 
   return (

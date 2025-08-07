@@ -1,4 +1,4 @@
-/* +++ BASE WIDGET STYLES */
+/* Widget base */
 .widget {
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@
   box-shadow: 0 4px 16px rgba(0, 85, 170, 0.2);
 }
 
-/* +++ BASE LINK STYLES */
+/* Link */
 .widgetLink {
   height: 98px;
   min-height: 98px;
@@ -36,7 +36,7 @@
   align-items: center;
 }
 
-/* +++ BASE LEFT SECTION */
+/* Left column */
 .leftSection {
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@
   flex-shrink: 0;
 }
 
-/* +++ BASE USERNAME */
+/* Username */
 .username {
   font-size: 1.2rem;
   font-weight: var(--font-weight-bold);
@@ -59,7 +59,7 @@
   max-width: 5rem;
 }
 
-/* +++ COMMON WIDGET ROW */
+/* Row */
 .widgetRow {
   justify-content: space-between;
   width: 100%;
@@ -68,7 +68,7 @@
   align-items: center;
 }
 
-/* +++ DATA LABEL/VALUE PATTERN */
+/* Data label/value */
 .dataLabel {
   font-size: 1rem;
   color: var(--tertiary-text-color);
@@ -86,7 +86,7 @@
   line-height: 1;
 }
 
-/* +++ LOADING STATES */
+/* Loading */
 .skeleton {
   opacity: 0.6;
 }
@@ -99,22 +99,8 @@
   opacity: 0.6;
 }
 
-/* +++ ERROR STATES */
+/* Error */
 .errorText {
   color: var(--tertiary-text-color);
   opacity: 0.6;
-}
-
-/* +++ MOBILE RESPONSIVENESS */
-@media (max-width: 767px) {
-  .widget {
-    max-width: 90%;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .widget {
-    max-width: 90%;
-  }
 }

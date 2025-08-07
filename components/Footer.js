@@ -5,7 +5,7 @@ import InstagramIcon from "./icons/InstagramIcon";
 import GitHubIcon from "./icons/GitHubIcon";
 import SpotifyIcon from "./icons/SpotifyIcon";
 
-// social media links
+// Social links
 const socialLinks = [
   {
     name: "LinkedIn",
@@ -25,7 +25,7 @@ const socialLinks = [
   },
 ];
 
-// site footer component
+// Footer
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 

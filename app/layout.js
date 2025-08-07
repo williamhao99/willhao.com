@@ -81,8 +81,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  // Default site theme: dark (SSR)
   return (
-    <html lang="en" className={`${noto_sans.variable} ${noto_serif.variable}`}>
+    <html lang="en" data-theme="dark" className={`${noto_sans.variable} ${noto_serif.variable}`}>
       <head>
         <GoogleAnalytics />
         <StructuredData />

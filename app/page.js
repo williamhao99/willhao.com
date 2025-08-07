@@ -1,9 +1,9 @@
-// Homepage - hero section & widgets
+// Home: hero and widgets
 
 import { PageLayout } from "@/components";
 import { SpotifyWidget, ChessWidget, ClashWidget } from "@/components/widgets";
 
-// home page
+// Page
 export default function Home() {
   return (
     <PageLayout>
@@ -14,8 +14,8 @@ export default function Home() {
             I'm Will Hao — welcome to my website!
           </h1>
           <p className="body-1 hero-desc">
-            I am a rising sophomore at UT Austin, and this website serves as my
-            personal portfolio that contains my work, blog, projects, and more.
+            I am a rising sophomore at UT Austin. This site is my personal
+            portfolio with my work, blog, projects, and more.
           </p>
           <div className="hero-widgets">
             <SpotifyWidget />

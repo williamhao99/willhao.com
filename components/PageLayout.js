@@ -2,14 +2,14 @@
 import { NavigationBar, Footer } from "@/components";
 import PdfViewer from "@/components/PdfViewer";
 
-// main layout wrapper
+// Page shell
 export default function PageLayout({ children, includePdfViewer = false }) {
   return (
     <div className="site">
       <NavigationBar />
       <main className="site-content">{children}</main>
       <Footer />
-      {/* pdf viewer for works pages */}
+      {/* Show PDF viewer on works pages */}
       {includePdfViewer && <PdfViewer />}
     </div>
   );
