@@ -1,9 +1,3 @@
-/**
- * CONTENT PAGE: Personal Health and Fitness
- *
- * Route: /blog/personal-health-and-fitness
- */
-
 import { PageHeader, PageLayout, SectionWrapper } from "@/components";
 
 export const metadata = {

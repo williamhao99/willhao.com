@@ -1,9 +1,3 @@
-/**
- * CONTENT PAGE: Freshman Year of College
- *
- * Route: /blog/freshman-year
- */
-
 import { PageHeader, PageLayout, SectionWrapper } from "@/components";
 import Image from "next/image";
 import kiteImg from "../../../public/images/kites_freshman-year.jpg";

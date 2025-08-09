@@ -1,9 +1,3 @@
-/**
- * CONTENT PAGE: Project Placeholder 2
- *
- * Route: /works/project2-placeholder-link
- */
-
 import { PageHeader, PageLayout, SectionWrapper } from "@/components";
 
 export const metadata = {
