@@ -1,8 +1,4 @@
-import {
-  PageHeader,
-  PageLayout,
-  SectionWrapper,
-} from "@/components";
+import { PageHeader, PageLayout, SectionWrapper } from "@/components";
 
 export const metadata = {
   title: "Now",
@@ -13,43 +9,41 @@ export const metadata = {
   },
 };
 
-// current status page
+const nowItems = {
+  "Summer Plans": [
+    "Continue developing this website",
+    "Online CS courses/material - CS50, Fullstack Web Dev, etc.",
+    "Recruiting preparation so I can get an internship in Summer 2026",
+  ],
+  "Side Goals": [
+    "Code a working chess bot, not using stockfish or any other engine",
+    "Read the books on my book list",
+  ],
+  "Physical Health": ["Be active all 7 days of the week", "Gym 4x + cardio 3x"],
+};
+
 export default function Now() {
   return (
     <PageLayout>
       <PageHeader
         title="Now"
         description="An updated page of what I'm currently working on."
-        isHero={true}
+        isHero
       />
 
-      <SectionWrapper>
-        <div className="page-content">
-          <h2 className="h2">Summer Plans</h2>
-          <p className="body-1">• Continue developing this website</p>
-          <p className="body-1">
-            • Online CS courses/material - CS50, Fullstack Web Dev, etc.
-          </p>
-          <p className="body-1">
-            • Recruiting preparation so I can get an internship in Summer 2026
-          </p>
-
-          <br />
-
-          <h2 className="h2">Side Goals</h2>
-          <p className="body-1">
-            • Code a working chess bot, not using stockfish or any other engine
-          </p>
-          <p className="body-1">• Read the books on my book list</p>
-
-          <br />
-
-          <h2 className="h2">Physical Health</h2>
-          <p className="body-1">• Be active all 7 days of the week</p>
-          <p className="body-1">• Gym 4x + cardio 3x</p>
-
-          <br />
-        </div>
+      <SectionWrapper className="page-content">
+        {Object.entries(nowItems).map(([section, items]) => (
+          <section key={section} className="now-section">
+            <h2 className="h2">{section}</h2>
+            <ul className="now-list">
+              {items.map((item, i) => (
+                <li key={i} className="body-1">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </SectionWrapper>
     </PageLayout>
   );

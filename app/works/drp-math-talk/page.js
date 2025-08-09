@@ -4,11 +4,7 @@
  * Route: /works/drp-math-talk
  */
 
-import {
-  PageHeader,
-  PageLayout,
-  SectionWrapper,
-} from "@/components";
+import { PageHeader, PageLayout, SectionWrapper } from "@/components";
 
 export const metadata = {
   title: "UT Math Directed Reading Program Presentation",

@@ -139,7 +139,7 @@ h6 {
 
 /* Paragraph spacing */
 .page-content p {
-  margin: 0 0 1.5rem;
+  margin: 0 0 2.5rem;
 }
 
 .page-content p:last-child {
@@ -331,7 +331,6 @@ button {
   z-index: 1001;
   grid-column: 2;
 }
-
 
 /* Navigation */
 .nav-link {
@@ -841,7 +840,6 @@ button {
   transition: all 0.2s var(--animation-base);
 }
 
-
 /* Social link theming */
 /* Hover */
 .social-link:hover svg {
@@ -1077,11 +1075,6 @@ button {
     font-size: 1.6rem;
     line-height: 2.8rem;
   }
-
-  /* works header align */
-  .feed-header {
-    padding: 0;
-  }
 }
 
 @media (min-width: 768px) {
@@ -1163,7 +1156,9 @@ button {
   font: inherit;
   font-weight: var(--font-weight-bold);
   text-align: center;
-  transition: border-color 0.1s ease, transform 0.1s ease;
+  transition:
+    border-color 0.1s ease,
+    transform 0.1s ease;
   cursor: pointer;
   background: var(--background-color);
   user-select: none;
@@ -1180,7 +1175,10 @@ button {
 }
 
 /* Consistent focus styling without blue underline */
-.pdf-picker-btn:focus { outline: none; text-decoration: none; }
+.pdf-picker-btn:focus {
+  outline: none;
+  text-decoration: none;
+}
 .pdf-picker-btn:focus-visible {
   outline: 2px solid var(--brand-color);
   outline-offset: 2px;
@@ -1207,4 +1205,44 @@ button {
   display: grid;
   gap: 0.25rem;
   margin: 1rem 0;
+}
+
+/* Content lists */
+.content-list {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin: 0 0 2rem 0;
+}
+
+.content-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.content-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Now page styles */
+.now-section {
+  margin-bottom: 3rem;
+}
+
+.now-section:last-child {
+  margin-bottom: 0;
+}
+
+.now-list {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin: var(--spacing-md) 0;
+}
+
+.now-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.now-list li:last-child {
+  margin-bottom: 0;
 }

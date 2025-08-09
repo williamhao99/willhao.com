@@ -1,9 +1,5 @@
 import Link from "next/link";
-import {
-  PageHeader,
-  PageLayout,
-  SectionWrapper,
-} from "@/components";
+import { PageHeader, PageLayout, SectionWrapper } from "@/components";
 
 export const metadata = {
   title: "Page Not Found",

@@ -5,37 +5,48 @@ import { CHESS_USERNAME } from "@/lib/config";
 import styles from "./ChessWidget.module.css";
 import ChessIcon from "@/components/icons/ChessIcon";
 
-// chess rating widget
+// Constants
+const USCF_RATING = 1815;
+const RATING_PLACEHOLDER = "—";
+const RATING_TYPES = [
+  ["rapid", "blitz"],
+  ["bullet", "uscf"],
+];
+
+// Format chess rating for display
+const formatRating = (rating) =>
+  rating ? Math.round(rating) : RATING_PLACEHOLDER;
+
 export default function ChessWidget() {
   const { data, loading, error } = useApiData("/api/chess", {
-    refetchInterval: 5 * 60 * 1000,
+    refetchInterval: 300000, // 5 minutes
   });
 
-  const uscfRating = 1815; // static USCF rating
-  const formatRating = (rating) => (rating ? Math.round(rating) : "—");
+  const hasNoRatings =
+    data && !data.rapid?.rating && !data.blitz?.rating && !data.bullet?.rating;
 
-
-  // render rating with loading/error states
+  // Render rating values with loading/error states
   const renderRatingValue = (type) => {
-    if (loading && !data)
+    if (loading && !data) {
       return (
         <span className={`${styles.ratingValue} ${styles.loadingDots}`}>
           ...
         </span>
       );
-    // error or null ratings
-    if (
-      error ||
-      (data &&
-        !data.rapid?.rating &&
-        !data.blitz?.rating &&
-        !data.bullet?.rating)
-    )
+    }
+
+    if (error || hasNoRatings) {
       return (
-        <span className={`${styles.ratingValue} ${styles.errorText}`}>—</span>
+        <span className={`${styles.ratingValue} ${styles.errorText}`}>
+          {RATING_PLACEHOLDER}
+        </span>
       );
-    if (type === "uscf")
-      return <span className={styles.ratingValue}>{uscfRating}</span>;
+    }
+
+    if (type === "uscf") {
+      return <span className={styles.ratingValue}>{USCF_RATING}</span>;
+    }
+
     return (
       <span className={styles.ratingValue}>
         {formatRating(data?.[type]?.rating)}
@@ -43,10 +54,16 @@ export default function ChessWidget() {
     );
   };
 
+  const widgetClass = [
+    styles.chessWidget,
+    loading && styles.loading,
+    error && styles.error,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div
-      className={`${styles.chessWidget} ${loading ? styles.loading : ""} ${error ? styles.error : ""}`}
-    >
+    <div className={widgetClass}>
       <a
         href={`https://chess.com/member/${CHESS_USERNAME}`}
         target="_blank"
@@ -69,26 +86,18 @@ export default function ChessWidget() {
             </div>
           </div>
           <div className={styles.ratings}>
-            <div className={styles.ratingRow}>
-              <div className={styles.ratingItem}>
-                <span className={styles.ratingLabel}>Rapid</span>
-                {renderRatingValue("rapid")}
+            {RATING_TYPES.map((row, rowIndex) => (
+              <div key={rowIndex} className={styles.ratingRow}>
+                {row.map((type) => (
+                  <div key={type} className={styles.ratingItem}>
+                    <span className={styles.ratingLabel}>
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </span>
+                    {renderRatingValue(type)}
+                  </div>
+                ))}
               </div>
-              <div className={styles.ratingItem}>
-                <span className={styles.ratingLabel}>Blitz</span>
-                {renderRatingValue("blitz")}
-              </div>
-            </div>
-            <div className={styles.ratingRow}>
-              <div className={styles.ratingItem}>
-                <span className={styles.ratingLabel}>Bullet</span>
-                {renderRatingValue("bullet")}
-              </div>
-              <div className={styles.ratingItem}>
-                <span className={styles.ratingLabel}>USCF</span>
-                {renderRatingValue("uscf")}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </a>

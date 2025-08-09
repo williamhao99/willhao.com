@@ -1,71 +1,46 @@
 "use client";
 
-// components/NavigationBar.js
 import Link from "next/link";
 import Image from "next/image";
 import bannerImg from "../public/favicons/william-hao-banner.png";
+import profileImg from "../public/images/profile-photo.jpg";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-// Theme toggle icon
-function ThemeToggleIcon() {
-  return (
-    <div className="theme-toggle-icon">
-      <div className="moon-or-sun">
-        <div className="moon-mask"></div>
-      </div>
-    </div>
-  );
-}
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/works", label: "Works" },
+  { href: "/blog", label: "Blog" },
+  { href: "/now", label: "Now" },
+];
 
-// Navigation bar
 export default function NavigationBar() {
   const [theme, setTheme] = useState("dark");
   const [isMounted, setIsMounted] = useState(false);
   const [profileImageError, setProfileImageError] = useState(false);
   const pathname = usePathname();
 
-  // Theme: default dark, prefer saved
+  // Initialize theme from localStorage on client mount
   useEffect(() => {
-    let initialTheme = "dark";
-    try {
-      const saved = localStorage.getItem("theme");
-      if (saved === "light" || saved === "dark") initialTheme = saved;
-    } catch {}
+    const savedTheme = localStorage.getItem?.("theme");
+    const initialTheme = savedTheme === "light" ? "light" : "dark";
     setTheme(initialTheme);
     document.documentElement.setAttribute("data-theme", initialTheme);
     setIsMounted(true);
   }, []);
 
-  // Toggle theme
   const toggleTheme = () => {
-    if (!isMounted || theme === null) return;
+    if (!isMounted) return;
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
-
-    // safe localStorage save
-    try {
-      localStorage.setItem("theme", newTheme);
-    } catch (error) {
-      console.warn("Failed to save theme:", error);
-    }
+    localStorage.setItem?.("theme", newTheme);
   };
 
-  // Active link helper
-  const isActiveLink = (href) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  };
-
-  // Links
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/works", label: "Works" },
-    { href: "/blog", label: "Blog" },
-    { href: "/now", label: "Now" },
-  ];
+  // Check if navigation link matches current page
+  const isActiveLink = (href) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header className="site-header">
@@ -87,48 +62,54 @@ export default function NavigationBar() {
         </div>
 
         <nav className="header-menu">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={isActiveLink(href) ? "nav-link active" : "nav-link"}
-              aria-current={isActiveLink(href) ? "page" : undefined}
-            >
-              {label}
-            </Link>
-          ))}
+          {navLinks.map(({ href, label }) => {
+            const isActive = isActiveLink(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`nav-link${isActive ? " active" : ""}`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {label}
+              </Link>
+            );
+          })}
           <button
             className="theme-toggle icon-btn"
             aria-label="Toggle theme"
             onClick={toggleTheme}
           >
-            <ThemeToggleIcon />
+            <div className="theme-toggle-icon">
+              <div className="moon-or-sun">
+                <div className="moon-mask" />
+              </div>
+            </div>
           </button>
         </nav>
 
-        {/* Wave separator positioned right below nav.header-menu */}
         <div className="head-separator">
-          <div className="wave-separator"></div>
+          <div className="wave-separator" />
         </div>
 
-        {/* Profile Photo - Independent Element */}
-          <div className="header-profile">
-            <div className="profile-photo">
-              {!profileImageError ? (
-                <Image
-                  src="/images/profile-photo.jpg"
-                  alt="Will Hao"
-                  fill
-                  sizes="(max-width: 767px) 6.5rem, 12rem"
-                  className="profile-image"
-                  onError={() => setProfileImageError(true)}
-                  priority
-                />
-              ) : (
-                <div className="profile-ph">WH</div>
-              )}
-            </div>
+        <div className="header-profile">
+          <div className="profile-photo">
+            {!profileImageError ? (
+              <Image
+                src={profileImg}
+                alt="Will Hao"
+                fill
+                sizes="(max-width: 767px) 6.5rem, 12rem"
+                className="profile-image"
+                onError={() => setProfileImageError(true)}
+                placeholder="blur"
+                priority
+              />
+            ) : (
+              <div className="profile-ph">WH</div>
+            )}
           </div>
+        </div>
       </div>
     </header>
   );

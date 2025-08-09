@@ -36,3 +36,6 @@ Thumbs.db
 # Package manager lock files (keep only one)
 # yarn.lock
 # pnpm-lock.yaml
+
+# Claude Code agents
+.claude/

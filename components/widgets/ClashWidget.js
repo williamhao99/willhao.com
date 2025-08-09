@@ -4,93 +4,86 @@ import { useApiData } from "@/lib/hooks/useApiData";
 import styles from "./ClashWidget.module.css";
 import ClashIcon from "@/components/icons/ClashIcon";
 
-// clash of clans stats widget
+// Format trophy count for display
+const formatTrophies = (trophies) => (trophies ? String(trophies) : "0");
+
 export default function ClashWidget() {
   const { data, loading, error } = useApiData("/api/clash", {
-    refetchInterval: 30 * 1000,
+    refetchInterval: 30000,
   });
 
-  // format trophy count
-  const formatTrophies = (trophies) => (trophies ? String(trophies) : "0");
+  const hasError = error || !data?.townHallLevel;
+  const isLoading = loading && !data;
 
+  const username = isLoading
+    ? "..."
+    : hasError
+      ? "API Error"
+      : data?.name || "Player";
 
-  // get username with error handling
-  const getUsername = () => {
-    if (loading && !data) return "...";
-    // error or no data
-    if (error || !data?.townHallLevel) return "API Error";
-    return data?.name || "Player";
-  };
+  const townHallLevel = isLoading ? (
+    <span className={`${styles.thLevel} ${styles.loadingDots}`}>TH?</span>
+  ) : hasError ? (
+    <span className={`${styles.thLevel} ${styles.errorText}`}>TH?</span>
+  ) : (
+    <span className={styles.thLevel}>TH{data?.townHallLevel || "?"}</span>
+  );
 
-  // get town hall level display
-  const getTownHallLevel = () => {
-    if (loading && !data)
-      return (
-        <span className={`${styles.thLevel} ${styles.loadingDots}`}>TH?</span>
-      );
-    if (error || !data?.townHallLevel)
-      return (
-        <span className={`${styles.thLevel} ${styles.errorText}`}>TH?</span>
-      );
-    return (
-      <span className={styles.thLevel}>TH{data?.townHallLevel || "?"}</span>
-    );
-  };
-
-  // get trophy value for current/best
+  // Render trophy values with loading/error states
   const getTrophyValue = (type) => {
     const value = type === "current" ? data?.trophies : data?.bestTrophies;
-    if (loading && !data)
-      return <span className={styles.loadingDots}>...</span>;
-    if (error || !data?.townHallLevel)
-      return <span className={styles.errorText}>—</span>;
+    if (isLoading) return <span className={styles.loadingDots}>...</span>;
+    if (hasError) return <span className={styles.errorText}>—</span>;
     return formatTrophies(value);
   };
 
+  const widgetClass = [
+    styles.clashWidget,
+    loading && styles.loading,
+    error && styles.error,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const trophyData = [
+    { label: "CURRENT", type: "current", emoji: "🏆", ariaLabel: "trophy" },
+    { label: "BEST", type: "best", emoji: "⭐", ariaLabel: "star" },
+  ];
+
   return (
-    <div
-      className={`${styles.clashWidget} ${loading ? styles.loading : ""} ${error ? styles.error : ""}`}
-    >
+    <div className={widgetClass}>
       <div className={styles.clashLink}>
         <div className={styles.widgetRow}>
           <div className={styles.leftSection}>
             <div
-              className={loading && !data ? styles.skeleton : ""}
+              className={`${styles.clashIcon} ${isLoading ? styles.skeleton : ""}`}
               aria-hidden="true"
-              style={{ fontSize: "2.8rem" }}
             >
               <ClashIcon size={32} />
             </div>
             <div
-              className={`${styles.username} ${loading && !data ? styles.loadingText : ""}`}
+              className={`${styles.username} ${isLoading ? styles.loadingText : ""}`}
             >
-              {getUsername()}
+              {username}
             </div>
           </div>
           <div className={styles.clashRow}>
             <div className={styles.townhall}>
               <span className={styles.thEmoji}>🏰</span>
-              {getTownHallLevel()}
+              {townHallLevel}
             </div>
             <div className={styles.trophiesCol}>
-              <div className={styles.trophyRow}>
-                <span className={styles.trophyLabel}>CURRENT</span>
-                <span className={styles.trophyValue}>
-                  <span role="img" aria-label="trophy">
-                    🏆
+              {trophyData.map(({ label, type, emoji, ariaLabel }) => (
+                <div key={type} className={styles.trophyRow}>
+                  <span className={styles.trophyLabel}>{label}</span>
+                  <span className={styles.trophyValue}>
+                    <span role="img" aria-label={ariaLabel}>
+                      {emoji}
+                    </span>
+                    {getTrophyValue(type)}
                   </span>
-                  {getTrophyValue("current")}
-                </span>
-              </div>
-              <div className={styles.trophyRow}>
-                <span className={styles.trophyLabel}>BEST</span>
-                <span className={styles.trophyValue}>
-                  <span role="img" aria-label="star">
-                    ⭐
-                  </span>
-                  {getTrophyValue("best")}
-                </span>
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

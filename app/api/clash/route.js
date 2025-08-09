@@ -2,15 +2,13 @@ import { fetchClashPlayer } from "@/lib/widgetApiBackend";
 import { NextResponse } from "next/server";
 import { checkRateLimit } from "@/lib/rateLimiter";
 
-// Clash of Clans
 export async function GET(request) {
-  // Rate limit
   if (!checkRateLimit(request)) {
     return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
   }
+
   try {
     const player = await fetchClashPlayer();
-
     return NextResponse.json(player, {
       status: 200,
       headers: {
@@ -19,7 +17,6 @@ export async function GET(request) {
     });
   } catch (error) {
     console.error(error);
-
     return NextResponse.json(
       { error: "Failed to fetch Clash of Clans player data" },
       {

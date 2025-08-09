@@ -2,15 +2,13 @@ import { fetchChessStats } from "@/lib/widgetApiBackend";
 import { NextResponse } from "next/server";
 import { checkRateLimit } from "@/lib/rateLimiter";
 
-// Chess stats
 export async function GET(request) {
-  // Rate limit
   if (!checkRateLimit(request)) {
     return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
   }
+
   try {
     const stats = await fetchChessStats();
-
     return NextResponse.json(stats, {
       status: 200,
       headers: {
@@ -19,7 +17,6 @@ export async function GET(request) {
     });
   } catch (error) {
     console.error(error);
-
     return NextResponse.json(
       { error: "Failed to fetch chess stats" },
       {

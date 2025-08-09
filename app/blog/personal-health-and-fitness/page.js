@@ -4,11 +4,7 @@
  * Route: /blog/personal-health-and-fitness
  */
 
-import {
-  PageHeader,
-  PageLayout,
-  SectionWrapper,
-} from "@/components";
+import { PageHeader, PageLayout, SectionWrapper } from "@/components";
 
 export const metadata = {
   title: "(WIP) Personal health and fitness",
@@ -24,26 +20,24 @@ export default function PersonalHealthAndFitness() {
         description="Knowledge I've learned about sports, fitness, weightlifting, and more throughout my life. This page will be continually updated."
         isHero={true}
       />
-      <SectionWrapper>
-        <div className="page-content">
-          <h2 className="h2">Why I Started</h2>
+      <SectionWrapper className="page-content">
+        <h2 className="h2">Why I Started</h2>
 
-          <div className="content-separator"></div>
+        <div className="content-separator"></div>
 
-          <h2 className="h2">Current Routine</h2>
+        <h2 className="h2">Current Routine</h2>
 
-          <div className="content-separator"></div>
+        <div className="content-separator"></div>
 
-          <h2 className="h2">Nutrition, Recovery, and Sleep</h2>
+        <h2 className="h2">Nutrition, Recovery, and Sleep</h2>
 
-          <div className="content-separator"></div>
+        <div className="content-separator"></div>
 
-          <h2 className="h2">Mindset</h2>
+        <h2 className="h2">Mindset</h2>
 
-          <div className="content-separator"></div>
+        <div className="content-separator"></div>
 
-          <h2 className="h2">Other information that has helped me</h2>
-        </div>
+        <h2 className="h2">Other information that has helped me</h2>
       </SectionWrapper>
     </PageLayout>
   );

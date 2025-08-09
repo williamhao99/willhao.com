@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 import { fetchSpotifyStats } from "@/lib/widgetApiBackend";
 import { checkRateLimit } from "@/lib/rateLimiter";
 
-// Spotify now playing
 export async function GET(request) {
-  // Rate limit
   if (!checkRateLimit(request)) {
     return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
   }
@@ -14,8 +12,8 @@ export async function GET(request) {
     return NextResponse.json(spotifyData, {
       status: 200,
       headers: {
-        // keep a short cache, data is near-realtime
-        "Cache-Control": "public, s-maxage=5, stale-while-revalidate=15",
+        "Cache-Control":
+          "public, s-maxage=2, stale-while-revalidate=4, stale-if-error=60",
       },
     });
   } catch (error) {

@@ -30,6 +30,11 @@
   width: auto;
 }
 
+/* Icon */
+.clashIcon {
+  font-size: 2.8rem;
+}
+
 /* Town Hall */
 .townhall {
   display: flex;
