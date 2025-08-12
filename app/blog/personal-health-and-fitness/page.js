@@ -1,4 +1,6 @@
-import { PageHeader, PageLayout, SectionWrapper } from "@/components";
+import PageHeader from "@/components/PageHeader";
+import PageLayout from "@/components/PageLayout";
+import SectionWrapper from "@/components/SectionWrapper";
 
 export const metadata = {
   title: "(WIP) Personal health and fitness",
@@ -8,7 +10,7 @@ export const metadata = {
 
 export default function PersonalHealthAndFitness() {
   return (
-    <PageLayout includePdfViewer={true}>
+    <PageLayout>
       <PageHeader
         title="(WIP) Personal health and fitness" // TODO: WRITE THE POST
         description="Knowledge I've learned about sports, fitness, weightlifting, and more throughout my life. This page will be continually updated."

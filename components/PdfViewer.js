@@ -13,42 +13,9 @@ const createPdfViewer = () => {
   return wrap;
 };
 
-// Toggle PDF viewer visibility and update iframe source
-const toggleViewer = (btn, wrap, src) => {
-  const frame = wrap.querySelector("iframe");
-  const isOpen = getComputedStyle(wrap).display !== "none";
-
-  if (isOpen) {
-    wrap.style.display = "none";
-    btn.classList.remove("active");
-  } else {
-    if (frame.src !== src && frame.getAttribute("src") !== src) {
-      frame.src = src;
-    }
-    wrap.style.display = "block";
-    btn.classList.add("active");
-    frame.focus();
-  }
-};
-
 // Global PDF viewer component that handles click/hover events
 export default function PdfViewer() {
   useEffect(() => {
-    const handlePdfToggle = (e) => {
-      const btn = e.target.closest(".pdf-toggle");
-      if (!btn) return;
-
-      const src = `${encodeURI(btn.dataset.pdf)}#toolbar=0`;
-      let wrap = btn.nextElementSibling;
-
-      if (!wrap?.classList.contains("pdf-viewer-wrap")) {
-        wrap = createPdfViewer();
-        btn.after(wrap);
-      }
-
-      toggleViewer(btn, wrap, src);
-    };
-
     const handlePdfPicker = (e) => {
       const btn = e.target.closest(".pdf-picker-btn");
       if (!btn) return;
@@ -105,7 +72,6 @@ export default function PdfViewer() {
     };
 
     const handleClick = (e) => {
-      handlePdfToggle(e);
       handlePdfPicker(e);
     };
 

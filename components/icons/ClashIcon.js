@@ -1,4 +1,4 @@
-const ClashIcon = ({ className = "", size = 32 }) => (
+export const ClashIcon = ({ className = "", size = 32 }) => (
   <svg
     className={className}
     width={size}
@@ -16,5 +16,3 @@ const ClashIcon = ({ className = "", size = 32 }) => (
     />
   </svg>
 );
-
-export default ClashIcon;

@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { PageHeader, PageLayout, SectionWrapper } from "@/components";
+import PageHeader from "@/components/PageHeader";
+import PageLayout from "@/components/PageLayout";
+import SectionWrapper from "@/components/SectionWrapper";
 
 export const metadata = {
   title: "Page Not Found",
@@ -9,7 +11,11 @@ export const metadata = {
 export default function NotFound() {
   return (
     <PageLayout>
-      <PageHeader title="404" description="Page Not Found" isHero={true} />
+      <PageHeader
+        title="404"
+        description="This page could not be found."
+        isHero={false}
+      />
       <SectionWrapper>
         <div className="page-content">
           <p className="text-center">

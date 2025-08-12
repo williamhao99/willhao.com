@@ -5,8 +5,12 @@ export default function SectionWrapper({
   as: Component = "section",
 }) {
   return (
-    <Component className={`section-wrap ${className}`.trim()}>
-      <div className={`container ${containerSize}`}>{children}</div>
+    <Component
+      className={["section-wrap", className].filter(Boolean).join(" ")}
+    >
+      <div className={["container", containerSize].filter(Boolean).join(" ")}>
+        {children}
+      </div>
     </Component>
   );
 }

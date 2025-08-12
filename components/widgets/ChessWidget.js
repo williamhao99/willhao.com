@@ -1,9 +1,9 @@
 "use client";
 
 import { useApiData } from "@/lib/hooks/useApiData";
-import { CHESS_USERNAME } from "@/lib/config";
-import styles from "./ChessWidget.module.css";
-import ChessIcon from "@/components/icons/ChessIcon";
+import { CHESS_USERNAME } from "@/lib/config.public";
+import styles from "@/components/widgets/ChessWidget.module.css";
+import { ChessIcon } from "@/components/icons/ChessIcon";
 
 // Constants
 const USCF_RATING = 1815;
@@ -27,7 +27,16 @@ export default function ChessWidget() {
 
   // Render rating values with loading/error states
   const renderRatingValue = (type) => {
-    if (loading && !data) {
+    const isLoading = loading && !data;
+    const showError = error || hasNoRatings;
+
+    // Special case for USCF rating
+    if (type === "uscf" && !isLoading && !showError) {
+      return <span className={styles.ratingValue}>{USCF_RATING}</span>;
+    }
+
+    // Loading state
+    if (isLoading) {
       return (
         <span className={`${styles.ratingValue} ${styles.loadingDots}`}>
           ...
@@ -35,7 +44,8 @@ export default function ChessWidget() {
       );
     }
 
-    if (error || hasNoRatings) {
+    // Error state
+    if (showError) {
       return (
         <span className={`${styles.ratingValue} ${styles.errorText}`}>
           {RATING_PLACEHOLDER}
@@ -43,10 +53,7 @@ export default function ChessWidget() {
       );
     }
 
-    if (type === "uscf") {
-      return <span className={styles.ratingValue}>{USCF_RATING}</span>;
-    }
-
+    // Normal state - show the rating
     return (
       <span className={styles.ratingValue}>
         {formatRating(data?.[type]?.rating)}
@@ -74,13 +81,20 @@ export default function ChessWidget() {
         <div className={styles.widgetRow}>
           <div className={styles.leftSection}>
             <div
-              className={`${styles.icon} ${loading && !data ? styles.skeleton : ""}`}
+              className={[styles.icon, loading && !data && styles.skeleton]
+                .filter(Boolean)
+                .join(" ")}
               aria-hidden="true"
             >
               <ChessIcon size={24} />
             </div>
             <div
-              className={`${styles.username} ${loading && !data ? styles.loadingText : ""}`}
+              className={[
+                styles.username,
+                loading && !data && styles.loadingText,
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               {CHESS_USERNAME}
             </div>

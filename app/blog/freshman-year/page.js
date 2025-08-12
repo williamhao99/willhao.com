@@ -1,7 +1,7 @@
-import { PageHeader, PageLayout, SectionWrapper } from "@/components";
+import PageHeader from "@/components/PageHeader";
+import PageLayout from "@/components/PageLayout";
+import SectionWrapper from "@/components/SectionWrapper";
 import Image from "next/image";
-import kiteImg from "../../../public/images/kites_freshman-year.jpg";
-import loungeImg from "../../../public/images/b-team-lounge_freshman-year.jpg";
 
 export const metadata = {
   title: "Freshman year of college",
@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function FreshmanYearPage() {
   return (
-    <PageLayout includePdfViewer={true}>
+    <PageLayout>
       <PageHeader
         title="Freshman year of college"
         description="A reflection and recap of my freshman year (Fall 2024 & Spring 2025)."
@@ -21,8 +21,10 @@ export default function FreshmanYearPage() {
         {/* Kite Festival Image */}
         <figure className="content-image">
           <Image
-            src={kiteImg}
+            src="/images/kites_freshman-year.jpg"
             alt="Austin ABC Zilker Kite Festival"
+            width={1600}
+            height={1200}
             sizes="100vw"
             placeholder="empty"
             priority={false}
@@ -84,8 +86,10 @@ export default function FreshmanYearPage() {
         {/* B Team eSports Lounge Image */}
         <figure className="content-image">
           <Image
-            src={loungeImg}
+            src="/images/b-team-lounge_freshman-year.jpg"
             alt="B Team at UT eSports Lounge"
+            width={1600}
+            height={1200}
             sizes="100vw"
             placeholder="empty"
             priority={false}

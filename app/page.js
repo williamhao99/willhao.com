@@ -1,5 +1,18 @@
-import { PageLayout } from "@/components";
-import { SpotifyWidget, ChessWidget, ClashWidget } from "@/components/widgets";
+import PageLayout from "@/components/PageLayout";
+import SpotifyWidget from "@/components/widgets/SpotifyWidget";
+import ChessWidget from "@/components/widgets/ChessWidget";
+import ClashWidget from "@/components/widgets/ClashWidget";
+
+export const metadata = {
+  title: "Home",
+  description:
+    "This site is my portfolio containing my work, blog, projects, and more.",
+  openGraph: {
+    title: "Will Hao - Portfolio",
+    description:
+      "This site is my portfolio containing my work, blog, projects, and more.",
+  },
+};
 
 export default function Home() {
   return (

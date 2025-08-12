@@ -2,18 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import bannerImg from "../public/favicons/william-hao-banner.png";
-import profileImg from "../public/images/profile-photo.jpg";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/works", label: "Works" },
-  { href: "/blog", label: "Blog" },
-  { href: "/now", label: "Now" },
-];
+import { navLinks } from "@/lib/config.public";
 
 export default function NavigationBar() {
   const [theme, setTheme] = useState("dark");
@@ -48,7 +40,7 @@ export default function NavigationBar() {
         <div className="header-brand">
           <Link href="/" className="header-logo">
             <Image
-              src={bannerImg}
+              src="/favicons/william-hao-banner.png"
               alt="William Hao"
               width={200}
               height={50}
@@ -68,7 +60,9 @@ export default function NavigationBar() {
               <Link
                 key={href}
                 href={href}
-                className={`nav-link${isActive ? " active" : ""}`}
+                className={["nav-link", isActive && "active"]
+                  .filter(Boolean)
+                  .join(" ")}
                 aria-current={isActive ? "page" : undefined}
               >
                 {label}
@@ -96,13 +90,12 @@ export default function NavigationBar() {
           <div className="profile-photo">
             {!profileImageError ? (
               <Image
-                src={profileImg}
+                src="/images/profile-photo.jpg"
                 alt="Will Hao"
                 fill
                 sizes="(max-width: 767px) 6.5rem, 12rem"
                 className="profile-image"
                 onError={() => setProfileImageError(true)}
-                placeholder="blur"
                 priority
               />
             ) : (

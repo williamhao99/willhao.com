@@ -1,4 +1,6 @@
-import { PageHeader, PageLayout, SectionWrapper } from "@/components";
+import PageHeader from "@/components/PageHeader";
+import PageLayout from "@/components/PageLayout";
+import SectionWrapper from "@/components/SectionWrapper";
 
 export const metadata = {
   title: "UT Math Directed Reading Program Presentation",
@@ -8,7 +10,7 @@ export const metadata = {
 
 export default function DrpMathTalkPage() {
   return (
-    <PageLayout includePdfViewer={true}>
+    <PageLayout>
       <PageHeader
         title="UT Math Directed Reading Program Presentation"
         description="The math talk and presentation I gave for the UT Math DRP Symposium on April 24, 2025, along with my personal experiences and takeaways."

@@ -1,34 +1,5 @@
 import Link from "next/link";
-import LinkedInIcon from "./icons/LinkedInIcon";
-import InstagramIcon from "./icons/InstagramIcon";
-import GitHubIcon from "./icons/GitHubIcon";
-import SpotifyIcon from "./icons/SpotifyIcon";
-
-const socialLinks = [
-  {
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/william-a-hao/",
-    Icon: LinkedInIcon,
-  },
-  {
-    name: "Instagram",
-    url: "https://www.instagram.com/william.a.hao/",
-    Icon: InstagramIcon,
-  },
-  { name: "GitHub", url: "https://github.com/williamhao99", Icon: GitHubIcon },
-  {
-    name: "Spotify",
-    url: "https://open.spotify.com/user/williamhao99?si=a55b81b68fab41dc",
-    Icon: SpotifyIcon,
-  },
-];
-
-const navLinks = [
-  { href: "/about", label: "About" },
-  { href: "/works", label: "Works" },
-  { href: "/blog", label: "Blog" },
-  { href: "/now", label: "Now" },
-];
+import { socialLinks, footerNavLinks } from "@/lib/config.public";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -42,7 +13,7 @@ export default function Footer() {
           <div className="footer-section">
             <h2 className="footer-title">Explore</h2>
             <nav className="footer-nav">
-              {navLinks.map(({ href, label }) => (
+              {footerNavLinks.map(({ href, label }) => (
                 <Link key={href} href={href} className="footer-link">
                   {label}
                 </Link>

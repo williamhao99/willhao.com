@@ -10,6 +10,7 @@
 
 .leftSection {
   composes: leftSection from "./Widget.module.css";
+  gap: 0.8rem;
 }
 
 .username {

@@ -1,4 +1,4 @@
-const ChessIcon = ({ className = "", size = 24 }) => (
+export const ChessIcon = ({ className = "", size = 24 }) => (
   <svg
     className={className}
     width={size}
@@ -20,5 +20,3 @@ const ChessIcon = ({ className = "", size = 24 }) => (
     />
   </svg>
 );
-
-export default ChessIcon;

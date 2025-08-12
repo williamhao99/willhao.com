@@ -2,8 +2,8 @@
 
 import { useRef, useEffect, useState } from "react";
 import { useApiData } from "@/lib/hooks/useApiData";
-import { SpotifyIcon } from "@/components";
-import styles from "./SpotifyWidget.module.css";
+import { SpotifyIcon } from "@/components/icons/SpotifyIcon";
+import styles from "@/components/widgets/SpotifyWidget.module.css";
 
 // Constants for time calculations
 const TIME_CONSTANTS = {
@@ -47,8 +47,8 @@ export default function SpotifyWidget() {
       };
     }
 
-    // Error or no data state
-    if (error || (data && !data.trackName && !data.isPlaying)) {
+    // Error state
+    if (error) {
       return {
         statusLabel: "",
         trackName: "Unable to fetch Spotify data",
@@ -57,8 +57,18 @@ export default function SpotifyWidget() {
       };
     }
 
-    // Currently playing state
-    if (data?.isPlaying && data?.trackName) {
+    // No data available
+    if (!data?.trackName) {
+      return {
+        statusLabel: "No recent activity",
+        trackName: "Spotify",
+        artistName: "",
+        isPlaying: false,
+      };
+    }
+
+    // Currently playing
+    if (data.isPlaying) {
       return {
         statusLabel: "Currently playing",
         trackName: data.trackName,
@@ -68,26 +78,17 @@ export default function SpotifyWidget() {
       };
     }
 
-    // Last played state
-    if (data?.trackName) {
-      const lastPlayedDate = data.lastPlayed ? new Date(data.lastPlayed) : null;
-      const timeAgo = lastPlayedDate ? getTimeAgo(lastPlayedDate) : null;
+    // Last played track
+    const timeAgo = data.lastPlayed
+      ? getTimeAgo(new Date(data.lastPlayed))
+      : null;
 
-      return {
-        statusLabel: timeAgo ? `Last played ${timeAgo}` : "Last played",
-        trackName: data.trackName,
-        artistName: data.artistName,
-        isPlaying: false,
-        trackUrl: data.trackUrl,
-      };
-    }
-
-    // Default state
     return {
-      statusLabel: "No recent activity",
-      trackName: "Spotify",
-      artistName: "",
+      statusLabel: timeAgo ? `Last played ${timeAgo}` : "Last played",
+      trackName: data.trackName,
+      artistName: data.artistName,
       isPlaying: false,
+      trackUrl: data.trackUrl,
     };
   })();
 
@@ -101,7 +102,6 @@ export default function SpotifyWidget() {
       const isOverflowing = textWidth > containerWidth;
 
       setShouldScroll(isOverflowing);
-      // Set CSS custom property for scroll animation endpoint
       if (isOverflowing) {
         textRef.current.style.setProperty(
           "--scroll-end-x",
@@ -110,12 +110,14 @@ export default function SpotifyWidget() {
       }
     };
 
+    // Check track name overflow
     if (displayInfo.trackName) {
       checkOverflow(trackRef, setShouldTrackScroll);
     } else {
       setShouldTrackScroll(false);
     }
 
+    // Check artist name overflow
     if (displayInfo.artistName) {
       checkOverflow(artistRef, setShouldArtistScroll);
     } else {
@@ -139,7 +141,9 @@ export default function SpotifyWidget() {
       </div>
       <div className={styles.infoCentered} ref={containerRef}>
         <span
-          className={`${styles.lastPlayed} ${loading && !data ? styles.loadingDots : ""}`}
+          className={[styles.lastPlayed, loading && !data && styles.loadingDots]
+            .filter(Boolean)
+            .join(" ")}
         >
           {displayInfo.statusLabel}
         </span>
@@ -158,7 +162,12 @@ export default function SpotifyWidget() {
         {displayInfo.artistName && (
           <span
             ref={artistRef}
-            className={`${styles.artistName} ${shouldArtistScroll ? styles.scrolling : ""}`}
+            className={[
+              styles.artistName,
+              shouldArtistScroll && styles.scrolling,
+            ]
+              .filter(Boolean)
+              .join(" ")}
           >
             {displayInfo.artistName}
           </span>

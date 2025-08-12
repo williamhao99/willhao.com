@@ -1,6 +1,6 @@
-import React from "react";
 import Link from "next/link";
-import { PageHeader, PageLayout } from "@/components";
+import PageHeader from "@/components/PageHeader";
+import PageLayout from "@/components/PageLayout";
 
 export const metadata = {
   title: "Blog",
@@ -71,7 +71,7 @@ export default function Blog() {
       <section className="section-wrap">
         <div className="container medium post-feed">
           {sortedYears.map((year) => (
-            <React.Fragment key={year}>
+            <div key={year}>
               <h2 className="section-title blog-year-label">{year}</h2>
               {postsByYear[year].map((post) => {
                 const date = parseDate(post.published_at);
@@ -96,7 +96,6 @@ export default function Blog() {
                     <div className="dot-spacer" />
                     <div className="feed-right">
                       <svg
-                        className={`icon feed-visibility feed-visibility-${post.visibility || "public"}`}
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true"
@@ -116,7 +115,7 @@ export default function Blog() {
                   </Link>
                 );
               })}
-            </React.Fragment>
+            </div>
           ))}
         </div>
       </section>

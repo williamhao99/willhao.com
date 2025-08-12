@@ -154,6 +154,7 @@ h6 {
 
 .content-image img {
   width: 100%;
+  max-width: 800px;
   height: auto;
   border-radius: 8px;
 }
@@ -163,6 +164,7 @@ h6 {
   padding: 0.5rem;
   font-size: 1.6rem;
   color: var(--secondary-text-color);
+  text-align: center;
 }
 
 /* Separator */
@@ -768,14 +770,6 @@ button {
   font-weight: 700;
   position: absolute;
   right: 0;
-}
-.u-permalink {
-  position: absolute;
-  right: 0;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 1;
 }
 .blog-year-label {
   color: var(--tertiary-text-color);

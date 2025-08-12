@@ -1,4 +1,6 @@
-import { PageHeader, PageLayout, SectionWrapper } from "@/components";
+import PageHeader from "@/components/PageHeader";
+import PageLayout from "@/components/PageLayout";
+import SectionWrapper from "@/components/SectionWrapper";
 import Link from "next/link";
 
 export const metadata = {
@@ -41,19 +43,19 @@ export default function Works() {
           </Link>
           {/**
            * Hidden (WIP): Project Placeholder 2 — keep route live, hide card
-           <article className="card">
+           <Link
+             href="/works/project2-placeholder-link"
+             className="card"
+             aria-label="Project Placeholder 2"
+           >
              <h3 className="h3 card-title">
-               Project Placeholder 2<span className="card-arrow">↗</span>
+               Project Placeholder 2
+               <span className="card-arrow">↗</span>
              </h3>
-             <div className="sub-heading card-excerpt">
+             <p className="sub-heading card-excerpt">
                Placeholder description.
-             </div>
-             <Link
-               href="/works/project2-placeholder-link"
-               className="u-permalink"
-               aria-label="Project Placeholder 2"
-             />
-           </article>
+             </p>
+           </Link>
            */}
         </div>
       </SectionWrapper>

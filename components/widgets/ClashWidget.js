@@ -1,8 +1,8 @@
 "use client";
 
 import { useApiData } from "@/lib/hooks/useApiData";
-import styles from "./ClashWidget.module.css";
-import ClashIcon from "@/components/icons/ClashIcon";
+import styles from "@/components/widgets/ClashWidget.module.css";
+import { ClashIcon } from "@/components/icons/ClashIcon";
 
 // Format trophy count for display
 const formatTrophies = (trophies) => (trophies ? String(trophies) : "0");
@@ -15,25 +15,44 @@ export default function ClashWidget() {
   const hasError = error || !data?.townHallLevel;
   const isLoading = loading && !data;
 
+  // Determine username based on state
   const username = isLoading
     ? "..."
     : hasError
       ? "API Error"
       : data?.name || "Player";
 
-  const townHallLevel = isLoading ? (
-    <span className={`${styles.thLevel} ${styles.loadingDots}`}>TH?</span>
-  ) : hasError ? (
-    <span className={`${styles.thLevel} ${styles.errorText}`}>TH?</span>
-  ) : (
-    <span className={styles.thLevel}>TH{data?.townHallLevel || "?"}</span>
-  );
+  // Render town hall level with appropriate styling
+  const townHallLevel = (() => {
+    if (isLoading) {
+      return (
+        <span className={`${styles.thLevel} ${styles.loadingDots}`}>TH?</span>
+      );
+    }
+
+    if (hasError) {
+      return (
+        <span className={`${styles.thLevel} ${styles.errorText}`}>TH?</span>
+      );
+    }
+
+    return (
+      <span className={styles.thLevel}>TH{data?.townHallLevel || "?"}</span>
+    );
+  })();
 
   // Render trophy values with loading/error states
   const getTrophyValue = (type) => {
     const value = type === "current" ? data?.trophies : data?.bestTrophies;
-    if (isLoading) return <span className={styles.loadingDots}>...</span>;
-    if (hasError) return <span className={styles.errorText}>—</span>;
+
+    if (isLoading) {
+      return <span className={styles.loadingDots}>...</span>;
+    }
+
+    if (hasError) {
+      return <span className={styles.errorText}>—</span>;
+    }
+
     return formatTrophies(value);
   };
 
@@ -56,13 +75,17 @@ export default function ClashWidget() {
         <div className={styles.widgetRow}>
           <div className={styles.leftSection}>
             <div
-              className={`${styles.clashIcon} ${isLoading ? styles.skeleton : ""}`}
+              className={[styles.clashIcon, isLoading && styles.skeleton]
+                .filter(Boolean)
+                .join(" ")}
               aria-hidden="true"
             >
               <ClashIcon size={32} />
             </div>
             <div
-              className={`${styles.username} ${isLoading ? styles.loadingText : ""}`}
+              className={[styles.username, isLoading && styles.loadingText]
+                .filter(Boolean)
+                .join(" ")}
             >
               {username}
             </div>

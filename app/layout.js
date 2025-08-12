@@ -85,7 +85,9 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-theme="dark"
-      className={`${noto_sans.variable} ${noto_serif.variable}`}
+      className={[noto_sans.variable, noto_serif.variable]
+        .filter(Boolean)
+        .join(" ")}
     >
       <head>
         <GoogleAnalytics />
