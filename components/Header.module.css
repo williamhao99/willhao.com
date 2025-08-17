@@ -4,21 +4,22 @@
 
 .content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: var(--space-8);
+  position: relative;
 }
 
 .left {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  flex-shrink: 0;
 }
 
 .logo {
   display: inline-block;
   line-height: 0;
-  transition: filter 200ms ease;
+  transition: filter var(--nav-transition);
 }
 
 .logo:hover {
@@ -27,6 +28,7 @@
 
 .logoImage {
   max-width: 280px;
+  height: auto;
   display: block;
 }
 
@@ -39,10 +41,56 @@
   letter-spacing: -0.01em;
 }
 
+/* Navigation Section */
+.navigation {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  gap: var(--space-10);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  display: inline-block;
+  padding: var(--nav-link-padding-y) var(--nav-link-padding-x);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-sm);
+  transition: var(--nav-transition);
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  color: var(--color-text-primary);
+  background-color: var(--nav-link-hover-bg);
+}
+
+.navLink.active {
+  color: var(--color-text-primary);
+  background-color: var(--nav-link-active-bg);
+}
+
+/* Profile Photo Section */
 .profilePhoto {
+  width: 120px;
+  height: 120px;
   border-radius: var(--radius-full);
   border: 3px solid var(--color-border);
   flex-shrink: 0;
   box-shadow: var(--shadow-lg);
   object-fit: cover;
+  transition: border-color var(--nav-transition);
+}
+
+.profilePhoto:hover {
+  border-color: var(--nav-accent-color);
 }

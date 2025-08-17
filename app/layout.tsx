@@ -27,9 +27,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className={`${notoSans.variable} ${notoSerif.variable}`}>
       <body>
