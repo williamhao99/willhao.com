@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 import { Noto_Sans, Noto_Serif } from "next/font/google";
 
 const notoSans = Noto_Sans({
@@ -16,13 +16,13 @@ const notoSerif = Noto_Serif({
 
 export const metadata: Metadata = {
   title: "William Hao",
-  description: "UT Austin '28, Computer Science + Mathematics",
+  description: "CS and Math '28 @ UT Austin",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#17191e",
+  themeColor: "#0f172a",
 };
 
 export default function RootLayout({

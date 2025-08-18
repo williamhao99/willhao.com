@@ -1,0 +1,160 @@
+/* Disable text selection and dragging for entire header */
+.header,
+.header * {
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+}
+
+/* Component variables */
+.header {
+  /* Layout dimensions */
+  --logo-width: 280px;
+  --logo-height: 70px;
+  --avatar-size: 140px;
+
+  /* Navigation pill styling */
+  --nav-container-bg: rgb(0 0 0 / 0.15);
+  --nav-container-border: rgb(255 255 255 / 0.25);
+  --nav-blur: 8px;
+  --nav-link-padding-x: var(--text-base);
+  --nav-link-padding-y: calc(var(--text-base) * 0.5);
+
+  /* Color palette */
+  --color-nav-blue: #0055aa;
+  --color-nav-blue-bright: #2d7bd6;
+  --pfp-accent-color: rgb(45 123 214 / 0.4);
+
+  /* Component-specific brightness */
+  --banner-brightness-default: 1.1;
+  --banner-brightness-hover: 1.4;
+
+  padding: var(--space-2-5rem) 0 var(--space-2rem);
+}
+
+/* Main layout: left | center | right */
+.content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2rem);
+  position: relative;
+}
+
+/* Left section */
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1rem);
+  flex-shrink: 0;
+}
+
+/* Logo link */
+.logo {
+  display: inline-block;
+  line-height: 0;
+  cursor: pointer;
+  transition: filter var(--transition-normal);
+}
+
+.logo:hover .logoImage {
+  filter: brightness(var(--banner-brightness-hover));
+}
+
+.logoImage {
+  max-width: var(--logo-width);
+  height: auto;
+  display: block;
+  filter: brightness(var(--banner-brightness-default));
+  transition: filter var(--transition-normal);
+}
+
+/* Tagline text */
+.tagline {
+  color: var(--color-text-secondary); /* 0.8 opacity */
+  font-family: var(--font-serif), var(--font-serif-fallback);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--line-height-normal);
+}
+
+/* Center section */
+
+.navigation {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Pill container */
+.navList {
+  display: flex;
+  gap: var(--space-2-5rem);
+  list-style: none;
+  padding: var(--space-1rem) var(--space-2rem);
+  background: var(--nav-container-bg);
+  border: var(--border-width-medium) solid var(--nav-container-border);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(var(--nav-blur));
+}
+
+/* Navigation link base styles */
+.navLink {
+  display: inline-block;
+  padding: var(--nav-link-padding-y) var(--nav-link-padding-x);
+  margin-bottom: var(--space-2px); /* Add space for underline */
+  color: var(--color-text-secondary); /* Default: 0.8 opacity */
+  text-decoration: none;
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  position: relative;
+  transition: color var(--transition-slow);
+}
+
+/* Underline pseudo-element (always exists, hidden by default) */
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: var(--space-4px);
+  left: var(--nav-link-padding-x);
+  right: var(--nav-link-padding-x);
+  height: var(--space-2px);
+  background: var(--color-nav-blue-bright);
+  transform: scaleX(0); /* Hidden */
+  transition: transform var(--transition-slow);
+}
+
+/* Hover state: show blue underline (color stays same) */
+
+.navLink:hover::after {
+  transform: scaleX(1); /* Show blue underline */
+}
+
+/* Active state: text and underline both turn blue */
+.navLink.active {
+  color: var(--color-nav-blue-bright); /* Bright blue text */
+}
+
+.navLink.active::after {
+  transform: scaleX(1); /* Show blue underline */
+}
+
+/* Right section */
+
+.profilePhoto {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: var(--radius-full);
+  border: var(--space-3px) solid var(--color-border);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-lg);
+  object-fit: cover;
+  transition: border-color var(--transition-normal);
+}
+
+.profilePhoto:hover {
+  border-color: var(--pfp-accent-color);
+}
