@@ -15,6 +15,7 @@ const NAV = [
 export default function Header() {
   const pathname = usePathname() || "/";
 
+  // Match both exact route and nested subroutes (e.g., /blog and /blog/post-1)
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + "/");
 
@@ -27,8 +28,7 @@ export default function Header() {
               <Image
                 src="/images/william-hao-banner.png"
                 alt="William Hao"
-                width={280} // Match with --logo-width
-                height={70} // Match with --logo-height
+                fill
                 priority
                 className={styles.logoImage}
               />
@@ -52,14 +52,15 @@ export default function Header() {
             </ul>
           </nav>
 
-          <Image
-            src="/images/profile-photo.jpg"
-            alt="William Hao"
-            width={140} // Match with --avatar-size
-            height={140}
-            priority
-            className={styles.profilePhoto}
-          />
+          <div className={styles.profilePhotoContainer}>
+            <Image
+              src="/images/profile-photo.jpg"
+              alt="William Hao"
+              fill
+              priority
+              className={styles.profilePhoto}
+            />
+          </div>
         </div>
       </div>
     </header>

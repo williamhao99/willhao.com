@@ -1,14 +1,23 @@
-/* Design Tokens */
 :root {
-  /* Dark theme (default) */
   --color-background: #0f172a;
-  --color-text-primary: rgb(250 250 250 / 0.95);
-  --color-text-secondary: rgb(250 250 250 / 0.8);
-  --color-border: rgb(255 255 255 / 0.25);
+  --color-text-primary: rgb(250 250 250 / var(--opacity-high));
+  --color-text-secondary: rgb(250 250 250 / var(--opacity-medium));
+  --color-border: rgb(255 255 255 / var(--opacity-low));
 
-  /* Typography */
-  /* Primary fonts are CSS variables in layout.tsx: --font-sans and --font-serif */
-  /* These are fallbacks */
+  /* Opacity values */
+  --opacity-low: 0.25;
+  --opacity-medium: 0.8;
+  --opacity-high: 0.95;
+  --opacity-shadow: 0.1;
+  --opacity-subtle: 0.15;
+  --opacity-accent: 0.4;
+
+  /* Brand colors */
+  --color-brand-blue: #0055aa;
+  --color-brand-blue-bright: #2d7bd6;
+  --color-brand-accent: rgb(45 123 214 / var(--opacity-accent));
+
+  /* Typography - Primary fonts defined in layout.tsx */
   --font-sans-fallback:
     system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-serif-fallback: Georgia, Cambria, "Times New Roman", Times, serif;
@@ -24,21 +33,27 @@
   --line-height-relaxed: 1.6;
 
   /* Spacing */
+  --space-0-5rem: 0.5rem;
   --space-1rem: 1rem;
   --space-1-5rem: 1.5rem;
   --space-2rem: 2rem;
   --space-2-5rem: 2.5rem;
+  --space-3rem: 3rem;
 
   /* Pixel spacing for small values */
   --space-2px: 2px;
   --space-3px: 3px;
   --space-4px: 4px;
+  --space-5px: 5px;
+  --space-6px: 6px;
+  --space-7px: 7px;
+  --space-8px: 8px;
 
   /* Layout */
   --container-max: 128rem; /* 1280px */
 
   /* Border radius */
-  --radius-sm: 6px;
+  --radius-sm: var(--space-6px);
   --radius-full: 9999px;
 
   /* Border widths */
@@ -46,7 +61,10 @@
   --border-width-medium: 2px;
 
   /* Shadows */
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / var(--opacity-shadow));
+
+  /* Effects */
+  --blur-sm: var(--space-8px);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -67,7 +85,7 @@
 }
 
 html {
-  font-size: 62.5%; /* 10px base for easier rem calculations */
+  font-size: 62.5%; /* 1rem = 10px */
 }
 
 body {
