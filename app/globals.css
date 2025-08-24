@@ -117,19 +117,19 @@ body {
   font-size: calc(var(--text-base) * 2.5);
   line-height: var(--line-height-tight);
   font-weight: var(--font-medium);
-  margin-bottom: var(--space-1-5rem);
+  margin-bottom: var(--space-2-5rem);
 }
 
 .main-content h2 {
-  font-size: calc(var(--text-base) * 1.75);
+  font-size: calc(var(--text-base) * 1.5);
   line-height: var(--line-height-tight);
   font-weight: var(--font-medium);
-  margin-bottom: var(--space-1rem);
+  margin-bottom: var(--space-2-5rem);
 }
 
 .main-content p {
   line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-1rem);
+  margin-bottom: var(--space-1-5rem);
 }
 
 .main-content p:last-child {

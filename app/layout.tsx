@@ -34,7 +34,9 @@ export default function RootLayout({
     <html lang="en" className={`${notoSans.variable} ${notoSerif.variable}`}>
       <body>
         <Header />
-        <main>{children}</main>
+        <main className="main-content">
+          <div className="container">{children}</div>
+        </main>
       </body>
     </html>
   );
