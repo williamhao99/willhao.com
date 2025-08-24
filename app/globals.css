@@ -17,7 +17,7 @@
   --color-brand-blue-bright: #2d7bd6;
   --color-brand-accent: rgb(45 123 214 / var(--opacity-accent));
 
-  /* Typography - Primary fonts defined in layout.tsx */
+  /* Font fallbacks */
   --font-sans-fallback:
     system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-serif-fallback: Georgia, Cambria, "Times New Roman", Times, serif;
@@ -40,7 +40,6 @@
   --space-2-5rem: 2.5rem;
   --space-3rem: 3rem;
 
-  /* Pixel spacing for small values */
   --space-2px: 2px;
   --space-3px: 3px;
   --space-4px: 4px;
@@ -56,7 +55,7 @@
   --radius-sm: var(--space-6px);
   --radius-full: 9999px;
 
-  /* Border widths */
+  /* Borders */
   --border-width-thin: 1px;
   --border-width-medium: 2px;
 
@@ -70,6 +69,14 @@
   --transition-fast: 150ms ease;
   --transition-normal: 200ms ease;
   --transition-slow: 300ms ease;
+
+  /* Calculation multipliers */
+  --multiplier-padding-compact: 0.3;
+  --multiplier-text-small: 0.875;
+
+  /* Brightness adjustments */
+  --brightness-subtle: 1.1;
+  --brightness-hover: 1.4;
 }
 
 /* Reset */
@@ -93,9 +100,58 @@ body {
   background-color: var(--color-background);
   font-family: var(--font-sans), var(--font-sans-fallback);
   font-size: var(--text-base);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Utilities */
+/* Main content area */
+.main-content {
+  flex: 1;
+  padding: var(--space-2rem) 0;
+}
+
+/* Typography for main content only */
+.main-content h1 {
+  font-family: var(--font-serif), var(--font-serif-fallback);
+  font-size: calc(var(--text-base) * 2.5);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-1-5rem);
+}
+
+.main-content h2 {
+  font-size: calc(var(--text-base) * 1.75);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-1rem);
+}
+
+.main-content p {
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-1rem);
+}
+
+.main-content p:last-child {
+  margin-bottom: 0;
+}
+
+.main-content ul,
+.main-content ol {
+  margin-bottom: var(--space-1rem);
+  padding-left: var(--space-2rem);
+}
+
+.main-content li {
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-0-5rem);
+}
+
+.main-content li:last-child {
+  margin-bottom: 0;
+}
+
+/* Content containers */
 .container {
   max-width: var(--container-max);
   margin: 0 auto;

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import styles from "./Header.module.css";
+import { clsx } from "@/lib/utils";
 
 const NAV = [
   { href: "/about", label: "About" },
@@ -42,7 +43,10 @@ export default function Header() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`${styles.navLink} ${isActive(href) ? styles.active : ""}`}
+                    className={clsx(
+                      styles.navLink,
+                      isActive(href) && styles.active,
+                    )}
                     aria-current={isActive(href) ? "page" : undefined}
                   >
                     {label}

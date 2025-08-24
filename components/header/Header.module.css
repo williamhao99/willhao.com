@@ -10,26 +10,25 @@
 
 /* Component variables */
 .header {
-  /* Layout dimensions */
-  --logo-width: 280px;
-  --logo-height: 70px;
-  --avatar-size: 140px;
+  --logo-width: 28rem;
+  --logo-height: 7rem;
+  --avatar-size: 14rem;
 
-  /* Navigation pill styling */
+  /* Navigation pill styles */
   --nav-container-bg: rgb(0 0 0 / var(--opacity-subtle));
   --nav-container-border: var(--color-border);
   --nav-blur: var(--blur-sm);
   --nav-link-padding-x: var(--text-base);
-  --nav-link-padding-y: calc(var(--text-base) * 0.3);
+  --nav-link-padding-y: calc(
+    var(--text-base) * var(--multiplier-padding-compact)
+  );
 
-  /* Component-specific colors using global brand */
   --nav-link-active-color: var(--color-brand-blue-bright);
   --nav-underline-color: var(--color-brand-blue-bright);
   --pfp-accent-color: var(--color-brand-accent);
 
-  /* Component-specific brightness */
-  --banner-brightness-default: 1.1;
-  --banner-brightness-hover: 1.4;
+  --banner-brightness-default: var(--brightness-subtle);
+  --banner-brightness-hover: var(--brightness-hover);
 
   padding: var(--space-1rem) 0 var(--space-2rem);
 }
@@ -43,7 +42,6 @@
 }
 
 /* Left section */
-
 .left {
   display: flex;
   flex-direction: column;
@@ -51,7 +49,6 @@
   flex-shrink: 0;
 }
 
-/* Logo link */
 .logo {
   position: relative;
   display: inline-block;
@@ -69,7 +66,6 @@
   transition: filter var(--transition-normal);
 }
 
-/* Tagline text */
 .tagline {
   color: var(--color-text-secondary);
   font-family: var(--font-serif), var(--font-serif-fallback);
@@ -79,7 +75,6 @@
 }
 
 /* Center section */
-
 .navigation {
   flex: 1;
   display: flex;
@@ -87,7 +82,7 @@
   align-items: center;
 }
 
-/* Pill container */
+/* Navigation pill container */
 .navList {
   display: flex;
   gap: var(--space-2-5rem);
@@ -99,11 +94,10 @@
   backdrop-filter: blur(var(--nav-blur));
 }
 
-/* Navigation link base styles */
 .navLink {
   display: inline-block;
   padding: var(--nav-link-padding-y) var(--nav-link-padding-x);
-  margin-bottom: var(--space-2px); /* Space for underline to not clip */
+  margin-bottom: var(--space-2px); /* Prevents underline clipping */
   color: var(--color-text-secondary);
   text-decoration: none;
   font-size: var(--text-lg);
@@ -114,7 +108,7 @@
   transition: color var(--transition-slow);
 }
 
-/* Underline pseudo-element (always exists, hidden by default) */
+/* Underline pseudo-element */
 .navLink::after {
   content: "";
   position: absolute;
@@ -123,17 +117,14 @@
   right: var(--nav-link-padding-x);
   height: var(--space-2px);
   background: var(--nav-underline-color);
-  transform: scaleX(0); /* Hidden */
+  transform: scaleX(0);
   transition: transform var(--transition-slow);
 }
 
-/* Hover state: show blue underline (color stays same) */
-
 .navLink:hover::after {
-  transform: scaleX(1); /* Show blue underline */
+  transform: scaleX(1);
 }
 
-/* Active state: text and underline both turn blue */
 .navLink.active {
   color: var(--nav-link-active-color);
 }
@@ -143,7 +134,6 @@
 }
 
 /* Right section */
-
 .profilePhotoContainer {
   position: relative;
   width: var(--avatar-size);
