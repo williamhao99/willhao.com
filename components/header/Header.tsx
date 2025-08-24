@@ -34,7 +34,7 @@ export default function Header() {
                 className={styles.logoImage}
               />
             </Link>
-            <p className={styles.tagline}>CS and Math &apos;28 @ UT Austin</p>
+            <p className={styles.tagline}>CS and Math '28 @ UT Austin</p>
           </div>
 
           <nav className={styles.navigation} aria-label="Main navigation">
