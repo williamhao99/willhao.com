@@ -144,7 +144,6 @@
 .profilePhoto {
   border-radius: var(--radius-full);
   border: var(--space-3px) solid var(--color-border);
-  box-shadow: var(--shadow-lg);
   object-fit: cover;
   transition: border-color var(--transition-normal);
 }

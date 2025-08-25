@@ -1,3 +1,8 @@
 export default function NowPage() {
-  return <div />;
+  return (
+    <>
+      <h1>Now</h1>
+      <h2>What I'm currently focused on.</h2>
+    </>
+  );
 }
