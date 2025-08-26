@@ -1,14 +1,14 @@
 interface IconProps extends React.SVGProps<SVGSVGElement> {
-  className?: string;
+  className?: string | undefined;
 }
 
 export default function LinkedInIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
+      xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 32 32"
       fill="#0A66C2"
-      xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       {...props}
     >

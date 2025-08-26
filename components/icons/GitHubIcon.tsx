@@ -1,14 +1,14 @@
 interface IconProps extends React.SVGProps<SVGSVGElement> {
-  className?: string;
+  className?: string | undefined;
 }
 
 export default function GitHubIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
-      viewBox="0 0 32 32"
-      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      fill="#9CA3AF" /* Actual color: #FAFBFC; shown on hover in CSS */
       aria-hidden="true"
       {...props}
     >
