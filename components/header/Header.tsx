@@ -16,7 +16,6 @@ const NAV = [
 export default function Header() {
   const pathname = usePathname() || "/";
 
-  // Match both exact route and nested subroutes (e.g., /blog and /blog/post-1)
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + "/");
 
@@ -55,16 +54,6 @@ export default function Header() {
               ))}
             </ul>
           </nav>
-
-          <div className={styles.profilePhotoContainer}>
-            <Image
-              src="/images/profile-photo.jpg"
-              alt="William Hao"
-              fill
-              priority
-              className={styles.profilePhoto}
-            />
-          </div>
         </div>
       </div>
     </header>
