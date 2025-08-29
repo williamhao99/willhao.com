@@ -13,7 +13,7 @@
   --logo-height: 5.5rem;
 
   /* Navigation pill styles */
-  --nav-container-bg: rgb(0 0 0 / var(--opacity-subtle));
+  --nav-container-bg: rgb(0 0 0 / var(--opacity-lower));
   --nav-container-border: var(--color-border);
   --nav-blur: var(--blur-sm);
   --nav-link-padding-x: var(--space-2rem);
@@ -27,7 +27,7 @@
   --banner-brightness-default: var(--brightness-subtle);
   --banner-brightness-hover: var(--brightness-hover);
 
-  --tagline-size: calc(var(--text-base) * 0.9);
+  --tagline-size: calc(var(--text-base) * var(--multiplier-md));
 
   padding: var(--space-2-5rem) 0 var(--space-2-5rem);
 }
@@ -69,7 +69,7 @@
   font-size: var(--tagline-size);
   font-weight: var(--font-normal);
   line-height: var(--line-height-tight);
-  opacity: 0.9;
+  opacity: var(--opacity-high);
 }
 
 .navigation {
@@ -108,7 +108,7 @@
 .navLink::after {
   content: "";
   position: absolute;
-  bottom: 2px;
+  bottom: var(--space-2px);
   left: var(--nav-link-padding-x);
   right: var(--nav-link-padding-x);
   height: var(--space-2px);

@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
+import { Noto_Sans, Noto_Serif } from "next/font/google";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
-import { Noto_Sans, Noto_Serif } from "next/font/google";
+import "./globals.css";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],

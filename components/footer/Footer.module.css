@@ -1,13 +1,13 @@
 .footer {
   --padding-y: var(--space-1-5rem);
-  --text-size: calc(var(--text-base) * 0.875); /* 14px */
-  --copyright-size: calc(var(--text-base) * 0.75); /* 12px */
+  --text-size: calc(var(--text-base) * var(--multiplier-sm)); /* 14px */
+  --copyright-size: calc(var(--text-base) * var(--multiplier-xs)); /* 12px */
   --icon-size: 3rem;
-  --icon-lift: -2px;
-  --border-opacity: 0.1;
-  --text-muted: rgb(156 163 175); /* Uniform muted gray */
-  --text-hover: rgb(250 250 250 / 0.85);
-  --text-copyright: rgb(156 163 175 / 0.8); /* Same color, 80% opacity */
+  --icon-lift: var(--hover-lift);
+  --border-opacity: var(--opacity-lower);
+  --text-muted: var(--color-text-muted);
+  --text-hover: rgb(250 250 250 / var(--opacity-high));
+  --text-copyright: var(--color-text-muted);
   --nav-spacing: var(--space-2-5rem);
   --icon-spacing: var(--space-3rem);
   --github-hover: #fafbfc;
@@ -47,7 +47,7 @@
   color: var(--text-copyright);
   font-size: var(--copyright-size);
   text-align: center;
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing-tight);
   position: absolute;
   left: 50%;
   transform: translateX(-50%);

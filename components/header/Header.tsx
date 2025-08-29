@@ -3,8 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import styles from "./Header.module.css";
 import { clsx } from "@/lib/utils";
+import styles from "./Header.module.css";
 
 const NAV = [
   { href: "/about", label: "About" },
