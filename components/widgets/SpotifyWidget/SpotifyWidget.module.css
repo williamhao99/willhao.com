@@ -1,0 +1,35 @@
+.link {
+  composes: link from "../WidgetContainer.module.css";
+}
+
+/* Widget container - extends shared widget container styles */
+.widget {
+  composes: widget from "../WidgetContainer.module.css";
+}
+
+.icon {
+  composes: icon from "../WidgetContainer.module.css";
+}
+
+.content {
+  composes: content from "../WidgetContainer.module.css";
+}
+
+.status {
+  font-size: calc(var(--widget-label-size) * var(--multiplier-md));
+  color: var(--widget-text-label);
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  color: var(--widget-text-value);
+  margin: 0;
+  line-height: var(--widget-line-height-normal);
+}
+
+.artist {
+  font-size: var(--widget-label-size);
+  color: var(--widget-text-label);
+  margin: 0;
+}

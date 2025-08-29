@@ -1,0 +1,41 @@
+.link {
+  composes: link from "../WidgetContainer.module.css";
+}
+
+/* Widget container - extends shared widget container styles */
+.widget {
+  composes: widget from "../WidgetContainer.module.css";
+}
+
+.icon {
+  composes: icon from "../WidgetContainer.module.css";
+}
+
+/* Chess-specific content grid layout */
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1-5rem);
+  align-content: center;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--widget-gap-small);
+}
+
+.label {
+  font-size: var(--widget-label-size);
+  color: var(--widget-text-label);
+  letter-spacing: var(--widget-letter-spacing);
+}
+
+.value {
+  font-size: var(--widget-value-size);
+  font-weight: var(--font-medium);
+  color: var(--widget-text-value);
+  line-height: var(--widget-line-height-compact);
+}

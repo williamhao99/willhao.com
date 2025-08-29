@@ -121,9 +121,6 @@
   --widget-letter-spacing: var(--letter-spacing-normal);
   --widget-line-height-compact: var(--line-height-none);
   --widget-line-height-normal: var(--line-height-snug);
-
-  /* Widget-specific colors */
-  --widget-color-chess: #81b64c;
 }
 
 /* Reset */

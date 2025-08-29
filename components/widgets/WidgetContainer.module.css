@@ -1,0 +1,40 @@
+/* Widget container styles - foundation for all widgets */
+.link {
+  text-decoration: none;
+  color: inherit;
+  display: contents; /* Makes the link wrapper transparent to layout */
+}
+
+.widget {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5rem);
+  padding: var(--widget-padding);
+  background: var(--widget-bg);
+  border: 1px solid var(--widget-border);
+  border-radius: var(--widget-radius);
+  box-shadow: var(--widget-shadow);
+  transition: outline var(--transition-normal);
+}
+
+.widget:hover {
+  outline: var(--border-width-medium) solid var(--color-brand-blue-bright);
+}
+
+.icon {
+  flex-shrink: 0;
+  width: var(--widget-icon-size);
+  height: var(--widget-icon-size);
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--widget-gap-small);
+}

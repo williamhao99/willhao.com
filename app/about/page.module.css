@@ -1,0 +1,6 @@
+.widgets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 widgets per row */
+  gap: var(--widget-gap);
+  margin-top: var(--space-3rem);
+}

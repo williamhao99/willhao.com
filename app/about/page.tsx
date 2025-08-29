@@ -1,3 +1,7 @@
+import SpotifyWidget from "@/components/widgets/SpotifyWidget/SpotifyWidget";
+import ChessWidget from "@/components/widgets/ChessWidget/ChessWidget";
+import styles from "./page.module.css";
+
 export default function AboutPage() {
   return (
     <>
@@ -31,6 +35,11 @@ export default function AboutPage() {
         <br />
         Fun fact: I average sub-20 on Rubik's cubes.
       </p>
+
+      <div className={styles.widgets}>
+        <SpotifyWidget />
+        <ChessWidget />
+      </div>
     </>
   );
 }
