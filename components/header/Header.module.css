@@ -13,19 +13,13 @@
   --logo-height: 5.5rem;
 
   /* Navigation pill styles */
-  --nav-container-bg: rgb(0 0 0 / var(--opacity-lower));
-  --nav-container-border: var(--color-border);
-  --nav-blur: var(--blur-sm);
+  --nav-container-bg: rgba(0, 0, 0, 0.1);
   --nav-link-padding-x: var(--space-2rem);
   --nav-link-padding-y: var(--space-0-5rem);
   --nav-pill-padding-x: var(--space-2rem);
   --nav-pill-padding-y: var(--space-0-5rem);
 
   --nav-link-active-color: var(--color-brand-blue-bright);
-  --nav-underline-color: var(--color-brand-blue-bright);
-
-  --banner-brightness-default: var(--brightness-subtle);
-  --banner-brightness-hover: var(--brightness-hover);
 
   --tagline-size: calc(var(--text-base) * var(--multiplier-md));
 
@@ -54,12 +48,12 @@
 }
 
 .logo:hover .logoImage {
-  filter: brightness(var(--banner-brightness-hover));
+  filter: brightness(var(--brightness-hover));
 }
 
 .logoImage {
   object-fit: contain;
-  filter: brightness(var(--banner-brightness-default));
+  filter: brightness(var(--brightness-subtle));
   transition: filter var(--transition-normal);
 }
 
@@ -69,7 +63,6 @@
   font-size: var(--tagline-size);
   font-weight: var(--font-normal);
   line-height: var(--line-height-tight);
-  opacity: var(--opacity-high);
 }
 
 .navigation {
@@ -85,9 +78,9 @@
   list-style: none;
   padding: var(--nav-pill-padding-y) var(--nav-pill-padding-x);
   background: var(--nav-container-bg);
-  border: var(--border-width-thin) solid var(--nav-container-border);
+  border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--radius-full);
-  backdrop-filter: blur(var(--nav-blur));
+  backdrop-filter: blur(var(--blur-sm));
 }
 
 .navLink {
@@ -112,7 +105,7 @@
   left: var(--nav-link-padding-x);
   right: var(--nav-link-padding-x);
   height: var(--space-2px);
-  background: var(--nav-underline-color);
+  background: var(--color-brand-blue-bright);
   transform: scaleX(0);
   transition: transform var(--transition-normal);
 }

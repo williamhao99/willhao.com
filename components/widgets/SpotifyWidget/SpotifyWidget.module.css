@@ -23,9 +23,9 @@
 .title {
   font-size: var(--text-lg);
   font-weight: var(--font-medium);
-  color: var(--widget-text-value);
+  color: var(--color-text-primary);
   margin: 0;
-  line-height: var(--widget-line-height-normal);
+  line-height: var(--line-height-snug);
 }
 
 .artist {

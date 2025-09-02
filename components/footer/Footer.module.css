@@ -3,18 +3,13 @@
   --text-size: calc(var(--text-base) * var(--multiplier-sm)); /* 14px */
   --copyright-size: calc(var(--text-base) * var(--multiplier-xs)); /* 12px */
   --icon-size: 3rem;
-  --icon-lift: var(--hover-lift);
-  --border-opacity: var(--opacity-lower);
-  --text-muted: var(--color-text-muted);
-  --text-hover: rgb(250 250 250 / var(--opacity-high));
-  --text-copyright: var(--color-text-muted);
   --nav-spacing: var(--space-2-5rem);
   --icon-spacing: var(--space-3rem);
   --github-hover: #fafbfc;
 
   margin-top: auto;
   padding: var(--padding-y) 0;
-  border-top: 1px solid rgb(255 255 255 / var(--border-opacity));
+  border-top: var(--border-width-thin) solid rgba(255, 255, 255, 0.1);
 }
 
 .content {
@@ -32,19 +27,19 @@
 }
 
 .navLink {
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   font-size: var(--text-size);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .navLink:hover {
-  color: var(--text-hover);
+  color: var(--color-text-hover);
 }
 
 /* Center: Copyright */
 .copyright {
-  color: var(--text-copyright);
+  color: var(--color-text-muted);
   font-size: var(--copyright-size);
   text-align: center;
   letter-spacing: var(--letter-spacing-tight);
@@ -69,7 +64,7 @@
 }
 
 .socialLink:hover {
-  transform: translateY(var(--icon-lift));
+  transform: translateY(var(--hover-lift));
 }
 
 /* All icons - grayscale by default, colored on hover */
