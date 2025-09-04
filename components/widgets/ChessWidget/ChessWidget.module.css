@@ -31,6 +31,7 @@
   font-size: var(--widget-label-size);
   color: var(--widget-text-label);
   letter-spacing: var(--letter-spacing-normal);
+  font-family: var(--font-sans), var(--font-sans-fallback);
 }
 
 .value {
@@ -38,4 +39,5 @@
   font-weight: var(--font-medium);
   color: var(--color-text-primary);
   line-height: var(--line-height-none);
+  font-family: var(--font-serif), var(--font-serif-fallback);
 }

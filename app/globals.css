@@ -98,8 +98,8 @@
   --brightness-hover: 1.6;
 
   /* Widget system */
-  --widget-bg: #1a2332;
-  --widget-border: rgba(255, 255, 255, 0.08);
+  --widget-bg: rgba(0, 0, 0, 0.1);
+  --widget-border: rgba(255, 255, 255, 0.2);
   --widget-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   --widget-radius: 1.5rem;
   --widget-icon-size: 5rem;
