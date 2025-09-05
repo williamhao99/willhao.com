@@ -6,10 +6,11 @@
   --nav-spacing: var(--space-2-5rem);
   --icon-spacing: var(--space-3rem);
   --github-hover: #fafbfc;
+  --footer-border-color: rgba(255, 255, 255, 0.1);
 
   margin-top: auto;
   padding: var(--padding-y) 0;
-  border-top: var(--border-width-thin) solid rgba(255, 255, 255, 0.1);
+  border-top: var(--border-width-thin) solid var(--footer-border-color);
 }
 
 .content {

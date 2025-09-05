@@ -4,6 +4,8 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import "./globals.css";
 
+const THEME_COLOR = '#0f172a'; // Matches --color-background
+
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   display: "swap",
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0f172a", // Matches --color-background in globals.css
+  themeColor: THEME_COLOR,
 };
 
 export default function RootLayout({

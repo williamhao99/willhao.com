@@ -4,17 +4,19 @@
 
 /* Widget container - extends shared widget container styles */
 .widget {
+  --spotify-glow: rgba(29, 185, 84, 0.5);
+
   composes: widget from "../WidgetContainer.module.css";
 }
 
 /* Pulsing animation when playing */
 .playing {
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 3s ease-in-out infinite;
 }
 
 @keyframes pulse {
   50% {
-    box-shadow: 0 0 20px rgba(30, 215, 96, 0.4);
+    box-shadow: 0 0 10px var(--spotify-glow);
   }
 }
 
