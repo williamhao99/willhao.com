@@ -1,11 +1,19 @@
 import ChessIcon from "@/components/icons/ChessIcon";
+import type { ChessStats } from "@/lib/data/chess";
 import styles from "./ChessWidget.module.css";
 
-export default function ChessWidget() {
-  const rapidRating = 1500;
-  const blitzRating = 1500;
-  const bulletRating = 1500;
-  const uscfRating = 1500;
+interface ChessWidgetProps {
+  initialData?: ChessStats | null;
+}
+
+export default function ChessWidget({ initialData }: ChessWidgetProps) {
+  const data = initialData;
+
+  const rapidRating = data && data.rapid !== null ? data.rapid : "...";
+  const blitzRating = data && data.blitz !== null ? data.blitz : "...";
+  const bulletRating = data && data.bullet !== null ? data.bullet : "...";
+  const uscfRating = 1815;
+
   return (
     <a
       href="https://www.chess.com/member/javablob"

@@ -1,8 +1,34 @@
 import SpotifyWidget from "@/components/widgets/SpotifyWidget/SpotifyWidget";
 import ChessWidget from "@/components/widgets/ChessWidget/ChessWidget";
+import AutoRefreshWidget from "@/components/widgets/AutoRefreshWidget";
+import { fetchSpotifyData } from "@/lib/data/spotify";
+import { fetchChessStats } from "@/lib/data/chess";
 import styles from "./page.module.css";
 
-export default function AboutPage() {
+export const revalidate = 5;
+
+async function getSpotifyData() {
+  try {
+    return await fetchSpotifyData();
+  } catch {
+    return null;
+  }
+}
+
+async function getChessData() {
+  try {
+    return await fetchChessStats();
+  } catch {
+    return { rapid: null, blitz: null, bullet: null };
+  }
+}
+
+export default async function AboutPage() {
+  const [spotifyData, chessData] = await Promise.all([
+    getSpotifyData(),
+    getChessData(),
+  ]);
+
   return (
     <>
       <h1>About</h1>
@@ -37,9 +63,11 @@ export default function AboutPage() {
       </p>
 
       <div className={styles.widgets}>
-        <SpotifyWidget />
-        <ChessWidget />
+        <SpotifyWidget initialData={spotifyData} />
+        <ChessWidget initialData={chessData} />
       </div>
+
+      <AutoRefreshWidget seconds={5} />
     </>
   );
 }
