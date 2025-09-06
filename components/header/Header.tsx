@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { clsx } from "@/lib/utils";
 import styles from "./Header.module.css";
 
 const NAV = [
@@ -16,8 +15,43 @@ const NAV = [
 export default function Header() {
   const pathname = usePathname() || "/";
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/");
+  function isActive(href: string): boolean {
+    if (pathname === href || pathname.startsWith(href + "/")) {
+      return true;
+    }
+    return false;
+  }
+
+  function getNavClasses(href: string) {
+    if (isActive(href)) {
+      return styles.navLink + " " + styles.active;
+    }
+    return styles.navLink;
+  }
+
+  function renderNavItems() {
+    const navItems = [];
+    for (let i = 0; i < NAV.length; i++) {
+      const navItem = NAV[i];
+      if (!navItem) continue;
+
+      const href = navItem.href;
+      const label = navItem.label;
+
+      navItems.push(
+        <li key={href}>
+          <Link
+            href={href}
+            className={getNavClasses(href)}
+            aria-current={isActive(href) ? "page" : undefined}
+          >
+            {label}
+          </Link>
+        </li>,
+      );
+    }
+    return navItems;
+  }
 
   return (
     <header className={styles.header}>
@@ -38,20 +72,7 @@ export default function Header() {
 
           <nav className={styles.navigation} aria-label="Main navigation">
             <ul className={styles.navList} role="list">
-              {NAV.map(({ href, label }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className={clsx(
-                      styles.navLink,
-                      isActive(href) && styles.active,
-                    )}
-                    aria-current={isActive(href) ? "page" : undefined}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
+              {renderNavItems()}
             </ul>
           </nav>
         </div>

@@ -4,7 +4,7 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import "./globals.css";
 
-const THEME_COLOR = '#0f172a'; // Matches --color-background
+const THEME_COLOR = "#0f172a"; // Matches --color-background
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${notoSans.variable} ${notoSerif.variable}`}>
+    <html lang="en" className={notoSans.variable + " " + notoSerif.variable}>
       <body>
         <Header />
         <main className="main-content">

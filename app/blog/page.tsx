@@ -39,15 +39,15 @@ export default function BlogPage() {
           <div key={post.slug} className={styles.post}>
             <div className={styles.postContent}>
               <Link
-                href={`/blog/${post.slug}`}
+                href={"/blog/" + post.slug}
                 className={styles.postTitleLink}
               >
                 <div className={styles.postTitle}>{post.title}</div>
               </Link>
               <p className={styles.postExcerpt}>
                 {post.excerpt}
-                <Link href={`/blog/${post.slug}`} className={styles.moreButton}>
-                  More ›
+                <Link href={"/blog/" + post.slug} className={styles.moreButton}>
+                  More →
                 </Link>
               </p>
             </div>
