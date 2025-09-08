@@ -23,11 +23,6 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
-export const metadata = {
-  title: "Blog | William Hao",
-  description: "Notes on my experiences, learning, and hobbies.",
-};
-
 export default function BlogPage() {
   function renderBlogPosts() {
     const posts = [];
