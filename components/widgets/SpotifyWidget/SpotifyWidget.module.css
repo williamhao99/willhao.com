@@ -5,6 +5,7 @@
 /* Widget container - extends shared widget container styles */
 .widget {
   --spotify-glow: rgba(29, 185, 84, 0.5);
+  --shadow-glow: 0 0 10px;
 
   composes: widget from "../WidgetContainer.module.css";
 }
@@ -16,7 +17,7 @@
 
 @keyframes pulse {
   50% {
-    box-shadow: 0 0 10px var(--spotify-glow);
+    box-shadow: var(--shadow-glow) var(--spotify-glow);
   }
 }
 

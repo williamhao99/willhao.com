@@ -13,13 +13,8 @@
   --logo-height: 5.5rem;
 
   /* Navigation pill styles */
-  --nav-container-bg: rgba(0, 0, 0, 0.1);
-  --nav-link-padding-x: var(--space-2rem);
-  --nav-link-padding-y: var(--space-0-5rem);
-  --nav-pill-padding-x: var(--space-2rem);
-  --nav-pill-padding-y: var(--space-0-5rem);
-
-  --nav-link-active-color: var(--color-brand-blue-bright);
+  --nav-padding-x: var(--space-2rem);
+  --nav-padding-y: var(--space-0-5rem);
 
   --tagline-size: calc(var(--text-base) * var(--multiplier-md));
 
@@ -76,8 +71,8 @@
   display: flex;
   gap: var(--space-2-5rem);
   list-style: none;
-  padding: var(--nav-pill-padding-y) var(--nav-pill-padding-x);
-  background: var(--nav-container-bg);
+  padding: var(--nav-padding-y) var(--nav-padding-x);
+  background: var(--card-bg);
   border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--radius-full);
   backdrop-filter: blur(var(--blur-sm));
@@ -85,7 +80,7 @@
 
 .navLink {
   display: inline-block;
-  padding: var(--nav-link-padding-y) var(--nav-link-padding-x);
+  padding: var(--nav-padding-y) var(--nav-padding-x);
   margin-bottom: var(--space-2px); /* Prevents underline clipping */
   color: var(--color-text-secondary);
   text-decoration: none;
@@ -102,8 +97,8 @@
   content: "";
   position: absolute;
   bottom: var(--space-2px);
-  left: var(--nav-link-padding-x);
-  right: var(--nav-link-padding-x);
+  left: var(--nav-padding-x);
+  right: var(--nav-padding-x);
   height: var(--space-2px);
   background: var(--color-brand-blue-bright);
   transform: scaleX(0);
@@ -115,7 +110,7 @@
 }
 
 .navLink.active {
-  color: var(--nav-link-active-color);
+  color: var(--color-brand-blue-bright);
 }
 
 .navLink.active::after {

@@ -9,7 +9,13 @@
   /* Brand colors */
   --color-brand-blue: #0055aa;
   --color-brand-blue-bright: #2d7bd6;
-  --color-brand-accent: rgba(45, 123, 214, 0.4);
+
+  /* Card/Widget backgrounds */
+  --card-bg: rgba(0, 0, 0, 0.15);
+  --card-bg-hover: rgba(0, 0, 0, 0.25);
+
+  /* Subtle borders/backgrounds */
+  --border-subtle: rgba(255, 255, 255, 0.1);
 
   /* Font fallbacks */
   --font-sans-fallback:
@@ -85,7 +91,6 @@
   --multiplier-2xl: 2.5; /* 40px */
 
   /* Opacity values */
-  --opacity-low: 0.25;
   --opacity-medium: 0.7;
   --opacity-high: 0.9;
 
@@ -96,16 +101,6 @@
   /* Brightness adjustments */
   --brightness-subtle: 1.1;
   --brightness-hover: 1.6;
-
-  /* Widget system */
-  --widget-bg: rgba(0, 0, 0, 0.1);
-  --widget-border: rgba(255, 255, 255, 0.2);
-  --widget-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --widget-radius: 1.5rem;
-  --widget-icon-size: 5rem;
-  --widget-text-label: rgba(250, 250, 250, 0.6);
-  --widget-label-size: 1.5rem;
-  --widget-value-size: 2rem;
 }
 
 /* Reset */
