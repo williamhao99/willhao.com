@@ -29,32 +29,38 @@ export const metadata = {
 };
 
 export default function BlogPage() {
+  function renderBlogPosts() {
+    const posts = [];
+    for (let i = 0; i < blogPosts.length; i++) {
+      const post = blogPosts[i];
+      if (!post) continue;
+
+      posts.push(
+        <div key={post.slug} className={styles.post}>
+          <div className={styles.postContent}>
+            <Link href={"/blog/" + post.slug} className={styles.postTitleLink}>
+              <div className={styles.postTitle}>{post.title}</div>
+            </Link>
+            <p className={styles.postExcerpt}>
+              {post.excerpt}
+              <Link href={"/blog/" + post.slug} className={styles.moreButton}>
+                More →
+              </Link>
+            </p>
+          </div>
+          <time className={styles.postDate}>{post.date}</time>
+        </div>,
+      );
+    }
+    return posts;
+  }
+
   return (
     <>
       <h1>Blog</h1>
       <h2>Notes on my experiences, learning, and hobbies.</h2>
 
-      <section className={styles.feed}>
-        {blogPosts.map((post) => (
-          <div key={post.slug} className={styles.post}>
-            <div className={styles.postContent}>
-              <Link
-                href={"/blog/" + post.slug}
-                className={styles.postTitleLink}
-              >
-                <div className={styles.postTitle}>{post.title}</div>
-              </Link>
-              <p className={styles.postExcerpt}>
-                {post.excerpt}
-                <Link href={"/blog/" + post.slug} className={styles.moreButton}>
-                  More →
-                </Link>
-              </p>
-            </div>
-            <time className={styles.postDate}>{post.date}</time>
-          </div>
-        ))}
-      </section>
+      <section className={styles.feed}>{renderBlogPosts()}</section>
     </>
   );
 }

@@ -45,33 +45,56 @@ const SOCIALS = [
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  function renderNavLinks() {
+    const navLinks = [];
+    for (let i = 0; i < NAV.length; i++) {
+      const navItem = NAV[i];
+      if (!navItem) continue;
+
+      navLinks.push(
+        <Link key={navItem.href} href={navItem.href} className={styles.navLink}>
+          {navItem.label}
+        </Link>,
+      );
+    }
+    return navLinks;
+  }
+
+  function renderSocialLinks() {
+    const socialLinks = [];
+    for (let i = 0; i < SOCIALS.length; i++) {
+      const social = SOCIALS[i];
+      if (!social) continue;
+
+      const Icon = social.Icon;
+      socialLinks.push(
+        <a
+          key={social.name}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.socialLink}
+          aria-label={social.name}
+        >
+          <Icon className={styles.icon} />
+        </a>,
+      );
+    }
+    return socialLinks;
+  }
+
   return (
     <footer className={styles.footer}>
       <div className="container">
         <div className={styles.content}>
           <nav className={styles.nav} aria-label="Footer navigation">
-            {NAV.map(({ href, label }) => (
-              <Link key={href} href={href} className={styles.navLink}>
-                {label}
-              </Link>
-            ))}
+            {renderNavLinks()}
           </nav>
 
           <p className={styles.copyright}>© {currentYear} William Hao</p>
 
           <div className={styles.social} aria-label="Social links">
-            {SOCIALS.map(({ name, href, Icon }) => (
-              <a
-                key={name}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.socialLink}
-                aria-label={name}
-              >
-                <Icon className={styles.icon} />
-              </a>
-            ))}
+            {renderSocialLinks()}
           </div>
         </div>
       </div>

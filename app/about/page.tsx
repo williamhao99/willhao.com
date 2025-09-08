@@ -24,10 +24,8 @@ async function getChessData() {
 }
 
 export default async function AboutPage() {
-  const [spotifyData, chessData] = await Promise.all([
-    getSpotifyData(),
-    getChessData(),
-  ]);
+  const spotifyData = await getSpotifyData();
+  const chessData = await getChessData();
 
   return (
     <>
