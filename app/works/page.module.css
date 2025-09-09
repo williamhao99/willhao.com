@@ -1,0 +1,11 @@
+.projectsSection {
+  margin-bottom: var(--space-3-5rem);
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2rem);
+  grid-auto-rows: minmax(180px, auto);
+  padding-top: var(--space-2rem); /* Distance between description and cards*/
+}

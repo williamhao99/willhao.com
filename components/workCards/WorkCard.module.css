@@ -1,0 +1,107 @@
+.card {
+  /* Status colors */
+  --color-completed: rgba(34, 197, 94, 0.9);
+  --color-completed-bg: rgba(34, 197, 94, 0.1);
+  --color-in-progress: rgba(250, 204, 21, 0.9);
+  --color-in-progress-bg: rgba(250, 204, 21, 0.1);
+
+  padding: var(--space-2rem);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--space-4px));
+  cursor: pointer;
+}
+
+.card:hover {
+  outline: var(--border-width-medium) solid var(--color-brand-blue-bright);
+  background: var(--card-bg-hover);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-1rem);
+}
+
+.title {
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+.date {
+  font-size: calc(var(--text-base) * var(--multiplier-sm));
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.description {
+  font-size: calc(var(--text-base) * var(--multiplier-sm));
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+  margin-bottom: var(--space-1-5rem);
+}
+
+.cardFooter {
+  margin-top: auto;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.techStack {
+  display: flex;
+  gap: var(--space-8px);
+  flex-wrap: wrap;
+}
+
+.techBadge {
+  --badge-bg: rgba(255, 255, 255, 0.05);
+  --badge-bg-hover: rgba(255, 255, 255, 0.08);
+
+  padding: var(--space-2px) var(--space-8px);
+  background: var(--badge-bg);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: calc(var(--text-base) * var(--multiplier-xs));
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+}
+
+.techBadge:hover {
+  background: var(--badge-bg-hover);
+  color: var(--color-text-secondary);
+}
+
+.status {
+  padding: var(--space-4px) var(--space-8px);
+  border-radius: var(--radius-sm);
+  font-size: calc(var(--text-base) * var(--multiplier-xs));
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.statusComplete {
+  background: var(--color-completed-bg);
+  color: var(--color-completed);
+}
+
+.statusInProgress {
+  background: var(--color-in-progress-bg);
+  color: var(--color-in-progress);
+}
+
+.statusPlanned {
+  background: var(--border-subtle);
+  color: var(--color-text-muted);
+}
