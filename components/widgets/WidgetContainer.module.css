@@ -6,13 +6,10 @@
 }
 
 .widget {
-  --widget-border: rgba(255, 255, 255, 0.2);
-  --widget-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --widget-radius: 1.5rem;
-  --widget-icon-size: 5rem;
-  --widget-text-label: rgba(250, 250, 250, 0.6);
   --widget-label-size: 1.5rem;
   --widget-value-size: 2rem;
+  --widget-text-label: rgba(250, 250, 250, 0.6);
+  --widget-border: rgba(255, 255, 255, 0.2);
 
   display: flex;
   align-items: center;
@@ -20,8 +17,8 @@
   padding: var(--space-1-5rem);
   background: var(--card-bg);
   border: var(--border-width-thin) solid var(--widget-border);
-  border-radius: var(--widget-radius);
-  box-shadow: var(--widget-shadow);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
   transition: outline var(--transition-normal);
 }
 
@@ -31,8 +28,8 @@
 
 .icon {
   flex-shrink: 0;
-  width: var(--widget-icon-size);
-  height: var(--widget-icon-size);
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
 }
 
 .icon svg {

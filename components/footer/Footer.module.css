@@ -1,7 +1,6 @@
 .footer {
   --text-size: calc(var(--text-base) * var(--multiplier-sm)); /* 14px */
   --copyright-size: calc(var(--text-base) * var(--multiplier-xs)); /* 12px */
-  --icon-size: var(--space-3rem);
   --nav-spacing: var(--space-2-5rem);
   --icon-spacing: var(--space-3rem);
   --github-hover: #fafbfc;
@@ -44,7 +43,7 @@
   letter-spacing: var(--letter-spacing-tight);
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); /* centers Copyright text exactly */
 }
 
 /* Right: Social Icons */
@@ -53,7 +52,6 @@
   gap: var(--icon-spacing);
   flex: 1 0 0;
   justify-content: flex-end;
-  padding-right: var(--space-1-5rem); /* Hardcoded to balance visual spacing */
 }
 
 .socialLink {
@@ -68,8 +66,8 @@
 
 /* All icons - grayscale by default, colored on hover */
 .icon {
-  width: var(--icon-size);
-  height: var(--icon-size);
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
   transition: filter var(--transition-fast);
   filter: grayscale(1);
 }

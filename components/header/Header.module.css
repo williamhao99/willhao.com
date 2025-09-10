@@ -99,7 +99,7 @@
   bottom: var(--space-2px);
   left: var(--nav-padding-x);
   right: var(--nav-padding-x);
-  height: var(--space-2px);
+  height: 2px;
   background: var(--color-brand-blue-bright);
   transform: scaleX(0);
   transition: transform var(--transition-normal);

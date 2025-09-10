@@ -44,6 +44,10 @@
   --space-2-5rem: 2.5rem;
   --space-3rem: 3rem;
   --space-3-5rem: 3.5rem;
+  --space-4rem: 4rem;
+  --space-4-5rem: 4.5rem;
+  --space-5rem: 5rem;
+  --space-5-5rem: 5.5rem;
 
   --space-2px: 2px;
   --space-3px: 3px;
@@ -52,6 +56,8 @@
   --space-6px: 6px;
   --space-7px: 7px;
   --space-8px: 8px;
+  --space-10px: 10px;
+  --space-15px: 15px;
 
   /* Layout */
   --container-max: 128rem; /* 1280px */
@@ -66,7 +72,8 @@
   --hover-lift: -2px;
 
   /* Border radius */
-  --radius-sm: var(--space-6px);
+  --radius-sm: 6px;
+  --radius-md: 15px;
   --radius-full: 9999px;
 
   /* Borders */
@@ -75,12 +82,19 @@
   --border-width-thick: 2px;
 
   /* Effects */
-  --blur-sm: var(--space-8px);
+  --blur-xs: 4px;
+  --blur-sm: 8px;
+  --blur-md: 10px;
+  --blur-lg: 15px;
 
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-normal: 200ms ease;
   --transition-slow: 300ms ease;
+
+  /* Animation durations */
+  --animation-pulse: 3s;
+  --animation-slow: 5s;
 
   /* Text size multipliers */
   --multiplier-xs: 0.75; /* 12px */
@@ -101,6 +115,20 @@
   /* Brightness adjustments */
   --brightness-subtle: 1.1;
   --brightness-hover: 1.6;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --shadow-glow-sm: 0 0 10px;
+
+  /* Icon sizes */
+  --icon-size-md: 3rem;
+  --icon-size-lg: 5rem;
+
+  /* Grid layouts */
+  --grid-cols-2: repeat(2, 1fr);
+  --grid-cols-3: repeat(3, 1fr);
+  --grid-gap-md: var(--space-2rem);
 }
 
 /* Reset */

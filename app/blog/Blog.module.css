@@ -1,7 +1,7 @@
 .feed {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2rem);
+  grid-template-columns: var(--grid-cols-2);
+  gap: var(--grid-gap-md);
   margin: 0;
 }
 

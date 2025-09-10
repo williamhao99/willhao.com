@@ -14,7 +14,7 @@
   text-decoration: none;
   color: inherit;
   background: var(--card-bg);
-  backdrop-filter: blur(var(--space-4px));
+  backdrop-filter: blur(var(--blur-xs));
   cursor: pointer;
 }
 
