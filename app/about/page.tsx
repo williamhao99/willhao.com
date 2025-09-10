@@ -60,6 +60,23 @@ export default async function AboutPage() {
         Fun fact: I average sub-20 on Rubik's cubes.
       </p>
 
+      <br />
+
+      <h2>What I'm busy with</h2>
+      <ul>
+        <li>Recruiting</li>
+        <li>School coursework</li>
+        <li>Hackathons</li>
+        <li>
+          Building a Kalshi trading bot - politics, economics, mentions, weather
+          markets
+        </li>
+        <li>Improving this portfolio</li>
+        <li>A 1000lb powerlifting total</li>
+        <li>A sub-2hr half marathon</li>
+        <li>Working through my reading list</li>
+      </ul>
+
       <div className={styles.widgets}>
         <SpotifyWidget initialData={spotifyData} />
         <ChessWidget initialData={chessData} />

@@ -11,7 +11,6 @@ const NAV = [
   { href: "/about", label: "About" },
   { href: "/works", label: "Works" },
   { href: "/blog", label: "Blog" },
-  { href: "/now", label: "Now" },
 ];
 
 const SOCIALS = [
