@@ -20,6 +20,11 @@
   }
 }
 
+/* Error state styling */
+.error {
+  opacity: 0.5;
+}
+
 .icon {
   composes: icon from "../WidgetContainer.module.css";
 }

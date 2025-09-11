@@ -4,9 +4,13 @@ import styles from "./SpotifyWidget.module.css";
 
 interface SpotifyWidgetProps {
   initialData: SpotifyData;
+  error?: boolean;
 }
 
-export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
+export default function SpotifyWidget({
+  initialData,
+  error,
+}: SpotifyWidgetProps) {
   const data = initialData;
 
   let isPlaying = data.isPlaying;
@@ -24,6 +28,10 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
   let widgetClassName = styles.widget;
   if (isPlaying) {
     widgetClassName = styles.widget + " " + styles.playing;
+  }
+
+  if (error) {
+    widgetClassName = styles.widget + " " + styles.error;
   }
 
   return (

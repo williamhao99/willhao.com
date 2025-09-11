@@ -7,7 +7,7 @@ export interface ChessStats {
 
 // Configuration constants
 const CHESS_USERNAME = "javablob";
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 5 * 1000; // 5 seconds
 
 let cachedStats: { data: ChessStats; expires: number } | null = null;
 

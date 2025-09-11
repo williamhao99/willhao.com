@@ -1,32 +1,44 @@
-import SpotifyWidget from "@/components/widgets/SpotifyWidget/SpotifyWidget";
-import ChessWidget from "@/components/widgets/ChessWidget/ChessWidget";
-import AutoRefreshWidget from "@/components/widgets/AutoRefreshWidget";
+import { Suspense } from "react";
+import AutoRefreshWidget from "@/app/about/AutoRefresh";
+import SpotifyWidget from "@/components/widgets/spotify/SpotifyWidget";
+import SpotifyWidgetLoading from "@/components/widgets/spotify/SpotifyWidget.loading";
+import ChessWidget from "@/components/widgets/chess/ChessWidget";
+import ChessWidgetLoading from "@/components/widgets/chess/ChessWidget.loading";
 import { fetchSpotifyData } from "@/lib/data/spotify";
 import { fetchChessStats } from "@/lib/data/chess";
 import styles from "./page.module.css";
 
 export const revalidate = 5;
 
-async function getSpotifyData() {
+async function SpotifyDataLoader() {
   try {
-    return await fetchSpotifyData();
+    const data = await fetchSpotifyData();
+    return <SpotifyWidget initialData={data} />;
   } catch {
-    return null;
+    const errorData = {
+      isPlaying: false,
+      songTitle: "Unable to fetch data",
+      artist: "—",
+    };
+    return <SpotifyWidget initialData={errorData} error={true} />;
   }
 }
 
-async function getChessData() {
+async function ChessDataLoader() {
   try {
-    return await fetchChessStats();
+    const data = await fetchChessStats();
+    return <ChessWidget initialData={data} />;
   } catch {
-    return { rapid: null, blitz: null, bullet: null };
+    const errorData = {
+      rapid: null,
+      blitz: null,
+      bullet: null,
+    };
+    return <ChessWidget initialData={errorData} error={true} />;
   }
 }
 
-export default async function AboutPage() {
-  const spotifyData = await getSpotifyData();
-  const chessData = await getChessData();
-
+export default function AboutPage() {
   return (
     <>
       <h1>About</h1>
@@ -78,8 +90,12 @@ export default async function AboutPage() {
       </ul>
 
       <div className={styles.widgets}>
-        <SpotifyWidget initialData={spotifyData} />
-        <ChessWidget initialData={chessData} />
+        <Suspense fallback={<SpotifyWidgetLoading />}>
+          <SpotifyDataLoader />
+        </Suspense>
+        <Suspense fallback={<ChessWidgetLoading />}>
+          <ChessDataLoader />
+        </Suspense>
       </div>
 
       <AutoRefreshWidget seconds={5} />

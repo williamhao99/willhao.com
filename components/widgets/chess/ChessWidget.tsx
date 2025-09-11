@@ -4,15 +4,21 @@ import styles from "./ChessWidget.module.css";
 
 interface ChessWidgetProps {
   initialData: ChessStats;
+  error?: boolean;
 }
 
-export default function ChessWidget({ initialData }: ChessWidgetProps) {
+export default function ChessWidget({ initialData, error }: ChessWidgetProps) {
   const data = initialData;
 
   const rapidRating = data.rapid;
   const blitzRating = data.blitz;
   const bulletRating = data.bullet;
   const uscfRating = 1815;
+
+  let widgetClassName = styles.widget;
+  if (error) {
+    widgetClassName = styles.widget + " " + styles.error;
+  }
 
   return (
     <a
@@ -21,7 +27,7 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div className={styles.widget}>
+      <div className={widgetClassName}>
         <div className={styles.icon}>
           <ChessIcon />
         </div>
