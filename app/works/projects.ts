@@ -11,7 +11,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "ut-math-drp",
-    title: "UT Math DRP Presentation",
+    title: "UT Math Directed Reading Program",
     description: "",
     tech: ["Mathematics", "Statistics", "Research"],
     status: "complete",
