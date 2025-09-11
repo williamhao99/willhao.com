@@ -1,4 +1,4 @@
-import { projects } from "./projects";
+import { projects } from "@/app/works/projects";
 import WorkCard from "@/components/workCards/WorkCard";
 import styles from "./page.module.css";
 

@@ -3,15 +3,15 @@ import type { ChessStats } from "@/lib/data/chess";
 import styles from "./ChessWidget.module.css";
 
 interface ChessWidgetProps {
-  initialData?: ChessStats | null;
+  initialData: ChessStats;
 }
 
 export default function ChessWidget({ initialData }: ChessWidgetProps) {
   const data = initialData;
 
-  const rapidRating = data && data.rapid !== null ? data.rapid : "...";
-  const blitzRating = data && data.blitz !== null ? data.blitz : "...";
-  const bulletRating = data && data.bullet !== null ? data.bullet : "...";
+  const rapidRating = data.rapid;
+  const blitzRating = data.blitz;
+  const bulletRating = data.bullet;
   const uscfRating = 1815;
 
   return (

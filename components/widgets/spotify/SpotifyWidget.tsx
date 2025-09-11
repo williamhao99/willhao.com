@@ -3,24 +3,22 @@ import type { SpotifyData } from "@/lib/data/spotify";
 import styles from "./SpotifyWidget.module.css";
 
 interface SpotifyWidgetProps {
-  initialData?: SpotifyData | null;
+  initialData: SpotifyData;
 }
 
 export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
   const data = initialData;
 
-  let isPlaying = data && data.isPlaying ? data.isPlaying : false;
-  let songTitle = data && data.songTitle ? data.songTitle : "No data available";
-  let artist = data && data.artist ? data.artist : "———";
-  let lastPlayed = data && data.lastPlayed ? data.lastPlayed : undefined; // Controls statusText
+  let isPlaying = data.isPlaying;
+  let songTitle = data.songTitle;
+  let artist = data.artist;
+  let lastPlayed = data.lastPlayed;
 
   let statusText = "Last played";
   if (isPlaying) {
     statusText = "Now playing";
   } else if (lastPlayed) {
     statusText = "Last played " + lastPlayed;
-  } else if (!data) {
-    statusText = "———";
   }
 
   let widgetClassName = styles.widget;
