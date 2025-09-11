@@ -111,6 +111,7 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
             src={safeSrc}
             className={styles.iframe}
             title={"PDF: " + currentTab.label}
+            loading="lazy"
           />
         ) : (
           <div

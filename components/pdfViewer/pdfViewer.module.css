@@ -20,14 +20,13 @@
   background: none;
   border: var(--border-width-thick) solid var(--color-border);
   border-radius: var(--radius-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-family: var(--font-sans), var(--font-sans-fallback);
   font-size: var(--text-base);
   font-weight: var(--font-normal);
   padding: var(--space-1rem) var(--space-1-5rem);
   cursor: pointer;
   white-space: nowrap;
-  opacity: 0.8;
   transition:
     color var(--transition-normal),
     opacity var(--transition-normal),
@@ -41,12 +40,11 @@
 
 .tab:hover {
   color: var(--color-text-primary);
-  opacity: 1;
+  border-color: var(--color-brand-blue-bright);
 }
 
 .tab.active {
   color: var(--color-text-primary);
-  opacity: 1;
   border-color: var(--color-brand-blue-bright);
 }
 
