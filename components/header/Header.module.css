@@ -9,8 +9,8 @@
 
 /* Component variables */
 .header {
-  --logo-width: 22rem;
-  --logo-height: 5.5rem;
+  --logo-width: 20rem;
+  --logo-height: 5rem;
 
   /* Navigation pill styles */
   --nav-padding-x: var(--space-2rem);
@@ -18,7 +18,7 @@
 
   --tagline-size: calc(var(--text-base) * var(--multiplier-md));
 
-  padding: var(--space-2-5rem) 0 var(--space-2-5rem);
+  padding: var(--space-2rem) 0 var(--space-2rem);
 }
 
 .content {
