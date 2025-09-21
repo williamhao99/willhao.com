@@ -55,25 +55,19 @@
 }
 
 .socialLink {
-  transition: transform var(--transition-fast);
   display: flex;
   align-items: center;
-}
-
-.socialLink:hover {
-  transform: translateY(var(--hover-lift));
 }
 
 /* All icons - grayscale by default, colored on hover */
 .icon {
   width: var(--icon-size-md);
   height: var(--icon-size-md);
-  transition: filter var(--transition-fast);
   filter: grayscale(1);
 }
 
 .socialLink:hover .icon {
-  filter: none;
+  filter: grayscale(0);
 }
 
 /* GitHub special case - already muted gray, white on hover */
