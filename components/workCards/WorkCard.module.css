@@ -45,15 +45,50 @@
   font-size: calc(var(--text-base) * var(--multiplier-sm));
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
-  flex: 1;
-  margin-bottom: var(--space-1-5rem);
+}
+
+.awardText {
+  --award-color: rgba(255, 215, 0, 0.9);
+  --award-color-bright: rgba(255, 245, 150, 0.95);
+  --award-color-dim: rgba(184, 134, 11, 0.9);
+
+  font-size: calc(var(--text-base) * var(--multiplier-sm));
+  font-weight: var(--font-medium);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--award-color);
+}
+
+/* Shimmer effect for award text only on supported browsers */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .awardText {
+    background: linear-gradient(
+      90deg,
+      var(--award-color-dim) 0%,
+      var(--award-color-bright) 25%,
+      var(--award-color) 50%,
+      var(--award-color-bright) 75%,
+      var(--award-color-dim) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: award-shimmer 5s linear infinite;
+  }
+}
+
+@keyframes award-shimmer {
+  0% {
+    background-position: -200% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 .cardFooter {
   margin-top: auto;
-}
-
-.meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
