@@ -1,8 +1,9 @@
 import PdfViewer from "@/components/pdfViewer/pdfViewer";
+import styles from "./page.module.css";
 
 export default function UTMathDRPPage() {
   return (
-    <>
+    <div className={styles.content}>
       <h1>UT Math Directed Reading Program</h1>
       <h2>
         The research and math talk I conducted for the UT Math DRP Symposium on
@@ -83,14 +84,14 @@ export default function UTMathDRPPage() {
 
       <PdfViewer
         tabs={[
-          { label: "DRP notes 2-17", src: "/documents/DRP notes 2-17.pdf" },
-          { label: "DRP notes 2-24", src: "/documents/DRP notes 2-24.pdf" },
-          { label: "DRP notes 3-3", src: "/documents/DRP notes 3-3.pdf" },
-          { label: "DRP notes 3-10", src: "/documents/DRP notes 3-10.pdf" },
-          { label: "DRP notes 3-24", src: "/documents/DRP notes 3-24.pdf" },
-          { label: "DRP notes 4-7", src: "/documents/DRP notes 4-7.pdf" },
+          { label: "Feb 17", src: "/documents/DRP notes 2-17.pdf" },
+          { label: "Feb 24", src: "/documents/DRP notes 2-24.pdf" },
+          { label: "Mar 03", src: "/documents/DRP notes 3-3.pdf" },
+          { label: "Mar 10", src: "/documents/DRP notes 3-10.pdf" },
+          { label: "Mar 24", src: "/documents/DRP notes 3-24.pdf" },
+          { label: "Apr 07", src: "/documents/DRP notes 4-7.pdf" },
         ]}
       />
-    </>
+    </div>
   );
 }

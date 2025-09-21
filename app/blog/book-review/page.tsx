@@ -1,11 +1,8 @@
-export const metadata = {
-  title: "Book Review | William Hao",
-  description: "Incoming book reviews.",
-};
+import styles from "@/app/blog/BlogPost.module.css";
 
 export default function BookReviewPage() {
   return (
-    <article>
+    <article className={styles.content}>
       <h1>Book Review</h1>
       <time>May 15 2025</time>
       <p>Content will be added here.</p>
