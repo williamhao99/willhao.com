@@ -116,6 +116,10 @@
   --brightness-subtle: 1.1;
   --brightness-hover: 1.6;
 
+  /* Dimensions */
+  --underline-height: 2px;
+  --content-max-width: 80ch;
+
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);

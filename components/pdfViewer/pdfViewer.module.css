@@ -2,7 +2,7 @@
   --pdf-viewer-min-height: 300px;
   --pdf-viewer-default-height: 700px;
   --pdf-viewer-width: 100%;
-  --pdf-viewer-max-width: 1280px;
+  --pdf-viewer-max-width: var(--container-max);
 
   width: var(--pdf-viewer-width);
   max-width: var(--pdf-viewer-max-width);

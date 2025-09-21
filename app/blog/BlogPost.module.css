@@ -1,5 +1,5 @@
 .content {
-  max-width: 80ch;
+  max-width: var(--content-max-width);
   margin: 0 auto;
 }
 
