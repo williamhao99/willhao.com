@@ -4,8 +4,8 @@ export interface Project {
   description: string;
   tech: string[];
   status: "complete" | "in progress" | "planned";
-  link?: string;
-  date?: string;
+  link: string;
+  date: string;
   award?: string;
 }
 
@@ -16,8 +16,8 @@ export const projects: Project[] = [
     description: "AI-powered handyman for smart glasses on MentraOS",
     tech: ["MentraOS", "TypeScript", "Node.js/Bun"],
     status: "complete",
-    date: "Sep 2025",
     link: "https://github.com/williamhao99/marvis-hackMIT2025",
+    date: "Sep 2025",
     award: "1st Place Winner - Mentra Sponsor Track",
   },
   {
@@ -26,6 +26,7 @@ export const projects: Project[] = [
     description: "Personal portfolio",
     tech: ["Next.js", "TypeScript", "REST APIs"],
     status: "in progress",
+    link: "https://github.com/williamhao99/willhao.com",
     date: "Jun 2025 - Present",
   },
   {

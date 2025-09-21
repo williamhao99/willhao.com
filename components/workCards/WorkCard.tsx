@@ -46,21 +46,30 @@ export default function WorkCard({ project }: WorkCardProps) {
     );
   }
 
-  if (project.link) {
+  const isExternal = project.link.startsWith("http");
+
+  /* Open external links in new tab */
+  if (isExternal) {
     return (
-      <Link
+      <a
         href={project.link}
         className={styles.card}
         aria-label={project.title + " project"}
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {renderContent()}
-      </Link>
+      </a>
     );
   }
 
   return (
-    <article className={styles.card} aria-label={project.title + " project"}>
+    <Link
+      href={project.link}
+      className={styles.card}
+      aria-label={project.title + " project"}
+    >
       {renderContent()}
-    </article>
+    </Link>
   );
 }
