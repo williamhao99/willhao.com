@@ -6,19 +6,22 @@ import { useRouter } from "next/navigation";
 export default function AutoRefreshWidget({ seconds }: { seconds: number }) {
   const router = useRouter();
 
-  useEffect(() => {
-    function refreshPage() {
-      router.refresh();
-    }
+  useEffect(
+    function handleAutoRefresh() {
+      if (seconds <= 0) return;
 
-    const interval = setInterval(refreshPage, seconds * 1000);
+      function refreshPage() {
+        router.refresh();
+      }
 
-    function cleanup() {
-      clearInterval(interval);
-    }
+      const interval = setInterval(refreshPage, seconds * 1000);
 
-    return cleanup;
-  }, [seconds, router]);
+      return function cleanup() {
+        clearInterval(interval);
+      };
+    },
+    [seconds, router],
+  );
 
   return null;
 }

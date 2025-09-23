@@ -35,8 +35,12 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
       if (!base.startsWith("/documents/")) return false;
 
       // Disallow path traversal
-      const segments = base.split("/").filter(Boolean);
-      if (segments.some((seg) => seg === "." || seg === "..")) return false;
+      const segments = base.split("/");
+      for (let i = 0; i < segments.length; i++) {
+        const seg = segments[i];
+        if (!seg) continue;
+        if (seg === "." || seg === "..") return false;
+      }
 
       return base.toLowerCase().endsWith(".pdf");
     } catch {
