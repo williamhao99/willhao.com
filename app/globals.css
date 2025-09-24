@@ -1,33 +1,45 @@
 :root {
+  /* === Colors === */
+  /* Base colors */
   --color-background: #0f172a;
   --color-text-primary: rgba(250, 250, 250, 0.95);
   --color-text-secondary: rgba(250, 250, 250, 0.8);
   --color-text-hover: rgba(250, 250, 250, 0.9);
   --color-text-muted: rgba(156, 163, 175, 1);
   --color-border: rgba(255, 255, 255, 0.25);
+  --border-subtle: rgba(255, 255, 255, 0.1);
 
   /* Brand colors */
   --color-brand-blue: #0055aa;
   --color-brand-blue-bright: #2d7bd6;
 
-  /* Card/Widget backgrounds */
+  /* Component backgrounds */
   --card-bg: rgba(0, 0, 0, 0.15);
   --card-bg-hover: rgba(0, 0, 0, 0.25);
 
-  /* Subtle borders/backgrounds */
-  --border-subtle: rgba(255, 255, 255, 0.1);
-
+  /* === Typography === */
   /* Font fallbacks */
   --font-sans-fallback:
     system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-serif-fallback: Georgia, Cambria, "Times New Roman", Times, serif;
 
+  /* Text size multipliers  */
+  --multiplier-xs: 0.75; /* 12px */
+  --multiplier-sm: 0.875; /* 14px */
+  --multiplier-md: 0.9; /* 14.4px */
+  --multiplier-lg: 1.125; /* 18px */
+  --multiplier-xl: 1.25; /* 20px */
+  --multiplier-2xl: 2.25; /* 36px */
+
+  /* Font sizes */
   --text-base: 1.6rem;
   --text-lg: 1.8rem;
   --text-h1: calc(var(--text-base) * var(--multiplier-2xl));
   --text-h2: calc(var(--text-base) * var(--multiplier-xl));
-  --font-medium: 500;
+
+  /* Font weights */
   --font-normal: 400;
+  --font-medium: 500;
 
   /* Line heights */
   --line-height-none: 1;
@@ -36,7 +48,12 @@
   --line-height-normal: 1.4;
   --line-height-relaxed: 1.6;
 
-  /* Spacing */
+  /* Letter spacing */
+  --letter-spacing-tight: 0.02em;
+  --letter-spacing-normal: 0.05em;
+
+  /* === Spacing === */
+  /* REM spacing */
   --space-0-5rem: 0.5rem;
   --space-1rem: 1rem;
   --space-1-5rem: 1.5rem;
@@ -51,6 +68,7 @@
   --space-6rem: 6rem;
   --space-10rem: 10rem;
 
+  /* Pixel spacing */
   --space-2px: 2px;
   --space-3px: 3px;
   --space-4px: 4px;
@@ -61,71 +79,11 @@
   --space-10px: 10px;
   --space-15px: 15px;
 
-  /* Layout */
+  /* === Layout & Dimensions === */
   --container-max: 128rem; /* 1280px */
-
-  /* Breakpoints */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-
-  /* Hover effects */
-  --hover-lift: -2px;
-
-  /* Border radius */
-  --radius-sm: 6px;
-  --radius-md: 15px;
-  --radius-full: 9999px;
-
-  /* Borders */
-  --border-width-thin: 1px;
-  --border-width-medium: 1.5px;
-  --border-width-thick: 2px;
-
-  /* Effects */
-  --blur-xs: 4px;
-  --blur-sm: 8px;
-  --blur-md: 10px;
-  --blur-lg: 15px;
-
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 200ms ease;
-  --transition-slow: 300ms ease;
-
-  /* Animation durations */
-  --animation-pulse: 3s;
-  --animation-slow: 5s;
-
-  /* Text size multipliers */
-  --multiplier-xs: 0.75; /* 12px */
-  --multiplier-sm: 0.875; /* 14px */
-  --multiplier-md: 0.9; /* 14.4px */
-  --multiplier-lg: 1.125; /* 18px */
-  --multiplier-xl: 1.25; /* 20px */
-  --multiplier-2xl: 2.25; /* 36px */
-
-  /* Opacity values */
-  --opacity-medium: 0.7;
-  --opacity-high: 0.9;
-
-  /* Letter spacing */
-  --letter-spacing-tight: 0.02em;
-  --letter-spacing-normal: 0.05em;
-
-  /* Brightness adjustments */
-  --brightness-subtle: 1.1;
-  --brightness-hover: 1.6;
-
-  /* Dimensions */
-  --underline-height: 2px;
   --content-max-width: 80ch;
-
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
-  --shadow-glow-sm: 0 0 10px;
+  --image-max-width: 800px;
+  --underline-height: 2px;
 
   /* Icon sizes */
   --icon-size-md: 3rem;
@@ -136,7 +94,56 @@
   --grid-cols-3: repeat(3, 1fr);
   --grid-gap-md: var(--space-2rem);
 
-  /* Mobile-specific variables */
+  /* === Breakpoints === */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* === Borders & Radius === */
+  /* Border widths */
+  --border-width-thin: 1px;
+  --border-width-medium: 1.5px;
+  --border-width-thick: 2px;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 15px;
+  --radius-full: 9999px;
+
+  /* === Effects & Animations === */
+  /* Blur effects */
+  --blur-xs: 4px;
+  --blur-sm: 8px;
+  --blur-md: 10px;
+  --blur-lg: 15px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --shadow-glow-sm: 0 0 10px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Animations */
+  --animation-pulse: 3s;
+  --animation-slow: 5s;
+
+  /* Hover effects */
+  --hover-lift: -2px;
+
+  /* Opacity */
+  --opacity-medium: 0.7;
+  --opacity-high: 0.9;
+
+  /* Brightness */
+  --brightness-subtle: 1.1;
+  --brightness-hover: 1.6;
+
+  /* === Mobile === */
   --mobile-text-multiplier: 0.9; /* Scale down text slightly on mobile */
 }
 

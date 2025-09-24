@@ -74,3 +74,32 @@
   height: 100%;
   border: 0;
 }
+
+/* Mobile PDF viewer */
+.mobileViewer {
+  padding: var(--space-1rem);
+  text-align: center;
+}
+
+.mobileViewer p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-0-5rem);
+  font-size: calc(var(--text-base) * var(--multiplier-sm));
+}
+
+.openButton {
+  color: var(--color-brand-blue);
+  text-decoration: underline;
+}
+
+.errorMessage {
+  padding: var(--space-1rem);
+  color: var(--color-text-muted);
+}
+/* Mobile styles */
+@media (max-width: 768px) {
+  .viewer {
+    height: auto;
+    min-height: 0;
+  }
+}

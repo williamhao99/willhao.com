@@ -16,6 +16,23 @@ interface PdfViewerProps {
 export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
+  function checkIfMobile() {
+    if (typeof window === "undefined") return false;
+    const userAgent = navigator.userAgent;
+    const mobilePatterns = ["iPad", "iPhone", "iPod", "Android"];
+    for (let i = 0; i < mobilePatterns.length; i++) {
+      const pattern = mobilePatterns[i];
+      if (!pattern) continue;
+      if (userAgent.indexOf(pattern) !== -1) {
+        return true;
+      }
+    }
+    if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) {
+      return true;
+    }
+    return false;
+  }
+
   function isSafePdf(src: string): boolean {
     // Security feature
     try {
@@ -95,12 +112,17 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
       return null;
     }
 
-    const safeSrc = isSafePdf(currentTab.src) ? currentTab.src : null;
+    let safeSrc = null;
+    if (isSafePdf(currentTab.src)) {
+      safeSrc = currentTab.src;
+    }
 
     let viewerStyle = {};
     if (customHeight) {
       viewerStyle = { height: customHeight };
     }
+
+    const isMobile = checkIfMobile();
 
     return (
       <div
@@ -110,23 +132,38 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
         role="region"
         aria-label={"PDF viewer: " + currentTab.label}
       >
-        {safeSrc ? (
-          <iframe
-            src={safeSrc}
-            className={styles.iframe}
-            title={"PDF: " + currentTab.label}
-            loading="lazy"
-          />
-        ) : (
-          <div
-            style={{
-              padding: "var(--space-1rem)",
-              color: "var(--color-text-muted)",
-            }}
-          >
-            Invalid PDF source.
-          </div>
-        )}
+        {(function () {
+          if (!safeSrc) {
+            return (
+              <div className={styles.errorMessage}>Invalid PDF source.</div>
+            );
+          }
+
+          if (isMobile) {
+            return (
+              <div className={styles.mobileViewer}>
+                <p>PDF viewing works best in this device's native viewer</p>
+                <a
+                  href={safeSrc}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.openButton}
+                >
+                  Open PDF: {currentTab.label} →
+                </a>
+              </div>
+            );
+          } else {
+            return (
+              <iframe
+                src={safeSrc}
+                className={styles.iframe}
+                title={"PDF: " + currentTab.label}
+                loading="lazy"
+              />
+            );
+          }
+        })()}
       </div>
     );
   }

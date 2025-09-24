@@ -11,24 +11,18 @@ export default function FreshmanYearPage() {
       </h2>
       <time>May 12, 2025</time>
 
-      <figure>
-        <div style={{ maxWidth: "800px", margin: "2rem auto" }}>
+      <figure className={styles.figure}>
+        <div className={styles.imageWrapper}>
           <Image
             src="/images/kites_freshman-year.jpg"
             alt="Austin ABC Zilker Kite Festival"
             width={800}
             height={600}
-            style={{ width: "100%", height: "auto" }}
+            className={styles.image}
             priority={false}
           />
         </div>
-        <figcaption
-          style={{
-            textAlign: "center",
-            marginTop: "0.5rem",
-            marginBottom: "2rem",
-          }}
-        >
+        <figcaption className={styles.figcaption}>
           Austin's annual ABC Zilker Kite Festival that I went to on April 5th,
           2025
         </figcaption>
@@ -79,23 +73,17 @@ export default function FreshmanYearPage() {
         every week.
       </p>
 
-      <figure>
-        <div style={{ maxWidth: "800px", margin: "2rem auto" }}>
+      <figure className={styles.figure}>
+        <div className={styles.imageWrapper}>
           <Image
             src="/images/b-team-lounge_freshman-year.jpg"
             alt="B Team at UT eSports Lounge"
             width={800}
             height={600}
-            style={{ width: "100%", height: "auto" }}
+            className={styles.image}
           />
         </div>
-        <figcaption
-          style={{
-            textAlign: "center",
-            marginTop: "0.5rem",
-            marginBottom: "2rem",
-          }}
-        >
+        <figcaption className={styles.figcaption}>
           B Team (me on the far right), after playing a match in the UT eSports
           Lounge
         </figcaption>
@@ -216,7 +204,7 @@ export default function FreshmanYearPage() {
       <PDFViewer
         tabs={[
           {
-            label: "2025-03-13 UCF Thursday Evening Market Watch",
+            label: "2025-03-13 UCF Market Watch",
             src: "/documents/2025-03-13 UCF Thursday Evening Market Watch.pdf",
           },
         ]}
