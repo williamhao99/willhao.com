@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Noto_Sans, Noto_Serif } from "next/font/google";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
+import GoogleAnalytics from "@/components/googleAnalytics/GoogleAnalytics";
 import "./globals.css";
 
 const THEME_COLOR = "#0f172a"; // Matches --color-background
@@ -35,6 +36,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={notoSans.variable + " " + notoSerif.variable}>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body>
         <Header />
         <main className="main-content">
