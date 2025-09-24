@@ -7,3 +7,14 @@
   font-weight: var(--font-normal);
   margin-bottom: var(--space-1rem);
 }
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .content {
+    padding: 0 var(--space-0-5rem);
+  }
+
+  .content h3 {
+    font-size: calc(var(--text-lg) * var(--mobile-text-multiplier));
+  }
+}

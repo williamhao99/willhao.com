@@ -41,7 +41,7 @@
 }
 
 .title {
-  font-size: var(--text-lg);
+  font-size: var(--widget-value-size);
   font-weight: var(--font-medium);
   color: var(--color-text-primary);
   margin: 0;
@@ -53,4 +53,16 @@
   color: var(--widget-text-label);
   margin: 0;
   font-family: var(--font-serif), var(--font-serif-fallback);
+}
+
+/* Mobile styles - center text */
+@media (max-width: 768px) {
+  .content {
+    align-items: center;
+    text-align: center;
+    padding: var(--space-1rem) 0;
+    min-height: var(--space-6rem);
+  }
+
+  /* Font sizes already scaled by WidgetContainer */
 }

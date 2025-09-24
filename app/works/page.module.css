@@ -11,3 +11,16 @@
   grid-auto-rows: minmax(var(--project-grid-min-height), auto);
   padding-top: var(--space-2rem); /* Distance between description and cards */
 }
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .projectsSection {
+    margin-bottom: var(--space-1-5rem);
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: var(--space-1-5rem);
+    padding-top: var(--space-2-5rem);
+  }
+}

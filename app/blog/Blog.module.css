@@ -55,3 +55,35 @@
   color: var(--color-text-muted);
   margin-top: var(--space-1rem);
 }
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .feed {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: var(--space-1rem);
+  }
+
+  .post {
+    padding: var(--space-1rem) 0;
+  }
+
+  .postTitle {
+    font-size: calc(var(--text-lg) * var(--mobile-text-multiplier));
+  }
+
+  .postExcerpt {
+    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+  }
+
+  .moreButton {
+    font-size: calc(
+      var(--text-base) * var(--multiplier-sm) * var(--mobile-text-multiplier)
+    );
+  }
+
+  .postDate {
+    font-size: calc(
+      var(--text-base) * var(--multiplier-sm) * var(--mobile-text-multiplier)
+    );
+  }
+}

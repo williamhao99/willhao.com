@@ -80,3 +80,46 @@
   filter: none;
   fill: var(--github-hover);
 }
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .footer {
+    --text-size: calc(
+      var(--text-base) * var(--multiplier-sm) * var(--mobile-text-multiplier)
+    );
+    --copyright-size: calc(
+      var(--text-base) * var(--multiplier-xs) * var(--mobile-text-multiplier)
+    );
+    --nav-spacing: var(--space-1-5rem);
+    --icon-spacing: var(--space-2rem);
+
+    padding: var(--space-1rem) 0;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: var(--space-1rem);
+  }
+
+  .nav {
+    justify-content: center;
+    flex: none;
+  }
+
+  .copyright {
+    position: static;
+    transform: none;
+    margin: var(--space-0-5rem) 0;
+    order: 3; /* Move to bottom on mobile */
+  }
+
+  .social {
+    justify-content: center;
+    flex: none;
+  }
+
+  .icon {
+    width: calc(var(--icon-size-md) * 0.8);
+    height: calc(var(--icon-size-md) * 0.8);
+  }
+}

@@ -46,3 +46,14 @@
   line-height: var(--line-height-none);
   font-family: var(--font-serif), var(--font-serif-fallback);
 }
+
+/* Mobile styles - center content and keep 2-column grid */
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-1rem);
+    align-items: center;
+  }
+
+  /* Font sizes already scaled by WidgetContainer */
+}

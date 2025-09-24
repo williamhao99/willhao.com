@@ -48,6 +48,8 @@
   --space-4-5rem: 4.5rem;
   --space-5rem: 5rem;
   --space-5-5rem: 5.5rem;
+  --space-6rem: 6rem;
+  --space-10rem: 10rem;
 
   --space-2px: 2px;
   --space-3px: 3px;
@@ -133,6 +135,9 @@
   --grid-cols-2: repeat(2, 1fr);
   --grid-cols-3: repeat(3, 1fr);
   --grid-gap-md: var(--space-2rem);
+
+  /* Mobile-specific variables */
+  --mobile-text-multiplier: 0.9; /* Scale down text slightly on mobile */
 }
 
 /* Reset */
@@ -227,4 +232,32 @@ body {
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-2rem);
+}
+
+/* Mobile styles for global elements */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-1-5rem);
+  }
+
+  .main-content {
+    padding: var(--space-1-5rem) 0;
+  }
+
+  .main-content h1 {
+    font-size: calc(var(--text-h1) * var(--mobile-text-multiplier));
+    margin-bottom: var(--space-2rem);
+  }
+
+  .main-content h2 {
+    font-size: calc(var(--text-h2) * var(--mobile-text-multiplier));
+  }
+
+  .main-content p {
+    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+  }
+
+  .main-content li {
+    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+  }
 }

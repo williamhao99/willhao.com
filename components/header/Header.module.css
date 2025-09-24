@@ -65,7 +65,6 @@
   background: var(--card-bg);
   border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--radius-full);
-  backdrop-filter: blur(var(--blur-sm));
 }
 
 .navLink {
@@ -105,4 +104,33 @@
 
 .navLink.active::after {
   transform: scaleX(1);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .header {
+    --logo-width: 15rem; /* 25% smaller */
+    --logo-height: 3.75rem;
+    --nav-padding-x: var(--space-8px);
+
+    padding: var(--space-1rem) 0 var(--space-2rem) 0;
+  }
+
+  .content {
+    gap: var(--space-1rem);
+  }
+
+  .left {
+    align-items: flex-start;
+  }
+
+  .navList {
+    gap: var(--space-1rem);
+    padding: var(--space-3px) var(--space-1rem);
+  }
+
+  .navLink {
+    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+    padding: var(--space-3px) var(--space-8px);
+  }
 }

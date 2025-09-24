@@ -30,6 +30,7 @@
 }
 
 .title {
+  font-size: var(--text-lg);
   font-weight: var(--font-medium);
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
@@ -139,4 +140,45 @@
 .statusPlanned {
   background: var(--border-subtle);
   color: var(--color-text-muted);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .card {
+    padding: var(--space-1-5rem);
+  }
+
+  .title {
+    font-size: calc(var(--text-lg) * var(--mobile-text-multiplier));
+  }
+
+  .date {
+    font-size: calc(
+      var(--text-base) * var(--multiplier-sm) * var(--mobile-text-multiplier)
+    );
+  }
+
+  .description {
+    font-size: calc(
+      var(--text-base) * var(--multiplier-sm) * var(--mobile-text-multiplier)
+    );
+  }
+
+  .awardText {
+    font-size: calc(
+      var(--text-base) * var(--multiplier-sm) * var(--mobile-text-multiplier)
+    );
+  }
+
+  .techBadge {
+    font-size: calc(
+      var(--text-base) * var(--multiplier-xs) * var(--mobile-text-multiplier)
+    );
+  }
+
+  .status {
+    font-size: calc(
+      var(--text-base) * var(--multiplier-xs) * var(--mobile-text-multiplier)
+    );
+  }
 }
