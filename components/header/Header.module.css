@@ -16,8 +16,6 @@
   --nav-padding-x: var(--space-2rem);
   --nav-padding-y: var(--space-0-5rem);
 
-  --tagline-size: calc(var(--text-base) * var(--multiplier-md));
-
   padding: var(--space-2rem) 0 var(--space-2rem);
 }
 
@@ -50,14 +48,6 @@
   object-fit: contain;
   filter: brightness(var(--brightness-subtle));
   transition: filter var(--transition-normal);
-}
-
-.tagline {
-  color: var(--color-text-secondary);
-  font-family: var(--font-serif), var(--font-serif-fallback);
-  font-size: var(--tagline-size);
-  font-weight: var(--font-normal);
-  line-height: var(--line-height-tight);
 }
 
 .navigation {
