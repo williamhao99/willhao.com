@@ -16,7 +16,7 @@ export default function WorksPage() {
   return (
     <>
       <h1>Works</h1>
-      <h2>Personal and academic projects.</h2>
+      <h2>Personal, academic, and hackathon projects.</h2>
 
       <section className={styles.projectsSection}>
         <div className={styles.projectsGrid}>{renderProjects()}</div>
