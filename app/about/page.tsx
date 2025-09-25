@@ -89,6 +89,9 @@ export default function AboutPage() {
         <li>Working through my reading list</li>
       </ul>
 
+      <br />
+
+      <h2>Real-time widgets</h2>
       <div className={styles.widgets}>
         <Suspense fallback={<SpotifyWidgetLoading />}>
           <SpotifyDataLoader />

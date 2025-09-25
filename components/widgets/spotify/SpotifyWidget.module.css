@@ -11,7 +11,7 @@
 
 /* Pulsing animation when playing */
 .playing {
-  animation: pulse var(--animation-pulse) ease-in-out infinite;
+  animation: pulse var(--animation-slow) ease-in-out infinite;
 }
 
 @keyframes pulse {

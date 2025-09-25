@@ -8,7 +8,7 @@ export default function GitHubIcon({ className, ...props }: IconProps) {
       className={className}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 32 32"
-      fill="#9CA3AF" /* Actual color: #FAFBFC; shown on hover in CSS */
+      fill="#FAFBFC"
       aria-hidden="true"
       {...props}
     >
