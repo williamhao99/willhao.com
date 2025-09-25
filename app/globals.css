@@ -93,6 +93,7 @@
   --grid-cols-2: repeat(2, 1fr);
   --grid-cols-3: repeat(3, 1fr);
   --grid-gap-md: var(--space-2rem);
+  --grid-min-height: 18rem;
 
   /* === Breakpoints === */
   --breakpoint-sm: 640px;
@@ -241,7 +242,17 @@ body {
   padding: 0 var(--space-2rem);
 }
 
-/* Mobile styles for global elements */
+/* Project grid layout */
+.projectsGrid {
+  display: grid;
+  grid-template-columns: var(--grid-cols-3);
+  gap: var(--grid-gap-md);
+  grid-auto-rows: minmax(var(--grid-min-height), auto);
+  margin-top: var(--space-2rem);
+  margin-bottom: var(--space-2rem);
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
   .container {
     padding: 0 var(--space-1-5rem);
@@ -266,5 +277,10 @@ body {
 
   .main-content li {
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: var(--space-1-5rem);
   }
 }

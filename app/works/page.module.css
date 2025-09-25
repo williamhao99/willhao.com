@@ -1,15 +1,9 @@
 .projectsSection {
-  --project-grid-min-height: 18rem;
-
   margin-bottom: var(--space-3-5rem);
 }
 
-.projectsGrid {
-  display: grid;
-  grid-template-columns: var(--grid-cols-3);
-  gap: var(--grid-gap-md);
-  grid-auto-rows: minmax(var(--project-grid-min-height), auto);
-  padding-top: var(--space-2rem); /* Distance between description and cards */
+.worksGrid {
+  padding-top: var(--space-2rem);
 }
 
 /* Mobile styles */
@@ -18,9 +12,7 @@
     margin-bottom: var(--space-1-5rem);
   }
 
-  .projectsGrid {
-    grid-template-columns: 1fr; /* Single column on mobile */
-    gap: var(--space-1-5rem);
+  .worksGrid {
     padding-top: var(--space-2-5rem);
   }
 }

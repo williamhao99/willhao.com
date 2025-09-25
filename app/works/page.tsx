@@ -19,7 +19,9 @@ export default function WorksPage() {
       <h2>Personal, academic, and hackathon projects.</h2>
 
       <section className={styles.projectsSection}>
-        <div className={styles.projectsGrid}>{renderProjects()}</div>
+        <div className={"projectsGrid " + styles.worksGrid}>
+          {renderProjects()}
+        </div>
       </section>
     </>
   );
