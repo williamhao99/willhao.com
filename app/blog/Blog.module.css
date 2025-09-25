@@ -11,24 +11,18 @@
   color: inherit;
 }
 
-.postTitleLink {
-  text-decoration: none;
-  color: inherit;
-}
-
-.postTitleLink:hover .postTitle {
-  color: var(--color-brand-blue-bright);
-}
-
-.postContent {
-  margin-bottom: var(--space-1rem);
-}
-
 .postTitle {
   font-size: var(--text-lg);
   font-weight: var(--font-medium);
   margin-bottom: var(--space-1rem);
+  text-decoration: none;
+  color: inherit;
+  display: block;
   transition: color var(--transition-fast);
+}
+
+.postTitle:hover {
+  color: var(--color-brand-blue-bright);
 }
 
 .postExcerpt {
