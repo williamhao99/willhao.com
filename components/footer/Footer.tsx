@@ -51,7 +51,11 @@ export default function Footer() {
       if (!navItem) continue;
 
       navLinks.push(
-        <Link key={navItem.href} href={navItem.href} className={styles.navLink}>
+        <Link
+          key={navItem.href}
+          href={navItem.href}
+          className={styles.navLink}
+        >
           {navItem.label}
         </Link>,
       );
@@ -86,13 +90,19 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className="container">
         <div className={styles.content}>
-          <nav className={styles.nav} aria-label="Footer navigation">
+          <nav
+            className={styles.nav}
+            aria-label="Footer navigation"
+          >
             {renderNavLinks()}
           </nav>
 
           <p className={styles.copyright}>© {currentYear} William Hao</p>
 
-          <div className={styles.social} aria-label="Social links">
+          <div
+            className={styles.social}
+            aria-label="Social links"
+          >
             {renderSocialLinks()}
           </div>
         </div>

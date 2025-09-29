@@ -1,1 +1,4 @@
-{}
+{
+  "singleAttributePerLine": true,
+  "htmlWhitespaceSensitivity": "ignore"
+}

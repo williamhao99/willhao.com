@@ -10,13 +10,22 @@ export default function BlogPage() {
       if (!post) continue;
 
       posts.push(
-        <div key={post.slug} className={styles.post}>
-          <Link href={post.link} className={styles.postTitle}>
+        <div
+          key={post.slug}
+          className={styles.post}
+        >
+          <Link
+            href={post.link}
+            className={styles.postTitle}
+          >
             {post.title}
           </Link>
           <p className={styles.postExcerpt}>
             {post.excerpt}
-            <Link href={post.link} className={styles.moreButton}>
+            <Link
+              href={post.link}
+              className={styles.moreButton}
+            >
               More →
             </Link>
           </p>

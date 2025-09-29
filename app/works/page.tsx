@@ -8,7 +8,12 @@ export default function WorksPage() {
     for (let i = 0; i < projects.length; i++) {
       const project = projects[i];
       if (!project) continue;
-      items.push(<WorkCard key={project.id} project={project} />);
+      items.push(
+        <WorkCard
+          key={project.id}
+          project={project}
+        />,
+      );
     }
     return items;
   }

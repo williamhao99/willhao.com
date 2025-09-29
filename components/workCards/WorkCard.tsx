@@ -20,7 +20,10 @@ export default function WorkCard({ project }: WorkCardProps) {
       const tech = project.tech[i];
       if (!tech) continue;
       techBadges.push(
-        <span key={tech} className={styles.techBadge}>
+        <span
+          key={tech}
+          className={styles.techBadge}
+        >
           {tech}
         </span>,
       );

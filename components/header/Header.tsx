@@ -57,7 +57,11 @@ export default function Header() {
       <div className="container">
         <div className={styles.content}>
           <div className={styles.left}>
-            <Link href="/" aria-label="Home" className={styles.logo}>
+            <Link
+              href="/"
+              aria-label="Home"
+              className={styles.logo}
+            >
               <Image
                 src="/images/william-hao-banner.png"
                 alt="William Hao"
@@ -68,8 +72,14 @@ export default function Header() {
             </Link>
           </div>
 
-          <nav className={styles.navigation} aria-label="Main navigation">
-            <ul className={styles.navList} role="list">
+          <nav
+            className={styles.navigation}
+            aria-label="Main navigation"
+          >
+            <ul
+              className={styles.navList}
+              role="list"
+            >
               {renderNavItems()}
             </ul>
           </nav>

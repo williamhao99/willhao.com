@@ -20,7 +20,12 @@ async function SpotifyDataLoader() {
       songTitle: "Unable to fetch data",
       artist: "—",
     };
-    return <SpotifyWidget initialData={errorData} error={true} />;
+    return (
+      <SpotifyWidget
+        initialData={errorData}
+        error={true}
+      />
+    );
   }
 }
 
@@ -34,7 +39,12 @@ async function ChessDataLoader() {
       blitz: null,
       bullet: null,
     };
-    return <ChessWidget initialData={errorData} error={true} />;
+    return (
+      <ChessWidget
+        initialData={errorData}
+        error={true}
+      />
+    );
   }
 }
 

@@ -58,7 +58,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={notoSans.variable + " " + notoSerif.variable}>
+    <html
+      lang="en"
+      className={notoSans.variable + " " + notoSerif.variable}
+    >
       <head>
         <GoogleAnalytics />
       </head>
