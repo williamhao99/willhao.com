@@ -118,10 +118,16 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
       const current: SpotifyCurrentlyPlaying = await currentResponse.json();
       if (current.item) {
         // Return currently playing track info
+        const artistNames = [];
+        for (let i = 0; i < current.item.artists.length; i++) {
+          const artist = current.item.artists[i];
+          if (!artist) continue;
+          artistNames.push(artist.name);
+        }
         return {
           isPlaying: current.is_playing,
           songTitle: current.item.name,
-          artist: current.item.artists.map((a) => a.name).join(", "), // Join multiple artists with commas
+          artist: artistNames.join(", "),
         };
       }
     }
@@ -180,10 +186,16 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
     else if (diffMins > 0) lastPlayed = diffMins + "m ago";
 
     // Return recently played track info with relative timestamp
+    const artistNames = [];
+    for (let i = 0; i < track.track.artists.length; i++) {
+      const artist = track.track.artists[i];
+      if (!artist) continue;
+      artistNames.push(artist.name);
+    }
     return {
       isPlaying: false,
       songTitle: track.track.name,
-      artist: track.track.artists.map((a) => a.name).join(", "),
+      artist: artistNames.join(", "),
       lastPlayed,
     };
   } catch (error) {

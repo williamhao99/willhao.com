@@ -37,12 +37,19 @@ export default function Header() {
       const href = navItem.href;
       const label = navItem.label;
 
+      let ariaCurrent: "page" | undefined;
+      if (isActive(href)) {
+        ariaCurrent = "page";
+      } else {
+        ariaCurrent = undefined;
+      }
+
       navItems.push(
         <li key={href}>
           <Link
             href={href}
             className={getNavClasses(href)}
-            aria-current={isActive(href) ? "page" : undefined}
+            aria-current={ariaCurrent}
           >
             {label}
           </Link>
