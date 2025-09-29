@@ -8,7 +8,8 @@ import { fetchSpotifyData } from "@/lib/data/spotify";
 import { fetchChessStats } from "@/lib/data/chess";
 import styles from "./page.module.css";
 
-export const revalidate = 5;
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 async function SpotifyDataLoader() {
   try {

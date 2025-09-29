@@ -95,6 +95,7 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
           Authorization: "Bearer " + accessToken,
         },
         signal: controller.signal,
+        cache: "no-store",
       },
     );
 
@@ -109,6 +110,7 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
             Authorization: "Bearer " + accessToken,
           },
           signal: controller.signal,
+          cache: "no-store",
         },
       );
     }
@@ -140,6 +142,7 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
           Authorization: "Bearer " + accessToken,
         },
         signal: controller.signal,
+        cache: "no-store",
       },
     );
 
@@ -153,6 +156,7 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
             Authorization: "Bearer " + accessToken,
           },
           signal: controller.signal,
+          cache: "no-store",
         },
       );
     }
