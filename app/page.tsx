@@ -109,15 +109,20 @@ export default function Home() {
     <>
       <section className={styles.heroSection}>
         <h1 className={styles.title}>Will Hao — Portfolio</h1>
-        <h2>Computer Science + Math '27 @ UT Austin</h2>
+        <img
+          src="/favicons/android-chrome-512x512.png"
+          alt=""
+          className={styles.titleIcon}
+          width={96}
+          height={96}
+        />
+        <h2 className={styles.subtitle}>CS + Math '27 @ UT Austin</h2>
       </section>
 
       <section className={styles.introSection}>
         <p>
-          I'm currently a CS + Math student at UT Austin.
-          <br />
-          Lately I've been exploring full-stack development, algotrading, and
-          AI/ML.
+          I'm a current student at UT Austin exploring full-stack development,
+          algotrading, and AI/ML.
           <br />
           The languages I use most are Python, TypeScript/React, and Java,
           though I'm familiar with many others. <br />

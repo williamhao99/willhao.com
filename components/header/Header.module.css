@@ -1,14 +1,6 @@
-/* Prevent accidental text selection during navigation */
-.header {
-  user-select: none;
-}
-
-.logoImage {
-  -webkit-user-drag: none;
-}
-
 /* Component variables */
 .header {
+  user-select: none; /* Prevent accidental text selection during navigation */
   --logo-width: 20rem;
   --logo-height: 5rem;
 
@@ -48,6 +40,9 @@
   object-fit: contain;
   filter: brightness(var(--brightness-subtle));
   transition: filter var(--transition-normal);
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .navigation {

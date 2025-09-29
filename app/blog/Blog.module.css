@@ -12,12 +12,12 @@
 }
 
 .postTitle {
+  display: block;
   font-size: var(--text-lg);
   font-weight: var(--font-medium);
   margin-bottom: var(--space-1rem);
   text-decoration: none;
   color: inherit;
-  display: block;
   transition: color var(--transition-fast);
 }
 
@@ -45,9 +45,10 @@
 }
 
 .postDate {
+  display: block;
   font-size: calc(var(--text-base) * var(--multiplier-sm));
   color: var(--color-text-muted);
-  margin-top: var(--space-1rem);
+  margin-top: calc(-0.25 * var(--space-1rem));
 }
 
 /* Mobile styles */
