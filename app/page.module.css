@@ -1,0 +1,127 @@
+/* Title shimmer effect */
+.title {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-blue) 0%,
+    var(--color-brand-blue-bright) 25%,
+    var(--color-text-primary) 50%,
+    var(--color-brand-blue-bright) 75%,
+    var(--color-brand-blue) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: title-shimmer var(--animation-slow) linear infinite;
+}
+
+@keyframes title-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+p .textLink,
+p .textLink:visited,
+h2 .textLink,
+h2 .textLink:visited {
+  color: var(--color-brand-blue-bright);
+  text-decoration: none;
+}
+
+p .textLink:hover,
+h2 .textLink:hover {
+  color: var(--color-brand-blue-bright);
+  text-decoration: underline;
+}
+
+.quickLinks {
+  display: flex;
+  gap: var(--space-1rem);
+  margin-bottom: var(--space-2rem);
+  margin-left: calc(-1 * var(--space-1rem)); /* Compensate for icon padding */
+}
+
+.quickLinkIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-0-5rem);
+  transition: var(--transition-fast);
+}
+
+.quickLinkIcon svg {
+  width: var(--space-5rem);
+  height: var(--space-5rem);
+  transition: var(--transition-fast);
+}
+
+.quickLinkIcon:first-child svg {
+  /*  transform: rotate(-10deg);
+  transform-origin: center;
+}
+
+.quickLinkIcon:nth-child(2) svg {
+*/
+  fill: #0a66c2;
+}
+
+.quickLinkIcon:hover svg {
+  transform: scale(1.2);
+}
+
+/*
+.quickLinkIcon:first-child:hover svg { -- UNCOMMENT WHEN READY TO ADD RESUME ICON BACK
+  transform: rotate(-10deg) scale(1.2);
+}
+  */
+
+.techStackSection {
+  margin: -1rem 0 var(--space-0-5rem) 0;
+  text-align: center;
+}
+
+.techStackGrid {
+  display: flex;
+  gap: var(--space-5rem);
+  justify-content: center;
+  margin-top: var(--space-2rem);
+}
+
+.techStackItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1rem);
+}
+
+.techStackLabel {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+}
+
+.techStackGrid svg {
+  width: var(--space-6rem);
+  height: var(--space-6rem);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .techStackGrid {
+    gap: var(--space-2rem);
+    flex-wrap: wrap;
+    row-gap: var(--space-3rem);
+  }
+
+  .techStackLabel {
+    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+  }
+
+  .techStackItem {
+    gap: var(--space-0-5rem);
+  }
+}

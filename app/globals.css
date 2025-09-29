@@ -95,12 +95,6 @@
   --grid-gap-md: var(--space-2rem);
   --grid-min-height: 18rem;
 
-  /* === Breakpoints === */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-
   /* === Borders & Radius === */
   /* Border widths */
   --border-width-thin: 1px;
