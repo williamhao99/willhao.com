@@ -80,8 +80,22 @@ h2 .textLink:hover {
 }
   */
 
+/* Section spacing */
+.heroSection {
+  margin-bottom: var(--space-2rem);
+}
+
+.introSection {
+  margin-bottom: var(--space-3rem);
+}
+
+.worksSection {
+  margin-bottom: var(--space-3rem);
+}
+
 .techStackSection {
-  margin: -1rem 0 var(--space-0-5rem) 0;
+  margin-top: 0;
+  margin-bottom: var(--space-4rem);
   text-align: center;
 }
 
@@ -90,6 +104,10 @@ h2 .textLink:hover {
   gap: var(--space-5rem);
   justify-content: center;
   margin-top: var(--space-2rem);
+}
+
+.blogSection {
+  margin-bottom: var(--space-4rem);
 }
 
 .techStackItem {

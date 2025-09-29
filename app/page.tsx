@@ -107,54 +107,53 @@ export default function Home() {
 
   return (
     <>
-      <h1 className={styles.title}>Will Hao — Portfolio</h1>
-      <h2>Computer Science + Math '27 @ UT Austin</h2>
-      <br />
+      <section className={styles.heroSection}>
+        <h1 className={styles.title}>Will Hao — Portfolio</h1>
+        <h2>Computer Science + Math '27 @ UT Austin</h2>
+      </section>
 
-      <p>
-        I'm currently a CS + Math student at UT Austin.
-        <br /> Lately I've been exploring full-stack development, algotrading,
-        and AI/ML.
-        <br />
-        My preferred languages are Python, TypeScript/React, and Java, though
-        I'm familiar with many others. <br />
-        <Link
-          href="/about"
-          className={styles.textLink}
-        >
-          Learn more about me!
-        </Link>
-      </p>
-      <div className={styles.quickLinks}>{renderQuickLinks()}</div>
-      <br />
+      <section className={styles.introSection}>
+        <p>
+          I'm currently a CS + Math student at UT Austin.
+          <br />
+          Lately I've been exploring full-stack development, algotrading, and
+          AI/ML.
+          <br />
+          The languages I use most are Python, TypeScript/React, and Java,
+          though I'm familiar with many others. <br />
+          <Link
+            href="/about"
+            className={styles.textLink}
+          >
+            Learn more about me!
+          </Link>
+        </p>
+        <div className={styles.quickLinks}>{renderQuickLinks()}</div>
+      </section>
 
-      <h2>Featured Works</h2>
-      <div className="projectsGrid">{renderFeaturedProjects()}</div>
-      <Link href="/works">More works →</Link>
-      <br />
-      <br />
-      <br />
+      <section className={styles.worksSection}>
+        <h2>Featured Works</h2>
+        <div className="projectsGrid">{renderFeaturedProjects()}</div>
+        <Link href="/works">More works →</Link>
+      </section>
 
       <div className={styles.techStackSection}>
         <h2>Tech Stack</h2>
         <div className={styles.techStackGrid}>{renderTechStack()}</div>
       </div>
-      <br />
-      <br />
 
-      <h2>
-        Latest blog:{" "}
-        <Link
-          href="/blog/freshman-year-of-college"
-          className={styles.textLink}
-        >
-          Freshman year of college
-        </Link>
-      </h2>
-      <Link href="/blog">More blogs →</Link>
-      <br />
-      <br />
-      <br />
+      <section className={styles.blogSection}>
+        <h2>
+          Latest blog:{" "}
+          <Link
+            href="/blog/freshman-year-of-college"
+            className={styles.textLink}
+          >
+            Freshman year of college
+          </Link>
+        </h2>
+        <Link href="/blog">More blogs →</Link>
+      </section>
     </>
   );
 }
