@@ -1,3 +1,4 @@
+// From: https://commons.wikimedia.org/wiki/File:Gmail_icon_(2020).svg
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   className?: string | undefined;
 }

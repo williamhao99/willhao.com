@@ -1,3 +1,4 @@
+// From: https://worldvectorlogo.com/logo/chess-chesscom
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   className?: string | undefined;
 }

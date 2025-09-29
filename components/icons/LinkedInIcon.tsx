@@ -1,3 +1,4 @@
+// From: https://react-icons.github.io/react-icons/
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   className?: string | undefined;
 }
