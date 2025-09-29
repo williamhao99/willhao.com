@@ -15,10 +15,10 @@ export const blogPosts: BlogPost[] = [
     link: "/blog/freshman-year-of-college",
   },
   {
-    title: "Book Review",
-    slug: "book-review",
-    excerpt: "Incoming book reviews.",
+    title: "Book Reviews",
+    slug: "book-reviews",
+    excerpt: "Book reviews of all types.",
     date: "May 15 2025",
-    link: "/blog/book-review",
+    link: "/blog/book-reviews",
   },
 ];

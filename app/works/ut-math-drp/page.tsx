@@ -64,7 +64,7 @@ export default function UTMathDRPPage() {
 
       <p>
         This was my first ever experience at math research, so I wasn't sure
-        what to expect coming in. One perspective shfit was that I have a lot
+        what to expect coming in. One perspective shift was that I have a lot
         more respect for grad students now; the work they do is definitely not
         for the faint-hearted. At one point my mentor showed me his PhD
         candidacy presentation on ergodic theory, and I thought my textbook
