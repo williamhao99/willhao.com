@@ -67,47 +67,49 @@ h2 .textLink:hover {
 
 .quickLinks {
   display: flex;
-  gap: var(--space-1rem);
+  gap: var(--space-3rem);
   margin-bottom: var(--space-2rem);
-  margin-left: calc(-1 * var(--space-1rem)); /* Compensate for icon padding */
 }
 
-.quickLinkIcon {
-  display: inline-flex;
+.quickLinkItem {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: var(--space-0-5rem);
-  transition: var(--transition-fast);
+  gap: var(--space-0-5rem);
+  text-decoration: none;
 }
 
-.quickLinkIcon svg {
+.quickLinkItem svg {
+  display: block;
   width: var(--space-5rem);
   height: var(--space-5rem);
   transition: var(--transition-fast);
+  will-change: transform;
 }
 
-.quickLinkIcon:first-child svg {
-  /*  transform: rotate(-10deg);
-  transform-origin: center;
+.quickLinkLabel {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
 }
 
-.quickLinkIcon:nth-child(2) svg {
-*/
+.quickLinkItem:first-child svg {
+  transform: rotate(-10deg);
+  fill: var(--color-text-primary);
+}
+
+.quickLinkItem:nth-child(2) svg {
   fill: #0a66c2;
 }
 
-.quickLinkIcon:hover svg {
+.quickLinkItem:hover svg {
   transform: scale(1.2);
 }
 
-/*
-.quickLinkIcon:first-child:hover svg { -- UNCOMMENT WHEN READY TO ADD RESUME ICON BACK
+.quickLinkItem:first-child:hover svg {
   transform: rotate(-10deg) scale(1.2);
 }
-  */
 
 /* Section spacing */
-
 .introSection {
   margin-bottom: var(--space-3rem);
 }

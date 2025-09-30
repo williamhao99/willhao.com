@@ -1,7 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import WorkCard from "@/components/workCards/WorkCard";
 import { projects } from "@/app/works/projects";
-// import ResumeIcon from "@/components/icons/ResumeIcon";
+import ResumeIcon from "@/components/icons/ResumeIcon";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import JavaIcon from "@/components/icons-tech/JavaIcon";
@@ -15,11 +16,11 @@ import GitIcon from "@/components/icons-tech/GitIcon";
 import styles from "./page.module.css";
 
 const QUICK_LINKS = [
-  // {
-  //   name: "Resume",
-  //   href: "/documents/resume.pdf",
-  //   Icon: ResumeIcon,
-  // },
+  {
+    name: "Resume",
+    href: "/documents/William Hao - Resume September 2025.pdf",
+    Icon: ResumeIcon,
+  },
   {
     name: "LinkedIn",
     href: "https://linkedin.com/in/william-a-hao",
@@ -50,17 +51,17 @@ export default function Home() {
       const link = QUICK_LINKS[i];
       if (!link) continue;
 
-      const Icon = link.Icon;
       links.push(
         <a
           key={link.name}
           href={link.href}
-          className={styles.quickLinkIcon}
+          className={styles.quickLinkItem}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={link.name}
         >
-          <Icon />
+          <link.Icon />
+          <span className={styles.quickLinkLabel}>{link.name}</span>
         </a>,
       );
     }
@@ -109,12 +110,13 @@ export default function Home() {
     <>
       <section className={styles.heroSection}>
         <h1 className={styles.title}>Will Hao — Portfolio</h1>
-        <img
+        <Image
           src="/favicons/android-chrome-512x512.png"
           alt=""
           className={styles.titleIcon}
           width={96}
           height={96}
+          priority
         />
         <h2 className={styles.subtitle}>CS + Math '27 @ UT Austin</h2>
       </section>
