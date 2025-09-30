@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import AutoRefreshWidget from "@/app/about/AutoRefresh";
 import SpotifyWidget from "@/components/widgets/spotify/SpotifyWidget";
@@ -7,6 +8,12 @@ import ChessWidgetLoading from "@/components/widgets/chess/ChessWidget.loading";
 import { fetchSpotifyData } from "@/lib/data/spotify";
 import { fetchChessStats } from "@/lib/data/chess";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "CS and Math student at UT Austin. Interested in full-stack development, algorithmic trading, and AI/ML.",
+};
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -87,16 +94,15 @@ export default function AboutPage() {
 
       <h2>What I'm busy with</h2>
       <ul>
-        <li>Recruiting</li>
+        <li>Recruiting - Summer 2026</li>
         <li>School coursework</li>
-        <li>Hackathons</li>
+        <li>Hackathons, coding competitions, projects</li>
         <li>
           Building a Kalshi trading bot - politics, economics, mentions, weather
           markets
         </li>
-        <li>Improving this portfolio</li>
-        <li>A 1000lb powerlifting total</li>
-        <li>A sub-2hr half marathon</li>
+        <li>Training for a 1000lb powerlifting total</li>
+        <li>Training for a sub-2hr half marathon</li>
         <li>Working through my reading list</li>
       </ul>
 

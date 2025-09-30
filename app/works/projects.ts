@@ -23,7 +23,8 @@ export const projects: Project[] = [
   {
     id: "willhao.com portfolio",
     title: "willhao.com",
-    description: "Personal portfolio",
+    description:
+      "Full-stack portfolio with live API integrations and server-side caching",
     tech: ["Next.js", "TypeScript", "REST APIs"],
     status: "complete",
     link: "https://github.com/williamhao99/willhao.com",

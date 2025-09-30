@@ -123,8 +123,8 @@ export default function Home() {
 
       <section className={styles.introSection}>
         <p>
-          I'm a current student at UT Austin exploring full-stack development,
-          algotrading, and AI/ML.
+          I'm a current student at UT Austin interested in full-stack
+          development, algorithmic trading, and AI/ML.
           <br />
           The languages I use most are Python, TypeScript/React, and Java,
           though I'm familiar with many others. <br />
