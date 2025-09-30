@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts } from "./blogs";
 import styles from "./Blog.module.css";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Blog posts about college, coding, and life.",
+};
 
 export default function BlogPage() {
   function renderBlogPosts() {

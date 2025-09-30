@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import PdfViewer from "@/components/pdfViewer/pdfViewer";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: "UT Math Directed Reading Program",
+  description:
+    "Math research on Benford's Law and dynamical systems for the UT Math DRP.",
+};
 
 export default function UTMathDRPPage() {
   return (

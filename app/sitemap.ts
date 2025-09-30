@@ -47,7 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      path: "/blog/book-review",
+      path: "/blog/book-reviews",
       lastModified: dates.bookReviewPost,
       changeFrequency: "yearly" as const,
       priority: 0.5,

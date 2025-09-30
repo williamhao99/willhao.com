@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import styles from "@/app/blog/BlogPost.module.css";
+
+export const metadata: Metadata = {
+  title: "Book reviews",
+  description: "Book reviews.",
+};
 
 export default function BookReviewPage() {
   return (

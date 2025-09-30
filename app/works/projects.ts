@@ -25,9 +25,9 @@ export const projects: Project[] = [
     title: "willhao.com",
     description: "Personal portfolio",
     tech: ["Next.js", "TypeScript", "REST APIs"],
-    status: "in progress",
+    status: "complete",
     link: "https://github.com/williamhao99/willhao.com",
-    date: "Jun 2025 - Present",
+    date: "Jun - Sep 2025",
   },
   {
     id: "ut-math-drp",

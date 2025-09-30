@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { projects } from "@/app/works/projects";
 import WorkCard from "@/components/workCards/WorkCard";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: "Works",
+  description: "Personal, academic, and hackathon projects.",
+};
 
 export default function WorksPage() {
   function renderProjects() {

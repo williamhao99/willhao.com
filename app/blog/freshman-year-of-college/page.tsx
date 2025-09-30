@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import PDFViewer from "@/components/pdfViewer/pdfViewer";
 import styles from "@/app/blog/BlogPost.module.css";
+
+export const metadata: Metadata = {
+  title: "Freshman year of college",
+  description:
+    "A reflection and recap of my freshman year at UT Austin (Fall 2024 & Spring 2025).",
+};
 
 export default function FreshmanYearPage() {
   return (
