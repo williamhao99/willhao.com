@@ -6,6 +6,9 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Works",
   description: "Personal, academic, and hackathon projects.",
+  alternates: {
+    canonical: "https://willhao.com/works",
+  },
 };
 
 export default function WorksPage() {

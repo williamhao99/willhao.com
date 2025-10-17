@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Freshman year of college",
   description:
     "A reflection and recap of my freshman year at UT Austin (Fall 2024 & Spring 2025).",
+  alternates: {
+    canonical: "https://willhao.com/blog/freshman-year-of-college",
+  },
 };
 
 export default function FreshmanYearPage() {

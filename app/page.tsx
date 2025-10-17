@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import WorkCard from "@/components/workCards/WorkCard";
@@ -15,10 +16,16 @@ import LinuxIcon from "@/components/icons-tech/LinuxIcon";
 import GitIcon from "@/components/icons-tech/GitIcon";
 import styles from "./page.module.css";
 
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://willhao.com",
+  },
+};
+
 const QUICK_LINKS = [
   {
     name: "Resume",
-    href: "/documents/William Hao - Resume September 2025.pdf",
+    href: "/documents/William Hao - resume.pdf",
     Icon: ResumeIcon,
   },
   {

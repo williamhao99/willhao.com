@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "UT Math Directed Reading Program",
   description:
     "Math research on Benford's Law and dynamical systems for the UT Math DRP.",
+  alternates: {
+    canonical: "https://willhao.com/works/ut-math-drp",
+  },
 };
 
 export default function UTMathDRPPage() {

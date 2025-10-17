@@ -6,6 +6,9 @@ import styles from "./Blog.module.css";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Blog posts about college, coding, and life.",
+  alternates: {
+    canonical: "https://willhao.com/blog",
+  },
 };
 
 export default function BlogPage() {

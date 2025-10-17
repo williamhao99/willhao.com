@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "CS and Math student at UT Austin. Interested in full-stack development, algorithmic trading, and AI/ML.",
+  alternates: {
+    canonical: "https://willhao.com/about",
+  },
 };
 
 export const dynamic = "force-dynamic";
