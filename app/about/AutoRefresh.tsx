@@ -10,14 +10,40 @@ export default function AutoRefreshWidget({ seconds }: { seconds: number }) {
     function handleAutoRefresh() {
       if (seconds <= 0) return;
 
-      function refreshPage() {
-        router.refresh();
+      let interval: NodeJS.Timeout | null = null;
+
+      function startInterval() {
+        if (interval) return;
+        interval = setInterval(function refreshPage() {
+          router.refresh();
+        }, seconds * 1000);
       }
 
-      const interval = setInterval(refreshPage, seconds * 1000);
+      function stopInterval() {
+        if (interval) {
+          clearInterval(interval);
+          interval = null;
+        }
+      }
+
+      function handleVisibilityChange() {
+        if (document.visibilityState === "visible") {
+          router.refresh();
+          startInterval();
+        } else {
+          stopInterval();
+        }
+      }
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      startInterval();
 
       return function cleanup() {
-        clearInterval(interval);
+        stopInterval();
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange,
+        );
       };
     },
     [seconds, router],
