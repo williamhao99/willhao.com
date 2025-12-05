@@ -39,4 +39,14 @@ export const projects: Project[] = [
     link: "/works/ut-math-drp",
     date: "Jan - Apr 2025",
   },
+  {
+    id: "pm-tradingdesk",
+    title: "Prediction Market Trading Desk",
+    description:
+      "Personal trading infrastructure for Kalshi and Polymarket prediction markets",
+    tech: ["Python", "FastAPI", "WebSockets"],
+    status: "in progress",
+    link: "https://github.com/williamhao99/pm-tradingdesk",
+    date: "Oct 2024 - Present",
+  },
 ];
