@@ -4,10 +4,11 @@ My portfolio website
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript (strict mode)
-- **Styling**: CSS3 Modules
-- **Deployment**: Self-hosted on DigitalOcean Droplet at [willhao.com](https://willhao.com)
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript 5 (strict mode)
+- **UI Library**: React 19
+- **Styling**: CSS Modules
+- **Deployment**: Self-hosted on DigitalOcean (Ubuntu/Nginx/PM2) at [willhao.com](https://willhao.com)
 
 ## Features
 
