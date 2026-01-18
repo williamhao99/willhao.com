@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import PDFViewer from "@/components/pdfViewer/pdfViewer";
 import styles from "@/app/blog/BlogPost.module.css";
 
@@ -15,6 +16,9 @@ export const metadata: Metadata = {
 export default function FreshmanYearPage() {
   return (
     <article className={styles.content}>
+      <Link href="/blog" className={styles.backLink}>
+        ← Back to Blog
+      </Link>
       <h1>Freshman year of college</h1>
       <h2>
         A reflection and recap of my freshman year (Fall 2024 & Spring 2025).

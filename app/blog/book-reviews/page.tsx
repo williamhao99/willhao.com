@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import styles from "@/app/blog/BlogPost.module.css";
 
 export const metadata: Metadata = {
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
 export default function BookReviewPage() {
   return (
     <article className={styles.content}>
+      <Link href="/blog" className={styles.backLink}>
+        ← Back to Blog
+      </Link>
       <h1>Book Reviews</h1>
       <time>May 15 2025</time>
       <p>

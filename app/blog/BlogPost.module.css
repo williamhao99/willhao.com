@@ -1,6 +1,23 @@
 .content {
   max-width: var(--content-max-width);
   margin: 0 auto;
+  background: var(--card-bg);
+  padding: var(--space-3rem);
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--color-border);
+}
+
+.backLink {
+  display: inline-block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: var(--space-2rem);
+  transition: color var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--color-brand-blue-bright);
 }
 
 .content h3 {
@@ -23,15 +40,13 @@
 }
 
 .figcaption {
-  text-align: center;
-  margin-top: var(--space-0-5rem);
-  margin-bottom: var(--space-2-5rem);
+  margin-bottom: var(--space-2rem);
 }
 
 /* Mobile styles */
 @media (max-width: 768px) {
   .content {
-    padding: 0 var(--space-0-5rem);
+    padding: var(--space-2rem) var(--space-1-5rem);
   }
 
   .content h3 {
@@ -47,7 +62,6 @@
   }
 
   .figcaption {
-    margin-top: var(--space-0-5rem);
-    margin-bottom: calc(var(--space-2-5rem) * var(--mobile-text-multiplier));
+    margin-bottom: calc(var(--space-2rem) * var(--mobile-text-multiplier));
   }
 }
