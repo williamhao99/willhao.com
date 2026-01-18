@@ -12,7 +12,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "CS and Math student at UT Austin. Interested in full-stack development, algorithmic trading, and AI/ML.",
+    "CS and Math student at UT Austin. Interested in full-stack development and algorithmic trading.",
   alternates: {
     canonical: "https://willhao.com/about",
   },
@@ -64,50 +64,24 @@ export default function AboutPage() {
     <>
       <h1>About</h1>
       <p>
-        Hi! My name is William Hao (I go by Will), and I'm a sophomore at UT
-        Austin double majoring in Computer Science and Mathematics.
+        Hi! I'm Will, a student at UT Austin studying Computer Science and
+        Mathematics.
       </p>
       <p>
-        I've always enjoyed math and solving puzzles since I was a kid, so much
-        of what I do today relates to that in some way.
-        <br /> Before college, I spent time competing in math and programming
-        contests, swimming for my high school's varsity team, and{" "}
-        <a
-          href="https://www.simplychess.net"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <strong>managing a chess organization</strong>
-        </a>
-        .
-      </p>
-      <p>
-        At UT, I spend most of my time on CS- and math-related activities, from
-        coding projects to hackathons, and I've also developed a strong interest
-        in financial markets and algorithmic trading.
-      </p>
-      <p>
-        Outside of academics, I enjoy playing and studying chess, working out,
-        playing video games, reading, and watching movies and TV shows.
+        I've always enjoyed solving puzzles and building things, ever since I
+        was a kid.
         <br />
-        Fun fact: I average sub-20 on Rubik's cubes.
+        This has led me to interests in full-stack development and algorithmic
+        trading during my time in college.
+        <br />
+        Currently, I'm working on developing systematic strategies for
+        prediction markets.
       </p>
-
-      <br />
-
-      <h2>What I'm busy with</h2>
-      <ul>
-        <li>Recruiting - Summer 2026</li>
-        <li>School coursework</li>
-        <li>Hackathons, coding competitions, projects</li>
-        <li>
-          Building a Kalshi trading bot - politics, economics, mentions, weather
-          markets
-        </li>
-        <li>Training for a 1000lb powerlifting total</li>
-        <li>Training for a sub-2hr half marathon</li>
-        <li>Working through my reading list</li>
-      </ul>
+      <p>
+        Outside of school, I like to lift and run - I'm training for a 1000lb
+        powerlifting total and a half marathon.
+        <br />I also play chess regularly, and average sub-20 on Rubik's cubes.
+      </p>
 
       <br />
 
