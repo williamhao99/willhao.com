@@ -136,16 +136,9 @@
   --radius-full: 9999px;
 
   /* === Effects & Animations === */
-  /* Blur effects */
-  --blur-xs: 4px;
-  --blur-sm: 8px;
-  --blur-md: 10px;
-  --blur-lg: 15px;
-
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
-  --shadow-glow-sm: 0 0 10px;
 
   /* Transitions */
   --transition-fast: 150ms ease;

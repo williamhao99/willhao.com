@@ -35,7 +35,7 @@
 }
 
 .status {
-  font-size: calc(var(--widget-label-size) * 0.95);
+  font-size: var(--widget-label-size);
   color: var(--widget-label-color);
   font-family: var(--font-sans), var(--font-sans-fallback);
 }

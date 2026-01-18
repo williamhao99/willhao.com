@@ -47,8 +47,8 @@ export default function SpotifyWidget({
         </div>
         <div className={styles.content}>
           <span className={styles.status}>{statusText}</span>
-          <h3 className={styles.title}>{songTitle}</h3>
-          <p className={styles.artist}>{artist}</p>
+          <span className={styles.title}>{songTitle}</span>
+          <span className={styles.artist}>{artist}</span>
         </div>
       </div>
     </a>

@@ -81,7 +81,7 @@ export async function fetchChessStats(): Promise<ChessStats> {
       bullet: bulletRating,
     };
 
-    // Cache the stats for 5 minutes
+    // Cache the stats for 30 seconds
     cachedStats = {
       data: stats,
       expires: Date.now() + CACHE_DURATION,

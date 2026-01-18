@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans, Noto_Serif } from "next/font/google";
+import { Space_Grotesk, Newsreader } from "next/font/google";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import GoogleAnalytics from "@/components/googleAnalytics/GoogleAnalytics";
 import "./globals.css";
 
-const notoSans = Noto_Sans({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
 });
-const notoSerif = Noto_Serif({
+const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-serif",
@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={notoSans.variable + " " + notoSerif.variable}
+      className={spaceGrotesk.variable + " " + newsreader.variable}
     >
       <head>
         <GoogleAnalytics />
