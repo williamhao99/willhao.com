@@ -2,21 +2,22 @@
   composes: link from "../WidgetContainer.module.css";
 }
 
-/* Widget container - extends shared widget container styles */
 .widget {
-  --spotify-glow: rgba(29, 185, 84, 0.5);
-
   composes: widget from "../WidgetContainer.module.css";
 }
 
-/* Pulsing animation when playing */
+/* Subtle border pulse when playing */
 .playing {
-  animation: pulse var(--animation-slow) ease-in-out infinite;
+  animation: borderPulse 4s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes borderPulse {
+  0%,
+  100% {
+    border-color: var(--color-border);
+  }
   50% {
-    box-shadow: var(--shadow-glow-sm) var(--spotify-glow);
+    border-color: var(--color-spotify-green);
   }
 }
 
@@ -31,12 +32,11 @@
 
 .content {
   composes: content from "../WidgetContainer.module.css";
-  padding-top: var(--space-5px);
 }
 
 .status {
-  font-size: calc(var(--widget-label-size) * var(--multiplier-md));
-  color: var(--widget-text-label);
+  font-size: calc(var(--widget-label-size) * 0.95);
+  color: var(--widget-label-color);
   font-family: var(--font-sans), var(--font-sans-fallback);
 }
 
@@ -50,19 +50,15 @@
 
 .artist {
   font-size: var(--widget-label-size);
-  color: var(--widget-text-label);
+  color: var(--widget-label-color);
   margin: 0;
   font-family: var(--font-serif), var(--font-serif-fallback);
 }
 
-/* Mobile styles - center text */
+/* Mobile - center text when widgets stack */
 @media (max-width: 768px) {
   .content {
     align-items: center;
     text-align: center;
-    padding: var(--space-1rem) 0;
-    min-height: var(--space-6rem);
   }
-
-  /* Font sizes already scaled by WidgetContainer */
 }

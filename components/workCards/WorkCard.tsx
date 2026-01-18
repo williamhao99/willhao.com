@@ -15,43 +15,23 @@ export default function WorkCard({ project }: WorkCardProps) {
   }
 
   function renderContent() {
-    const techBadges = [];
-    for (let i = 0; i < project.tech.length; i++) {
-      const tech = project.tech[i];
-      if (!tech) continue;
-      techBadges.push(
-        <span
-          key={tech}
-          className={styles.techBadge}
-        >
-          {tech}
-        </span>,
-      );
-    }
-
     const statusClass = styles.status + " " + getStatusClass(project.status);
 
     return (
       <>
-        <div className={styles.cardHeader}>
+        <span className={statusClass}>{project.status}</span>
+        <div className={styles.cardContent}>
           <h3 className={styles.title}>{project.title}</h3>
           {project.date && <time className={styles.date}>{project.date}</time>}
         </div>
-        <div>
-          <p className={styles.description}>{project.description}</p>
-          {project.award && <p className={styles.awardText}>{project.award}</p>}
-        </div>
-        <div className={styles.cardFooter}>
-          <div className={styles.techStack}>{techBadges}</div>
-          <span className={statusClass}>{project.status}</span>
-        </div>
+        <p className={styles.description}>{project.description}</p>
+        {project.award && <p className={styles.awardText}>{project.award}</p>}
       </>
     );
   }
 
   const isExternal = project.link.startsWith("http");
 
-  /* Open external links in new tab */
   if (isExternal) {
     return (
       <a

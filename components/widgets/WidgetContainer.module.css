@@ -2,34 +2,31 @@
 .link {
   text-decoration: none;
   color: inherit;
-  display: contents; /* Makes the link wrapper transparent to layout */
+  display: contents;
 }
 
 .widget {
-  --widget-label-size: 1.5rem;
-  --widget-value-size: 1.8rem;
-  --widget-text-label: rgba(250, 250, 250, 0.6);
-  --widget-border: rgba(255, 255, 255, 0.2);
+  --scale: 1;
 
   display: flex;
   align-items: center;
-  gap: var(--space-1-5rem);
-  padding: var(--space-1-5rem);
+  height: 100%;
+  gap: calc(var(--widget-gap) * var(--scale));
+  padding: calc(var(--widget-padding) * var(--scale));
   background: var(--card-bg);
-  border: var(--border-width-thin) solid var(--widget-border);
+  border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  transition: outline var(--transition-normal);
+  transition: border-color var(--transition-normal);
 }
 
 .widget:hover {
-  outline: var(--border-width-medium) solid var(--color-brand-blue-bright);
+  border-color: var(--color-brand-blue-bright);
 }
 
 .icon {
   flex-shrink: 0;
-  width: var(--icon-size-lg);
-  height: var(--icon-size-lg);
+  width: calc(var(--widget-icon-size) * var(--scale));
+  height: calc(var(--widget-icon-size) * var(--scale));
 }
 
 .icon svg {
@@ -47,21 +44,6 @@
 /* Mobile styles */
 @media (max-width: 768px) {
   .widget {
-    --widget-label-size: calc(1.5rem * var(--mobile-text-multiplier));
-    --widget-value-size: calc(1.8rem * var(--mobile-text-multiplier));
-
-    gap: var(--space-1rem);
-    padding: var(--space-1rem);
-    min-height: var(--space-10rem); /* Consistent widget height */
-  }
-
-  .icon {
-    width: calc(var(--icon-size-lg) * 0.8);
-    height: calc(var(--icon-size-lg) * 0.8);
-  }
-
-  .content {
-    min-height: var(--space-6rem); /* Consistent content area */
-    justify-content: center;
+    --scale: var(--widget-mobile-scale);
   }
 }

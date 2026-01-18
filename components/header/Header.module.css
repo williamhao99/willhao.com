@@ -48,7 +48,7 @@
 .navigation {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Align to right side */
+  justify-content: flex-end;
   flex: 1;
 }
 
@@ -85,12 +85,12 @@
   right: var(--nav-padding-x);
   height: var(--underline-height);
   background: var(--color-brand-blue-bright);
-  transform: scaleX(0);
-  transition: transform var(--transition-normal);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
 }
 
 .navLink:hover::after {
-  transform: scaleX(1);
+  opacity: 1;
 }
 
 .navLink.active {
@@ -98,7 +98,7 @@
 }
 
 .navLink.active::after {
-  transform: scaleX(1);
+  opacity: 1;
 }
 
 /* Mobile styles */

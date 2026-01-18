@@ -33,6 +33,9 @@
 
   /* Font sizes */
   --text-base: 1.6rem;
+  --text-xs: 1.1rem;
+  --text-sm: 1.3rem;
+  --text-md: 1.4rem;
   --text-lg: 1.8rem;
   --text-h1: calc(var(--text-base) * var(--multiplier-2xl));
   --text-h2: calc(var(--text-base) * var(--multiplier-xl));
@@ -81,13 +84,38 @@
 
   /* === Layout & Dimensions === */
   --container-max: 128rem; /* 1280px */
-  --content-max-width: 80ch;
+  --content-max-width: 90ch;
   --image-max-width: 800px;
   --underline-height: 2px;
 
   /* Icon sizes */
   --icon-size-md: 3rem;
   --icon-size-lg: 5rem;
+
+  /* Widget tokens */
+  --widget-padding: var(--space-1-5rem);
+  --widget-gap: var(--space-1-5rem);
+  --widget-icon-size: var(--icon-size-lg);
+  --widget-label-color: rgba(250, 250, 250, 0.6);
+  --widget-label-size: calc(var(--text-base) * var(--multiplier-sm));
+  --widget-value-size: var(--text-lg);
+  --widget-mobile-scale: 0.85;
+
+  /* Brand colors */
+  --color-spotify-green: #1DB954;
+  --color-chess-green: #769656;
+  --color-linkedin: #0a66c2;
+  --color-award: rgba(255, 215, 0, 0.9);
+
+  /* Status colors */
+  --color-status-complete: rgba(34, 197, 94, 0.9);
+  --color-status-complete-bg: rgba(34, 197, 94, 0.15);
+  --color-status-progress: rgba(250, 204, 21, 0.9);
+  --color-status-progress-bg: rgba(250, 204, 21, 0.15);
+
+  /* Card layout */
+  --card-status-padding: 11rem;
+  --card-status-padding-mobile: 9rem;
 
   /* Grid layouts */
   --grid-cols-2: repeat(2, 1fr);
@@ -122,13 +150,6 @@
   --transition-fast: 150ms ease;
   --transition-normal: 200ms ease;
   --transition-slow: 300ms ease;
-
-  /* Animations */
-  --animation-pulse: 3s;
-  --animation-slow: 5s;
-
-  /* Hover effects */
-  --hover-lift: -2px;
 
   /* Opacity */
   --opacity-medium: 0.7;
@@ -227,6 +248,24 @@ body {
 
 .main-content li:last-child {
   margin-bottom: 0;
+}
+
+/* Blog post time styling - scoped to article elements */
+.main-content article > time {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  letter-spacing: var(--letter-spacing-normal);
+  text-transform: uppercase;
+  margin-bottom: var(--space-2rem);
+}
+
+.main-content figcaption {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+  text-align: center;
+  margin-top: var(--space-1rem);
 }
 
 /* Content containers */

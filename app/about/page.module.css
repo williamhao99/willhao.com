@@ -1,6 +1,7 @@
 .widgets {
   display: grid;
-  grid-template-columns: var(--grid-cols-3); /* 3 widgets per row */
+  grid-template-columns: var(--grid-cols-3);
+  grid-auto-rows: 1fr;
   gap: var(--grid-gap-md);
   margin-top: var(--space-1-5rem);
   margin-bottom: var(--space-3rem);
@@ -9,9 +10,8 @@
 /* Mobile styles */
 @media (max-width: 768px) {
   .widgets {
-    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-columns: 1fr;
     gap: var(--space-1-5rem);
-    margin-top: var(--space-1-5rem);
     margin-bottom: var(--space-1-5rem);
   }
 }

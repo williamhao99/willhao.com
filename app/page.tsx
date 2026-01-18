@@ -6,14 +6,14 @@ import { projects } from "@/app/works/projects";
 import ResumeIcon from "@/components/icons/ResumeIcon";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import GitHubIcon from "@/components/icons/GitHubIcon";
-import JavaIcon from "@/components/icons-tech/JavaIcon";
-import PythonIcon from "@/components/icons-tech/PythonIcon";
-import CppIcon from "@/components/icons-tech/CppIcon";
-import ReactIcon from "@/components/icons-tech/ReactIcon";
-import NextJSIcon from "@/components/icons-tech/NextJSIcon";
-import TypeScriptIcon from "@/components/icons-tech/TypeScriptIcon";
-import LinuxIcon from "@/components/icons-tech/LinuxIcon";
-import GitIcon from "@/components/icons-tech/GitIcon";
+// import JavaIcon from "@/components/icons-tech/JavaIcon";
+// import PythonIcon from "@/components/icons-tech/PythonIcon";
+// import CppIcon from "@/components/icons-tech/CppIcon";
+// import ReactIcon from "@/components/icons-tech/ReactIcon";
+// import NextJSIcon from "@/components/icons-tech/NextJSIcon";
+// import TypeScriptIcon from "@/components/icons-tech/TypeScriptIcon";
+// import LinuxIcon from "@/components/icons-tech/LinuxIcon";
+// import GitIcon from "@/components/icons-tech/GitIcon";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -40,16 +40,16 @@ const QUICK_LINKS = [
   },
 ];
 
-const TECH_STACK = [
-  { name: "Java", Icon: JavaIcon },
-  { name: "Python", Icon: PythonIcon },
-  { name: "C++", Icon: CppIcon },
-  { name: "React", Icon: ReactIcon },
-  { name: "Next.js", Icon: NextJSIcon },
-  { name: "TypeScript", Icon: TypeScriptIcon },
-  { name: "Linux", Icon: LinuxIcon },
-  { name: "Git", Icon: GitIcon },
-];
+// const TECH_STACK = [
+//   { name: "Java", Icon: JavaIcon },
+//   { name: "Python", Icon: PythonIcon },
+//   { name: "C++", Icon: CppIcon },
+//   { name: "React", Icon: ReactIcon },
+//   { name: "Next.js", Icon: NextJSIcon },
+//   { name: "TypeScript", Icon: TypeScriptIcon },
+//   { name: "Linux", Icon: LinuxIcon },
+//   { name: "Git", Icon: GitIcon },
+// ];
 
 export default function Home() {
   function renderQuickLinks() {
@@ -94,24 +94,24 @@ export default function Home() {
     return cards;
   }
 
-  function renderTechStack() {
-    const icons = [];
-    for (let i = 0; i < TECH_STACK.length; i++) {
-      const tech = TECH_STACK[i];
-      if (!tech) continue;
-      const Icon = tech.Icon;
-      icons.push(
-        <div
-          key={tech.name}
-          className={styles.techStackItem}
-        >
-          <span className={styles.techStackLabel}>{tech.name}</span>
-          <Icon />
-        </div>,
-      );
-    }
-    return icons;
-  }
+  // function renderTechStack() {
+  //   const icons = [];
+  //   for (let i = 0; i < TECH_STACK.length; i++) {
+  //     const tech = TECH_STACK[i];
+  //     if (!tech) continue;
+  //     const Icon = tech.Icon;
+  //     icons.push(
+  //       <div
+  //         key={tech.name}
+  //         className={styles.techStackItem}
+  //       >
+  //         <span className={styles.techStackLabel}>{tech.name}</span>
+  //         <Icon />
+  //       </div>,
+  //     );
+  //   }
+  //   return icons;
+  // }
 
   return (
     <>
@@ -151,10 +151,10 @@ export default function Home() {
         <Link href="/works">More works →</Link>
       </section>
 
-      <div className={styles.techStackSection}>
+      {/* <div className={styles.techStackSection}>
         <h2>Tech Stack</h2>
         <div className={styles.techStackGrid}>{renderTechStack()}</div>
-      </div>
+      </div> */}
 
       <section className={styles.blogSection}>
         <h2>

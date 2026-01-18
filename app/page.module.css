@@ -21,34 +21,11 @@
   pointer-events: none;
 }
 
-/* Title shimmer effect */
 .title {
   grid-column: 1;
   grid-row: 1;
   margin: 0;
-  background: linear-gradient(
-    90deg,
-    var(--color-brand-blue) 0%,
-    var(--color-brand-blue-bright) 25%,
-    var(--color-text-primary) 50%,
-    var(--color-brand-blue-bright) 75%,
-    var(--color-brand-blue) 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: title-shimmer var(--animation-slow) linear infinite;
-}
-
-@keyframes title-shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+  color: var(--color-brand-blue-bright);
 }
 
 p .textLink,
@@ -83,8 +60,12 @@ h2 .textLink:hover {
   display: block;
   width: var(--space-5rem);
   height: var(--space-5rem);
-  transition: var(--transition-fast);
-  will-change: transform;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.quickLinkItem:hover svg {
+  opacity: 1;
 }
 
 .quickLinkLabel {
@@ -98,15 +79,7 @@ h2 .textLink:hover {
 }
 
 .quickLinkItem:nth-child(2) svg {
-  fill: #0a66c2;
-}
-
-.quickLinkItem:hover svg {
-  transform: scale(1.2);
-}
-
-.quickLinkItem:first-child:hover svg {
-  transform: rotate(-10deg) scale(1.2);
+  fill: var(--color-linkedin);
 }
 
 /* Section spacing */

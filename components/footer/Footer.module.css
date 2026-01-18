@@ -58,23 +58,16 @@
   align-items: center;
 }
 
-/* All icons - grayscale by default, colored on hover */
+/* All icons - dimmed by default, full opacity on hover */
 .icon {
   width: var(--icon-size-md);
   height: var(--icon-size-md);
-  filter: grayscale(1);
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
 }
 
 .socialLink:hover .icon {
-  filter: grayscale(0);
-}
-
-.socialLink:nth-child(2) .icon {
-  filter: brightness(0.6);
-}
-
-.socialLink:nth-child(2):hover .icon {
-  filter: brightness(1);
+  opacity: 1;
 }
 
 /* Mobile styles */

@@ -2,7 +2,6 @@
   composes: link from "../WidgetContainer.module.css";
 }
 
-/* Widget container - extends shared widget container styles */
 .widget {
   composes: widget from "../WidgetContainer.module.css";
 }
@@ -21,7 +20,7 @@
   flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-1-5rem);
+  gap: calc(var(--widget-gap) * var(--scale, 1));
   align-content: center;
 }
 
@@ -34,7 +33,7 @@
 
 .label {
   font-size: var(--widget-label-size);
-  color: var(--widget-text-label);
+  color: var(--widget-label-color);
   letter-spacing: var(--letter-spacing-normal);
   font-family: var(--font-sans), var(--font-sans-fallback);
 }
@@ -45,15 +44,4 @@
   color: var(--color-text-primary);
   line-height: var(--line-height-none);
   font-family: var(--font-serif), var(--font-serif-fallback);
-}
-
-/* Mobile styles - center content and keep 2-column grid */
-@media (max-width: 768px) {
-  .content {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-1rem);
-    align-items: center;
-  }
-
-  /* Font sizes already scaled by WidgetContainer */
 }
