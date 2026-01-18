@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PdfViewer from "@/components/pdfViewer/pdfViewer";
 import styles from "./page.module.css";
 
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
 export default function UTMathDRPPage() {
   return (
     <div className={styles.content}>
+      <Link href="/works" className={styles.backLink}>
+        ← Back to Works
+      </Link>
       <h1>UT Math Directed Reading Program</h1>
       <h2>
         The research and math talk I conducted for the UT Math DRP Symposium on

@@ -1,4 +1,28 @@
 .content {
   max-width: var(--content-max-width);
   margin: 0 auto;
+  background: var(--card-bg);
+  padding: var(--space-3rem);
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--color-border);
+}
+
+.backLink {
+  display: inline-block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: var(--space-2rem);
+  transition: color var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--color-brand-blue-bright);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .content {
+    padding: var(--space-2rem) var(--space-1-5rem);
+  }
 }

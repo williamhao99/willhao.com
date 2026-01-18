@@ -116,7 +116,7 @@ export default function Home() {
   return (
     <>
       <section className={styles.heroSection}>
-        <h1 className={styles.title}>Will Hao — Portfolio</h1>
+        <h1 className={styles.title}>Portfolio</h1>
         <Image
           src="/favicons/android-chrome-512x512.png"
           alt=""
@@ -129,19 +129,6 @@ export default function Home() {
       </section>
 
       <section className={styles.introSection}>
-        <p>
-          I'm a current student at UT Austin interested in full-stack
-          development, algorithmic trading, and AI/ML.
-          <br />
-          The languages I use most are Python, TypeScript/React, and Java,
-          though I'm familiar with many others. <br />
-          <Link
-            href="/about"
-            className={styles.textLink}
-          >
-            Learn more about me!
-          </Link>
-        </p>
         <div className={styles.quickLinks}>{renderQuickLinks()}</div>
       </section>
 
@@ -156,18 +143,6 @@ export default function Home() {
         <div className={styles.techStackGrid}>{renderTechStack()}</div>
       </div> */}
 
-      <section className={styles.blogSection}>
-        <h2>
-          Latest blog:{" "}
-          <Link
-            href="/blog/freshman-year-of-college"
-            className={styles.textLink}
-          >
-            Freshman year of college
-          </Link>
-        </h2>
-        <Link href="/blog">More blogs →</Link>
-      </section>
     </>
   );
 }

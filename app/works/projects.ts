@@ -23,8 +23,7 @@ export const projects: Project[] = [
   {
     id: "willhao.com portfolio",
     title: "willhao.com",
-    description:
-      "Full-stack portfolio with live API integrations and server-side caching",
+    description: "Full-stack portfolio with live API integrations",
     tech: ["Next.js", "TypeScript", "REST APIs"],
     status: "complete",
     link: "https://github.com/williamhao99/willhao.com",
@@ -33,7 +32,7 @@ export const projects: Project[] = [
   {
     id: "ut-math-drp",
     title: "UT Math Directed Reading Program",
-    description: "Math research on Benford's Law and dynamical systems",
+    description: "Research on Benford's Law and dynamical systems",
     tech: ["Mathematics", "Statistics", "Research"],
     status: "complete",
     link: "/works/ut-math-drp",

@@ -2,23 +2,10 @@
 .heroSection {
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   align-items: center;
   column-gap: var(--space-3rem);
-  margin-bottom: var(--space-1rem);
-}
-
-.subtitle {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.titleIcon {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  user-select: none;
-  -webkit-user-drag: none;
-  pointer-events: none;
+  margin-bottom: var(--space-2rem);
 }
 
 .title {
@@ -26,6 +13,19 @@
   grid-row: 1;
   margin: 0;
   color: var(--color-brand-blue-bright);
+}
+
+.subtitle {
+  grid-column: 1;
+  margin: 0;
+}
+
+.titleIcon {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 p .textLink,
@@ -84,11 +84,11 @@ h2 .textLink:hover {
 
 /* Section spacing */
 .introSection {
-  margin-bottom: var(--space-3rem);
+  margin-bottom: var(--space-5rem);
 }
 
 .worksSection {
-  margin-bottom: var(--space-3rem);
+  margin-bottom: var(--space-5rem);
 }
 
 .techStackSection {
