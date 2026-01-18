@@ -13,7 +13,10 @@ export const metadata: Metadata = {
 export default function BookReviewPage() {
   return (
     <article className={styles.content}>
-      <Link href="/blog" className={styles.backLink}>
+      <Link
+        href="/blog"
+        className={styles.backLink}
+      >
         ← Back to Blog
       </Link>
       <h1>Book Reviews</h1>

@@ -142,7 +142,6 @@ export default function Home() {
         <h2>Tech Stack</h2>
         <div className={styles.techStackGrid}>{renderTechStack()}</div>
       </div> */}
-
     </>
   );
 }

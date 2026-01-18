@@ -16,7 +16,10 @@ export const metadata: Metadata = {
 export default function FreshmanYearPage() {
   return (
     <article className={styles.content}>
-      <Link href="/blog" className={styles.backLink}>
+      <Link
+        href="/blog"
+        className={styles.backLink}
+      >
         ← Back to Blog
       </Link>
       <h1>Freshman year of college</h1>

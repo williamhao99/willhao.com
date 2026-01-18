@@ -15,7 +15,10 @@ export const metadata: Metadata = {
 export default function UTMathDRPPage() {
   return (
     <div className={styles.content}>
-      <Link href="/works" className={styles.backLink}>
+      <Link
+        href="/works"
+        className={styles.backLink}
+      >
         ← Back to Works
       </Link>
       <h1>UT Math Directed Reading Program</h1>
