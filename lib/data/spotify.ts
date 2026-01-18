@@ -29,6 +29,39 @@ interface SpotifyRecentItem {
 // Store access token in memory to avoid unnecessary refresh calls
 let cachedToken: { token: string; expires: number } | null = null;
 
+// Store fetched data in memory for instant retrieval
+let cachedData: { data: SpotifyData; timestamp: number } | null = null;
+const DATA_CACHE_DURATION = 10 * 1000; // 10 seconds
+
+// Get cached data if available and not expired
+export function getCachedSpotifyData(): SpotifyData | null {
+  if (cachedData && Date.now() - cachedData.timestamp < DATA_CACHE_DURATION) {
+    return cachedData.data;
+  }
+  return null;
+}
+
+// Background refresh state
+let backgroundRefreshStarted = false;
+
+// Start background refresh interval (runs every 3 seconds)
+export function startBackgroundRefresh() {
+  if (backgroundRefreshStarted) return;
+  backgroundRefreshStarted = true;
+
+  // Initial fetch to warm cache immediately
+  fetchSpotifyData().catch(function handleError(error) {
+    console.error("Background Spotify refresh error:", error);
+  });
+
+  // Continue refreshing every 3 seconds
+  setInterval(function refreshCache() {
+    fetchSpotifyData().catch(function handleError(error) {
+      console.error("Background Spotify refresh error:", error);
+    });
+  }, 3000);
+}
+
 // Helper function to get/refresh Spotify access token
 async function getAccessToken(): Promise<string> {
   if (cachedToken && Date.now() < cachedToken.expires) {
@@ -126,11 +159,13 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
           if (!artist) continue;
           artistNames.push(artist.name);
         }
-        return {
+        const result: SpotifyData = {
           isPlaying: current.is_playing,
           songTitle: current.item.name,
           artist: artistNames.join(", "),
         };
+        cachedData = { data: result, timestamp: Date.now() };
+        return result;
       }
     }
 
@@ -196,12 +231,14 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
       if (!artist) continue;
       artistNames.push(artist.name);
     }
-    return {
+    const result: SpotifyData = {
       isPlaying: false,
       songTitle: track.track.name,
       artist: artistNames.join(", "),
       lastPlayed,
     };
+    cachedData = { data: result, timestamp: Date.now() };
+    return result;
   } catch (error) {
     // Handle timeout vs other errors differently
     if (error instanceof Error && error.name === "AbortError") {

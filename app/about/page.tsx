@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import AutoRefreshWidget from "@/app/about/AutoRefresh";
 import SpotifyWidget from "@/components/widgets/spotify/SpotifyWidget";
-import SpotifyWidgetLoading from "@/components/widgets/spotify/SpotifyWidget.loading";
 import ChessWidget from "@/components/widgets/chess/ChessWidget";
 import ChessWidgetLoading from "@/components/widgets/chess/ChessWidget.loading";
-import { fetchSpotifyData } from "@/lib/data/spotify";
-import { fetchChessStats } from "@/lib/data/chess";
+import { getCachedSpotifyData } from "@/lib/data/spotify";
+import { fetchChessStats, type ChessStats } from "@/lib/data/chess";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -21,45 +20,28 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
-async function SpotifyDataLoader() {
-  try {
-    const data = await fetchSpotifyData();
-    return <SpotifyWidget initialData={data} />;
-  } catch {
-    const errorData = {
-      isPlaying: false,
-      songTitle: "Unable to fetch data",
-      artist: "—",
-    };
-    return (
-      <SpotifyWidget
-        initialData={errorData}
-        error={true}
-      />
-    );
-  }
-}
-
 async function ChessDataLoader() {
+  let data: ChessStats = { rapid: null, blitz: null, bullet: null };
+  let error = false;
+
   try {
-    const data = await fetchChessStats();
-    return <ChessWidget initialData={data} />;
+    data = await fetchChessStats();
   } catch {
-    const errorData = {
-      rapid: null,
-      blitz: null,
-      bullet: null,
-    };
-    return (
-      <ChessWidget
-        initialData={errorData}
-        error={true}
-      />
-    );
+    error = true;
   }
+
+  return (
+    <ChessWidget
+      initialData={data}
+      error={error}
+    />
+  );
 }
 
 export default function AboutPage() {
+  // Get cached Spotify data for instant render (client handles polling)
+  const spotifyData = getCachedSpotifyData();
+
   return (
     <>
       <h1>About</h1>
@@ -86,9 +68,7 @@ export default function AboutPage() {
       <br />
 
       <div className={styles.widgets}>
-        <Suspense fallback={<SpotifyWidgetLoading />}>
-          <SpotifyDataLoader />
-        </Suspense>
+        <SpotifyWidget initialData={spotifyData} />
         <Suspense fallback={<ChessWidgetLoading />}>
           <ChessDataLoader />
         </Suspense>
