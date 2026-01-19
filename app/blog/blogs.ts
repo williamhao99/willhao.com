@@ -7,18 +7,12 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-  {
-    title: "Freshman year of college",
-    slug: "freshman-year-of-college",
-    excerpt: "A reflection and recap of my freshman year.",
-    date: "May 12 2025",
-    link: "/blog/freshman-year-of-college",
-  },
-  {
-    title: "Book Reviews",
-    slug: "book-reviews",
-    excerpt: "Book reviews of all types.",
-    date: "May 15 2025",
-    link: "/blog/book-reviews",
-  },
+  // Example blog post template:
+  // {
+  //   title: "Post Title",
+  //   slug: "post-slug",
+  //   excerpt: "Brief description of the post.",
+  //   date: "Month DD YYYY",
+  //   link: "/blog/post-slug",
+  // },
 ];

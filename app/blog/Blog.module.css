@@ -51,6 +51,11 @@
   color: var(--color-text-muted);
 }
 
+.emptyState {
+  color: var(--color-text-secondary);
+  opacity: var(--opacity-medium);
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .feed {

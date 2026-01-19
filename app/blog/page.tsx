@@ -13,6 +13,10 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   function renderBlogPosts() {
+    if (blogPosts.length === 0) {
+      return <p className={styles.emptyState}>Nothing here yet.</p>;
+    }
+
     const posts = [];
     for (let i = 0; i < blogPosts.length; i++) {
       const post = blogPosts[i];
