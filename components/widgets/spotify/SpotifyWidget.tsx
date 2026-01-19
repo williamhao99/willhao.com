@@ -11,7 +11,7 @@ interface SpotifyWidgetProps {
 
 const DEFAULT_DATA: SpotifyData = {
   isPlaying: false,
-  songTitle: "Loading...",
+  songTitle: "—",
   artist: "—",
 };
 
@@ -40,7 +40,7 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
         if (!initialData) {
           fetchData();
         }
-        intervalId = setInterval(fetchData, 1000);
+        intervalId = setInterval(fetchData, 2000);
       }
 
       function stopPolling() {

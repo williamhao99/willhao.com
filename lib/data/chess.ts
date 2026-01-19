@@ -11,6 +11,28 @@ const CACHE_DURATION = 30 * 1000; // 30 seconds
 
 let cachedStats: { data: ChessStats; expires: number } | null = null;
 
+// Get cached data if available and not expired
+export function getCachedChessStats(): ChessStats | null {
+  if (cachedStats && Date.now() < cachedStats.expires) {
+    return cachedStats.data;
+  }
+  return null;
+}
+
+// Background refresh to keep cache warm
+let backgroundRefreshStarted = false;
+
+export function startBackgroundRefresh() {
+  if (backgroundRefreshStarted) return;
+  backgroundRefreshStarted = true;
+
+  setInterval(function refreshCache() {
+    fetchChessStats().catch(function handleError(error) {
+      console.error("Chess background refresh error:", error);
+    });
+  }, 25000);
+}
+
 // Main function that fetches chess ratings from Chess.com
 export async function fetchChessStats(): Promise<ChessStats> {
   if (cachedStats && Date.now() < cachedStats.expires) {

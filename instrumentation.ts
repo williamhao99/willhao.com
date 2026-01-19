@@ -1,7 +1,13 @@
 export async function register() {
-  // Only run on Node.js server (not edge runtime or during build)
   if (process.env.NEXT_RUNTIME === "nodejs") {
-    const { startBackgroundRefresh } = await import("@/lib/data/spotify");
-    startBackgroundRefresh();
+    const spotify = await import("@/lib/data/spotify");
+    const chess = await import("@/lib/data/chess");
+
+    // Start background refresh immediately on server start
+    spotify.startBackgroundRefresh();
+    chess.startBackgroundRefresh();
+
+    // Warm the caches right now
+    await Promise.all([spotify.fetchSpotifyData(), chess.fetchChessStats()]);
   }
 }

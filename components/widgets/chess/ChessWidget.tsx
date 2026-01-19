@@ -1,24 +1,85 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import ChessIcon from "@/components/icons/ChessIcon";
 import type { ChessStats } from "@/lib/data/chess";
 import styles from "./ChessWidget.module.css";
 
 interface ChessWidgetProps {
-  initialData: ChessStats;
-  error?: boolean;
+  initialData: ChessStats | null;
 }
 
-export default function ChessWidget({ initialData, error }: ChessWidgetProps) {
-  const data = initialData;
+const DEFAULT_DATA: ChessStats = {
+  rapid: null,
+  blitz: null,
+  bullet: null,
+};
 
-  const rapidRating = data.rapid;
-  const blitzRating = data.blitz;
-  const bulletRating = data.bullet;
+export default function ChessWidget({ initialData }: ChessWidgetProps) {
+  const [data, setData] = useState<ChessStats>(initialData || DEFAULT_DATA);
+
+  useEffect(
+    function setupPolling() {
+      let intervalId: NodeJS.Timeout | null = null;
+
+      async function fetchData() {
+        try {
+          const response = await fetch("/api/chess");
+          if (response.ok) {
+            const newData: ChessStats = await response.json();
+            setData(newData);
+          }
+        } catch (error) {
+          console.error("Failed to fetch Chess data:", error);
+        }
+      }
+
+      function startPolling() {
+        if (intervalId) return;
+        // Only fetch immediately if we don't have valid initial data
+        if (!initialData) {
+          fetchData();
+        }
+        intervalId = setInterval(fetchData, 30000);
+      }
+
+      function stopPolling() {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+      }
+
+      function handleVisibilityChange() {
+        if (document.visibilityState === "visible") {
+          startPolling();
+        } else {
+          stopPolling();
+        }
+      }
+
+      // Start polling if page is visible
+      if (document.visibilityState === "visible") {
+        startPolling();
+      }
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      return function cleanup() {
+        stopPolling();
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange,
+        );
+      };
+    },
+    [initialData],
+  );
+
+  const rapidRating = data.rapid || "—";
+  const blitzRating = data.blitz || "—";
+  const bulletRating = data.bullet || "—";
   const uscfRating = 1815;
-
-  let widgetClassName = styles.widget;
-  if (error) {
-    widgetClassName = styles.widget + " " + styles.error;
-  }
 
   return (
     <a
@@ -27,7 +88,7 @@ export default function ChessWidget({ initialData, error }: ChessWidgetProps) {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div className={widgetClassName}>
+      <div className={styles.widget}>
         <div className={styles.icon}>
           <ChessIcon />
         </div>

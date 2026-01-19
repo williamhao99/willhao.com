@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import AutoRefreshWidget from "@/app/about/AutoRefresh";
 import SpotifyWidget from "@/components/widgets/spotify/SpotifyWidget";
 import ChessWidget from "@/components/widgets/chess/ChessWidget";
-import ChessWidgetLoading from "@/components/widgets/chess/ChessWidget.loading";
-import { getCachedSpotifyData } from "@/lib/data/spotify";
-import { fetchChessStats, type ChessStats } from "@/lib/data/chess";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -17,31 +12,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
-
-async function ChessDataLoader() {
-  let data: ChessStats = { rapid: null, blitz: null, bullet: null };
-  let error = false;
-
-  try {
-    data = await fetchChessStats();
-  } catch {
-    error = true;
-  }
-
-  return (
-    <ChessWidget
-      initialData={data}
-      error={error}
-    />
-  );
-}
-
 export default function AboutPage() {
-  // Get cached Spotify data for instant render (client handles polling)
-  const spotifyData = getCachedSpotifyData();
-
   return (
     <>
       <h1>About</h1>
@@ -68,13 +39,9 @@ export default function AboutPage() {
       <br />
 
       <div className={styles.widgets}>
-        <SpotifyWidget initialData={spotifyData} />
-        <Suspense fallback={<ChessWidgetLoading />}>
-          <ChessDataLoader />
-        </Suspense>
+        <SpotifyWidget initialData={null} />
+        <ChessWidget initialData={null} />
       </div>
-
-      <AutoRefreshWidget seconds={5} />
     </>
   );
 }

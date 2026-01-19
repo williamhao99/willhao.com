@@ -31,7 +31,7 @@ let cachedToken: { token: string; expires: number } | null = null;
 
 // Store fetched data in memory for instant retrieval
 let cachedData: { data: SpotifyData; timestamp: number } | null = null;
-const DATA_CACHE_DURATION = 10 * 1000; // 10 seconds
+const DATA_CACHE_DURATION = 3 * 1000; // 3 seconds
 
 // Get cached data if available and not expired
 export function getCachedSpotifyData(): SpotifyData | null {
@@ -41,23 +41,16 @@ export function getCachedSpotifyData(): SpotifyData | null {
   return null;
 }
 
-// Background refresh state
+// Background refresh to keep cache warm
 let backgroundRefreshStarted = false;
 
-// Start background refresh interval (runs every 3 seconds)
 export function startBackgroundRefresh() {
   if (backgroundRefreshStarted) return;
   backgroundRefreshStarted = true;
 
-  // Initial fetch to warm cache immediately
-  fetchSpotifyData().catch(function handleError(error) {
-    console.error("Background Spotify refresh error:", error);
-  });
-
-  // Continue refreshing every 3 seconds
   setInterval(function refreshCache() {
     fetchSpotifyData().catch(function handleError(error) {
-      console.error("Background Spotify refresh error:", error);
+      console.error("Spotify background refresh error:", error);
     });
   }, 3000);
 }
@@ -109,6 +102,11 @@ async function getAccessToken(): Promise<string> {
 
 // Main function that fetches current Spotify playing status
 export async function fetchSpotifyData(): Promise<SpotifyData> {
+  // Return cached data if still valid
+  if (cachedData && Date.now() - cachedData.timestamp < DATA_CACHE_DURATION) {
+    return cachedData.data;
+  }
+
   // Set up timeout handling (5 second limit)
   const controller = new AbortController();
 
