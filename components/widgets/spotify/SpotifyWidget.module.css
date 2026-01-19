@@ -39,6 +39,7 @@
   font-size: var(--widget-value-size);
   font-weight: var(--font-medium);
   color: var(--color-text-primary);
+  line-height: var(--line-height-none);
   margin: 0;
   font-family: var(--font-serif), var(--font-serif-fallback);
 }
