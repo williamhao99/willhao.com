@@ -23,6 +23,6 @@ export async function GET() {
     const data = await fetchSpotifyData();
     return NextResponse.json(data);
   } catch {
-    return NextResponse.json(DEFAULT_DATA);
+    return NextResponse.json(DEFAULT_DATA, { status: 503 });
   }
 }

@@ -57,7 +57,7 @@
   gap: var(--space-2-5rem);
   list-style: none;
   padding: var(--nav-padding-y) var(--nav-padding-x);
-  background: var(--card-bg);
+  background: var(--color-card-bg);
   border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--radius-full);
 }

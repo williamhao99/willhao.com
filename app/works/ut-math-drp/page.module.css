@@ -1,7 +1,7 @@
 .content {
   max-width: var(--content-max-width);
   margin: 0 auto;
-  background: var(--card-bg);
+  background: var(--color-card-bg);
   padding: var(--space-3rem);
   border-radius: var(--radius-md);
   border: var(--border-width-thin) solid var(--color-border);

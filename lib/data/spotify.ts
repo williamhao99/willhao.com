@@ -52,7 +52,7 @@ export function startBackgroundRefresh() {
     fetchSpotifyData().catch(function handleError(error) {
       console.error("Spotify background refresh error:", error);
     });
-  }, 3000);
+  }, 2500);
 }
 
 // Helper function to get/refresh Spotify access token

@@ -17,7 +17,7 @@
 }
 
 .tab {
-  background: var(--card-bg);
+  background: var(--color-card-bg);
   border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--radius-sm);
   color: var(--color-text-secondary);

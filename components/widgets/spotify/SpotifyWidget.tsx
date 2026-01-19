@@ -20,17 +20,20 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
 
   useEffect(
     function setupPolling() {
+      let isMounted = true;
       let intervalId: NodeJS.Timeout | null = null;
 
       async function fetchData() {
         try {
           const response = await fetch("/api/spotify");
-          if (response.ok) {
+          if (response.ok && isMounted) {
             const newData: SpotifyData = await response.json();
             setData(newData);
           }
         } catch (error) {
-          console.error("Failed to fetch Spotify data:", error);
+          if (isMounted) {
+            console.error("Failed to fetch Spotify data:", error);
+          }
         }
       }
 
@@ -66,6 +69,7 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
       document.addEventListener("visibilitychange", handleVisibilityChange);
 
       return function cleanup() {
+        isMounted = false;
         stopPolling();
         document.removeEventListener(
           "visibilitychange",

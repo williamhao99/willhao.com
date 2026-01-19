@@ -8,7 +8,7 @@
   gap: var(--space-1rem);
   text-decoration: none;
   color: inherit;
-  background: var(--card-bg);
+  background: var(--color-card-bg);
   cursor: pointer;
   transition: border-color var(--transition-normal);
 }
@@ -41,7 +41,7 @@
 }
 
 .statusPlanned {
-  background: var(--border-subtle);
+  background: var(--color-border-subtle);
   color: var(--color-text-muted);
 }
 

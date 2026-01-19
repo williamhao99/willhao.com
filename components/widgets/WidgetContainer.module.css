@@ -13,7 +13,7 @@
   height: 100%;
   gap: calc(var(--widget-gap) * var(--scale));
   padding: calc(var(--widget-padding) * var(--scale));
-  background: var(--card-bg);
+  background: var(--color-card-bg);
   border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--radius-md);
   transition: border-color var(--transition-normal);
