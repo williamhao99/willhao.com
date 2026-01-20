@@ -17,17 +17,19 @@
 }
 
 .tab {
-  background: var(--color-card-bg);
-  border: var(--border-width-thin) solid var(--color-border);
+  background: var(--color-background);
+  border: var(--border-width-thin) solid var(--color-text-muted);
   border-radius: var(--radius-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-family: var(--font-sans), var(--font-sans-fallback);
   font-size: var(--text-md);
-  font-weight: var(--font-normal);
+  font-weight: var(--font-medium);
   padding: var(--space-0-5rem) var(--space-1-5rem);
   cursor: pointer;
   white-space: nowrap;
-  transition: border-color var(--transition-normal);
+  transition:
+    border-color var(--transition-normal),
+    background var(--transition-normal);
 }
 
 /* Clean focus style */
@@ -38,11 +40,13 @@
 
 .tab:hover {
   border-color: var(--color-brand-blue-bright);
+  background: var(--color-card-bg);
 }
 
 .tab.active {
-  color: var(--color-text-primary);
+  color: var(--color-brand-blue-bright);
   border-color: var(--color-brand-blue-bright);
+  background: var(--color-card-bg);
 }
 
 .viewer {
