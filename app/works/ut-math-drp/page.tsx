@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://willhao.com/works/ut-math-drp",
   },
+  openGraph: {
+    title: "Benford's Law and Ergodic Theory",
+    description:
+      "Undergraduate research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
+    url: "https://willhao.com/works/ut-math-drp",
+  },
 };
 
 export default function UTMathDRPPage() {

@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://willhao.com/works",
   },
+  openGraph: {
+    title: "Works",
+    description: "Personal, academic, and hackathon projects.",
+    url: "https://willhao.com/works",
+  },
 };
 
 export default function WorksPage() {

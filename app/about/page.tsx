@@ -10,6 +10,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://willhao.com/about",
   },
+  openGraph: {
+    title: "About",
+    description:
+      "CS and Math student at UT Austin. Interested in full-stack development and algorithmic trading.",
+    url: "https://willhao.com/about",
+  },
 };
 
 export default function AboutPage() {

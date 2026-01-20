@@ -5,9 +5,14 @@ import styles from "./Blog.module.css";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Blog posts about college, coding, and life.",
+  description: "Technical insights and occasional essays.",
   alternates: {
     canonical: "https://willhao.com/blog",
+  },
+  openGraph: {
+    title: "Blog",
+    description: "Technical insights and occasional essays.",
+    url: "https://willhao.com/blog",
   },
 };
 
