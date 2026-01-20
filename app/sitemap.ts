@@ -7,8 +7,6 @@ const dates = {
   about: "2025-09-05",
   works: "2025-09-21",
   blogIndex: "2025-05-15",
-  freshmanPost: "2025-05-12",
-  bookReviewPost: "2025-05-15",
   utMathDrp: "2025-04-25",
 } as const;
 
@@ -38,19 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: dates.blogIndex,
       changeFrequency: "monthly" as const,
       priority: 0.7,
-    },
-    // Blog posts
-    {
-      path: "/blog/freshman-year-of-college",
-      lastModified: dates.freshmanPost,
-      changeFrequency: "yearly" as const,
-      priority: 0.5,
-    },
-    {
-      path: "/blog/book-reviews",
-      lastModified: dates.bookReviewPost,
-      changeFrequency: "yearly" as const,
-      priority: 0.5,
     },
     // Project pages
     {
