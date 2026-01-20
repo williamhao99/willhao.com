@@ -47,9 +47,7 @@ export default function PostNamePage() {
       */}
 
       <h2>Section Heading</h2>
-      <p>
-        Paragraph text goes here.
-      </p>
+      <p>Paragraph text goes here.</p>
 
       {/* Available elements: h2, h3, p, ul/li, figure with image */}
     </article>

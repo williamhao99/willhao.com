@@ -20,6 +20,47 @@
   color: var(--color-brand-blue-bright);
 }
 
+.meta {
+  margin: var(--space-1-5rem) 0 var(--space-2rem) 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.dot {
+  margin: 0 var(--space-1rem);
+  font-size: 1.25em;
+}
+
+.meta a {
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+
+.meta a:hover {
+  color: var(--color-brand-blue-bright);
+}
+
+.content h3 {
+  margin-top: var(--space-2-5rem);
+}
+
+.abstract {
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1rem);
+  margin-bottom: var(--space-0-5rem);
+}
+
+.contextShift {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: var(--space-3rem);
+  margin-bottom: 0;
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .content {
