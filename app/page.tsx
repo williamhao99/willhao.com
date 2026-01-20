@@ -58,18 +58,16 @@ export default function Home() {
 
   function renderFeaturedProjects() {
     const cards = [];
-    let count = 0;
-    for (let i = 0; i < projects.length && count < 3; i++) {
+    for (let i = 0; i < projects.length; i++) {
       const project = projects[i];
       if (!project) continue;
-      if (project.status === "complete") {
+      if (project.featured) {
         cards.push(
           <WorkCard
             key={project.id}
             project={project}
           />,
         );
-        count++;
       }
     }
     return cards;
