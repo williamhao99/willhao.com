@@ -52,7 +52,7 @@ export default function UTMathDRPPage() {
       <p className={styles.abstract}>
         <strong>Abstract:</strong> I presented a proof sketch of Benford's Law
         using dynamical systems: mapping leading digits to mantissas via{" "}
-        <InlineMath math="\log_{10}" />, then applying Weyl equidistribution for
+        <InlineMath math="\log_{10}," /> then applying Weyl equidistribution for
         irrational circle rotations (Kronecker systems). I also studied
         recurrence (Poincaré/Kac), normal numbers, and ergodicity as the shared
         framework behind &ldquo;random-looking&rdquo; digit behavior.
@@ -73,7 +73,7 @@ export default function UTMathDRPPage() {
         population data—anywhere numbers span multiple orders of magnitude.
         Benford's Law states that the probability that the leading digit is{" "}
         <InlineMath math="d" /> follows{" "}
-        <InlineMath math="P(d) = \log_{10}\left(1 + \frac{1}{d}\right)" />,
+        <InlineMath math="P(d) = \log_{10}\left(1 + \frac{1}{d}\right)," />
         giving 30.1% for 1 and just 4.6% for 9.
       </p>
 
@@ -85,7 +85,7 @@ export default function UTMathDRPPage() {
         <InlineMath math="10^k \cdot m" /> where{" "}
         <InlineMath math="m \in [1, 10)" /> is the mantissa—the part that
         determines the leading digit. Since{" "}
-        <InlineMath math="2 = 10^{\log_{10}(2)}" />, we have{" "}
+        <InlineMath math="2 = 10^{\log_{10}(2)}," /> we have{" "}
         <InlineMath math="2^n = 10^{n \log_{10}(2)}." />
       </p>
       <p>
@@ -93,10 +93,10 @@ export default function UTMathDRPPage() {
         where <InlineMath math="k = \lfloor n \log_{10}(2) \rfloor" /> and{" "}
         <InlineMath math="\{x\} = x - \lfloor x \rfloor" /> is the fractional
         part. Then{" "}
-        <InlineMath math="2^n = 10^k \cdot 10^{\{n \log_{10}(2)\}}" />
-        , so <InlineMath math="m = 10^{\{n \log_{10}(2)\}}" />. The leading
-        digit is <InlineMath math="d" /> iff{" "}
-        <InlineMath math="m \in [d, d+1)" />, i.e.{" "}
+        <InlineMath math="2^n = 10^k \cdot 10^{\{n \log_{10}(2)\}}," />
+        so <InlineMath math="m = 10^{\{n \log_{10}(2)\}}" />. The leading digit
+        is <InlineMath math="d" /> iff <InlineMath math="m \in [d, d+1)," />{" "}
+        i.e.{" "}
         <InlineMath math="\{n \log_{10}(2)\} \in [\log_{10}(d), \log_{10}(d+1))" />
         .
       </p>
@@ -122,8 +122,8 @@ export default function UTMathDRPPage() {
         </a>{" "}
         says such systems are uniformly distributed. Since the orbit visits
         intervals in proportion to their length,{" "}
-        <InlineMath math="P(\text{leading digit} = d) = \log_{10}(d+1) - \log_{10}(d) = \log_{10}\left(1 + \frac{1}{d}\right)" />
-        , which is exactly Benford's Law. The same argument applies to any
+        <InlineMath math="P(\text{leading digit} = d) = \log_{10}(d+1) - \log_{10}(d) = \log_{10}\left(1 + \frac{1}{d}\right)," />
+        which is exactly Benford's Law. The same argument applies to any
         multiplicatively growing sequence, which is why Benford's Law appears in
         such diverse contexts.
       </p>
@@ -142,7 +142,7 @@ export default function UTMathDRPPage() {
         Benford's Law is the unique scale-invariant distribution. On a log
         scale, multiplying by a constant just adds a constant; invariance under
         these shifts corresponds to a uniform distribution of fractional parts
-        of <InlineMath math="\log_{10}(x)" />, which produces Benford's formula.
+        of <InlineMath math="\log_{10}(x)," /> which produces Benford's formula.
       </p>
 
       <p className={styles.contextShift}>
@@ -173,8 +173,8 @@ export default function UTMathDRPPage() {
       <p>
         Kac's theorem intuitively quantifies the average return time: if{" "}
         <InlineMath math="U" /> is a region within a space{" "}
-        <InlineMath math="S" />, the expected number of steps to return to{" "}
-        <InlineMath math="U" /> is <InlineMath math="\mu(S)/\mu(U)" />, the
+        <InlineMath math="S," /> the expected number of steps to return to{" "}
+        <InlineMath math="U" /> is <InlineMath math="\mu(S)/\mu(U)," /> the
         ratio of total measure to the region's measure. If{" "}
         <InlineMath math="U" /> occupies 10% of the space, you return on average
         every 10 iterations. Smaller regions take longer to revisit.
