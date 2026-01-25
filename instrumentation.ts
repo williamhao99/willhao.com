@@ -7,7 +7,11 @@ export async function register() {
     spotify.startBackgroundRefresh();
     chess.startBackgroundRefresh();
 
-    // Warm the caches right now
-    await Promise.all([spotify.fetchSpotifyData(), chess.fetchChessStats()]);
+    // Warm the caches - don't crash server if API fails
+    try {
+      await Promise.all([spotify.fetchSpotifyData(), chess.fetchChessStats()]);
+    } catch (error) {
+      console.error("Failed to warm cache on startup:", error);
+    }
   }
 }

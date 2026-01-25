@@ -3,7 +3,7 @@ export interface SpotifyData {
   isPlaying: boolean;
   songTitle: string;
   artist: string;
-  lastPlayed?: string; // Optional - only for recently played tracks
+  lastPlayed?: string; // Optional - only when not currently playing
 }
 
 // Internal types matching Spotify API response structure
@@ -13,17 +13,12 @@ interface SpotifyArtist {
 
 interface SpotifyTrack {
   name: string;
-  artists: SpotifyArtist[]; // Multiple artists
+  artists: SpotifyArtist[];
 }
 
 interface SpotifyCurrentlyPlaying {
   is_playing: boolean;
   item: SpotifyTrack;
-}
-
-interface SpotifyRecentItem {
-  track: SpotifyTrack;
-  played_at: string; // ISO timestamp of when track was played
 }
 
 // Store access token in memory to avoid unnecessary refresh calls
@@ -32,6 +27,14 @@ let cachedToken: { token: string; expires: number } | null = null;
 // Store fetched data in memory for instant retrieval
 let cachedData: { data: SpotifyData; timestamp: number } | null = null;
 const DATA_CACHE_DURATION = 3 * 1000; // 3 seconds
+
+// Store last known "currently playing" track permanently
+// When Spotify says "not playing", we use this with our own timestamp
+let lastPlayingTrack: {
+  songTitle: string;
+  artist: string;
+  timestamp: number;
+} | null = null;
 
 // Get cached data if available and not expired
 export function getCachedSpotifyData(): SpotifyData | null {
@@ -77,7 +80,7 @@ async function getAccessToken(): Promise<string> {
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization:
         "Basic " +
-        Buffer.from(clientId + ":" + clientSecret).toString("base64"), // Base64 encode credentials
+        Buffer.from(clientId + ":" + clientSecret).toString("base64"),
     },
     body: new URLSearchParams({
       grant_type: "refresh_token",
@@ -94,10 +97,29 @@ async function getAccessToken(): Promise<string> {
   // Cache the new token with expiration time
   cachedToken = {
     token: data.access_token,
-    expires: Date.now() + (data.expires_in - 60) * 1000, // Use actual expiry minus 1min buffer
+    expires: Date.now() + (data.expires_in - 60) * 1000,
   };
 
   return data.access_token;
+}
+
+// Helper to format time difference as human-readable string
+function formatTimeSince(timestamp: number): string {
+  const diffMs = Date.now() - timestamp;
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffDays > 0) {
+    return diffDays + "d ago";
+  }
+  if (diffHours > 0) {
+    return diffHours + "h ago";
+  }
+  if (diffMins > 0) {
+    return diffMins + "m ago";
+  }
+  return "just now";
 }
 
 // Main function that fetches current Spotify playing status
@@ -118,7 +140,7 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
   try {
     let accessToken = await getAccessToken();
 
-    // First, try to get currently playing track
+    // Try to get currently playing track
     let currentResponse = await fetch(
       "https://api.spotify.com/v1/me/player/currently-playing",
       {
@@ -150,24 +172,64 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
     if (currentResponse.ok && currentResponse.status !== 204) {
       const current: SpotifyCurrentlyPlaying = await currentResponse.json();
       if (current.item) {
-        // Return currently playing track info
+        // Build artist names string
         const artistNames = [];
-        for (let i = 0; i < current.item.artists.length; i++) {
-          const artist = current.item.artists[i];
+        const artists = current.item.artists || [];
+        for (let i = 0; i < artists.length; i++) {
+          const artist = artists[i];
           if (!artist) continue;
           artistNames.push(artist.name);
         }
+
+        // Save this track as the last known playing track
+        // Only update timestamp when actually playing, not when paused
+        if (current.is_playing) {
+          lastPlayingTrack = {
+            songTitle: current.item.name,
+            artist: artistNames.join(", "),
+            timestamp: Date.now(),
+          };
+        } else if (
+          !lastPlayingTrack ||
+          lastPlayingTrack.songTitle !== current.item.name
+        ) {
+          // New track that's paused - only set if different from stored track
+          lastPlayingTrack = {
+            songTitle: current.item.name,
+            artist: artistNames.join(", "),
+            timestamp: Date.now(),
+          };
+        }
+
+        // Build result - include lastPlayed timestamp when paused
         const result: SpotifyData = {
           isPlaying: current.is_playing,
           songTitle: current.item.name,
           artist: artistNames.join(", "),
         };
+
+        if (!current.is_playing && lastPlayingTrack) {
+          result.lastPlayed = formatTimeSince(lastPlayingTrack.timestamp);
+        }
+
         cachedData = { data: result, timestamp: Date.now() };
         return result;
       }
     }
 
-    // If nothing is currently playing, fall back to recently played tracks
+    // Nothing currently playing - use our stored last playing track
+    if (lastPlayingTrack) {
+      const result: SpotifyData = {
+        isPlaying: false,
+        songTitle: lastPlayingTrack.songTitle,
+        artist: lastPlayingTrack.artist,
+        lastPlayed: formatTimeSince(lastPlayingTrack.timestamp),
+      };
+      cachedData = { data: result, timestamp: Date.now() };
+      return result;
+    }
+
+    // No stored track - bootstrap from recently-played API (only on first server start)
     let recentResponse = await fetch(
       "https://api.spotify.com/v1/me/player/recently-played?limit=1",
       {
@@ -179,6 +241,7 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
       },
     );
 
+    // Handle expired token - clear cache and get fresh token
     if (recentResponse.status === 401) {
       cachedToken = null;
       accessToken = await getAccessToken();
@@ -194,57 +257,72 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
       );
     }
 
-    if (!recentResponse.ok) {
-      throw new Error("Spotify API error: " + recentResponse.status);
+    if (recentResponse.ok) {
+      const recent: { items: { track: SpotifyTrack; played_at: string }[] } =
+        await recentResponse.json();
+
+      if (recent.items && recent.items.length > 0) {
+        const track = recent.items[0];
+        if (track) {
+          const artistNames = [];
+          const artists = track.track.artists || [];
+          for (let i = 0; i < artists.length; i++) {
+            const artist = artists[i];
+            if (!artist) continue;
+            artistNames.push(artist.name);
+          }
+
+          // Store as our last playing track for future use
+          lastPlayingTrack = {
+            songTitle: track.track.name,
+            artist: artistNames.join(", "),
+            timestamp: new Date(track.played_at).getTime(),
+          };
+
+          const result: SpotifyData = {
+            isPlaying: false,
+            songTitle: track.track.name,
+            artist: artistNames.join(", "),
+            lastPlayed: formatTimeSince(lastPlayingTrack.timestamp),
+          };
+          cachedData = { data: result, timestamp: Date.now() };
+          return result;
+        }
+      }
     }
 
-    const recent: { items: SpotifyRecentItem[] } = await recentResponse.json();
-
-    // Extract first (most recent) track from the array
-    let track = null;
-    if (recent.items && recent.items.length > 0) {
-      track = recent.items[0];
-    }
-
-    if (!track) {
-      throw new Error("No Spotify data available");
-    }
-
-    // Calculate how long ago the track was played
-    const diffMs = Date.now() - new Date(track.played_at).getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
-
-    // Format time as human-readable string
-    let lastPlayed = "just now";
-    if (diffDays > 0) lastPlayed = diffDays + "d ago";
-    else if (diffHours > 0) lastPlayed = diffHours + "h ago";
-    else if (diffMins > 0) lastPlayed = diffMins + "m ago";
-
-    // Return recently played track info with relative timestamp
-    const artistNames = [];
-    for (let i = 0; i < track.track.artists.length; i++) {
-      const artist = track.track.artists[i];
-      if (!artist) continue;
-      artistNames.push(artist.name);
-    }
+    // Fallback if even recently-played fails
     const result: SpotifyData = {
       isPlaying: false,
-      songTitle: track.track.name,
-      artist: artistNames.join(", "),
-      lastPlayed,
+      songTitle: "Nothing played yet",
+      artist: "Play something on Spotify",
     };
     cachedData = { data: result, timestamp: Date.now() };
     return result;
   } catch (error) {
-    // Handle timeout vs other errors differently
     if (error instanceof Error && error.name === "AbortError") {
       console.error("Spotify API timeout after 5 seconds");
-      throw new Error("Spotify API request timed out");
+    } else {
+      console.error("Spotify API error:", error);
     }
-    console.error("Spotify API error:", error);
-    throw error;
+
+    // Graceful degradation: return last known track with accurate timestamp
+    // Don't use cachedData here - it might say isPlaying:true from hours ago
+    if (lastPlayingTrack) {
+      return {
+        isPlaying: false,
+        songTitle: lastPlayingTrack.songTitle,
+        artist: lastPlayingTrack.artist,
+        lastPlayed: formatTimeSince(lastPlayingTrack.timestamp),
+      };
+    }
+
+    // No fallback available - return placeholder
+    return {
+      isPlaying: false,
+      songTitle: "—",
+      artist: "—",
+    };
   } finally {
     clearTimeout(timeoutId);
   }
