@@ -105,16 +105,6 @@
   --color-linkedin: #0a66c2;
   --color-award: rgba(255, 215, 0, 0.9);
 
-  /* Status colors */
-  --color-status-complete: rgba(34, 197, 94, 0.9);
-  --color-status-complete-bg: rgba(34, 197, 94, 0.15);
-  --color-status-progress: rgba(250, 204, 21, 0.9);
-  --color-status-progress-bg: rgba(250, 204, 21, 0.15);
-
-  /* Card layout */
-  --card-status-padding: 11rem;
-  --card-status-padding-mobile: 9rem;
-
   /* Grid layouts */
   --grid-cols-2: repeat(2, 1fr);
   --grid-cols-3: repeat(3, 1fr);

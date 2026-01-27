@@ -7,19 +7,9 @@ interface WorkCardProps {
 }
 
 export default function WorkCard({ project }: WorkCardProps) {
-  function getStatusClass(status: Project["status"]) {
-    if (status === "complete") return styles.statusComplete;
-    if (status === "in progress") return styles.statusInProgress;
-    if (status === "planned") return styles.statusPlanned;
-    return "";
-  }
-
   function renderContent() {
-    const statusClass = styles.status + " " + getStatusClass(project.status);
-
     return (
       <>
-        <span className={statusClass}>{project.status}</span>
         <div className={styles.cardContent}>
           <h3 className={styles.title}>{project.title}</h3>
           {project.date && <time className={styles.date}>{project.date}</time>}
