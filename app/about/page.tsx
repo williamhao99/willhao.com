@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SpotifyWidget from "@/components/widgets/spotify/SpotifyWidget";
 import ChessWidget from "@/components/widgets/chess/ChessWidget";
+import { getCachedSpotifyData } from "@/lib/data/spotify";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -18,7 +19,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const spotifyData = getCachedSpotifyData();
+
   return (
     <>
       <h1>About</h1>
@@ -45,7 +48,7 @@ export default function AboutPage() {
       <br />
 
       <div className={styles.widgets}>
-        <SpotifyWidget initialData={null} />
+        <SpotifyWidget initialData={spotifyData} />
         <ChessWidget initialData={null} />
       </div>
     </>
