@@ -3,6 +3,7 @@ import Link from "next/link";
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import PdfViewer from "@/components/pdfViewer/pdfViewer";
+import ViewCounter from "@/components/viewCounter/ViewCounter";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -47,6 +48,9 @@ export default function UTMathDRPPage() {
         >
           About the DRP →
         </a>
+      </div>
+      <div className={styles.views}>
+        <ViewCounter slug="works-ut-math-drp" />
       </div>
 
       <p className={styles.abstract}>

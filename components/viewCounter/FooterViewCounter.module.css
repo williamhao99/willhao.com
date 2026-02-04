@@ -1,0 +1,13 @@
+.viewCounter {
+  display: inline-flex;
+  align-items: center;
+}
+
+.separator {
+  margin: 0 var(--space-0-5rem);
+  color: var(--color-text-muted);
+}
+
+.views {
+  color: var(--color-text-muted);
+}

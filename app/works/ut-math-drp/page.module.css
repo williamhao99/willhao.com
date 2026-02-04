@@ -21,15 +21,14 @@
 }
 
 .meta {
-  margin: var(--space-1-5rem) 0 var(--space-2rem) 0;
+  margin: var(--space-1-5rem) 0 var(--space-0-5rem) 0;
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   line-height: 1.6;
 }
 
 .dot {
-  margin: 0 var(--space-1rem);
-  font-size: 1.25em;
+  margin: 0 var(--space-0-5rem);
 }
 
 .meta a {
@@ -37,10 +36,17 @@
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color var(--transition-fast);
+  white-space: nowrap;
 }
 
 .meta a:hover {
   color: var(--color-brand-blue-bright);
+}
+
+.views {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1rem);
 }
 
 .content h3 {

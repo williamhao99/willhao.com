@@ -4,6 +4,7 @@ import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 import SpotifyIcon from "@/components/icons/SpotifyIcon";
 import GmailIcon from "@/components/icons/GmailIcon";
+import FooterViewCounter from "@/components/viewCounter/FooterViewCounter";
 import styles from "./Footer.module.css";
 
 const NAV = [
@@ -97,7 +98,10 @@ export default function Footer() {
             {renderNavLinks()}
           </nav>
 
-          <p className={styles.copyright}>© {currentYear} William Hao</p>
+          <p className={styles.copyright}>
+            © {currentYear} William Hao
+            <FooterViewCounter />
+          </p>
 
           <div
             className={styles.social}
