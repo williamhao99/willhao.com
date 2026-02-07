@@ -110,7 +110,7 @@ export default function UTMathDRPPage() {
           href="https://en.wikipedia.org/wiki/Irrational_rotation"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ textDecoration: "underline" }}
+          className={styles.contentLink}
         >
           Kronecker system
         </a>
@@ -120,7 +120,7 @@ export default function UTMathDRPPage() {
           href="https://en.wikipedia.org/wiki/Equidistribution_theorem"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ textDecoration: "underline" }}
+          className={styles.contentLink}
         >
           Weyl's Equidistribution Theorem
         </a>{" "}
@@ -163,7 +163,7 @@ export default function UTMathDRPPage() {
           href="https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ textDecoration: "underline" }}
+          className={styles.contentLink}
         >
           Poincaré's recurrence theorem
         </a>
@@ -196,7 +196,7 @@ export default function UTMathDRPPage() {
           href="https://en.wikipedia.org/wiki/Normal_number"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ textDecoration: "underline" }}
+          className={styles.contentLink}
         >
           Borel's Normal Numbers Theorem
         </a>
@@ -228,7 +228,7 @@ export default function UTMathDRPPage() {
           href="https://mathworld.wolfram.com/BirkhoffsErgodicTheorem.html"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ textDecoration: "underline" }}
+          className={styles.contentLink}
         >
           Birkhoff's Ergodic Theorem
         </a>{" "}

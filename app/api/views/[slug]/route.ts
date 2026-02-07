@@ -41,6 +41,11 @@ export async function POST(
     return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
   }
 
+  if (process.env.NODE_ENV === "development") {
+    const views = await getViews(slug);
+    return NextResponse.json({ views: views });
+  }
+
   const views = await incrementViews(slug);
 
   return NextResponse.json({ views: views });

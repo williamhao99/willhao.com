@@ -67,6 +67,10 @@
   margin-bottom: 0;
 }
 
+.contentLink {
+  text-decoration: underline;
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .content {
