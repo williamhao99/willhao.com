@@ -70,7 +70,7 @@ export default function Header() {
               className={styles.logo}
             >
               <Image
-                src="/images/william-hao-banner.png"
+                src="/images/william-hao-banner.svg"
                 alt="William Hao"
                 fill
                 priority

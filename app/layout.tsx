@@ -31,14 +31,9 @@ export const metadata: Metadata = {
     url: "https://willhao.com",
     siteName: "Will Hao's Portfolio",
     type: "website",
-    images: [
-      {
-        url: "/images/william-hao-banner.png",
-        width: 491,
-        height: 119,
-        alt: "Will Hao",
-      },
-    ],
+  },
+  twitter: {
+    card: "summary_large_image",
   },
   icons: {
     icon: "/favicons/favicon.ico",
@@ -65,7 +60,7 @@ export default function RootLayout({
       <head>
         <GoogleAnalytics />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Header />
         <main className="main-content">
           <div className="container">{children}</div>
