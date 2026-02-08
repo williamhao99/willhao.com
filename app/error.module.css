@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 50vh;
+  min-height: var(--error-min-height);
   gap: var(--space-1-5rem);
 }
 

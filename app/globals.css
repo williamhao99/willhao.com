@@ -126,12 +126,16 @@
   --transition-normal: 200ms ease;
 
   /* Opacity */
+  --opacity-icon: 0.6;
   --opacity-medium: 0.7;
   --opacity-high: 0.9;
 
   /* Brightness */
   --brightness-subtle: 1.1;
   --brightness-hover: 1.6;
+
+  /* Error page layout */
+  --error-min-height: 50vh;
 
   /* === Mobile === */
   --mobile-text-multiplier: 0.9; /* Scale down text slightly on mobile */

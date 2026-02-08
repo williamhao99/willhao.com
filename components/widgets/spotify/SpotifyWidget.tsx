@@ -103,6 +103,7 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
       className={styles.link}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={"Spotify: " + songTitle + " by " + artist}
     >
       <div className={widgetClassName}>
         <div className={styles.icon}>

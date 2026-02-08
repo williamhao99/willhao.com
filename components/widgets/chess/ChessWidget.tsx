@@ -83,6 +83,7 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
   const rapidRating = data.rapid || "—";
   const blitzRating = data.blitz || "—";
   const bulletRating = data.bullet || "—";
+  // USCF rating is not available via API; updated manually
   const uscfRating = 1815;
 
   return (
@@ -91,6 +92,7 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
       className={styles.link}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Chess.com profile and ratings"
     >
       <div className={styles.widget}>
         <div className={styles.icon}>

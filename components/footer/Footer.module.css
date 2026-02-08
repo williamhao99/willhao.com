@@ -62,7 +62,7 @@
 .icon {
   width: var(--icon-size-md);
   height: var(--icon-size-md);
-  opacity: 0.6;
+  opacity: var(--opacity-icon);
   transition: opacity var(--transition-fast);
 }
 
