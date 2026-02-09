@@ -1,4 +1,5 @@
 .container {
+  --color-brand-blue: #0055aa;
   --pdf-viewer-min-height: 300px;
   --pdf-viewer-default-height: 700px;
   --pdf-viewer-width: 100%;

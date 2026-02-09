@@ -1,4 +1,7 @@
 .container {
+  --error-min-height: 50vh;
+  --title-multiplier: 1.5;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +12,7 @@
 }
 
 .title {
-  font-size: calc(var(--text-h1) * 1.5);
+  font-size: calc(var(--text-h1) * var(--title-multiplier));
   margin: 0;
   color: var(--color-brand-blue-bright);
 }

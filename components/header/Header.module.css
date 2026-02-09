@@ -3,6 +3,10 @@
   user-select: none; /* Prevent accidental text selection during navigation */
   --logo-width: 20rem;
   --logo-height: 5rem;
+  --underline-height: 2px;
+  --brightness-subtle: 1.1;
+  --brightness-hover: 1.6;
+  --radius-full: 9999px;
 
   /* Navigation pill styles */
   --nav-padding-x: var(--space-2rem);

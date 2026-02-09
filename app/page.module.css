@@ -37,6 +37,8 @@
 }
 
 .quickLinks {
+  --color-linkedin: #0a66c2;
+
   display: flex;
   gap: var(--space-3rem);
   margin-bottom: var(--space-2rem);

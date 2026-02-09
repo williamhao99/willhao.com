@@ -1,5 +1,6 @@
 .link {
   composes: link from "../WidgetContainer.module.css";
+  --color-spotify-green: #1db954;
 }
 
 .widget {

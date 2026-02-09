@@ -1,4 +1,6 @@
 .card {
+  --color-award: rgba(255, 215, 0, 0.9);
+
   position: relative;
   padding: var(--space-2rem);
   border: var(--border-width-thin) solid var(--color-border);

@@ -1,4 +1,6 @@
 .content {
+  --image-max-width: 800px;
+
   max-width: var(--content-max-width);
   margin: 0 auto;
   background: var(--color-card-bg);
@@ -34,6 +36,8 @@
 }
 
 .content h3 {
+  --font-normal: 400;
+
   font-weight: var(--font-normal);
   margin-bottom: var(--space-1rem);
 }
