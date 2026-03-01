@@ -156,10 +156,10 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
           } else {
             return (
               <iframe
+                key={selectedIndex}
                 src={safeSrc}
                 className={styles.iframe}
                 title={"PDF: " + currentTab.label}
-                loading="lazy"
               />
             );
           }
