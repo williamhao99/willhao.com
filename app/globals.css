@@ -77,6 +77,7 @@
   --border-width-thin: 1px;
 
   /* Border radius */
+  --radius-xs: 3px;
   --radius-sm: 6px;
   --radius-md: 15px;
 

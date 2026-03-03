@@ -1,0 +1,330 @@
+.figure {
+  --board-max-width: 480px;
+  --file-width: 12.5%;
+  --opacity-disabled: 0.3;
+  --opacity-variation: 0.8;
+
+  /* Board square colors */
+  --color-board-dark: #4a6a9b;
+  --color-board-light: #c8d6e5;
+
+  /* Square highlight colors */
+  --color-highlight-selected: rgba(255, 255, 0, 0.4);
+  --color-highlight-last-move: rgba(255, 255, 0, 0.25);
+  --color-highlight-correct: rgba(100, 200, 100, 0.5);
+  --color-highlight-incorrect: rgba(220, 80, 80, 0.5);
+
+  /* Shared feedback colors */
+  --color-positive: #8fd88f;
+  --color-negative: #e88a8a;
+
+  /* Puzzle feedback colors */
+  --color-puzzle-white-bg: rgba(255, 255, 255, 0.25);
+  --color-puzzle-black-bg: rgba(0, 0, 0, 0.6);
+  --color-puzzle-correct-bg: rgba(100, 200, 100, 0.2);
+  --color-puzzle-incorrect-bg: rgba(220, 80, 80, 0.2);
+
+  /* Promotion overlay colors */
+  --color-promotion-bg: rgba(240, 240, 240, 0.95);
+  --color-promotion-bg-hover: rgba(255, 255, 255, 1);
+  --color-promotion-cancel-bg: rgba(220, 220, 220, 0.95);
+  --color-promotion-cancel-bg-hover: rgba(200, 200, 200, 1);
+  --color-promotion-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Move panel colors */
+  --color-panel-bg: rgba(0, 0, 0, 0.2);
+  --color-move-hover: rgba(255, 255, 255, 0.08);
+  --color-move-active: rgba(255, 255, 255, 0.15);
+  --color-comment-border: rgba(255, 255, 255, 0.12);
+  --color-nag-interesting: #e8d44d;
+
+  /* Move panel dimensions */
+  --panel-min-width: 22rem;
+  --panel-max-height-mobile: 30rem;
+  --panel-padding: var(--space-10px);
+  --move-button-padding: var(--space-3px) var(--space-6px);
+  --comment-padding: var(--space-4px) var(--space-10px);
+
+  margin: var(--space-2rem) 0;
+  outline: none;
+}
+
+.board {
+  max-width: var(--board-max-width);
+  margin: 0 auto;
+  position: relative;
+  overflow: clip;
+}
+
+/* Prevent focus outlines on all board-internal elements */
+.board *:focus {
+  outline: none;
+}
+
+/* Viewer layout — board left, move panel right */
+.viewerLayout {
+  display: grid;
+  grid-template-columns: minmax(0, var(--board-max-width)) 1fr;
+  gap: var(--space-1rem);
+  align-items: start;
+}
+
+.viewerLayout .board {
+  margin: 0;
+}
+
+/* Move panel — scrollable list of moves */
+.movePanel {
+  background: var(--color-panel-bg);
+  border-radius: var(--radius-sm);
+  padding: var(--panel-padding);
+  overflow-y: auto;
+  min-width: var(--panel-min-width);
+  max-height: var(--board-max-width);
+  align-self: stretch;
+}
+
+.moveNumber {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  user-select: none;
+  margin-right: var(--space-2px);
+}
+
+.moveButton {
+  font-size: var(--text-sm);
+  font-family: var(--font-sans), var(--font-sans-fallback);
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  padding: var(--move-button-padding);
+  outline: none;
+  transition: background-color var(--transition-fast);
+  margin-right: var(--space-2px);
+}
+
+.moveButton:hover {
+  background-color: var(--color-move-hover);
+}
+
+.moveActive {
+  background-color: var(--color-move-active);
+  color: var(--color-text-primary);
+}
+
+.nag {
+  margin-left: var(--space-2px);
+  font-weight: var(--font-medium);
+}
+
+.nagGood {
+  color: var(--color-positive);
+}
+
+.nagBad {
+  color: var(--color-negative);
+}
+
+.nagInteresting {
+  color: var(--color-nag-interesting);
+}
+
+.moveComment {
+  display: block;
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-text-muted);
+  border-left: var(--space-2px) solid var(--color-comment-border);
+  padding: var(--comment-padding);
+  margin: var(--space-4px) 0;
+}
+
+.variationContainer {
+  --variation-indent: var(--space-10px);
+
+  display: block;
+  margin-left: var(--variation-indent);
+  padding-left: var(--variation-indent);
+  border-left: var(--border-width-thin) solid var(--color-comment-border);
+  opacity: var(--opacity-variation);
+  margin-top: var(--space-4px);
+  margin-bottom: var(--space-4px);
+}
+
+/* Navigation controls for game viewer */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1rem);
+  margin: var(--space-1rem) auto 0;
+}
+
+.navButton {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  background: none;
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: inherit;
+  padding: var(--space-4px) var(--space-10px);
+  outline: none;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.navButton:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.navButton:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: default;
+}
+
+/* Puzzle feedback banner */
+.puzzleBanner {
+  max-width: var(--board-max-width);
+  margin: var(--space-0-5rem) auto 0;
+  padding: var(--space-6px) 0;
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-sm);
+}
+
+.puzzleWhite {
+  background-color: var(--color-puzzle-white-bg);
+  color: var(--color-text-primary);
+}
+
+.puzzleBlack {
+  background-color: var(--color-puzzle-black-bg);
+  color: var(--color-text-muted);
+}
+
+.puzzleCorrect {
+  background-color: var(--color-puzzle-correct-bg);
+  color: var(--color-positive);
+}
+
+.puzzleIncorrect {
+  background-color: var(--color-puzzle-incorrect-bg);
+  color: var(--color-negative);
+}
+
+.puzzleReset {
+  margin-left: var(--space-1rem);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  opacity: var(--opacity-medium);
+  outline: none;
+  transition: opacity var(--transition-fast);
+}
+
+.puzzleReset:hover {
+  opacity: 1;
+}
+
+/* Promotion overlay — chess.com-style vertical column on the board */
+.promotionOverlay {
+  position: absolute;
+  width: var(--file-width);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 var(--space-2px) var(--space-8px) var(--color-promotion-shadow);
+}
+
+.promotionPiece {
+  aspect-ratio: 1;
+  background: var(--color-promotion-bg);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: block;
+  line-height: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.promotionPiece:hover {
+  background: var(--color-promotion-bg-hover);
+}
+
+.promotionCancel {
+  aspect-ratio: 2;
+  background: var(--color-promotion-cancel-bg);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  line-height: 0;
+  color: var(--color-text-muted);
+  transition: background-color var(--transition-fast);
+}
+
+.promotionCancel:hover {
+  background: var(--color-promotion-cancel-bg-hover);
+}
+
+.moveLabel {
+  --move-label-min-width: 8rem;
+
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  min-width: var(--move-label-min-width);
+  text-align: center;
+}
+
+.resetButton {
+  margin-left: var(--space-1rem);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-style: normal;
+  outline: none;
+  transition: color var(--transition-fast);
+}
+
+.resetButton:hover {
+  color: var(--color-brand-blue-bright);
+}
+
+.resetOnly {
+  text-align: center;
+  margin-top: var(--space-1rem);
+}
+
+@media (max-width: 768px) {
+  .board {
+    max-width: 100%;
+  }
+
+  .viewerLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .movePanel {
+    min-width: 0;
+    max-height: var(--panel-max-height-mobile);
+  }
+}
