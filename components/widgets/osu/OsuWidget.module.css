@@ -1,0 +1,42 @@
+.link {
+  composes: link from "../WidgetContainer.module.css";
+}
+
+.widget {
+  composes: widget from "../WidgetContainer.module.css";
+}
+
+.icon {
+  composes: icon from "../WidgetContainer.module.css";
+}
+
+/* osu!-specific content grid layout */
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--widget-gap) * var(--scale, 1));
+  align-content: center;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-0-5rem);
+}
+
+.label {
+  font-size: var(--widget-label-size);
+  color: var(--widget-label-color);
+  letter-spacing: var(--letter-spacing-normal);
+  font-family: var(--font-sans), var(--font-sans-fallback);
+}
+
+.value {
+  font-size: var(--widget-value-size);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-none);
+  font-family: var(--font-serif), var(--font-serif-fallback);
+}

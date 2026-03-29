@@ -1,22 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ChessIcon from "@/components/icons/ChessIcon";
-import type { ChessStats } from "@/lib/data/chess";
-import styles from "./ChessWidget.module.css";
+import OsuIcon from "@/components/icons/OsuIcon";
+import type { OsuStats } from "@/lib/data/osu";
+import styles from "./OsuWidget.module.css";
 
-interface ChessWidgetProps {
-  initialData: ChessStats | null;
+interface OsuWidgetProps {
+  initialData: OsuStats | null;
 }
 
-const DEFAULT_DATA: ChessStats = {
-  rapid: null,
-  blitz: null,
-  bullet: null,
+const DEFAULT_DATA: OsuStats = {
+  globalRank: null,
+  peakRank: null,
+  pp: null,
+  playTime: null,
 };
 
-export default function ChessWidget({ initialData }: ChessWidgetProps) {
-  const [data, setData] = useState<ChessStats>(initialData || DEFAULT_DATA);
+export default function OsuWidget({ initialData }: OsuWidgetProps) {
+  const [data, setData] = useState<OsuStats>(initialData || DEFAULT_DATA);
 
   useEffect(
     function setupPolling() {
@@ -25,14 +26,14 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
 
       async function fetchData() {
         try {
-          const response = await fetch("/api/chess");
+          const response = await fetch("/api/osu");
           if (response.ok && isMounted) {
-            const newData: ChessStats = await response.json();
+            const newData: OsuStats = await response.json();
             setData(newData);
           }
         } catch (error) {
           if (isMounted) {
-            console.error("Failed to fetch Chess data:", error);
+            console.error("Failed to fetch osu! data:", error);
           }
         }
       }
@@ -80,52 +81,54 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
     [initialData],
   );
 
-  let rapidRating: string | number = "—";
-  if (data.rapid !== null) {
-    rapidRating = data.rapid;
+  let rankDisplay = "—";
+  if (data.globalRank !== null) {
+    rankDisplay = "#" + data.globalRank.toLocaleString();
   }
 
-  let blitzRating: string | number = "—";
-  if (data.blitz !== null) {
-    blitzRating = data.blitz;
+  let peakDisplay = "—";
+  if (data.peakRank !== null) {
+    peakDisplay = "#" + data.peakRank.toLocaleString();
   }
 
-  let bulletRating: string | number = "—";
-  if (data.bullet !== null) {
-    bulletRating = data.bullet;
+  let ppDisplay = "—";
+  if (data.pp !== null) {
+    ppDisplay = data.pp.toLocaleString();
   }
 
-  // USCF rating is not available via API; updated manually
-  const uscfRating = 1815;
+  let playTimeDisplay = "—";
+  if (data.playTime !== null) {
+    playTimeDisplay = data.playTime.toLocaleString() + "h";
+  }
 
   return (
     <a
-      href="https://www.chess.com/member/javablob"
+      href="https://osu.ppy.sh/users/whao"
       className={styles.link}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chess.com profile and ratings"
+      aria-label="osu! profile and statistics"
     >
       <div className={styles.widget}>
         <div className={styles.icon}>
-          <ChessIcon />
+          <OsuIcon />
         </div>
         <div className={styles.content}>
           <div className={styles.item}>
-            <span className={styles.label}>RAPID</span>
-            <span className={styles.value}>{rapidRating}</span>
+            <span className={styles.label}>RANK</span>
+            <span className={styles.value}>{rankDisplay}</span>
           </div>
           <div className={styles.item}>
-            <span className={styles.label}>BLITZ</span>
-            <span className={styles.value}>{blitzRating}</span>
+            <span className={styles.label}>PEAK</span>
+            <span className={styles.value}>{peakDisplay}</span>
           </div>
           <div className={styles.item}>
-            <span className={styles.label}>BULLET</span>
-            <span className={styles.value}>{bulletRating}</span>
+            <span className={styles.label}>PP</span>
+            <span className={styles.value}>{ppDisplay}</span>
           </div>
           <div className={styles.item}>
-            <span className={styles.label}>USCF</span>
-            <span className={styles.value}>{uscfRating}</span>
+            <span className={styles.label}>PLAYTIME</span>
+            <span className={styles.value}>{playTimeDisplay}</span>
           </div>
         </div>
       </div>

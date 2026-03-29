@@ -57,6 +57,7 @@ export async function fetchChessStats(): Promise<ChessStats> {
           Accept: "application/json",
         },
         signal: controller.signal,
+        cache: "no-store",
       },
     );
 
@@ -71,7 +72,8 @@ export async function fetchChessStats(): Promise<ChessStats> {
     if (
       data.chess_rapid &&
       data.chess_rapid.last &&
-      data.chess_rapid.last.rating
+      data.chess_rapid.last.rating !== null &&
+      data.chess_rapid.last.rating !== undefined
     ) {
       rapidRating = data.chess_rapid.last.rating;
     }
@@ -81,7 +83,8 @@ export async function fetchChessStats(): Promise<ChessStats> {
     if (
       data.chess_blitz &&
       data.chess_blitz.last &&
-      data.chess_blitz.last.rating
+      data.chess_blitz.last.rating !== null &&
+      data.chess_blitz.last.rating !== undefined
     ) {
       blitzRating = data.chess_blitz.last.rating;
     }
@@ -91,7 +94,8 @@ export async function fetchChessStats(): Promise<ChessStats> {
     if (
       data.chess_bullet &&
       data.chess_bullet.last &&
-      data.chess_bullet.last.rating
+      data.chess_bullet.last.rating !== null &&
+      data.chess_bullet.last.rating !== undefined
     ) {
       bulletRating = data.chess_bullet.last.rating;
     }

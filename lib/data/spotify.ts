@@ -34,13 +34,14 @@ let cachedToken: { token: string; expires: number } | null = null;
 let rotatedRefreshToken: string | null = null;
 
 // Store fetched data in memory for instant retrieval
-let cachedData: { data: SpotifyData; timestamp: number } | null = null;
-const DATA_CACHE_DURATION = 3 * 1000; // 3 seconds
+const CACHE_DURATION = 3 * 1000; // 3 seconds
+
+let cachedStats: { data: SpotifyData; expires: number } | null = null;
 
 // Get cached data if available and not expired
 export function getCachedSpotifyData(): SpotifyData | null {
-  if (cachedData && Date.now() - cachedData.timestamp < DATA_CACHE_DURATION) {
-    return cachedData.data;
+  if (cachedStats && Date.now() < cachedStats.expires) {
+    return cachedStats.data;
   }
   return null;
 }
@@ -60,7 +61,9 @@ export function startBackgroundRefresh() {
 }
 
 // Helper function to get/refresh Spotify access token
-async function getAccessToken(): Promise<string> {
+async function getAccessToken(
+  signal: AbortSignal | null = null,
+): Promise<string> {
   if (cachedToken && Date.now() < cachedToken.expires) {
     return cachedToken.token;
   }
@@ -87,6 +90,7 @@ async function getAccessToken(): Promise<string> {
       grant_type: "refresh_token",
       refresh_token: refreshToken,
     }),
+    signal: signal,
   });
 
   if (!response.ok) {
@@ -183,8 +187,8 @@ async function fetchRecentlyPlayed(
 // Main function that fetches current Spotify playing status
 export async function fetchSpotifyData(): Promise<SpotifyData> {
   // Return cached data if still valid
-  if (cachedData && Date.now() - cachedData.timestamp < DATA_CACHE_DURATION) {
-    return cachedData.data;
+  if (cachedStats && Date.now() < cachedStats.expires) {
+    return cachedStats.data;
   }
 
   // Set up timeout handling (5 second limit)
@@ -196,7 +200,7 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
   const timeoutId = setTimeout(abortRequest, 5000);
 
   try {
-    let accessToken = await getAccessToken();
+    let accessToken = await getAccessToken(controller.signal);
 
     // Try to get currently playing track
     let currentResponse = await fetch(
@@ -213,7 +217,7 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
     // Handle expired token - clear cache and get fresh token
     if (currentResponse.status === 401) {
       cachedToken = null;
-      accessToken = await getAccessToken();
+      accessToken = await getAccessToken(controller.signal);
       currentResponse = await fetch(
         "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode",
         {
@@ -239,7 +243,11 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
         let artistName = "";
         if (current.currently_playing_type === "episode") {
           const episode = current.item as SpotifyEpisode;
-          artistName = episode.show ? episode.show.name : "Podcast";
+          if (episode.show) {
+            artistName = episode.show.name;
+          } else {
+            artistName = "Podcast";
+          }
         } else {
           artistName = getArtistNames(current.item as SpotifyTrack);
         }
@@ -252,14 +260,14 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
         if (!current.is_playing) {
           result.lastPlayed = "(paused)";
         }
-        cachedData = { data: result, timestamp: Date.now() };
+        cachedStats = { data: result, expires: Date.now() + CACHE_DURATION };
         return result;
       }
     }
 
     // Not actively playing - fetch last played track from recently-played API
     const recentResult = await fetchRecentlyPlayed(accessToken, controller);
-    cachedData = { data: recentResult, timestamp: Date.now() };
+    cachedStats = { data: recentResult, expires: Date.now() + CACHE_DURATION };
     return recentResult;
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {

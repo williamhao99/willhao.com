@@ -10,7 +10,7 @@
   --widget-padding: var(--space-1-5rem);
   --widget-gap: var(--space-1-5rem);
   --widget-icon-size: 5rem;
-  --widget-label-color: rgba(250, 250, 250, 0.6);
+  --widget-label-color: var(--color-text-dim);
   --widget-label-size: calc(var(--text-base) * var(--multiplier-sm));
   --widget-value-size: var(--text-lg);
   --widget-mobile-scale: 0.85;
