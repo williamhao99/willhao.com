@@ -7,20 +7,20 @@ interface WorkCardProps {
 }
 
 export default function WorkCard({ project }: WorkCardProps) {
+  const isExternal = project.link.startsWith("http");
+
   function renderContent() {
     return (
       <>
-        <div className={styles.cardContent}>
+        <div className={styles.header}>
           <h3 className={styles.title}>{project.title}</h3>
           {project.date && <time className={styles.date}>{project.date}</time>}
         </div>
         <p className={styles.description}>{project.description}</p>
-        {project.award && <p className={styles.awardText}>{project.award}</p>}
+        {project.award && <p className={styles.award}>{project.award}</p>}
       </>
     );
   }
-
-  const isExternal = project.link.startsWith("http");
 
   if (isExternal) {
     return (

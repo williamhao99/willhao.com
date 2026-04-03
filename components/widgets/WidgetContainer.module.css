@@ -21,13 +21,17 @@
   gap: calc(var(--widget-gap) * var(--scale));
   padding: calc(var(--widget-padding) * var(--scale));
   background: var(--color-card-bg);
+  box-shadow: var(--color-card-shadow);
   border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--radius-md);
-  transition: border-color var(--transition-normal);
+  transition:
+    border-color var(--transition-normal),
+    background var(--transition-normal);
 }
 
 .widget:hover {
   border-color: var(--color-brand-blue-bright);
+  background: var(--color-card-bg-hover);
 }
 
 .icon {

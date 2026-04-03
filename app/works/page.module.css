@@ -2,17 +2,18 @@
   margin-bottom: var(--space-3-5rem);
 }
 
-.worksGrid {
-  padding-top: var(--space-2rem);
+.worksList {
+  display: flex;
+  flex-direction: column;
+}
+
+.worksList > :first-child {
+  border-top: var(--border-width-thin) solid var(--color-border-medium);
 }
 
 /* Mobile styles */
 @media (max-width: 768px) {
   .projectsSection {
     margin-bottom: var(--space-1-5rem);
-  }
-
-  .worksGrid {
-    padding-top: var(--space-1-5rem);
   }
 }

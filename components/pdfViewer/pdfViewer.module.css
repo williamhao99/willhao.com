@@ -36,7 +36,7 @@
 /* Clean focus style */
 .tab:focus-visible {
   outline: var(--border-width-thin) solid var(--color-brand-blue);
-  outline-offset: 2px;
+  outline-offset: var(--space-2px);
 }
 
 .tab:hover {

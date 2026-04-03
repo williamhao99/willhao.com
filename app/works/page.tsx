@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { projects } from "@/app/works/projects";
-import WorkCard from "@/components/workCards/WorkCard";
+import WorkListItem from "@/components/workListItem/WorkListItem";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function WorksPage() {
       const project = projects[i];
       if (!project) continue;
       items.push(
-        <WorkCard
+        <WorkListItem
           key={project.id}
           project={project}
         />,
@@ -35,12 +35,9 @@ export default function WorksPage() {
   return (
     <>
       <h1>Works</h1>
-      <h2>Personal, academic, and hackathon projects.</h2>
 
       <section className={styles.projectsSection}>
-        <div className={"projectsGrid " + styles.worksGrid}>
-          {renderProjects()}
-        </div>
+        <div className={styles.worksList}>{renderProjects()}</div>
       </section>
     </>
   );
