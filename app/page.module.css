@@ -54,9 +54,9 @@
 
 .quickLinkItem svg {
   display: block;
-  width: var(--space-5rem);
-  height: var(--space-5rem);
-  opacity: var(--opacity-medium);
+  width: var(--space-4rem);
+  height: var(--space-4rem);
+  opacity: var(--opacity-dim);
   transition: opacity var(--transition-fast);
 }
 
@@ -85,4 +85,12 @@
 
 .worksSection {
   margin-bottom: var(--space-5rem);
+}
+
+.worksHeading {
+  color: var(--color-text-secondary);
+}
+
+.worksSection .moreLink {
+  color: var(--color-text-secondary);
 }

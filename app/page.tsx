@@ -96,9 +96,14 @@ export default function Home() {
       </section>
 
       <section className={styles.worksSection}>
-        <h2>Featured Works</h2>
+        <h2 className={styles.worksHeading}>Featured Works</h2>
         <div className="projectsGrid">{renderFeaturedProjects()}</div>
-        <Link href="/works">More works →</Link>
+        <Link
+          href="/works"
+          className={styles.moreLink}
+        >
+          More works →
+        </Link>
       </section>
     </>
   );

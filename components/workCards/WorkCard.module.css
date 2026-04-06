@@ -1,6 +1,6 @@
 .card {
   --accent-border-width: var(--space-2px);
-  --accent-border-color: var(--color-border-medium);
+  --accent-border-color: var(--color-border-subtle);
   --card-bg: rgba(255, 255, 255, 0.02);
 
   padding: var(--space-2rem);
@@ -32,7 +32,7 @@
 
 .title {
   font-size: var(--text-lg);
-  font-weight: var(--font-medium);
+  font-weight: var(--font-normal);
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
 }
@@ -51,8 +51,6 @@
 }
 
 .award {
-  --color-award: rgba(255, 215, 0, 0.9);
-
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   letter-spacing: var(--letter-spacing-tight);

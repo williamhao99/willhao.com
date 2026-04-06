@@ -12,6 +12,7 @@
 
   /* Brand colors */
   --color-brand-blue-bright: #2d7bd6;
+  --color-award: rgba(217, 183, 86, 1);
 
   /* Component backgrounds */
   --color-card-bg: rgba(0, 0, 0, 0.15);
@@ -38,6 +39,7 @@
   --text-h2: calc(var(--text-base) * var(--multiplier-xl));
 
   /* Font weights */
+  --font-normal: 400;
   --font-medium: 500;
 
   /* Line heights */
@@ -58,6 +60,7 @@
   --space-2-5rem: 2.5rem;
   --space-3rem: 3rem;
   --space-3-5rem: 3.5rem;
+  --space-4rem: 4rem;
   --space-5rem: 5rem;
 
   /* Pixel spacing */
@@ -92,6 +95,7 @@
 
   /* Opacity */
   --opacity-medium: 0.7;
+  --opacity-dim: 0.55;
 
   /* === Mobile === */
   --mobile-text-multiplier: 0.9; /* Scale down text slightly on mobile */
