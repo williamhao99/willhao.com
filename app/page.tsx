@@ -86,7 +86,7 @@ export default function Home() {
           priority
         />
         <h2 className={styles.subtitle}>
-          <span>CS + Math '27 @ UT Austin</span>
+          <span>CS + Math '28 @ UT Austin</span>
           <span>Incoming SWE Intern @ Citi</span>
         </h2>
       </section>

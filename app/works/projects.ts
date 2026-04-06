@@ -15,7 +15,7 @@ export const projects: Project[] = [
     description:
       "Personal trading infrastructure for Kalshi and Polymarket prediction markets",
     link: "https://github.com/williamhao99/pm-tradingdesk",
-    date: "Oct 2024 - Present",
+    date: "Oct 2025 - Present",
     featured: true,
   },
   {
