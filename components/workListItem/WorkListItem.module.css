@@ -1,6 +1,5 @@
 .item {
   --left-width: 30%;
-  --hover-bg: rgba(255, 255, 255, 0.02);
 
   padding: var(--space-2rem) var(--space-1-5rem);
   display: flex;
@@ -16,7 +15,7 @@
 }
 
 .item:hover {
-  background: var(--hover-bg);
+  background: var(--color-card-bg-hover);
 }
 
 .left {
@@ -45,6 +44,7 @@
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   letter-spacing: var(--letter-spacing-tight);
+  font-variant-numeric: tabular-nums;
 }
 
 .description {

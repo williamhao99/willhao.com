@@ -1,7 +1,6 @@
 .card {
   --accent-border-width: var(--space-2px);
   --accent-border-color: var(--color-border-subtle);
-  --card-bg: rgba(255, 255, 255, 0.02);
 
   padding: var(--space-2rem);
   border-radius: 0;
@@ -11,7 +10,7 @@
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  background: var(--card-bg);
+  background: transparent;
   border: none;
   border-left: var(--accent-border-width) solid var(--accent-border-color);
   transition:
@@ -41,6 +40,7 @@
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   letter-spacing: var(--letter-spacing-tight);
+  font-variant-numeric: tabular-nums;
 }
 
 .description {

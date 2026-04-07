@@ -37,8 +37,6 @@
 }
 
 .quickLinks {
-  --color-linkedin: #0a66c2;
-
   display: flex;
   gap: var(--space-3rem);
   margin-bottom: var(--space-2rem);
@@ -74,10 +72,6 @@
   fill: var(--color-text-primary);
 }
 
-.quickLinkItem:nth-child(2) svg {
-  fill: var(--color-linkedin);
-}
-
 /* Section spacing */
 .introSection {
   margin-bottom: var(--space-5rem);
@@ -88,7 +82,7 @@
 }
 
 .worksHeading {
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
 }
 
 .worksSection .moreLink {
