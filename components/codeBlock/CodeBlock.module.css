@@ -1,0 +1,24 @@
+/* !important is needed to override Shiki's inline background-color
+   on the <pre> so the gutter-rule framing reads on the page bg. */
+
+.wrapper {
+  margin: var(--space-2rem) 0;
+}
+
+.wrapper pre {
+  background: transparent !important;
+  margin: 0;
+  padding: var(--space-0-5rem) 0 var(--space-0-5rem) var(--space-1-5rem);
+  border-left: var(--prose-code-gutter-width) solid
+    var(--prose-code-gutter-color);
+  overflow-x: auto;
+  font-family: var(--font-mono), var(--font-mono-fallback);
+  font-size: var(--text-md);
+  line-height: var(--line-height-relaxed);
+}
+
+.wrapper pre code {
+  background: transparent !important;
+  font-family: inherit;
+  font-size: inherit;
+}
