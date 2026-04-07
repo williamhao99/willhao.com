@@ -233,17 +233,6 @@ export default function UTMathDRPPage() {
         <InlineMath math="\log_{10}(2) - \log_{10}(1) \approx 0.301" />.
       </p>
 
-      <h3>Topics Covered</h3>
-      <ul>
-        <li>Benford's Law and scale invariance</li>
-        <li>Kronecker Systems and Weyl's Equidistribution Theorem</li>
-        <li>Recurrence and return times (Poincaré, Kac)</li>
-        <li>
-          Borel's Normal Numbers Theorem and digit &ldquo;randomness&rdquo;
-        </li>
-        <li>Birkhoff's Ergodic Theorem and time vs. space averages</li>
-      </ul>
-
       <h3>Weekly Notes</h3>
       <PdfViewer
         tabs={[
