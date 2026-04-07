@@ -213,16 +213,6 @@ body {
   margin-bottom: 0;
 }
 
-/* Blog post time styling - scoped to article elements */
-.main-content article > time {
-  display: block;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  letter-spacing: var(--letter-spacing-normal);
-  text-transform: uppercase;
-  margin-bottom: var(--space-2rem);
-}
-
 .main-content figcaption {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
