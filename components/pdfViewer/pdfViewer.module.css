@@ -13,18 +13,19 @@
 .tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1rem);
+  gap: var(--space-0-5rem);
   margin-bottom: var(--space-2rem);
 }
 
 .tab {
   background: var(--color-background);
-  border: var(--border-width-thin) solid var(--color-text-muted);
-  border-radius: var(--radius-sm);
+  border: var(--border-width-thin) solid var(--color-border-medium);
+  border-radius: var(--radius-xs);
   color: var(--color-text-primary);
   font-family: var(--font-sans), var(--font-sans-fallback);
   font-size: var(--text-md);
-  font-weight: var(--font-medium);
+  font-weight: var(--font-normal);
+  font-variant-numeric: tabular-nums;
   padding: var(--space-0-5rem) var(--space-1-5rem);
   cursor: pointer;
   white-space: nowrap;
@@ -41,21 +42,19 @@
 
 .tab:hover {
   border-color: var(--color-brand-blue-bright);
-  background: var(--color-card-bg);
+  background: var(--color-card-bg-hover);
 }
 
 .tab.active {
   color: var(--color-brand-blue-bright);
   border-color: var(--color-brand-blue-bright);
-  background: var(--color-card-bg);
 }
 
 .viewer {
   width: 100%;
   height: var(--pdf-viewer-default-height);
   min-height: var(--pdf-viewer-min-height);
-  border: var(--border-width-thin) solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   overflow: hidden;
   background: var(--color-background);
 }
