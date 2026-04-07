@@ -48,6 +48,7 @@
   /* Font weights */
   --font-normal: 400;
   --font-medium: 500;
+  --font-semibold: 600;
 
   /* Line heights */
   --line-height-none: 1;
@@ -258,7 +259,8 @@ body {
 .main-content .prose h3 {
   font-size: var(--text-h3);
   line-height: var(--line-height-tight);
-  font-weight: var(--font-medium);
+  font-weight: var(--font-semibold);
+  letter-spacing: -0.01em;
   margin-top: var(--space-3rem);
   margin-bottom: var(--space-1rem);
 }
