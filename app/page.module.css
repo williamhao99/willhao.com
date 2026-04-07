@@ -54,17 +54,16 @@
   display: block;
   width: var(--space-4rem);
   height: var(--space-4rem);
-  opacity: var(--opacity-dim);
-  transition: opacity var(--transition-fast);
-}
-
-.quickLinkItem:hover svg {
-  opacity: 1;
 }
 
 .quickLinkLabel {
   font-size: var(--text-base);
   color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.quickLinkItem:hover .quickLinkLabel {
+  color: var(--color-brand-blue-bright);
 }
 
 .quickLinkItem:first-child svg {
