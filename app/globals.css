@@ -92,7 +92,7 @@
     transparent
   );
   --prose-code-gutter-width: var(--space-3px);
-  --prose-link-underline: rgba(255, 255, 255, 0.32);
+  --prose-link-underline: rgba(255, 255, 255, 0.55);
   --prose-link-underline-thickness: 1px;
   --prose-katex-scale: 1.08em;
 
@@ -274,7 +274,7 @@ body {
   text-decoration: underline;
   text-decoration-color: var(--prose-link-underline);
   text-decoration-thickness: var(--prose-link-underline-thickness);
-  text-underline-offset: var(--space-3px);
+  text-underline-offset: var(--space-4px);
 }
 
 .main-content .prose p a:hover,

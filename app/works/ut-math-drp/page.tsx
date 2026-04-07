@@ -32,7 +32,7 @@ export default function UTMathDRPPage() {
         ← Back to Works
       </Link>
       <h1>Benford's Law and Ergodic Theory</h1>
-      <h2>Why does the digit 1 lead numbers 30% of the time in real life?</h2>
+      <h2>Why does the digit 1 lead 30% of real-world numbers?</h2>
 
       <div className={styles.meta}>
         <div>
@@ -52,12 +52,12 @@ export default function UTMathDRPPage() {
       <p className={styles.abstract}>
         <strong>Abstract:</strong> Working from Nillsen's{" "}
         <em>Randomness and Recurrence in Dynamical Systems</em>, I presented a
-        proof sketch of Benford's Law using dynamical systems: mapping leading
-        digits to mantissas via <InlineMath math="\log_{10}," /> then applying
-        Weyl equidistribution for irrational circle rotations (Kronecker
-        systems). I also studied recurrence (Poincaré/Kac), normal numbers, and
-        ergodicity as the shared framework behind &ldquo;random-looking&rdquo;
-        digit behavior.
+        proof sketch of Benford's Law using dynamical systems: leading digits
+        map to mantissas via <InlineMath math="\log_{10}," /> and Weyl
+        equidistribution on irrational circle rotations (Kronecker systems)
+        yields the formula. I also studied recurrence (Poincaré, Kac), normal
+        numbers, and ergodicity as the shared framework for
+        &ldquo;random-looking&rdquo; digit behavior.
       </p>
 
       <PdfViewer
@@ -71,21 +71,18 @@ export default function UTMathDRPPage() {
 
       <h3>The Phenomenon</h3>
       <p>
-        Benford's Law appears in tax returns, stock prices, physical constants,
-        population data—anywhere numbers span multiple orders of magnitude.
-        Benford's Law states that the probability that the leading digit is{" "}
-        <InlineMath math="d" /> follows{" "}
-        <InlineMath math="P(d) = \log_{10}\left(1 + \frac{1}{d}\right)," />
-        giving 30.1% for 1 and just 4.6% for 9.
+        Benford's Law shows up in tax returns, stock prices, physical constants,
+        population data - anywhere numbers span orders of magnitude. The leading
+        digit <InlineMath math="d" /> satisfies{" "}
+        <InlineMath math="P(d) = \log_{10}\left(1 + \frac{1}{d}\right)," /> so 1
+        leads 30.1% of the time and 9 just 4.6%.
       </p>
 
       <h3>Why It Happens</h3>
       <p>
-        Benford's Law appears so universally because of how leading digits
-        relate to logarithms. Consider the sequence <InlineMath math="2^n" /> as
-        one example of many. Any real number can be written as{" "}
+        Take <InlineMath math="2^n" />. Any real number can be written as{" "}
         <InlineMath math="10^k \cdot m" /> where{" "}
-        <InlineMath math="m \in [1, 10)" /> is the mantissa—the part that
+        <InlineMath math="m \in [1, 10)" /> is the mantissa - the part that
         determines the leading digit. Since{" "}
         <InlineMath math="2 = 10^{\log_{10}(2)}," /> we have{" "}
         <InlineMath math="2^n = 10^{n \log_{10}(2)}." />
@@ -120,38 +117,36 @@ export default function UTMathDRPPage() {
         >
           Weyl's Equidistribution Theorem
         </a>{" "}
-        says such systems are uniformly distributed. Since the orbit visits
+        says such orbits are uniformly distributed. Since the orbit visits
         intervals in proportion to their length,{" "}
         <InlineMath math="P(\text{leading digit} = d) = \log_{10}(d+1) - \log_{10}(d) = \log_{10}\left(1 + \frac{1}{d}\right)," />
-        which is exactly Benford's Law. The same argument applies to any
-        multiplicatively growing sequence, which is why Benford's Law appears in
-        such diverse contexts.
+        which is exactly Benford's Law. The same argument extends to any
+        multiplicatively growing sequence.
       </p>
       <p>
-        Intuitively: going from leading digit 1 to 2 requires doubling, while 8
-        to 9 is only a 12.5% increase. In real life, multiplicative processes
-        spend more time with smaller leading digits.
+        Intuitively, going from leading digit 1 to 2 requires doubling, while 8
+        to 9 is only a 12.5% increase. So, in real-world datasets,
+        multiplicative processes spend more time with smaller leading digits.
       </p>
 
       <h3>Scale Invariance</h3>
       <p>
-        The Weyl approach shows why powers of 2 follow Benford's Law from a
-        mathematical standpoint, but the concept of scale invariance provides
-        another perspective: since units are arbitrary, a natural leading-digit
-        law should not depend on whether we measure in miles or kilometers.
-        Benford's Law is the unique scale-invariant distribution. On a log
-        scale, multiplying by a constant just adds a constant; invariance under
-        these shifts corresponds to a uniform distribution of fractional parts
-        of <InlineMath math="\log_{10}(x)," /> which produces Benford's formula.
+        Scale invariance gives a different perspective. Units are arbitrary - a
+        natural leading-digit law shouldn't care whether we measure in miles or
+        kilometers. Benford's Law is the unique distribution with this property.
+        On a log scale, multiplying by a constant just adds a constant;
+        invariance under these shifts corresponds to a uniform distribution of
+        fractional parts of <InlineMath math="\log_{10}(x)," /> which produces
+        Benford's formula.
       </p>
 
       <hr className={styles.sectionBreak} />
 
       <h3>Recurrence and Waiting Times</h3>
       <p>
-        The Kronecker system above is one example of a dynamical system—a model
-        of how states evolve over time. A natural question: how often do these
-        systems revisit particular states?{" "}
+        The Kronecker system above is one example of a dynamical system - a
+        model of how states evolve over time. A natural question: how often do
+        these systems revisit particular states?{" "}
         <a
           href="https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem"
           target="_blank"
@@ -167,23 +162,23 @@ export default function UTMathDRPPage() {
         infinitely often.
       </p>
       <p>
-        Kac's theorem intuitively quantifies the average return time: if{" "}
+        Kac's theorem quantifies the average return time: if{" "}
         <InlineMath math="U" /> is a region within a space{" "}
         <InlineMath math="S," /> the expected number of steps to return to{" "}
         <InlineMath math="U" /> is <InlineMath math="\mu(S)/\mu(U)," /> the
         ratio of total measure to the region's measure. If{" "}
         <InlineMath math="U" /> occupies 10% of the space, you return on average
-        every 10 iterations. Smaller regions take longer to revisit.
+        every 10 iterations.
       </p>
 
       <h3>Randomness and Normal Numbers</h3>
       <p>
-        Benford's Law tells us first digits aren't uniformly distributed across
-        datasets. But what about all digits within a single number? When do
-        those look &ldquo;random&rdquo;? Informally, a number is normal (in a
-        given base) if its digits look statistically uniform at every level:
-        single digits, pairs, triples, and longer blocks all occur in the
-        proportions you'd expect from random digits.{" "}
+        Benford's Law shows that first digits aren't uniformly distributed
+        across datasets. But what about all digits within a single number? When
+        do those look &ldquo;random&rdquo;? A number is normal (in a given base)
+        if its digits look statistically uniform at every level: single digits,
+        pairs, triples, and longer blocks all occur in the proportions you'd
+        expect from random digits.{" "}
         <a
           href="https://en.wikipedia.org/wiki/Normal_number"
           target="_blank"
@@ -198,15 +193,13 @@ export default function UTMathDRPPage() {
       <p>
         Important distinction: normality is about digit distribution within a
         single number's base-b expansion, while Benford's Law is about leading
-        digits across a dataset. A simple example is that{" "}
-        <InlineMath math="2/3" /> is not normal (its expansion is eventually
-        periodic in any integer base). Take the binary representation:{" "}
-        <InlineMath math="2/3 = 0.\overline{10}_2" />. 0s and 1s appear equally
-        often, but at the level of length-2 blocks, only 10 and 01 appear; 00
-        and 11 never occur, whereas in a normal number you'd expect all pairs to
-        occur with equal frequency of <InlineMath math="1/4" />. Thus it looks
-        &ldquo;normal&rdquo; for single digits but fails the normality
-        properties once you examine pairs. Both Benford and normality ask
+        digits across a dataset. For example, <InlineMath math="2/3" /> is not
+        normal - its expansion is eventually periodic in any integer base. In
+        binary, <InlineMath math="2/3 = 0.\overline{10}_2" />: 0s and 1s appear
+        equally often, but among length-2 blocks only 10 and 01 appear; 00 and
+        11 never occur, where a normal number would have each pair at frequency{" "}
+        <InlineMath math="1/4" />. So it looks &ldquo;normal&rdquo; for single
+        digits but fails normality at length 2. Both Benford and normality ask
         &ldquo;what does randomness look like?&rdquo; in different contexts.
       </p>
 
@@ -214,7 +207,7 @@ export default function UTMathDRPPage() {
       <p>
         These seemingly distinct results share a common foundation in ergodic
         theory. A system is ergodic if a single trajectory, followed long
-        enough, eventually explores the entire space proportionally.{" "}
+        enough, visits every region in proportion to its measure.{" "}
         <a
           href="https://mathworld.wolfram.com/BirkhoffsErgodicTheorem.html"
           target="_blank"
@@ -228,7 +221,7 @@ export default function UTMathDRPPage() {
       </p>
       <p>
         Borel's theorem, Weyl's theorem, and Benford's Law are all instances of
-        this principle. The digit 1 leads about 30% of the time because the
+        this principle. The digit 1 leads 30% of the time because the
         corresponding interval on <InlineMath math="[0,1)" /> has measure{" "}
         <InlineMath math="\log_{10}(2) - \log_{10}(1) \approx 0.301" />.
       </p>

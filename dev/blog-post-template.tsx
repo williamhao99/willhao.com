@@ -10,7 +10,7 @@
 //   - ViewCounter slug must follow the "blog-{slug}" pattern
 //   - <time dateTime="YYYY-MM-DD"> for machine-readable dates
 //   - Inline <code> renders with the IN·6 style (mono, brand-blue, semibold)
-//   - Inline links inside <p>/<li> get the muted underline + brand-blue hover
+//   - Inline links inside <p>/<li> get a subtle white underline + brand-blue hover
 //   - <CodeBlock> renders Shiki-highlighted code blocks (server component)
 
 import type { Metadata } from "next";
