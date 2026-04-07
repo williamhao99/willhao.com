@@ -32,12 +32,10 @@
 .postExcerpt {
   font-size: var(--text-base);
   color: var(--color-text-secondary);
-  opacity: var(--opacity-medium);
   margin: 0;
 }
 
 .moreButton {
-  color: var(--color-text-primary);
   opacity: var(--opacity-high);
   font-size: var(--text-sm);
   padding-left: var(--space-1rem);
@@ -56,7 +54,6 @@
 
 .emptyState {
   color: var(--color-text-secondary);
-  opacity: var(--opacity-medium);
 }
 
 /* Mobile styles */
