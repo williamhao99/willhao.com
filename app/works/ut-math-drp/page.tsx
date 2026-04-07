@@ -3,6 +3,7 @@ import Link from "next/link";
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import PdfViewer from "@/components/pdfViewer/pdfViewer";
+import Prose from "@/components/prose/Prose";
 import ViewCounter from "@/components/viewCounter/ViewCounter";
 import styles from "./page.module.css";
 
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function UTMathDRPPage() {
   return (
-    <div className={styles.content}>
+    <Prose>
       <Link
         href="/works"
         className={styles.backLink}
@@ -34,32 +35,29 @@ export default function UTMathDRPPage() {
       <h2>Why does the digit 1 lead numbers 30% of the time in real life?</h2>
 
       <div className={styles.meta}>
-        <span>UT Math DRP Symposium, April 24, 2025</span>
-        <span className={styles.dot}>•</span>
-        <span>
-          Textbook: Nillsen,{" "}
-          <em>Randomness and Recurrence in Dynamical Systems</em>
-        </span>
-        <span className={styles.dot}>•</span>
-        <a
-          href="https://sites.google.com/view/utmathdrp"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          About the DRP →
-        </a>
-      </div>
-      <div className={styles.views}>
-        <ViewCounter slug="works-ut-math-drp" />
+        <div>
+          <a
+            href="https://sites.google.com/view/utmathdrp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            UT Math DRP
+          </a>{" "}
+          Symposium, April 24, 2025
+          <span className={styles.dot}>·</span>
+          <ViewCounter slug="works-ut-math-drp" />
+        </div>
       </div>
 
       <p className={styles.abstract}>
-        <strong>Abstract:</strong> I presented a proof sketch of Benford's Law
-        using dynamical systems: mapping leading digits to mantissas via{" "}
-        <InlineMath math="\log_{10}," /> then applying Weyl equidistribution for
-        irrational circle rotations (Kronecker systems). I also studied
-        recurrence (Poincaré/Kac), normal numbers, and ergodicity as the shared
-        framework behind &ldquo;random-looking&rdquo; digit behavior.
+        <strong>Abstract:</strong> Working from Nillsen's{" "}
+        <em>Randomness and Recurrence in Dynamical Systems</em>, I presented a
+        proof sketch of Benford's Law using dynamical systems: mapping leading
+        digits to mantissas via <InlineMath math="\log_{10}," /> then applying
+        Weyl equidistribution for irrational circle rotations (Kronecker
+        systems). I also studied recurrence (Poincaré/Kac), normal numbers, and
+        ergodicity as the shared framework behind &ldquo;random-looking&rdquo;
+        digit behavior.
       </p>
 
       <PdfViewer
@@ -110,7 +108,6 @@ export default function UTMathDRPPage() {
           href="https://en.wikipedia.org/wiki/Irrational_rotation"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.contentLink}
         >
           Kronecker system
         </a>
@@ -120,7 +117,6 @@ export default function UTMathDRPPage() {
           href="https://en.wikipedia.org/wiki/Equidistribution_theorem"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.contentLink}
         >
           Weyl's Equidistribution Theorem
         </a>{" "}
@@ -149,10 +145,7 @@ export default function UTMathDRPPage() {
         of <InlineMath math="\log_{10}(x)," /> which produces Benford's formula.
       </p>
 
-      <p className={styles.contextShift}>
-        Beyond Benford's Law, I also studied foundational results in dynamical
-        systems and ergodic theory.
-      </p>
+      <hr className={styles.sectionBreak} />
 
       <h3>Recurrence and Waiting Times</h3>
       <p>
@@ -163,7 +156,6 @@ export default function UTMathDRPPage() {
           href="https://en.wikipedia.org/wiki/Poincar%C3%A9_recurrence_theorem"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.contentLink}
         >
           Poincaré's recurrence theorem
         </a>
@@ -196,7 +188,6 @@ export default function UTMathDRPPage() {
           href="https://en.wikipedia.org/wiki/Normal_number"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.contentLink}
         >
           Borel's Normal Numbers Theorem
         </a>
@@ -228,7 +219,6 @@ export default function UTMathDRPPage() {
           href="https://mathworld.wolfram.com/BirkhoffsErgodicTheorem.html"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.contentLink}
         >
           Birkhoff's Ergodic Theorem
         </a>{" "}
@@ -265,6 +255,6 @@ export default function UTMathDRPPage() {
           { label: "04/07/25", src: "/documents/DRP notes 04-07-25.pdf" },
         ]}
       />
-    </div>
+    </Prose>
   );
 }
