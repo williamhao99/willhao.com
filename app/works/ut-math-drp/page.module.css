@@ -48,7 +48,7 @@
   border: none;
   border-top: var(--border-width-thin) solid var(--color-border-subtle);
   width: 100%;
-  margin: var(--space-4rem) 0 0;
+  margin: var(--space-4rem) 0;
 }
 
 /* Mobile styles */
