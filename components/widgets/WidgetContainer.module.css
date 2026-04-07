@@ -15,15 +15,27 @@
   --widget-value-size: var(--text-lg);
   --widget-mobile-scale: 0.85;
 
+  /* Brand-blue tinted fills */
+  --widget-bg: color-mix(
+    in srgb,
+    var(--color-brand-blue-bright) 5%,
+    transparent
+  );
+  --widget-bg-hover: color-mix(
+    in srgb,
+    var(--color-brand-blue-bright) 10%,
+    transparent
+  );
+
   display: flex;
   align-items: center;
   height: 100%;
+  min-width: 0; /* Force shrink to cell */
   gap: calc(var(--widget-gap) * var(--scale));
   padding: calc(var(--widget-padding) * var(--scale));
-  background: var(--color-card-bg);
-  box-shadow: var(--color-card-shadow);
+  background: var(--widget-bg);
   border: var(--border-width-thin) solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   transition:
     border-color var(--transition-normal),
     background var(--transition-normal);
@@ -31,7 +43,7 @@
 
 .widget:hover {
   border-color: var(--color-brand-blue-bright);
-  background: var(--color-card-bg-hover);
+  background: var(--widget-bg-hover);
 }
 
 .icon {
@@ -47,6 +59,7 @@
 
 .content {
   flex: 1;
+  min-width: 0; /* Allow flex child to shrink below content width */
   display: flex;
   flex-direction: column;
   gap: var(--space-1rem);

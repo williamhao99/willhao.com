@@ -40,9 +40,12 @@
   font-size: var(--widget-value-size);
   font-weight: var(--font-medium);
   color: var(--color-text-primary);
-  line-height: var(--line-height-none);
+  line-height: var(--line-height-tight);
   margin: 0;
   font-family: var(--font-serif), var(--font-serif-fallback);
+  display: block;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .artist {
@@ -50,6 +53,38 @@
   color: var(--widget-label-color);
   margin: 0;
   font-family: var(--font-serif), var(--font-serif-fallback);
+  display: block;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.scrollInner {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.marquee {
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0%,
+  15% {
+    transform: translateX(0);
+  }
+  50%,
+  65% {
+    transform: translateX(calc(-1 * var(--overflow-distance, 0px)));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
 }
 
 /* Mobile - center text when widgets stack */

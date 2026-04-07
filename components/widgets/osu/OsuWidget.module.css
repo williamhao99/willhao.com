@@ -39,4 +39,5 @@
   color: var(--color-text-primary);
   line-height: var(--line-height-none);
   font-family: var(--font-serif), var(--font-serif-fallback);
+  font-variant-numeric: tabular-nums;
 }
