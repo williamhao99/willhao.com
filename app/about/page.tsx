@@ -50,8 +50,6 @@ export default async function AboutPage() {
         <br />I also play chess regularly, and average sub-20 on Rubik's cubes.
       </p>
 
-      <br />
-
       <div className={styles.widgets}>
         <SpotifyWidget initialData={spotifyData} />
         <ChessWidget initialData={chessData} />

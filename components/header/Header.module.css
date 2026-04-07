@@ -5,12 +5,8 @@
   --logo-height: 5rem;
   --underline-height: 2px;
   --brightness-subtle: 1.1;
-  --brightness-hover: 1.6;
-  --radius-full: 9999px;
-
-  /* Navigation pill styles */
-  --nav-padding-x: var(--space-2rem);
-  --nav-padding-y: var(--space-0-5rem);
+  --brightness-hover: 1.5;
+  --link-padding-y: var(--space-0-5rem);
 
   padding: var(--space-2rem) 0 var(--space-2rem);
 }
@@ -58,23 +54,17 @@
 
 .navList {
   display: flex;
-  gap: var(--space-2-5rem);
+  gap: var(--space-4rem);
   list-style: none;
-  padding: var(--nav-padding-y) var(--nav-padding-x);
-  background: var(--color-card-bg);
-  border: var(--border-width-thin) solid var(--color-border);
-  border-radius: var(--radius-full);
 }
 
 .navLink {
   display: inline-block;
-  padding: var(--nav-padding-y) var(--nav-padding-x);
-  margin-bottom: var(--space-2px); /* Prevents underline clipping */
+  padding: var(--link-padding-y) 0;
   color: var(--color-text-secondary);
   text-decoration: none;
   font-size: var(--text-lg);
   font-weight: var(--font-medium);
-  border-radius: var(--radius-full);
   white-space: nowrap;
   position: relative;
   transition: color var(--transition-fast);
@@ -85,8 +75,8 @@
   content: "";
   position: absolute;
   bottom: var(--space-2px);
-  left: var(--nav-padding-x);
-  right: var(--nav-padding-x);
+  left: 0;
+  right: 0;
   height: var(--underline-height);
   background: var(--color-brand-blue-bright);
   opacity: 0;
@@ -110,7 +100,7 @@
   .header {
     --logo-width: 15rem; /* 25% smaller */
     --logo-height: 3.75rem;
-    --nav-padding-x: var(--space-8px);
+    --link-padding-y: var(--space-3px);
 
     padding: var(--space-1rem) 0 var(--space-2rem) 0;
   }
@@ -124,12 +114,10 @@
   }
 
   .navList {
-    gap: var(--space-1rem);
-    padding: var(--space-3px) var(--space-1rem);
+    gap: var(--space-2rem);
   }
 
   .navLink {
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
-    padding: var(--space-3px) var(--space-8px);
   }
 }
