@@ -231,6 +231,20 @@ body {
   margin-top: var(--space-1rem);
 }
 
+/* Back link — used at the top of content pages */
+.main-content .back-link {
+  display: inline-block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: var(--space-2rem);
+  transition: color var(--transition-fast);
+}
+
+.main-content .back-link:hover {
+  color: var(--color-brand-blue-bright);
+}
+
 /* Prose — content pages opt in via the <Prose> component.
    Convention: h1 = title, h2 = deck, h3 = section headers. */
 

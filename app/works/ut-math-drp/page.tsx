@@ -27,7 +27,7 @@ export default function UTMathDRPPage() {
     <Prose>
       <Link
         href="/works"
-        className={styles.backLink}
+        className="back-link"
       >
         ← Back to Works
       </Link>

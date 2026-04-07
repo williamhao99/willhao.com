@@ -25,7 +25,7 @@ export default function PostNamePage() {
     <Prose>
       <Link
         href="/blog"
-        className={styles.backLink}
+        className="back-link"
       >
         ← Back to Blog
       </Link>
