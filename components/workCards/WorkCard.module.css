@@ -1,6 +1,6 @@
 .card {
   --accent-border-width: var(--space-2px);
-  --accent-border-color: var(--color-border-subtle);
+  --accent-border-color: var(--color-border-medium);
 
   padding: var(--space-2rem);
   border-radius: 0;
