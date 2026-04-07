@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Newsreader } from "next/font/google";
+import { Space_Grotesk, Newsreader, JetBrains_Mono } from "next/font/google";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import GoogleAnalytics from "@/components/googleAnalytics/GoogleAnalytics";
@@ -14,6 +14,11 @@ const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-serif",
+});
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -55,7 +60,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={spaceGrotesk.variable + " " + newsreader.variable}
+      className={
+        spaceGrotesk.variable +
+        " " +
+        newsreader.variable +
+        " " +
+        jetbrainsMono.variable
+      }
     >
       <head>
         <GoogleAnalytics />

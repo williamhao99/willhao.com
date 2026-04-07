@@ -17,18 +17,22 @@
   /* Component backgrounds */
   --color-card-bg: rgba(0, 0, 0, 0.15);
   --color-card-bg-hover: rgba(255, 255, 255, 0.03);
-  --color-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 
   /* === Typography === */
   /* Font fallbacks */
   --font-sans-fallback:
     system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-serif-fallback: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono-fallback: ui-monospace, "SF Mono", Menlo, monospace;
 
   /* Text size multipliers  */
   --multiplier-sm: 0.875; /* 14px */
   --multiplier-xl: 1.25; /* 20px */
   --multiplier-2xl: 2.25; /* 36px */
+
+  /* Prose heading multipliers */
+  --multiplier-deck: 1.15; /* h2 used as deck under h1 */
+  --multiplier-h3: 1.35; /* section heading inside prose */
 
   /* Font sizes */
   --text-base: 1.6rem;
@@ -37,6 +41,8 @@
   --text-lg: 1.8rem;
   --text-h1: calc(var(--text-base) * var(--multiplier-2xl));
   --text-h2: calc(var(--text-base) * var(--multiplier-xl));
+  --text-deck: calc(var(--text-base) * var(--multiplier-deck));
+  --text-h3: calc(var(--text-base) * var(--multiplier-h3));
 
   /* Font weights */
   --font-normal: 400;
@@ -56,6 +62,7 @@
   --space-0-5rem: 0.5rem;
   --space-1rem: 1rem;
   --space-1-5rem: 1.5rem;
+  --space-1-75rem: 1.75rem;
   --space-2rem: 2rem;
   --space-2-5rem: 2.5rem;
   --space-3rem: 3rem;
@@ -73,7 +80,20 @@
 
   /* === Layout & Dimensions === */
   --container-max: 128rem; /* 1280px */
-  --content-max-width: 90ch;
+  --content-max-width: 80ch;
+
+  /* === Prose === */
+  --prose-code-size: 0.95em;
+  --prose-code-weight: 600;
+  --prose-code-gutter-color: color-mix(
+    in srgb,
+    var(--color-brand-blue-bright) 55%,
+    transparent
+  );
+  --prose-code-gutter-width: var(--space-3px);
+  --prose-link-underline: rgba(255, 255, 255, 0.32);
+  --prose-link-underline-thickness: 1px;
+  --prose-katex-scale: 1.08em;
 
   /* Grid layouts */
   --grid-cols-3: repeat(3, 1fr);
@@ -211,6 +231,86 @@ body {
   margin-top: var(--space-1rem);
 }
 
+/* Prose — content pages opt in via the <Prose> component.
+   Convention: h1 = title, h2 = deck, h3 = section headers. */
+
+.main-content .prose {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.main-content .prose h1 {
+  margin-bottom: var(--space-1rem);
+}
+
+.main-content .prose h2 {
+  font-size: var(--text-deck);
+  font-weight: var(--font-normal);
+  color: var(--color-text-dim);
+  margin-bottom: var(--space-3rem);
+}
+
+.main-content .prose h3 {
+  font-size: var(--text-h3);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-medium);
+  margin-top: var(--space-3rem);
+  margin-bottom: var(--space-1rem);
+}
+
+.main-content .prose p,
+.main-content .prose ul,
+.main-content .prose ol {
+  margin-bottom: var(--space-1-75rem);
+}
+
+.main-content .prose p a,
+.main-content .prose li a {
+  text-decoration: underline;
+  text-decoration-color: var(--prose-link-underline);
+  text-decoration-thickness: var(--prose-link-underline-thickness);
+  text-underline-offset: var(--space-3px);
+}
+
+.main-content .prose p a:hover,
+.main-content .prose li a:hover {
+  text-decoration-color: var(--color-brand-blue-bright);
+}
+
+.main-content .prose code {
+  font-family: var(--font-mono), var(--font-mono-fallback);
+  font-size: var(--prose-code-size);
+  font-weight: var(--prose-code-weight);
+  color: var(--color-brand-blue-bright);
+  font-variant-ligatures: none;
+}
+
+.main-content .prose pre code {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.main-content .prose pre {
+  margin: var(--space-2rem) 0;
+  padding: var(--space-0-5rem) 0 var(--space-0-5rem) var(--space-1-5rem);
+  border-left: var(--prose-code-gutter-width) solid
+    var(--prose-code-gutter-color);
+  overflow-x: auto;
+  font-family: var(--font-mono), var(--font-mono-fallback);
+  font-size: var(--text-md);
+  line-height: var(--line-height-relaxed);
+}
+
+.main-content .prose .katex {
+  font-size: var(--prose-katex-scale);
+}
+
+.main-content .prose .katex-display {
+  margin-top: var(--space-2-5rem);
+  margin-bottom: var(--space-2-5rem);
+}
+
 /* Content containers */
 .container {
   max-width: var(--container-max);
@@ -251,6 +351,16 @@ body {
 
   .main-content p {
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+  }
+
+  .main-content .prose h2 {
+    font-size: calc(var(--text-deck) * var(--mobile-text-multiplier));
+    margin-bottom: var(--space-2rem);
+  }
+
+  .main-content .prose h3 {
+    font-size: calc(var(--text-h3) * var(--mobile-text-multiplier));
+    margin-top: var(--space-2-5rem);
   }
 
   .main-content li {
