@@ -11,7 +11,8 @@
   --color-border-subtle: rgba(255, 255, 255, 0.1);
 
   /* Brand colors */
-  --color-brand-blue-bright: #2d7bd6;
+  --color-brand-blue: #0055aa; /* Logo (header + OG SVGs) */
+  --color-brand-blue-bright: #2d7bd6; /* Interactive accent: hover, active, links */
   --color-award: rgba(217, 183, 86, 1);
 
   /* Component backgrounds */
