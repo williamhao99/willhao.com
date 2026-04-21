@@ -98,7 +98,6 @@
   --prose-katex-scale: 1.08em;
 
   /* Grid layouts */
-  --grid-cols-3: repeat(3, 1fr);
   --grid-gap-md: var(--space-2rem);
 
   /* === Borders & Radius === */
@@ -330,7 +329,7 @@ body {
   --grid-min-height: 18rem;
 
   display: grid;
-  grid-template-columns: var(--grid-cols-3);
+  grid-template-columns: repeat(auto-fit, min(40rem, 100%));
   gap: var(--grid-gap-md);
   grid-auto-rows: minmax(var(--grid-min-height), auto);
   margin-top: var(--space-2rem);
@@ -375,7 +374,6 @@ body {
   }
 
   .projectsGrid {
-    grid-template-columns: 1fr; /* Single column on mobile */
     gap: var(--space-1-5rem);
   }
 }
