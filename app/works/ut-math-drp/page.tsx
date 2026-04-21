@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     description:
       "Undergraduate research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
     url: "https://willhao.com/works/ut-math-drp",
+    type: "article",
   },
 };
 
