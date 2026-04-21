@@ -24,17 +24,17 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://willhao.com"),
   title: {
-    template: "%s | Will Hao",
-    default: "Will Hao's Portfolio",
+    template: "%s - Will Hao",
+    default: "Will Hao - Portfolio",
   },
   description:
     "CS and Math student at UT Austin. Portfolio, projects, and blog.",
   openGraph: {
-    title: "Will Hao's Portfolio",
+    title: "Will Hao - Portfolio",
     description:
       "CS and Math student at UT Austin. Portfolio, projects, and blog.",
     url: "https://willhao.com",
-    siteName: "Will Hao's Portfolio",
+    siteName: "Will Hao",
     type: "website",
   },
   twitter: {
