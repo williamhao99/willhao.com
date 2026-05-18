@@ -78,11 +78,12 @@ export default function Home() {
       <section className={styles.heroSection}>
         <h1 className={styles.title}>Portfolio</h1>
         <Image
-          src="/favicons/android-chrome-512x512.png"
+          src="/favicons/hero-knight-96x96.png"
           alt="Will Hao"
           className={styles.titleIcon}
           width={96}
           height={96}
+          unoptimized
           priority
         />
         <h2 className={styles.subtitle}>
