@@ -43,7 +43,7 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
         if (!initialData) {
           fetchData();
         }
-        intervalId = setInterval(fetchData, 30000);
+        intervalId = setInterval(fetchData, 60000);
       }
 
       function stopPolling() {

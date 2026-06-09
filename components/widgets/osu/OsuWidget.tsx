@@ -44,7 +44,7 @@ export default function OsuWidget({ initialData }: OsuWidgetProps) {
         if (!initialData) {
           fetchData();
         }
-        intervalId = setInterval(fetchData, 30000);
+        intervalId = setInterval(fetchData, 60000);
       }
 
       function stopPolling() {

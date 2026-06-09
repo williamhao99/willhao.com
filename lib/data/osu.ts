@@ -7,7 +7,10 @@ export interface OsuStats {
 }
 
 // Configuration constants
-const CACHE_DURATION = 30 * 1000; // 30 seconds
+// Cache TTL outlives the refresh interval so a failed background refresh
+// serves stale data instead of an empty cache
+const CACHE_DURATION = 150 * 1000;
+const REFRESH_INTERVAL = 60 * 1000;
 
 // Token cache - osu! client credentials tokens last 24 hours
 let cachedToken: { token: string; expires: number } | null = null;
@@ -31,10 +34,10 @@ export function startBackgroundRefresh() {
   backgroundRefreshStarted = true;
 
   setInterval(function refreshCache() {
-    fetchOsuStats().catch(function handleError(error) {
+    startFetch().catch(function handleError(error) {
       console.error("osu! background refresh error:", error);
     });
-  }, 25000);
+  }, REFRESH_INTERVAL);
 }
 
 // Get access token via OAuth2 client credentials grant
@@ -82,12 +85,34 @@ async function getAccessToken(
   return data.access_token;
 }
 
-// Main function that fetches osu! stats from the API
+// Single-flight guard so concurrent cache misses share one upstream request
+let inFlightFetch: Promise<OsuStats> | null = null;
+
+// Always fetches (bypasses the TTL check) - used by the background refresh
+async function startFetch(): Promise<OsuStats> {
+  if (inFlightFetch) {
+    return inFlightFetch;
+  }
+
+  const fetchPromise = fetchFreshOsuStats();
+  inFlightFetch = fetchPromise;
+  try {
+    return await fetchPromise;
+  } finally {
+    inFlightFetch = null;
+  }
+}
+
+// Cache-first read used by the API route and instrumentation warm-up
 export async function fetchOsuStats(): Promise<OsuStats> {
   if (cachedStats && Date.now() < cachedStats.expires) {
     return cachedStats.data;
   }
+  return startFetch();
+}
 
+// Fetch fresh stats from the osu! API and update the cache
+async function fetchFreshOsuStats(): Promise<OsuStats> {
   // Set up timeout handling (5 second limit)
   const controller = new AbortController();
 
@@ -170,7 +195,7 @@ export async function fetchOsuStats(): Promise<OsuStats> {
       playTime: playTime,
     };
 
-    // Cache the stats for 30 seconds
+    // Cache the stats
     cachedStats = {
       data: stats,
       expires: Date.now() + CACHE_DURATION,

@@ -7,7 +7,10 @@ export interface ChessStats {
 
 // Configuration constants
 const CHESS_USERNAME = "javablob";
-const CACHE_DURATION = 30 * 1000; // 30 seconds
+// Cache TTL outlives the refresh interval so a failed background refresh
+// serves stale data instead of an empty cache
+const CACHE_DURATION = 150 * 1000;
+const REFRESH_INTERVAL = 60 * 1000;
 
 let cachedStats: { data: ChessStats; expires: number } | null = null;
 
@@ -27,18 +30,40 @@ export function startBackgroundRefresh() {
   backgroundRefreshStarted = true;
 
   setInterval(function refreshCache() {
-    fetchChessStats().catch(function handleError(error) {
+    startFetch().catch(function handleError(error) {
       console.error("Chess background refresh error:", error);
     });
-  }, 25000);
+  }, REFRESH_INTERVAL);
 }
 
-// Main function that fetches chess ratings from Chess.com
+// Single-flight guard so concurrent cache misses share one upstream request
+let inFlightFetch: Promise<ChessStats> | null = null;
+
+// Always fetches (bypasses the TTL check) - used by the background refresh
+async function startFetch(): Promise<ChessStats> {
+  if (inFlightFetch) {
+    return inFlightFetch;
+  }
+
+  const fetchPromise = fetchFreshChessStats();
+  inFlightFetch = fetchPromise;
+  try {
+    return await fetchPromise;
+  } finally {
+    inFlightFetch = null;
+  }
+}
+
+// Cache-first read used by the API route and instrumentation warm-up
 export async function fetchChessStats(): Promise<ChessStats> {
   if (cachedStats && Date.now() < cachedStats.expires) {
     return cachedStats.data;
   }
+  return startFetch();
+}
 
+// Fetch fresh ratings from the Chess.com API and update the cache
+async function fetchFreshChessStats(): Promise<ChessStats> {
   // Set up timeout handling (5 second limit)
   const controller = new AbortController();
 
@@ -107,7 +132,7 @@ export async function fetchChessStats(): Promise<ChessStats> {
       bullet: bulletRating,
     };
 
-    // Cache the stats for 30 seconds
+    // Cache the stats
     cachedStats = {
       data: stats,
       expires: Date.now() + CACHE_DURATION,

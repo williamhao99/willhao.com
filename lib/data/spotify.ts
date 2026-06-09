@@ -34,7 +34,10 @@ let cachedToken: { token: string; expires: number } | null = null;
 let rotatedRefreshToken: string | null = null;
 
 // Store fetched data in memory for instant retrieval
-const CACHE_DURATION = 3 * 1000; // 3 seconds
+// Cache TTL outlives the refresh interval so a failed background refresh
+// serves stale data instead of an empty cache
+const CACHE_DURATION = 15 * 1000;
+const REFRESH_INTERVAL = 5 * 1000;
 
 let cachedStats: { data: SpotifyData; expires: number } | null = null;
 
@@ -54,10 +57,10 @@ export function startBackgroundRefresh() {
   backgroundRefreshStarted = true;
 
   setInterval(function refreshCache() {
-    fetchSpotifyData().catch(function handleError(error) {
+    startFetch().catch(function handleError(error) {
       console.error("Spotify background refresh error:", error);
     });
-  }, 2500);
+  }, REFRESH_INTERVAL);
 }
 
 // Helper function to get/refresh Spotify access token
@@ -184,13 +187,34 @@ async function fetchRecentlyPlayed(
   };
 }
 
-// Main function that fetches current Spotify playing status
+// Single-flight guard so concurrent cache misses share one upstream request
+let inFlightFetch: Promise<SpotifyData> | null = null;
+
+// Always fetches (bypasses the TTL check) - used by the background refresh
+async function startFetch(): Promise<SpotifyData> {
+  if (inFlightFetch) {
+    return inFlightFetch;
+  }
+
+  const fetchPromise = fetchFreshSpotifyData();
+  inFlightFetch = fetchPromise;
+  try {
+    return await fetchPromise;
+  } finally {
+    inFlightFetch = null;
+  }
+}
+
+// Cache-first read used by the API route and instrumentation warm-up
 export async function fetchSpotifyData(): Promise<SpotifyData> {
-  // Return cached data if still valid
   if (cachedStats && Date.now() < cachedStats.expires) {
     return cachedStats.data;
   }
+  return startFetch();
+}
 
+// Fetch fresh playing status from the Spotify API and update the cache
+async function fetchFreshSpotifyData(): Promise<SpotifyData> {
   // Set up timeout handling (5 second limit)
   const controller = new AbortController();
 
