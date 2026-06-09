@@ -3,6 +3,7 @@ export interface BlogPost {
   slug: string;
   excerpt: string;
   date: string;
+  lastModified: string; // ISO date (YYYY-MM-DD), used for the sitemap entry
   link: string;
 }
 
@@ -13,6 +14,7 @@ export const blogPosts: BlogPost[] = [
   //   slug: "post-slug",
   //   excerpt: "Brief description of the post.",
   //   date: "Month DD YYYY",
+  //   lastModified: "YYYY-MM-DD",
   //   link: "/blog/post-slug",
   // },
 ];

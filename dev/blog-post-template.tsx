@@ -1,6 +1,9 @@
 // Blog post template — copy to app/blog/{slug}/page.tsx, then:
-//   - Add entry to app/blog/blogs.ts (title, slug, excerpt, date, link)
-//   - Add date + entry to app/sitemap.ts
+//   - Add entry to app/blog/blogs.ts (title, slug, excerpt, date,
+//     lastModified ISO date, link) — the sitemap derives the post's
+//     entry from blogs.ts automatically; do NOT edit app/sitemap.ts
+//   - Create app/blog/{slug}/opengraph-image.tsx + twitter-image.tsx
+//     (reference app/opengraph-image.tsx)
 //
 // Conventions in use:
 //   - <Prose> applies the content-page typography system (80ch measure,
@@ -31,6 +34,7 @@ export const metadata: Metadata = {
     title: "Post Title",
     description: "Brief description for SEO and link previews.",
     url: "https://willhao.com/blog/post-slug",
+    type: "article",
   },
 };
 

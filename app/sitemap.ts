@@ -1,6 +1,14 @@
 import type { MetadataRoute } from "next";
+import { blogPosts } from "@/app/blog/blogs";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://willhao.com";
+
+interface SitemapItem {
+  path: string;
+  lastModified: string;
+  changeFrequency: "monthly" | "yearly";
+  priority: number;
+}
 
 const dates = {
   home: "2025-05-10",
@@ -11,7 +19,7 @@ const dates = {
 } as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const items = [
+  const items: SitemapItem[] = [
     // Main pages
     {
       path: "/",
@@ -45,6 +53,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
   ];
+
+  // Blog posts are derived from blogs.ts so new posts are picked up automatically
+  for (let i = 0; i < blogPosts.length; i++) {
+    const post = blogPosts[i];
+    if (!post) continue;
+    items.push({
+      path: post.link,
+      lastModified: post.lastModified,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    });
+  }
 
   const sitemapEntries = [];
   for (let i = 0; i < items.length; i++) {
