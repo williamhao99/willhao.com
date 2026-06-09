@@ -10,7 +10,23 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Gate the deploy: a commit that fails lint/type-check/build never reaches the VM
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm run build
+
   deploy:
+    needs: check
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -33,7 +49,6 @@ jobs:
             set -e
             cd /var/www/willhao.com
             git pull --ff-only
-            rm -rf .next
             npm ci
             npm run build
             pm2 reload willhao.com
