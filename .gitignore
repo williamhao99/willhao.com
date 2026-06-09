@@ -43,6 +43,7 @@ Thumbs.db
 .claude/
 CLAUDE.md
 CLAUDE-*.md
+AGENTS.md
 
 # Temporary stash folder
 temp-stash/

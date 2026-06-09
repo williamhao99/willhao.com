@@ -25,9 +25,7 @@ interface ViewCounterProps {
 }
 
 export default function ViewCounter({ slug, initialViews }: ViewCounterProps) {
-  const [views, setViews] = useState<number | null>(
-    initialViews !== undefined ? initialViews : null,
-  );
+  const [views, setViews] = useState<number | null>(initialViews ?? null);
   const hasFetchedRef = useRef(false);
 
   useEffect(

@@ -17,6 +17,9 @@ pnpm-lock.yaml
 # Environment files
 .env*
 
+# Agent docs (byte-identical mirror of gitignored CLAUDE.md - keep unformatted)
+AGENTS.md
+
 # OS files
 .DS_Store
 
