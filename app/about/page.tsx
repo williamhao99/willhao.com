@@ -7,6 +7,8 @@ import { getCachedChessStats } from "@/lib/data/chess";
 import { getCachedOsuStats } from "@/lib/data/osu";
 import styles from "./page.module.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "About",
   description:
