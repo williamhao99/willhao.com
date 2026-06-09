@@ -14,6 +14,26 @@ export const metadata: Metadata = {
   },
 };
 
+// Structured data tying the site to "William Hao" in search engines
+const PROFILE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: "William Hao",
+    alternateName: "Will Hao",
+    url: "https://willhao.com",
+    sameAs: [
+      "https://github.com/williamhao99",
+      "https://linkedin.com/in/william-a-hao",
+    ],
+    affiliation: {
+      "@type": "CollegeOrUniversity",
+      name: "The University of Texas at Austin",
+    },
+  },
+};
+
 const QUICK_LINKS = [
   {
     name: "Resume",
@@ -75,6 +95,10 @@ export default function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(PROFILE_SCHEMA) }}
+      />
       <section className={styles.heroSection}>
         <h1 className={styles.title}>Portfolio</h1>
         <Image
