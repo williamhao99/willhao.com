@@ -1,4 +1,4 @@
-import { db } from "../firebase";
+import { getDb } from "@/lib/firebase";
 
 export interface ViewsResponse {
   views: number;
@@ -7,6 +7,9 @@ export interface ViewsResponse {
 // Get view count for a page
 export async function getViews(slug: string): Promise<number> {
   try {
+    const db = getDb();
+    if (!db) return 0;
+
     const ref = db.ref("views/" + slug);
     const snapshot = await ref.get();
 
@@ -25,6 +28,9 @@ export async function getViews(slug: string): Promise<number> {
 // Increment view count atomically
 export async function incrementViews(slug: string): Promise<number> {
   try {
+    const db = getDb();
+    if (!db) return 0;
+
     const ref = db.ref("views/" + slug);
     let newCount = 0;
 
