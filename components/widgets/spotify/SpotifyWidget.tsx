@@ -49,7 +49,7 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
         if (!initialData) {
           fetchData();
         }
-        intervalId = setInterval(fetchData, 3000);
+        intervalId = setInterval(fetchData, 2000);
       }
 
       function stopPolling() {

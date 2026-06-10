@@ -37,7 +37,7 @@ let rotatedRefreshToken: string | null = null;
 // Cache TTL outlives the refresh interval so a failed background refresh
 // serves stale data instead of an empty cache
 const CACHE_DURATION = 15 * 1000;
-const REFRESH_INTERVAL = 5 * 1000;
+const REFRESH_INTERVAL = 2 * 1000;
 
 let cachedStats: { data: SpotifyData; expires: number } | null = null;
 
