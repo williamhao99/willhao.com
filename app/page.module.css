@@ -11,7 +11,6 @@
 .title {
   grid-column: 1;
   grid-row: 1;
-  margin: 0;
   color: var(--color-brand-blue-bright);
 }
 
@@ -87,4 +86,10 @@
 
 .worksSection .moreLink {
   color: var(--color-text-secondary);
+}
+
+/* Explicit hover: setting a rest color above outranks the zero-specificity
+   default link hover, so the blue must be restated here. */
+.worksSection .moreLink:hover {
+  color: var(--color-brand-blue-bright);
 }

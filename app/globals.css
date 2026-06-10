@@ -158,23 +158,30 @@ body {
   padding: var(--space-2rem) 0;
 }
 
+/* Element typography below is wrapped in :where() so it carries zero
+   specificity: it is a defaults layer that any CSS-module class overrides
+   without selector tricks. Opt-in classes (.container, .projectsGrid,
+   .back-link, .prose itself) and the KaTeX overrides (which must outrank
+   katex.min.css) deliberately keep their specificity. Within this layer,
+   source order decides ties: base rules, then .prose rules, then mobile. */
+
 /* Links in main content */
-.main-content a {
+:where(.main-content a) {
   color: inherit;
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-.main-content a:visited {
+:where(.main-content a:visited) {
   color: inherit;
 }
 
-.main-content a:hover {
+:where(.main-content a:hover) {
   color: var(--color-brand-blue-bright);
 }
 
 /* Typography for main content only */
-.main-content h1 {
+:where(.main-content h1) {
   font-family: var(--font-serif), var(--font-serif-fallback);
   font-size: var(--text-h1);
   line-height: var(--line-height-tight);
@@ -182,38 +189,37 @@ body {
   margin-bottom: var(--space-2-5rem);
 }
 
-.main-content h2 {
+:where(.main-content h2) {
   font-size: var(--text-h2);
   line-height: var(--line-height-tight);
   font-weight: var(--font-medium);
   margin-bottom: var(--space-1rem);
 }
 
-.main-content p {
+:where(.main-content p) {
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-1-5rem);
 }
 
-.main-content p:last-child {
+:where(.main-content p:last-child) {
   margin-bottom: 0;
 }
 
-.main-content ul,
-.main-content ol {
+:where(.main-content ul, .main-content ol) {
   margin-bottom: var(--space-1rem);
   padding-left: var(--space-2rem);
 }
 
-.main-content li {
+:where(.main-content li) {
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-0-5rem);
 }
 
-.main-content li:last-child {
+:where(.main-content li:last-child) {
   margin-bottom: 0;
 }
 
-.main-content figcaption {
+:where(.main-content figcaption) {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   font-style: italic;
@@ -243,18 +249,18 @@ body {
   margin: 0 auto;
 }
 
-.main-content .prose h1 {
+:where(.main-content .prose h1) {
   margin-bottom: var(--space-1rem);
 }
 
-.main-content .prose h2 {
+:where(.main-content .prose h2) {
   font-size: var(--text-deck);
   font-weight: var(--font-normal);
   color: var(--color-text-dim);
   margin-bottom: var(--space-3rem);
 }
 
-.main-content .prose h3 {
+:where(.main-content .prose h3) {
   font-size: var(--text-h3);
   line-height: var(--line-height-tight);
   font-weight: var(--font-semibold);
@@ -263,26 +269,26 @@ body {
   margin-bottom: var(--space-1rem);
 }
 
-.main-content .prose p,
-.main-content .prose ul,
-.main-content .prose ol {
+:where(
+  .main-content .prose p,
+  .main-content .prose ul,
+  .main-content .prose ol
+) {
   margin-bottom: var(--space-1-75rem);
 }
 
-.main-content .prose p a,
-.main-content .prose li a {
+:where(.main-content .prose p a, .main-content .prose li a) {
   text-decoration: underline;
   text-decoration-color: var(--prose-link-underline);
   text-decoration-thickness: var(--prose-link-underline-thickness);
   text-underline-offset: var(--space-4px);
 }
 
-.main-content .prose p a:hover,
-.main-content .prose li a:hover {
+:where(.main-content .prose p a:hover, .main-content .prose li a:hover) {
   text-decoration-color: var(--color-brand-blue-bright);
 }
 
-.main-content .prose code {
+:where(.main-content .prose code) {
   font-family: var(--font-mono), var(--font-mono-fallback);
   font-size: var(--prose-code-size);
   font-weight: var(--prose-code-weight);
@@ -290,13 +296,13 @@ body {
   font-variant-ligatures: none;
 }
 
-.main-content .prose pre code {
+:where(.main-content .prose pre code) {
   font-size: inherit;
   font-weight: inherit;
   color: inherit;
 }
 
-.main-content .prose pre {
+:where(.main-content .prose pre) {
   margin: var(--space-2rem) 0;
   padding: var(--space-0-5rem) 0 var(--space-0-5rem) var(--space-1-5rem);
   border-left: var(--prose-code-gutter-width) solid
@@ -307,6 +313,8 @@ body {
   line-height: var(--line-height-relaxed);
 }
 
+/* KaTeX overrides keep full specificity on purpose: they must outrank
+   the (0,1,0) selectors that ship inside katex.min.css. */
 .main-content .prose .katex {
   font-size: var(--prose-katex-scale);
 }
@@ -345,30 +353,36 @@ body {
     padding: var(--space-1-5rem) 0;
   }
 
-  .main-content h1 {
+  :where(.main-content h1) {
     font-size: calc(var(--text-h1) * var(--mobile-text-multiplier));
     margin-bottom: var(--space-2rem);
   }
 
-  .main-content h2 {
+  :where(.main-content h2) {
     font-size: calc(var(--text-h2) * var(--mobile-text-multiplier));
   }
 
-  .main-content p {
+  :where(.main-content p) {
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
   }
 
-  .main-content .prose h2 {
+  /* Re-assert prose title margin after the mobile h1 rule above - within
+     the zero-specificity layer, source order decides. */
+  :where(.main-content .prose h1) {
+    margin-bottom: var(--space-1rem);
+  }
+
+  :where(.main-content .prose h2) {
     font-size: calc(var(--text-deck) * var(--mobile-text-multiplier));
     margin-bottom: var(--space-2rem);
   }
 
-  .main-content .prose h3 {
+  :where(.main-content .prose h3) {
     font-size: calc(var(--text-h3) * var(--mobile-text-multiplier));
     margin-top: var(--space-2-5rem);
   }
 
-  .main-content li {
+  :where(.main-content li) {
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
   }
 
