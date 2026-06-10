@@ -4,11 +4,11 @@ export interface ViewsResponse {
   views: number;
 }
 
-// Get view count for a page
-export async function getViews(slug: string): Promise<number> {
+// Get view count for a page; null means view counts are unavailable
+export async function getViews(slug: string): Promise<number | null> {
   try {
     const db = getDb();
-    if (!db) return 0;
+    if (!db) return null;
 
     const ref = db.ref("views/" + slug);
     const snapshot = await ref.get();
@@ -26,10 +26,10 @@ export async function getViews(slug: string): Promise<number> {
 }
 
 // Increment view count atomically
-export async function incrementViews(slug: string): Promise<number> {
+export async function incrementViews(slug: string): Promise<number | null> {
   try {
     const db = getDb();
-    if (!db) return 0;
+    if (!db) return null;
 
     const ref = db.ref("views/" + slug);
     let newCount = 0;
@@ -53,19 +53,4 @@ export async function incrementViews(slug: string): Promise<number> {
     }
     return 0;
   }
-}
-
-// Get multiple view counts at once (for listing pages)
-export async function getMultipleViews(
-  slugs: string[],
-): Promise<Record<string, number>> {
-  const result: Record<string, number> = {};
-
-  for (let i = 0; i < slugs.length; i++) {
-    const slug = slugs[i];
-    if (!slug) continue;
-    result[slug] = await getViews(slug);
-  }
-
-  return result;
 }
