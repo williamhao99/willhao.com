@@ -34,9 +34,8 @@ let cachedToken: { token: string; expires: number } | null = null;
 let rotatedRefreshToken: string | null = null;
 
 // Store fetched data in memory for instant retrieval
-// Cache TTL outlives the refresh interval so a failed background refresh
-// serves stale data instead of an empty cache
-const CACHE_DURATION = 15 * 1000;
+// TTL stays just above the tick - dev HMR can detach the ticker
+const CACHE_DURATION = 3 * 1000;
 const REFRESH_INTERVAL = 2 * 1000;
 
 let cachedStats: { data: SpotifyData; expires: number } | null = null;

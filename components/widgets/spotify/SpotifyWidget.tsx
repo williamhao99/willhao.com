@@ -45,10 +45,8 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
 
       function startPolling() {
         if (intervalId) return;
-        // Only fetch immediately if we don't have valid initial data
-        if (!initialData) {
-          fetchData();
-        }
+        // Fetch immediately so tab returns catch up
+        fetchData();
         intervalId = setInterval(fetchData, 2000);
       }
 
@@ -83,7 +81,7 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
         );
       };
     },
-    [initialData],
+    [],
   );
 
   let isPlaying = data.isPlaying;

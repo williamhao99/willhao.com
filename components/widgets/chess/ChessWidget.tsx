@@ -39,10 +39,8 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
 
       function startPolling() {
         if (intervalId) return;
-        // Only fetch immediately if we don't have valid initial data
-        if (!initialData) {
-          fetchData();
-        }
+        // Fetch immediately so tab returns catch up
+        fetchData();
         intervalId = setInterval(fetchData, 60000);
       }
 
@@ -77,7 +75,7 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
         );
       };
     },
-    [initialData],
+    [],
   );
 
   let rapidRating: string | number = "—";
