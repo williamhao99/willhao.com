@@ -13,6 +13,9 @@
   margin: 0 var(--space-0-5rem);
 }
 
+/* Template inventory for post content - .figure/.imageWrapper/.image/
+   .figcaption have no live consumer yet; they exist for posts that embed
+   image figures. Keep in sync with the Add-a-Blog-Post recipe in CLAUDE.md. */
 .figure {
   margin: var(--space-2rem) 0;
 }

@@ -19,65 +19,59 @@ const DEFAULT_DATA: OsuStats = {
 export default function OsuWidget({ initialData }: OsuWidgetProps) {
   const [data, setData] = useState<OsuStats>(initialData || DEFAULT_DATA);
 
-  useEffect(
-    function setupPolling() {
-      let isMounted = true;
-      let intervalId: NodeJS.Timeout | null = null;
+  useEffect(function setupPolling() {
+    let isMounted = true;
+    let intervalId: NodeJS.Timeout | null = null;
 
-      async function fetchData() {
-        try {
-          const response = await fetch("/api/osu");
-          if (response.ok && isMounted) {
-            const newData: OsuStats = await response.json();
-            setData(newData);
-          }
-        } catch (error) {
-          if (isMounted) {
-            console.error("Failed to fetch osu! data:", error);
-          }
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/osu");
+        if (response.ok && isMounted) {
+          const newData: OsuStats = await response.json();
+          setData(newData);
+        }
+      } catch (error) {
+        if (isMounted) {
+          console.error("Failed to fetch osu! data:", error);
         }
       }
+    }
 
-      function startPolling() {
-        if (intervalId) return;
-        // Fetch immediately so tab returns catch up
-        fetchData();
-        intervalId = setInterval(fetchData, 60000);
+    function startPolling() {
+      if (intervalId) return;
+      // Fetch immediately so tab returns catch up
+      fetchData();
+      intervalId = setInterval(fetchData, 60000);
+    }
+
+    function stopPolling() {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
       }
+    }
 
-      function stopPolling() {
-        if (intervalId) {
-          clearInterval(intervalId);
-          intervalId = null;
-        }
-      }
-
-      function handleVisibilityChange() {
-        if (document.visibilityState === "visible") {
-          startPolling();
-        } else {
-          stopPolling();
-        }
-      }
-
-      // Start polling if page is visible
+    function handleVisibilityChange() {
       if (document.visibilityState === "visible") {
         startPolling();
-      }
-
-      document.addEventListener("visibilitychange", handleVisibilityChange);
-
-      return function cleanup() {
-        isMounted = false;
+      } else {
         stopPolling();
-        document.removeEventListener(
-          "visibilitychange",
-          handleVisibilityChange,
-        );
-      };
-    },
-    [],
-  );
+      }
+    }
+
+    // Start polling if page is visible
+    if (document.visibilityState === "visible") {
+      startPolling();
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return function cleanup() {
+      isMounted = false;
+      stopPolling();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   let rankDisplay = "—";
   if (data.globalRank !== null) {

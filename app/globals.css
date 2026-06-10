@@ -16,7 +16,6 @@
   --color-award: rgba(217, 183, 86, 1);
 
   /* Component backgrounds */
-  --color-card-bg: rgba(0, 0, 0, 0.15);
   --color-card-bg-hover: rgba(255, 255, 255, 0.03);
 
   /* === Typography === */
@@ -55,8 +54,9 @@
   --line-height-tight: 1.2;
   --line-height-relaxed: 1.6;
 
-  /* Letter spacing */
-  --letter-spacing-tight: 0.02em;
+  /* Letter spacing ("wide-sm" = slight positive tracking for small labels:
+     dates, awards, copyright - not for headings) */
+  --letter-spacing-wide-sm: 0.02em;
   --letter-spacing-normal: 0.05em;
 
   /* === Spacing === */
@@ -104,10 +104,10 @@
   /* Border widths */
   --border-width-thin: 1px;
 
-  /* Border radius */
+  /* Border radius - controls only (pdf tabs, buttons).
+     Surfaces (cards, widgets, rows) are square: border-radius 0. */
   --radius-xs: 3px;
   --radius-sm: 6px;
-  --radius-md: 15px;
 
   /* === Effects & Animations === */
   /* Transitions */
@@ -116,7 +116,6 @@
 
   /* Opacity */
   --opacity-medium: 0.7;
-  --opacity-dim: 0.55;
 
   /* === Mobile === */
   --mobile-text-multiplier: 0.9; /* Scale down text slightly on mobile */

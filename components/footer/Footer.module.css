@@ -41,7 +41,7 @@
   color: var(--color-text-muted);
   font-size: var(--copyright-size);
   text-align: center;
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-wide-sm);
   position: absolute;
   left: 50%;
   transform: translateX(-50%); /* centers Copyright text exactly */

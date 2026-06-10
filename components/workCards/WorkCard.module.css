@@ -39,7 +39,7 @@
 .date {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-wide-sm);
   font-variant-numeric: tabular-nums;
 }
 
@@ -53,7 +53,7 @@
 .award {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-wide-sm);
   color: var(--color-award);
   margin-top: auto;
   padding-top: var(--space-0-5rem);
