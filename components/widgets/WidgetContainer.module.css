@@ -15,26 +15,14 @@
   --widget-value-size: var(--text-lg);
   --widget-mobile-scale: 0.85;
 
-  /* Brand-blue tinted fills */
-  --widget-bg: color-mix(
-    in srgb,
-    var(--color-brand-blue-bright) 5%,
-    transparent
-  );
-  --widget-bg-hover: color-mix(
-    in srgb,
-    var(--color-brand-blue-bright) 10%,
-    transparent
-  );
-
   display: flex;
   align-items: center;
   height: 100%;
   min-width: 0; /* Force shrink to cell */
   gap: calc(var(--widget-gap) * var(--scale));
   padding: calc(var(--widget-padding) * var(--scale));
-  background: var(--widget-bg);
-  border: var(--border-width-thin) solid var(--color-border);
+  background: transparent;
+  border: var(--border-width-thin) solid var(--color-border-medium);
   border-radius: 0;
   transition:
     border-color var(--transition-normal),
@@ -43,7 +31,7 @@
 
 .widget:hover {
   border-color: var(--color-brand-blue-bright);
-  background: var(--widget-bg-hover);
+  background: var(--color-card-bg-hover);
 }
 
 .icon {

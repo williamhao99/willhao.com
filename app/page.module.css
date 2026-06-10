@@ -5,13 +5,14 @@
   grid-template-rows: auto auto auto;
   align-items: center;
   column-gap: var(--space-3rem);
-  margin-bottom: var(--space-2rem);
+  margin-bottom: var(--space-2-5rem);
 }
 
 .title {
   grid-column: 1;
   grid-row: 1;
-  color: var(--color-brand-blue-bright);
+  margin: 0 0 var(--space-1-5rem);
+  color: var(--color-text-primary);
 }
 
 .subtitle {
@@ -19,11 +20,10 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1rem);
-}
-
-.subtitle span:last-child {
-  font-size: var(--text-base);
+  gap: var(--space-0-5rem);
+  font-size: var(--text-lg);
+  font-weight: var(--font-normal);
+  line-height: var(--line-height-relaxed);
   color: var(--color-text-secondary);
 }
 
@@ -81,7 +81,10 @@
 }
 
 .worksHeading {
-  color: var(--color-text-primary);
+  font-size: var(--text-base);
+  letter-spacing: var(--letter-spacing-wide-sm);
+  color: var(--color-text-dim);
+  margin-bottom: var(--space-1-5rem);
 }
 
 .worksSection .moreLink {
@@ -92,4 +95,15 @@
    default link hover, so the blue must be restated here. */
 .worksSection .moreLink:hover {
   color: var(--color-brand-blue-bright);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .subtitle {
+    font-size: calc(var(--text-lg) * var(--mobile-text-multiplier));
+  }
+
+  .worksHeading {
+    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+  }
 }

@@ -13,6 +13,11 @@
   margin: 0 var(--space-0-5rem);
 }
 
+/* Bottom back-link (pairs with the global .back-link class) */
+.backBottom {
+  margin-top: var(--space-2rem);
+}
+
 /* Template inventory for post content - .figure/.imageWrapper/.image/
    .figcaption have no live consumer yet; they exist for posts that embed
    image figures. Keep in sync with the Add-a-Blog-Post recipe in CLAUDE.md. */

@@ -238,6 +238,12 @@ export default function UTMathDRPPage() {
           { label: "04/07/25", src: "/documents/DRP notes 04-07-25.pdf" },
         ]}
       />
+      <Link
+        href="/works"
+        className={"back-link " + styles.backBottom}
+      >
+        ← Back to Works
+      </Link>
     </Prose>
   );
 }

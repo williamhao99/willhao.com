@@ -38,6 +38,10 @@
   margin: var(--space-4rem) 0;
 }
 
+.backBottom {
+  margin-top: var(--space-2rem);
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .meta {

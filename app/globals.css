@@ -6,6 +6,7 @@
   --color-text-secondary: rgba(250, 250, 250, 0.8);
   --color-text-dim: rgba(250, 250, 250, 0.6);
   --color-text-muted: rgba(156, 163, 175, 1);
+  /* Emphasis/hover only (chess board nav) - never resting surfaces */
   --color-border: rgba(255, 255, 255, 0.25);
   --color-border-medium: rgba(255, 255, 255, 0.15);
   --color-border-subtle: rgba(255, 255, 255, 0.1);
@@ -333,12 +334,10 @@ body {
 
 /* Project grid layout */
 .projectsGrid {
-  --grid-min-height: 18rem;
-
   display: grid;
   grid-template-columns: repeat(auto-fit, min(40rem, 100%));
+  grid-auto-rows: 1fr; /* rows equalize across wraps (matches the widgets grid) */
   gap: var(--grid-gap-md);
-  grid-auto-rows: minmax(var(--grid-min-height), auto);
   margin-top: var(--space-2rem);
   margin-bottom: var(--space-2rem);
 }
@@ -387,6 +386,7 @@ body {
   }
 
   .projectsGrid {
+    grid-auto-rows: auto; /* single column: cards stay content-height */
     gap: var(--space-1-5rem);
   }
 }

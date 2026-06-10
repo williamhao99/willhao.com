@@ -100,10 +100,10 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(PROFILE_SCHEMA) }}
       />
       <section className={styles.heroSection}>
-        <h1 className={styles.title}>Portfolio</h1>
+        <h1 className={styles.title}>Will Hao</h1>
         <Image
           src="/favicons/hero-knight-96x96.png"
-          alt="Will Hao"
+          alt=""
           className={styles.titleIcon}
           width={96}
           height={96}
@@ -112,7 +112,6 @@ export default function Home() {
         />
         <h2 className={styles.subtitle}>
           <span>CS + Math '28 @ UT Austin</span>
-          <span>Incoming SWE Intern @ Citi</span>
         </h2>
       </section>
 

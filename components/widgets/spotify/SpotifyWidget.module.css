@@ -15,7 +15,7 @@
 @keyframes borderPulse {
   0%,
   100% {
-    border-color: var(--color-border);
+    border-color: var(--color-border-medium);
   }
   50% {
     border-color: var(--color-spotify-green);

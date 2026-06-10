@@ -5,7 +5,8 @@
   --nav-spacing: var(--space-2-5rem);
   --icon-spacing: var(--space-3rem);
   --icon-size-md: 3rem;
-  --opacity-icon: 0.6;
+  --opacity-icon: 0.55;
+  --icon-mono-brightness: 1.5;
 
   margin-top: auto;
   padding: var(--space-1-5rem) 0;
@@ -60,16 +61,20 @@
   align-items: center;
 }
 
-/* All icons - dimmed by default, full opacity on hover */
+/* All icons - monochrome and dimmed at rest, brand color on hover */
 .icon {
   width: var(--icon-size-md);
   height: var(--icon-size-md);
   opacity: var(--opacity-icon);
-  transition: opacity var(--transition-fast);
+  filter: grayscale(1) brightness(var(--icon-mono-brightness));
+  transition:
+    opacity var(--transition-fast),
+    filter var(--transition-fast);
 }
 
 .socialLink:hover .icon {
   opacity: 1;
+  filter: none;
 }
 
 /* Mobile styles */
