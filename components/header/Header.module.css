@@ -108,3 +108,14 @@
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
   }
 }
+
+@media (max-width: 340px) {
+  .header {
+    --logo-width: 13rem;
+    --logo-height: 3.25rem;
+  }
+
+  .navList {
+    gap: var(--space-1-5rem);
+  }
+}
