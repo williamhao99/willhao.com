@@ -41,7 +41,19 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   icons: {
-    icon: "/favicons/favicon.ico",
+    icon: [
+      { url: "/favicons/favicon.ico", sizes: "32x32" },
+      {
+        url: "/favicons/favicon-32x32.png",
+        type: "image/png",
+        sizes: "32x32",
+      },
+      {
+        url: "/favicons/android-chrome-192x192.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+    ],
     apple: "/favicons/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
