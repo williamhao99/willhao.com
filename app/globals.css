@@ -386,7 +386,6 @@ body {
   }
 
   .projectsGrid {
-    grid-auto-rows: auto; /* single column: cards stay content-height */
     gap: var(--space-1-5rem);
   }
 }
