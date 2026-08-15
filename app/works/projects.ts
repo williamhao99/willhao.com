@@ -10,12 +10,11 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "pm-tradingdesk",
-    title: "Prediction Market Trading Desk",
-    description:
-      "Personal trading infrastructure for Kalshi and Polymarket prediction markets",
-    link: "https://github.com/williamhao99/pm-tradingdesk",
-    date: "Oct 2025 - Present",
+    id: "kalshi-tui",
+    title: "kalshi-tui",
+    description: "Web-based click trader for Kalshi prediction markets",
+    link: "https://github.com/williamhao99/kalshi-tui",
+    date: "Feb 2026",
     featured: true,
   },
   {
