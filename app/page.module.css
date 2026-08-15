@@ -72,11 +72,6 @@
   color: var(--color-brand-blue-bright);
 }
 
-.quickLinkItem:first-child svg {
-  transform: rotate(-10deg);
-  fill: var(--color-text-primary);
-}
-
 /* Section spacing */
 .introSection {
   margin-bottom: var(--space-5rem);

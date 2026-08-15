@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import WorkCard from "@/components/workCards/WorkCard";
 import { projects } from "@/app/works/projects";
-import ResumeIcon from "@/components/icons/ResumeIcon";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import styles from "./page.module.css";
@@ -35,11 +34,6 @@ const PROFILE_SCHEMA = {
 };
 
 const QUICK_LINKS = [
-  {
-    name: "Resume",
-    href: "/documents/William Hao - resume.pdf",
-    Icon: ResumeIcon,
-  },
   {
     name: "LinkedIn",
     href: "https://linkedin.com/in/william-a-hao",
