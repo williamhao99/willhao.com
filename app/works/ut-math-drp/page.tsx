@@ -10,14 +10,14 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Benford's Law and Ergodic Theory",
   description:
-    "Undergraduate research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
+    "Research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
   alternates: {
     canonical: "https://willhao.com/works/ut-math-drp",
   },
   openGraph: {
     title: "Benford's Law and Ergodic Theory",
     description:
-      "Undergraduate research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
+      "Research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
     url: "https://willhao.com/works/ut-math-drp",
     type: "article",
   },

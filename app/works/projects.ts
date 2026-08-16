@@ -30,7 +30,7 @@ export const projects: Project[] = [
     id: "ut-math-drp",
     title: "Benford's Law Research",
     description:
-      "Undergraduate research on Benford's Law and ergodic theory through the UT Math Directed Reading Program",
+      "Research on Benford's Law and ergodic theory through the UT Math Directed Reading Program",
     link: "/works/ut-math-drp",
     date: "Jan - Apr 2025",
     featured: true,

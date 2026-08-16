@@ -5,7 +5,7 @@
   grid-template-rows: auto auto;
   align-items: start;
   column-gap: var(--space-3rem);
-  margin-bottom: var(--space-2-5rem);
+  margin-bottom: var(--space-4rem);
 }
 
 .title {
@@ -16,7 +16,6 @@
 }
 
 .subtitle {
-  grid-column: 1;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -42,69 +41,252 @@
   image-rendering: pixelated;
 }
 
-.quickLinks {
+.subtitleRow {
+  grid-column: 1;
+  grid-row: 2;
   display: flex;
-  gap: var(--space-3rem);
+  align-items: center;
+  gap: var(--space-2rem);
+  flex-wrap: wrap;
+}
+
+/* 2.6rem is the largest icon inside the claim's line box */
+.quickLinks {
+  --icon-size-inline: 2.6rem;
+  --opacity-icon: 0.55;
+  --icon-mono-brightness: 1.5;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-1rem);
+}
+
+/* Hit-area padding; the negative margin keeps it out of row sizing */
+.quickLink {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4px);
+  margin: calc(-1 * var(--space-4px)) 0;
+}
+
+.quickLinkIcon {
+  width: var(--icon-size-inline);
+  height: var(--icon-size-inline);
+  opacity: var(--opacity-icon);
+  filter: grayscale(1) brightness(var(--icon-mono-brightness));
+  transition:
+    opacity var(--transition-fast),
+    filter var(--transition-fast);
+}
+
+.quickLink:hover .quickLinkIcon {
+  opacity: 1;
+  filter: none;
+}
+
+/* Experience section */
+.experienceSection {
+  margin-bottom: var(--space-4rem);
+}
+
+.sectionHeading {
+  font-family: var(--font-serif), var(--font-serif-fallback);
+  font-size: var(--text-section);
+  font-weight: var(--font-medium);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
   margin-bottom: var(--space-2rem);
 }
 
-.quickLinkItem {
+.experienceList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-0-5rem);
-  text-decoration: none;
+  gap: var(--space-1rem);
 }
 
-.quickLinkItem svg {
-  display: block;
-  width: var(--space-4rem);
-  height: var(--space-4rem);
+.experienceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2rem);
+  /* Blocks the globals li margin from adding to the list gap */
+  margin-bottom: 0;
 }
 
-.quickLinkLabel {
+/* 1.5rem italic is the optical match for the sans 1.3rem; line-height
+   must match the text cell or the taller box governs the row. */
+.experienceDate {
+  --date-rail-width: 11rem;
+  --date-serif-size: 1.5rem;
+
+  flex-shrink: 0;
+  width: var(--date-rail-width);
+  font-family: var(--font-serif), var(--font-serif-fallback);
+  font-style: italic;
+  font-size: var(--date-serif-size);
+  color: var(--color-text-muted);
+  font-variant-numeric: oldstyle-nums;
+  line-height: var(--line-height-tight);
+}
+
+.experienceText {
   font-size: var(--text-base);
+  line-height: var(--line-height-tight);
+}
+
+.experienceCompany {
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+/* Dim parens mark a self-directed entry as a qualifier, not a name */
+.experienceQualifier {
+  color: var(--color-text-dim);
+  font-weight: var(--font-normal);
+}
+
+.experienceSeparator {
+  color: var(--color-text-dim);
+}
+
+.experienceRole {
+  color: var(--color-text-secondary);
+}
+
+/* Works section */
+.worksSection {
+  margin-bottom: var(--space-2rem);
+}
+
+.worksHeadingRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2rem);
+  margin-bottom: var(--space-2rem);
+}
+
+.worksHeadingRow .sectionHeading {
+  margin-bottom: 0;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, min(40rem, 100%));
+  grid-auto-rows: 1fr;
+  gap: var(--grid-gap-md);
+}
+
+/* Section-hover/focus reveal; the exit duration doubles as the
+   transform's snap-home delay - keep them coupled. */
+.moreLink {
+  --reveal-travel: var(--space-1rem);
+  --reveal-duration: 500ms;
+  --reveal-delay: 100ms;
+  --reveal-exit-duration: 150ms;
+  --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-exit-ease: ease;
+  --reveal-fade-fraction: 0.6;
+
+  font-size: var(--text-md);
   color: var(--color-text-secondary);
   transition: color var(--transition-fast);
 }
 
-.quickLinkItem:hover .quickLinkLabel {
-  color: var(--color-brand-blue-bright);
-}
-
-/* Section spacing */
-.introSection {
-  margin-bottom: var(--space-5rem);
-}
-
-.worksSection {
-  margin-bottom: var(--space-5rem);
-}
-
-.worksHeading {
-  font-size: var(--text-base);
-  letter-spacing: var(--letter-spacing-wide-sm);
-  color: var(--color-text-dim);
-  margin-bottom: var(--space-1-5rem);
-}
-
-.worksSection .moreLink {
-  color: var(--color-text-secondary);
-}
-
 /* Explicit hover: setting a rest color above outranks the zero-specificity
    default link hover, so the blue must be restated here. */
-.worksSection .moreLink:hover {
+.moreLink:hover {
   color: var(--color-brand-blue-bright);
+}
+
+/* Hover-device enhancement; visible by default fails safe */
+@media (hover: hover) {
+  .moreLink {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--reveal-travel)));
+    transition:
+      opacity var(--reveal-exit-duration) var(--reveal-exit-ease),
+      transform 0s var(--reveal-exit-duration),
+      color var(--transition-fast);
+  }
+
+  .worksSection:hover .moreLink,
+  .worksSection:focus-within .moreLink {
+    opacity: 1;
+    transform: translateX(0);
+    transition:
+      opacity calc(var(--reveal-duration) * var(--reveal-fade-fraction))
+        var(--reveal-ease) var(--reveal-delay),
+      transform var(--reveal-duration) var(--reveal-ease) var(--reveal-delay),
+      color var(--transition-fast);
+  }
+
+  /* Keyboard focus reveals undelayed - opacity hides the focus outline */
+  .worksSection:focus-within .moreLink {
+    transition:
+      opacity var(--transition-fast),
+      transform 0s,
+      color var(--transition-fast);
+  }
 }
 
 /* Mobile styles */
 @media (max-width: 768px) {
+  .heroSection {
+    column-gap: var(--space-1rem);
+  }
+
+  /* Definite size: the derived span balloons when the subtitle wraps */
+  .titleIcon {
+    --knight-size-mobile: 8rem;
+
+    height: var(--knight-size-mobile);
+    min-height: 0;
+  }
+
+  /* 386px is the measured fit threshold for the current claim, icons,
+     and knight - re-measure if they change. */
+  .subtitleRow {
+    --claim-icons-gap-fluid: clamp(
+      var(--space-1rem),
+      calc(var(--space-1rem) + (100vw - 386px) / 2),
+      var(--space-2rem)
+    );
+
+    column-gap: var(--claim-icons-gap-fluid);
+    row-gap: var(--space-1rem);
+  }
+
+  .quickLinks {
+    --icon-size-inline: 2rem;
+  }
+
+  .quickLink {
+    margin: calc(-1 * var(--space-4px));
+  }
+
   .subtitle {
     font-size: calc(var(--text-lg) * var(--mobile-text-multiplier));
   }
 
-  .worksHeading {
+  .sectionHeading {
+    font-size: calc(var(--text-section) * var(--mobile-text-multiplier));
+  }
+
+  .experienceDate {
+    font-size: calc(var(--date-serif-size) * var(--mobile-text-multiplier));
+  }
+
+  .experienceText {
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+  }
+
+  .moreLink {
+    font-size: calc(var(--text-md) * var(--mobile-text-multiplier));
+  }
+
+  .cardsGrid {
+    gap: var(--space-1-5rem);
   }
 }

@@ -29,6 +29,7 @@
   /* Text size multipliers  */
   --multiplier-sm: 0.875; /* 14px */
   --multiplier-xl: 1.25; /* 20px */
+  --multiplier-section: 1.5; /* 24px */
   --multiplier-2xl: 2.25; /* 36px */
 
   /* Prose heading multipliers */
@@ -42,6 +43,7 @@
   --text-lg: 1.8rem;
   --text-h1: calc(var(--text-base) * var(--multiplier-2xl));
   --text-h2: calc(var(--text-base) * var(--multiplier-xl));
+  --text-section: calc(var(--text-base) * var(--multiplier-section));
   --text-deck: calc(var(--text-base) * var(--multiplier-deck));
   --text-h3: calc(var(--text-base) * var(--multiplier-h3));
 
@@ -71,7 +73,6 @@
   --space-3rem: 3rem;
   --space-3-5rem: 3.5rem;
   --space-4rem: 4rem;
-  --space-5rem: 5rem;
 
   /* Pixel spacing */
   --space-2px: 2px;
@@ -161,8 +162,8 @@ body {
 
 /* Element typography below is wrapped in :where() so it carries zero
    specificity: it is a defaults layer that any CSS-module class overrides
-   without selector tricks. Opt-in classes (.container, .projectsGrid,
-   .back-link, .prose itself) and the KaTeX overrides (which must outrank
+   without selector tricks. Opt-in classes (.container, .back-link,
+   .prose itself) and the KaTeX overrides (which must outrank
    katex.min.css) deliberately keep their specificity. Within this layer,
    source order decides ties: base rules, then .prose rules, then mobile. */
 
@@ -332,16 +333,6 @@ body {
   padding: 0 var(--space-2rem);
 }
 
-/* Project grid layout */
-.projectsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, min(40rem, 100%));
-  grid-auto-rows: 1fr; /* rows equalize across wraps (matches the widgets grid) */
-  gap: var(--grid-gap-md);
-  margin-top: var(--space-2rem);
-  margin-bottom: var(--space-2rem);
-}
-
 /* Mobile styles */
 @media (max-width: 768px) {
   .container {
@@ -383,9 +374,5 @@ body {
 
   :where(.main-content li) {
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
-  }
-
-  .projectsGrid {
-    gap: var(--space-1-5rem);
   }
 }

@@ -2,7 +2,7 @@
   --accent-border-width: var(--space-2px);
   --accent-border-color: var(--color-border-medium);
 
-  padding: var(--space-2rem);
+  padding: var(--space-1-5rem);
   border-radius: 0;
   display: flex;
   flex-direction: column;
@@ -88,7 +88,6 @@
 /* Mobile styles */
 @media (max-width: 768px) {
   .card {
-    padding: var(--space-1-5rem);
     gap: var(--space-0-5rem);
   }
 

@@ -13,6 +13,8 @@ const spaceGrotesk = Space_Grotesk({
 const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
+  // True italic for the experience ledger's dates (no synthesized slant)
+  style: ["normal", "italic"],
   variable: "--font-serif",
 });
 const jetbrainsMono = JetBrains_Mono({

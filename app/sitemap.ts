@@ -11,11 +11,11 @@ interface SitemapItem {
 }
 
 const dates = {
-  home: "2026-08-16",
+  home: "2026-08-17",
   about: "2026-08-17",
-  works: "2026-08-16",
+  works: "2026-08-17",
   blogIndex: "2026-06-10",
-  utMathDrp: "2026-06-10",
+  utMathDrp: "2026-08-17",
 } as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
