@@ -67,6 +67,7 @@
   animation: marquee 10s linear infinite;
 }
 
+/* Runs under reduced motion too - a frozen marquee hides the title's end */
 @keyframes marquee {
   0%,
   15% {
@@ -78,12 +79,6 @@
   }
   100% {
     transform: translateX(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee {
-    animation: none;
   }
 }
 

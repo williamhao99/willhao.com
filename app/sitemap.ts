@@ -12,7 +12,7 @@ interface SitemapItem {
 
 const dates = {
   home: "2026-08-16",
-  about: "2026-06-10",
+  about: "2026-08-17",
   works: "2026-08-16",
   blogIndex: "2026-06-10",
   utMathDrp: "2026-06-10",

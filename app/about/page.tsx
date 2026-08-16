@@ -12,14 +12,14 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "CS and Math student at UT Austin. Interested in full-stack development and algorithmic trading.",
+    "CS and Math student at UT Austin. Interested in quantitative finance, software engineering, and applied AI.",
   alternates: {
     canonical: "https://willhao.com/about",
   },
   openGraph: {
     title: "About",
     description:
-      "CS and Math student at UT Austin. Interested in full-stack development and algorithmic trading.",
+      "CS and Math student at UT Austin. Interested in quantitative finance, software engineering, and applied AI.",
     url: "https://willhao.com/about",
   },
 };
@@ -40,16 +40,14 @@ export default async function AboutPage() {
         I've always enjoyed solving puzzles and building things, ever since I
         was a kid.
         <br />
-        This has led me to interests in full-stack development and algorithmic
-        trading during my time in college.
-        <br />
-        Currently, I'm working on developing systematic strategies for
-        prediction markets.
+        This has led me to interests in quantitative finance, software
+        engineering, and applied AI.
       </p>
       <p>
         Outside of school, I like to lift and run - I'm training for a 1000lb
         powerlifting total and a half marathon.
-        <br />I also play chess regularly, and average sub-20 on Rubik's cubes.
+        <br />I play table tennis, pickleball, and tennis when I can. I also
+        like chess and video games, and average sub-20 on Rubik's cubes.
       </p>
 
       <div className={styles.widgets}>
