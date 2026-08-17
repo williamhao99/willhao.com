@@ -38,8 +38,8 @@ export const projects: Project[] = [
   {
     id: "willhao.com portfolio",
     title: "willhao.com",
-    description: "Full-stack portfolio with live API integrations",
+    description: "This website.",
     link: "https://github.com/williamhao99/willhao.com",
-    date: "Jun - Sep 2025",
+    date: "Jun 2025 - Present",
   },
 ];
