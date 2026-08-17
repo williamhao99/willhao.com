@@ -49,3 +49,6 @@ temp-stash/
 
 # tsc build info
 tsconfig.tsbuildinfo
+
+# Local docs (not for GitHub)
+docs/
