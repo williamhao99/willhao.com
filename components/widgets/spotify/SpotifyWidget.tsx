@@ -21,23 +21,72 @@ const DEFAULT_DATA: SpotifyData = {
   artist: "—",
 };
 
+// Keep the shown data on a failed poll, but surface the retry state
+function markBackoff(prev: SpotifyData): SpotifyData {
+  if (prev.backoff) {
+    return prev;
+  }
+  const next: SpotifyData = {
+    isPlaying: prev.isPlaying,
+    songTitle: prev.songTitle,
+    artist: prev.artist,
+    backoff: true,
+  };
+  if (prev.lastPlayed) {
+    next.lastPlayed = prev.lastPlayed;
+  }
+  return next;
+}
+
+// After ~5min of failed polls, stop asserting live playback the server
+// would no longer vouch for
+const STALE_POLL_LIMIT = 150;
+
+function demoteStale(prev: SpotifyData): SpotifyData {
+  if (!prev.isPlaying && prev.lastPlayed !== "(paused)") {
+    return markBackoff(prev);
+  }
+  return {
+    isPlaying: false,
+    songTitle: prev.songTitle,
+    artist: prev.artist,
+    backoff: true,
+  };
+}
+
 export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
   const [data, setData] = useState<SpotifyData>(initialData || DEFAULT_DATA);
 
   useEffect(function setupPolling() {
     let isMounted = true;
     let intervalId: NodeJS.Timeout | null = null;
+    let failedPolls = 0;
 
     async function fetchData() {
       try {
         const response = await fetch("/api/spotify");
-        if (response.ok && isMounted) {
+        if (!isMounted) return;
+        if (response.ok) {
           const newData: SpotifyData = await response.json();
+          failedPolls = 0;
           setData(newData);
+        } else {
+          failedPolls = failedPolls + 1;
+          if (failedPolls >= STALE_POLL_LIMIT) {
+            setData(demoteStale);
+          } else {
+            setData(markBackoff);
+          }
         }
       } catch (error) {
         if (isMounted) {
           console.error("Failed to fetch Spotify data:", error);
+          failedPolls = failedPolls + 1;
+          if (failedPolls >= STALE_POLL_LIMIT) {
+            setData(demoteStale);
+          } else {
+            setData(markBackoff);
+          }
         }
       }
     }
@@ -88,6 +137,9 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
     statusText = "Now playing";
   } else if (lastPlayed) {
     statusText = "Last played " + lastPlayed;
+  }
+  if (data.backoff) {
+    statusText = statusText + " (retrying)";
   }
 
   let widgetClassName = styles.widget;
