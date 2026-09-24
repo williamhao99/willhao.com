@@ -14,6 +14,7 @@
   /* Brand colors */
   --color-brand-blue: #0055aa; /* Logo (header + OG SVGs) */
   --color-brand-blue-bright: #2d7bd6; /* Interactive accent: hover, active, links */
+  --color-brand-blue-text: #438dde; /* Accent for resting text: AA 5.2:1 where -bright is 4.2:1 */
   --color-award: rgba(217, 183, 86, 1);
 
   /* Component backgrounds */
@@ -106,6 +107,11 @@
   /* Border widths */
   --border-width-thin: 1px;
 
+  /* Keyboard focus */
+  --focus-ring-width: var(--space-2px);
+  --focus-ring-offset: var(--space-4px);
+  --focus-ring-color: var(--color-brand-blue-text);
+
   /* Border radius - controls only (pdf tabs, buttons).
      Surfaces (cards, widgets, rows) are square: border-radius 0. */
   --radius-xs: 3px;
@@ -137,6 +143,7 @@
 
 html {
   font-size: 62.5%; /* 1rem = 10px */
+  color-scheme: dark;
 }
 
 body {
@@ -152,6 +159,11 @@ body {
 ::selection {
   background: var(--color-brand-blue-bright);
   color: var(--color-text-primary);
+}
+
+:where(:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Main content area */
@@ -294,7 +306,7 @@ body {
   font-family: var(--font-mono), var(--font-mono-fallback);
   font-size: var(--prose-code-size);
   font-weight: var(--prose-code-weight);
-  color: var(--color-brand-blue-bright);
+  color: var(--color-brand-blue-text);
   font-variant-ligatures: none;
 }
 

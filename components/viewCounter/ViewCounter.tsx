@@ -46,7 +46,9 @@ export default function ViewCounter({ slug, initialViews }: ViewCounterProps) {
           }
           if (response.ok) {
             const data = await response.json();
-            setViews(data.views);
+            if (Number.isSafeInteger(data.views) && data.views >= 0) {
+              setViews(data.views);
+            }
           }
         } catch (error) {
           if (error instanceof Error) {
@@ -64,5 +66,13 @@ export default function ViewCounter({ slug, initialViews }: ViewCounterProps) {
     return <span className={styles.views}>— views</span>;
   }
 
-  return <span className={styles.views}>{views + " views"}</span>;
+  if (views === 1) {
+    return <span className={styles.views}>1 view</span>;
+  }
+
+  return (
+    <span className={styles.views}>
+      {views.toLocaleString("en-US") + " views"}
+    </span>
+  );
 }

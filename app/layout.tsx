@@ -17,10 +17,12 @@ const newsreader = Newsreader({
   style: ["normal", "italic"],
   variable: "--font-serif",
 });
+// Only prose code uses it, so fetch on demand instead of on every page
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-mono",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -32,7 +34,10 @@ export const metadata: Metadata = {
   description:
     "CS and Math student at UT Austin. Portfolio, projects, and blog.",
   openGraph: {
-    title: "Will Hao - Portfolio",
+    title: {
+      template: "%s - Will Hao",
+      default: "Will Hao - Portfolio",
+    },
     description:
       "CS and Math student at UT Austin. Portfolio, projects, and blog.",
     url: "https://willhao.com",
@@ -64,6 +69,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#0f172a",
 };
 
 export default function RootLayout({

@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     title: "Post Title",
     description: "Brief description for SEO and link previews.",
     url: "https://willhao.com/blog/post-slug",
+    siteName: "Will Hao",
     type: "article",
   },
 };

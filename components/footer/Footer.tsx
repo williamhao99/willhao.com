@@ -3,7 +3,6 @@ import GitHubIcon from "@/components/icons/GitHubIcon";
 import LinkedInIcon from "@/components/icons/LinkedInIcon";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 import SpotifyIcon from "@/components/icons/SpotifyIcon";
-import GmailIcon from "@/components/icons/GmailIcon";
 import FooterViewCounter from "@/components/viewCounter/FooterViewCounter";
 import styles from "./Footer.module.css";
 
@@ -26,18 +25,13 @@ const SOCIALS = [
     Icon: GitHubIcon,
   },
   {
-    name: "Gmail",
-    href: "mailto:william.hao.55@gmail.com",
-    Icon: GmailIcon,
-  },
-  {
     name: "Instagram",
     href: "https://www.instagram.com/william.a.hao/",
     Icon: InstagramIcon,
   },
   {
     name: "Spotify",
-    href: "https://open.spotify.com/user/williamhao99?si=68fe50e5f8814bf6",
+    href: "https://open.spotify.com/user/williamhao99",
     Icon: SpotifyIcon,
   },
 ];
@@ -89,22 +83,30 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <div className="container">
-        <div className={styles.content}>
-          <nav
-            className={styles.nav}
-            aria-label="Footer navigation"
-          >
-            {renderNavLinks()}
-          </nav>
+      <div className={"container " + styles.content}>
+        <nav
+          className={styles.nav}
+          aria-label="Footer navigation"
+        >
+          {renderNavLinks()}
+        </nav>
 
-          <p className={styles.copyright}>
-            © {currentYear} William Hao
-            <FooterViewCounter />
-          </p>
+        <p className={styles.copyright}>
+          © {currentYear} William Hao
+          <FooterViewCounter />
+        </p>
+
+        <div className={styles.contact}>
+          <a
+            href="mailto:william.hao.55@gmail.com"
+            className={styles.emailLink}
+          >
+            william.hao.55@gmail.com
+          </a>
 
           <div
             className={styles.social}
+            role="group"
             aria-label="Social links"
           >
             {renderSocialLinks()}

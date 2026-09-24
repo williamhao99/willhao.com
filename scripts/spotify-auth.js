@@ -80,8 +80,12 @@ function printManualSteps(token) {
   console.log("=================================================");
   console.log("SPOTIFY_REFRESH_TOKEN=" + token);
   console.log("=================================================");
-  console.log("1. Update SPOTIFY_REFRESH_TOKEN in " + envPath + " on the server");
-  console.log("2. Restart the app: su - deploy -c 'pm2 restart " + pm2App + "'");
+  console.log(
+    "1. Update SPOTIFY_REFRESH_TOKEN in " + envPath + " on the server",
+  );
+  console.log(
+    "2. Restart the app: su - deploy -c 'pm2 restart " + pm2App + "'",
+  );
   console.log("(The server keeps running on the old token until then.)");
 }
 
@@ -99,7 +103,9 @@ function deployToServer(token) {
     !/^[A-Za-z0-9/._-]+$/.test(VM_ENV_PATH) ||
     !/^[A-Za-z0-9._-]+$/.test(VM_PM2_APP)
   ) {
-    console.error("VM_* values have unexpected characters - skipping auto-deploy.");
+    console.error(
+      "VM_* values have unexpected characters - skipping auto-deploy.",
+    );
     return false;
   }
   if (!/^[A-Za-z0-9_-]+$/.test(token)) {
@@ -109,13 +115,29 @@ function deployToServer(token) {
 
   const remoteScript =
     "set -e\n" +
-    "grep -q '^SPOTIFY_REFRESH_TOKEN=' " + VM_ENV_PATH + "\n" +
-    "sed -i 's|^SPOTIFY_REFRESH_TOKEN=.*|SPOTIFY_REFRESH_TOKEN=" + token + "|' " + VM_ENV_PATH + "\n" +
-    "grep -q '^SPOTIFY_REFRESH_TOKEN=" + token + "$' " + VM_ENV_PATH + "\n" +
-    "su - deploy -c 'pm2 restart " + VM_PM2_APP + "'\n" +
+    "grep -q '^SPOTIFY_REFRESH_TOKEN=' " +
+    VM_ENV_PATH +
+    "\n" +
+    "sed -i 's|^SPOTIFY_REFRESH_TOKEN=.*|SPOTIFY_REFRESH_TOKEN=" +
+    token +
+    "|' " +
+    VM_ENV_PATH +
+    "\n" +
+    "grep -q '^SPOTIFY_REFRESH_TOKEN=" +
+    token +
+    "$' " +
+    VM_ENV_PATH +
+    "\n" +
+    "su - deploy -c 'pm2 restart " +
+    VM_PM2_APP +
+    "'\n" +
     "echo DEPLOY_OK\n";
 
-  console.log("\nDeploying to " + VM_SSH_TARGET + " (ssh may prompt for your key passphrase)...");
+  console.log(
+    "\nDeploying to " +
+      VM_SSH_TARGET +
+      " (ssh may prompt for your key passphrase)...",
+  );
   const result = spawnSync("ssh", [VM_SSH_TARGET, "bash -s"], {
     input: remoteScript,
     stdio: ["pipe", "pipe", "inherit"],
@@ -152,7 +174,12 @@ async function verifyLive() {
             status = "Now playing";
           }
           console.log(
-            "Live and healthy: " + status + " " + data.songTitle + " - " + data.artist,
+            "Live and healthy: " +
+              status +
+              " " +
+              data.songTitle +
+              " - " +
+              data.artist,
           );
           return;
         }
@@ -193,12 +220,21 @@ function createReauthReminder() {
     "VERSION:2.0\r\n" +
     "PRODID:-//willhao.com//spotify-auth//EN\r\n" +
     "BEGIN:VEVENT\r\n" +
-    "UID:spotify-reauth-" + Date.now() + "@willhao.com\r\n" +
-    "DTSTAMP:" + icsDate(new Date()) + "T000000Z\r\n" +
-    "DTSTART;VALUE=DATE:" + icsDate(remind) + "\r\n" +
-    "DTEND;VALUE=DATE:" + icsDate(remindEnd) + "\r\n" +
+    "UID:spotify-reauth-" +
+    Date.now() +
+    "@willhao.com\r\n" +
+    "DTSTAMP:" +
+    icsDate(new Date()) +
+    "T000000Z\r\n" +
+    "DTSTART;VALUE=DATE:" +
+    icsDate(remind) +
+    "\r\n" +
+    "DTEND;VALUE=DATE:" +
+    icsDate(remindEnd) +
+    "\r\n" +
     "SUMMARY:Spotify re-auth - run npm run spotify-auth\r\n" +
-    "DESCRIPTION:Refresh token expires around " + expiryLabel +
+    "DESCRIPTION:Refresh token expires around " +
+    expiryLabel +
     " (6 months after authorization). Run npm run spotify-auth in the willhao.com repo.\r\n" +
     "END:VEVENT\r\n" +
     "END:VCALENDAR\r\n";
@@ -209,7 +245,9 @@ function createReauthReminder() {
   console.log("Opening a calendar reminder for 2 weeks before...");
   exec('open "' + icsPath + '"', function onOpen(openError) {
     if (openError) {
-      console.log("(Could not open Calendar - import " + icsPath + " manually)");
+      console.log(
+        "(Could not open Calendar - import " + icsPath + " manually)",
+      );
     }
   });
 }

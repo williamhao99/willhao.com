@@ -151,7 +151,7 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
 
   return (
     <a
-      href="https://open.spotify.com/user/williamhao99?si=68fe50e5f8814bf6"
+      href="https://open.spotify.com/user/williamhao99"
       className={styles.link}
       target="_blank"
       rel="noopener noreferrer"

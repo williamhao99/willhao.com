@@ -14,8 +14,13 @@
   transition: background var(--transition-normal);
 }
 
-.item:hover {
+.item:hover,
+.item:focus-visible {
   background: var(--color-card-bg-hover);
+}
+
+.item:focus-visible {
+  outline-offset: calc(-1 * var(--focus-ring-width));
 }
 
 .left {
@@ -76,7 +81,8 @@
   height: var(--icon-size);
 }
 
-.item:hover .icon {
+.item:hover .icon,
+.item:focus-visible .icon {
   color: var(--color-brand-blue-bright);
 }
 

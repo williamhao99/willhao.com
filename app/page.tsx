@@ -26,7 +26,7 @@ const PROFILE_SCHEMA = {
     url: "https://willhao.com",
     sameAs: [
       "https://github.com/williamhao99",
-      "https://linkedin.com/in/william-a-hao",
+      "https://www.linkedin.com/in/william-a-hao/",
     ],
     affiliation: {
       "@type": "CollegeOrUniversity",
@@ -38,7 +38,7 @@ const PROFILE_SCHEMA = {
 const QUICK_LINKS = [
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/william-a-hao",
+    href: "https://www.linkedin.com/in/william-a-hao/",
     Icon: LinkedInIcon,
   },
   {
@@ -165,10 +165,9 @@ export default function Home() {
           <h2 className={styles.sectionHeading}>Featured Works</h2>
           <Link
             href="/works"
-            className={styles.moreLink}
-            aria-label="More works"
+            className={styles.allWorksLink}
           >
-            More →
+            All works
           </Link>
         </div>
         <div className={styles.cardsGrid}>{renderFeaturedProjects()}</div>

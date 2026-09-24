@@ -18,7 +18,8 @@
     background var(--transition-normal);
 }
 
-.card:hover {
+.card:hover,
+.card:focus-visible {
   border-left-color: var(--color-brand-blue-bright);
   background: var(--color-card-bg-hover);
 }
@@ -45,7 +46,8 @@
   height: var(--icon-size);
 }
 
-.card:hover .icon {
+.card:hover .icon,
+.card:focus-visible .icon {
   color: var(--color-brand-blue-bright);
 }
 

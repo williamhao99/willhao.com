@@ -2,7 +2,8 @@
 .link {
   text-decoration: none;
   color: inherit;
-  display: contents;
+  display: block;
+  min-width: 0; /* Grid cell: lets the Spotify marquee shrink */
 }
 
 .widget {
@@ -18,7 +19,6 @@
   display: flex;
   align-items: center;
   height: 100%;
-  min-width: 0; /* Force shrink to cell */
   gap: calc(var(--widget-gap) * var(--scale));
   padding: calc(var(--widget-padding) * var(--scale));
   background: transparent;
@@ -29,7 +29,8 @@
     background var(--transition-normal);
 }
 
-.widget:hover {
+.link:hover .widget,
+.link:focus-visible .widget {
   border-color: var(--color-brand-blue-bright);
   background: var(--color-card-bg-hover);
 }

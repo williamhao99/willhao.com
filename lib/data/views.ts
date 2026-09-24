@@ -21,7 +21,7 @@ export async function getViews(slug: string): Promise<number | null> {
     if (error instanceof Error) {
       console.error("Error getting views for " + slug + ":", error.message);
     }
-    return 0;
+    return null;
   }
 }
 
@@ -51,6 +51,6 @@ export async function incrementViews(slug: string): Promise<number | null> {
         error.message,
       );
     }
-    return 0;
+    return null;
   }
 }

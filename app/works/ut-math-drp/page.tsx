@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     description:
       "Research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
     url: "https://willhao.com/works/ut-math-drp",
+    siteName: "Will Hao",
     type: "article",
   },
 };
@@ -75,8 +76,8 @@ export default function UTMathDRPPage() {
         Benford's Law shows up in tax returns, stock prices, physical constants,
         population data - anywhere numbers span orders of magnitude. The leading
         digit <InlineMath math="d" /> satisfies{" "}
-        <InlineMath math="P(d) = \log_{10}\left(1 + \frac{1}{d}\right)," /> so 1
-        leads 30.1% of the time and 9 just 4.6%.
+        <InlineMath math="P(d) = \log_{10}\left(1 + \frac{1}{d}\right)\!," /> so
+        1 leads 30.1% of the time and 9 just 4.6%.
       </p>
 
       <h3>Why It Happens</h3>
@@ -93,10 +94,9 @@ export default function UTMathDRPPage() {
         where <InlineMath math="k = \lfloor n \log_{10}(2) \rfloor" /> and{" "}
         <InlineMath math="\{x\} = x - \lfloor x \rfloor" /> is the fractional
         part. Then{" "}
-        <InlineMath math="2^n = 10^k \cdot 10^{\{n \log_{10}(2)\}}," />
-        so <InlineMath math="m = 10^{\{n \log_{10}(2)\}}" />. The leading digit
-        is <InlineMath math="d" /> iff <InlineMath math="m \in [d, d+1)," />{" "}
-        i.e.{" "}
+        <InlineMath math="2^n = 10^k \cdot 10^{\{n \log_{10}(2)\}}," /> so{" "}
+        <InlineMath math="m = 10^{\{n \log_{10}(2)\}}" />. The leading digit is{" "}
+        <InlineMath math="d" /> iff <InlineMath math="m \in [d, d+1)," /> i.e.{" "}
         <InlineMath math="\{n \log_{10}(2)\} \in [\log_{10}(d), \log_{10}(d+1))" />
         .
       </p>
@@ -120,7 +120,7 @@ export default function UTMathDRPPage() {
         </a>{" "}
         says such orbits are uniformly distributed. Since the orbit visits
         intervals in proportion to their length,{" "}
-        <InlineMath math="P(\text{leading digit} = d) = \log_{10}(d+1) - \log_{10}(d) = \log_{10}\left(1 + \frac{1}{d}\right)," />
+        <InlineMath math="P(\text{leading digit} = d) = \log_{10}(d+1) - \log_{10}(d) = \log_{10}\left(1 + \frac{1}{d}\right)\!," />{" "}
         which is exactly Benford's Law. The same argument extends to any
         multiplicatively growing sequence.
       </p>

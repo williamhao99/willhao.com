@@ -79,7 +79,8 @@
     filter var(--transition-fast);
 }
 
-.quickLink:hover .quickLinkIcon {
+.quickLink:hover .quickLinkIcon,
+.quickLink:focus-visible .quickLinkIcon {
   opacity: 1;
   filter: none;
 }
@@ -157,14 +158,20 @@
 
 /* Works section */
 .worksSection {
+  --card-width: 40rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, min(var(--card-width), 100%));
+  gap: var(--grid-gap-md);
   margin-bottom: var(--space-2rem);
 }
 
 .worksHeadingRow {
+  grid-column: 1 / -1;
   display: flex;
   align-items: baseline;
+  justify-content: space-between;
   gap: var(--space-2rem);
-  margin-bottom: var(--space-2rem);
 }
 
 .worksHeadingRow .sectionHeading {
@@ -172,63 +179,28 @@
 }
 
 .cardsGrid {
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, min(40rem, 100%));
+  grid-template-columns: subgrid;
   grid-auto-rows: 1fr;
   gap: var(--grid-gap-md);
 }
 
-/* Section-hover/focus reveal; the exit duration doubles as the
-   transform's snap-home delay - keep them coupled. */
-.moreLink {
-  --reveal-travel: var(--space-1rem);
-  --reveal-duration: 500ms;
-  --reveal-delay: 100ms;
-  --reveal-exit-duration: 150ms;
-  --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --reveal-exit-ease: ease;
-  --reveal-fade-fraction: 0.6;
-
+.allWorksLink {
   font-size: var(--text-md);
   color: var(--color-text-secondary);
-  transition: color var(--transition-fast);
+  text-decoration: underline;
+  text-decoration-color: var(--color-text-muted);
+  text-underline-offset: var(--space-4px);
+  transition:
+    color var(--transition-fast),
+    text-decoration-color var(--transition-fast);
 }
 
-/* Explicit hover: setting a rest color above outranks the zero-specificity
-   default link hover, so the blue must be restated here. */
-.moreLink:hover {
+.allWorksLink:hover,
+.allWorksLink:focus-visible {
   color: var(--color-brand-blue-bright);
-}
-
-/* Hover-device enhancement; visible by default fails safe */
-@media (hover: hover) {
-  .moreLink {
-    opacity: 0;
-    transform: translateX(calc(-1 * var(--reveal-travel)));
-    transition:
-      opacity var(--reveal-exit-duration) var(--reveal-exit-ease),
-      transform 0s var(--reveal-exit-duration),
-      color var(--transition-fast);
-  }
-
-  .worksSection:hover .moreLink,
-  .worksSection:focus-within .moreLink {
-    opacity: 1;
-    transform: translateX(0);
-    transition:
-      opacity calc(var(--reveal-duration) * var(--reveal-fade-fraction))
-        var(--reveal-ease) var(--reveal-delay),
-      transform var(--reveal-duration) var(--reveal-ease) var(--reveal-delay),
-      color var(--transition-fast);
-  }
-
-  /* Keyboard focus reveals undelayed - opacity hides the focus outline */
-  .worksSection:focus-within .moreLink {
-    transition:
-      opacity var(--transition-fast),
-      transform 0s,
-      color var(--transition-fast);
-  }
+  text-decoration-color: currentColor;
 }
 
 /* Mobile styles */
@@ -266,6 +238,10 @@
     margin: calc(-1 * var(--space-4px));
   }
 
+  .quickLink:focus-visible {
+    outline-offset: calc(-1 * var(--focus-ring-width));
+  }
+
   .subtitle {
     font-size: calc(var(--text-lg) * var(--mobile-text-multiplier));
   }
@@ -282,7 +258,7 @@
     font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
   }
 
-  .moreLink {
+  .allWorksLink {
     font-size: calc(var(--text-md) * var(--mobile-text-multiplier));
   }
 

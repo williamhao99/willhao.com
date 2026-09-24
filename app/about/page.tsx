@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     description:
       "CS and Math student at UT Austin. Interested in quantitative finance, software engineering, and applied AI.",
     url: "https://willhao.com/about",
+    siteName: "Will Hao",
+    type: "website",
   },
 };
 

@@ -13,6 +13,8 @@ export const metadata: Metadata = {
     title: "Blog",
     description: "Technical insights and occasional essays.",
     url: "https://willhao.com/blog",
+    siteName: "Will Hao",
+    type: "website",
   },
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import styles from "./pdfViewer.module.css";
 
 interface PdfTab {
@@ -14,6 +14,7 @@ interface PdfViewerProps {
 }
 
 export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
+  const viewerId = "pdf-viewer-" + useId();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   function checkIfMobile() {
@@ -93,7 +94,7 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
           }}
           aria-label={"View PDF: " + tab.label}
           aria-expanded={i === selectedIndex}
-          aria-controls={"pdf-viewer-" + i}
+          aria-controls={viewerId + "-" + i}
         >
           {tab.label}
         </button>,
@@ -128,7 +129,7 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
       <div
         className={styles.viewer}
         style={viewerStyle}
-        id={"pdf-viewer-" + selectedIndex}
+        id={viewerId + "-" + selectedIndex}
         role="region"
         aria-label={"PDF viewer: " + currentTab.label}
       >

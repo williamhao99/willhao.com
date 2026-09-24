@@ -33,20 +33,20 @@
     background var(--transition-normal);
 }
 
-/* Clean focus style */
+.tab:hover,
 .tab:focus-visible {
-  outline: var(--border-width-thin) solid var(--color-brand-blue);
-  outline-offset: var(--space-2px);
-}
-
-.tab:hover {
   border-color: var(--color-brand-blue-bright);
   background: var(--color-card-bg-hover);
 }
 
 .tab.active {
-  color: var(--color-brand-blue-bright);
+  color: var(--color-brand-blue-text);
   border-color: var(--color-brand-blue-bright);
+}
+
+.tab:focus-visible {
+  outline-offset: var(--space-2px);
+  border-color: var(--focus-ring-color);
 }
 
 .viewer {
@@ -63,6 +63,7 @@
   width: 100%;
   height: 100%;
   border: 0;
+  color-scheme: normal; /* Keep browser PDF viewers out of the page's dark scheme */
 }
 
 /* Mobile PDF viewer */
@@ -78,7 +79,7 @@
 }
 
 .openButton {
-  color: var(--color-brand-blue);
+  color: var(--color-brand-blue-text);
   text-decoration: underline;
 }
 

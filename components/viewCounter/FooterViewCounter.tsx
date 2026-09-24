@@ -28,48 +28,93 @@ const FOOTER_VIEW_PAGES: Record<string, string> = {
   "/blog": "blog",
 };
 
+const MAX_VIEW_RETRIES = 2;
+const VIEW_RETRY_DELAY_MS = 1000;
+
 export default function FooterViewCounter() {
   const pathname = usePathname();
   const [viewsMap, setViewsMap] = useState<Record<string, number>>({});
-  const fetchedPathsRef = useRef<Set<string>>(new Set());
+  const requestsRef = useRef<Map<string, Promise<number>>>(new Map());
+  const postedSlugsRef = useRef<Set<string>>(new Set());
 
   const slug = FOOTER_VIEW_PAGES[pathname] || null;
 
   useEffect(
     function fetchOrIncrementView() {
       if (!slug) return;
-      if (fetchedPathsRef.current.has(pathname)) return;
-      fetchedPathsRef.current.add(pathname);
 
       const currentSlug = slug;
-      const alreadyViewed = hasViewedThisSession(currentSlug);
+      let cancelled = false;
+      let retries = 0;
+      let retryTimer: ReturnType<typeof setTimeout> | undefined;
+
+      async function fetchViews(): Promise<number> {
+        let response;
+        if (
+          hasViewedThisSession(currentSlug) ||
+          postedSlugsRef.current.has(currentSlug)
+        ) {
+          response = await fetch("/api/views/" + currentSlug);
+        } else {
+          // A lost POST response may still have incremented the count.
+          // Recovery requests only read, so they cannot count it twice.
+          postedSlugsRef.current.add(currentSlug);
+          response = await fetch("/api/views/" + currentSlug, {
+            method: "POST",
+          });
+        }
+
+        if (!response.ok) {
+          throw new Error("View count request failed: " + response.status);
+        }
+
+        const data = await response.json();
+        if (!Number.isSafeInteger(data.views) || data.views < 0) {
+          throw new Error("Invalid view count response");
+        }
+
+        markAsViewed(currentSlug);
+        return data.views;
+      }
 
       async function recordView() {
+        // Reuse each slug's request across navigation; failed ones are dropped so revisits retry
+        let request = requestsRef.current.get(currentSlug);
+        if (!request) {
+          request = fetchViews();
+          requestsRef.current.set(currentSlug, request);
+        }
+
         try {
-          let response;
-          if (alreadyViewed) {
-            response = await fetch("/api/views/" + currentSlug);
-          } else {
-            response = await fetch("/api/views/" + currentSlug, {
-              method: "POST",
-            });
-            markAsViewed(currentSlug);
-          }
-          if (response.ok) {
-            const data = await response.json();
-            setViewsMap(function updateMap(prev) {
-              const next: Record<string, number> = {};
-              const keys = Object.keys(prev);
-              for (let i = 0; i < keys.length; i++) {
-                const key = keys[i];
-                if (!key) continue;
-                next[key] = prev[key] || 0;
-              }
-              next[currentSlug] = data.views;
-              return next;
-            });
-          }
+          const views = await request;
+          if (cancelled) return;
+
+          setViewsMap(function updateMap(prev) {
+            const next: Record<string, number> = {};
+            const keys = Object.keys(prev);
+            for (let i = 0; i < keys.length; i++) {
+              const key = keys[i];
+              if (!key) continue;
+              next[key] = prev[key] || 0;
+            }
+            next[currentSlug] = views;
+            return next;
+          });
         } catch (error) {
+          if (requestsRef.current.get(currentSlug) === request) {
+            requestsRef.current.delete(currentSlug);
+          }
+          if (cancelled) return;
+
+          if (retries < MAX_VIEW_RETRIES) {
+            retryTimer = setTimeout(
+              recordView,
+              VIEW_RETRY_DELAY_MS * 2 ** retries,
+            );
+            retries += 1;
+            return;
+          }
+
           if (error instanceof Error) {
             console.error("Failed to fetch view count:", error.message);
           }
@@ -77,8 +122,13 @@ export default function FooterViewCounter() {
       }
 
       recordView();
+
+      return function stopRetries() {
+        cancelled = true;
+        clearTimeout(retryTimer);
+      };
     },
-    [slug, pathname],
+    [slug],
   );
 
   // Don't render anything if not on a footer-view page
@@ -87,15 +137,17 @@ export default function FooterViewCounter() {
   }
 
   const views = viewsMap[slug];
-
-  if (views === undefined) {
-    return null;
+  let viewsText = "— views";
+  if (views === 1) {
+    viewsText = "1 view";
+  } else if (views !== undefined) {
+    viewsText = views.toLocaleString("en-US") + " views";
   }
 
   return (
     <span className={styles.viewCounter}>
       <span className={styles.separator}>•</span>
-      <span className={styles.views}>{views + " views"}</span>
+      <span className={styles.views}>{viewsText}</span>
     </span>
   );
 }

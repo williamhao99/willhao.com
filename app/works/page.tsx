@@ -13,6 +13,8 @@ export const metadata: Metadata = {
     title: "Works",
     description: "Personal, academic, and hackathon projects.",
     url: "https://willhao.com/works",
+    siteName: "Will Hao",
+    type: "website",
   },
 };
 

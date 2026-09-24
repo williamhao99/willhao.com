@@ -79,11 +79,12 @@
 }
 
 .navLink.active {
-  color: var(--color-brand-blue-bright);
+  color: var(--color-brand-blue-text);
 }
 
 .navLink.active::after {
   opacity: 1;
+  background: var(--color-brand-blue-text);
 }
 
 /* Mobile styles */

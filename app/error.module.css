@@ -30,7 +30,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: color var(--transition-fast);
   font-family: inherit;
   text-decoration: none;
   margin-top: var(--space-1rem);
