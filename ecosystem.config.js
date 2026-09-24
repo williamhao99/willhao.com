@@ -3,8 +3,10 @@ module.exports = {
     {
       name: "willhao.com",
       cwd: "/var/www/willhao.com",
-      script: "npm",
-      args: "start",
+      // Run next directly, not via npm, so cluster reloads hand off without dropping requests
+      script: "node_modules/next/dist/bin/next",
+      args: "start -H 127.0.0.1",
+      exec_mode: "cluster",
       instances: 1,
       autorestart: true,
       watch: false,
