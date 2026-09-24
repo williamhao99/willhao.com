@@ -167,7 +167,7 @@ export default function Home() {
             href="/works"
             className={styles.allWorksLink}
           >
-            All works
+            All works →
           </Link>
         </div>
         <div className={styles.cardsGrid}>{renderFeaturedProjects()}</div>

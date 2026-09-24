@@ -4,7 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./FooterViewCounter.module.css";
 
+// Fallback when sessionStorage is blocked, so a revisit still only reads
+const viewedInMemory = new Set<string>();
+
 function hasViewedThisSession(slug: string): boolean {
+  if (viewedInMemory.has(slug)) return true;
   try {
     return sessionStorage.getItem("viewed-" + slug) !== null;
   } catch (e) {
@@ -13,11 +17,18 @@ function hasViewedThisSession(slug: string): boolean {
 }
 
 function markAsViewed(slug: string): void {
+  viewedInMemory.add(slug);
   try {
     sessionStorage.setItem("viewed-" + slug, "1");
   } catch (e) {
     // Ignore - private mode or storage full
   }
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise(function resolveLater(resolve) {
+    setTimeout(resolve, ms);
+  });
 }
 
 // Pages that show views in footer
@@ -28,105 +39,78 @@ const FOOTER_VIEW_PAGES: Record<string, string> = {
   "/blog": "blog",
 };
 
-const MAX_VIEW_RETRIES = 2;
+const MAX_VIEW_ATTEMPTS = 3;
 const VIEW_RETRY_DELAY_MS = 1000;
+const VIEW_TIMEOUT_MS = 5000;
+
+async function loadViews(slug: string): Promise<number | null> {
+  for (let attempt = 0; attempt < MAX_VIEW_ATTEMPTS; attempt++) {
+    if (attempt > 0) {
+      await wait(VIEW_RETRY_DELAY_MS * attempt);
+    }
+
+    try {
+      const signal = AbortSignal.timeout(VIEW_TIMEOUT_MS);
+      let response;
+      if (hasViewedThisSession(slug)) {
+        response = await fetch("/api/views/" + slug, { signal: signal });
+      } else {
+        // POST at most once per session: a lost response may still have
+        // counted, so retries and reloads only read
+        markAsViewed(slug);
+        response = await fetch("/api/views/" + slug, {
+          method: "POST",
+          signal: signal,
+        });
+      }
+      if (!response.ok) continue;
+
+      const data = await response.json();
+      if (Number.isSafeInteger(data.views) && data.views >= 0) {
+        return data.views;
+      }
+    } catch (error) {
+      // Network failure, timeout or malformed body - retry
+    }
+  }
+
+  return null;
+}
 
 export default function FooterViewCounter() {
   const pathname = usePathname();
-  const [viewsMap, setViewsMap] = useState<Record<string, number>>({});
-  const requestsRef = useRef<Map<string, Promise<number>>>(new Map());
-  const postedSlugsRef = useRef<Set<string>>(new Set());
+  // null = every attempt failed
+  const [viewsMap, setViewsMap] = useState<Record<string, number | null>>({});
+  const startedRef = useRef<Set<string>>(new Set());
 
   const slug = FOOTER_VIEW_PAGES[pathname] || null;
 
   useEffect(
     function fetchOrIncrementView() {
       if (!slug) return;
+      // The footer never unmounts, so one request per slug covers navigation
+      if (startedRef.current.has(slug)) return;
+      startedRef.current.add(slug);
 
       const currentSlug = slug;
-      let cancelled = false;
-      let retries = 0;
-      let retryTimer: ReturnType<typeof setTimeout> | undefined;
-
-      async function fetchViews(): Promise<number> {
-        let response;
-        if (
-          hasViewedThisSession(currentSlug) ||
-          postedSlugsRef.current.has(currentSlug)
-        ) {
-          response = await fetch("/api/views/" + currentSlug);
-        } else {
-          // A lost POST response may still have incremented the count.
-          // Recovery requests only read, so they cannot count it twice.
-          postedSlugsRef.current.add(currentSlug);
-          response = await fetch("/api/views/" + currentSlug, {
-            method: "POST",
-          });
-        }
-
-        if (!response.ok) {
-          throw new Error("View count request failed: " + response.status);
-        }
-
-        const data = await response.json();
-        if (!Number.isSafeInteger(data.views) || data.views < 0) {
-          throw new Error("Invalid view count response");
-        }
-
-        markAsViewed(currentSlug);
-        return data.views;
-      }
 
       async function recordView() {
-        // Reuse each slug's request across navigation; failed ones are dropped so revisits retry
-        let request = requestsRef.current.get(currentSlug);
-        if (!request) {
-          request = fetchViews();
-          requestsRef.current.set(currentSlug, request);
+        const views = await loadViews(currentSlug);
+
+        if (views === null) {
+          // Let the next visit to this page try again
+          startedRef.current.delete(currentSlug);
+          console.error("Failed to fetch view count for " + currentSlug);
         }
 
-        try {
-          const views = await request;
-          if (cancelled) return;
-
-          setViewsMap(function updateMap(prev) {
-            const next: Record<string, number> = {};
-            const keys = Object.keys(prev);
-            for (let i = 0; i < keys.length; i++) {
-              const key = keys[i];
-              if (!key) continue;
-              next[key] = prev[key] || 0;
-            }
-            next[currentSlug] = views;
-            return next;
-          });
-        } catch (error) {
-          if (requestsRef.current.get(currentSlug) === request) {
-            requestsRef.current.delete(currentSlug);
-          }
-          if (cancelled) return;
-
-          if (retries < MAX_VIEW_RETRIES) {
-            retryTimer = setTimeout(
-              recordView,
-              VIEW_RETRY_DELAY_MS * 2 ** retries,
-            );
-            retries += 1;
-            return;
-          }
-
-          if (error instanceof Error) {
-            console.error("Failed to fetch view count:", error.message);
-          }
-        }
+        setViewsMap(function updateMap(prev) {
+          const next: Record<string, number | null> = Object.assign({}, prev);
+          next[currentSlug] = views;
+          return next;
+        });
       }
 
       recordView();
-
-      return function stopRetries() {
-        cancelled = true;
-        clearTimeout(retryTimer);
-      };
     },
     [slug],
   );
@@ -137,6 +121,12 @@ export default function FooterViewCounter() {
   }
 
   const views = viewsMap[slug];
+
+  // Hidden after a failed round until a later visit succeeds, rather than a dash
+  if (views === null) {
+    return null;
+  }
+
   let viewsText = "— views";
   if (views === 1) {
     viewsText = "1 view";

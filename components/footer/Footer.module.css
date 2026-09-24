@@ -51,32 +51,29 @@
 }
 
 /* Right: Email + social */
+/* Wraps icons under the email when the column is too narrow (phones, enlarged text) */
 .contact {
   grid-area: contact;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--space-2-5rem);
+  gap: var(--space-1rem) var(--space-2-5rem);
 }
 
 .emailLink {
   display: inline-flex;
   align-items: center;
   min-height: var(--icon-size-md);
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
   font-size: var(--text-size);
-  text-decoration: underline;
-  text-decoration-color: var(--color-text-muted);
-  text-underline-offset: var(--space-4px);
-  transition:
-    color var(--transition-fast),
-    text-decoration-color var(--transition-fast);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .emailLink:hover,
 .emailLink:focus-visible {
   color: var(--color-brand-blue-bright);
-  text-decoration-color: currentColor;
 }
 
 .social {
@@ -135,23 +132,15 @@
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "nav"
-      "email"
-      "social"
+      "contact"
       "copyright";
     justify-items: center;
     gap: var(--space-1rem);
   }
 
+  /* Email and icons share a row when they fit (~375px and up) */
   .contact {
-    display: contents;
-  }
-
-  .emailLink {
-    grid-area: email;
-  }
-
-  .social {
-    grid-area: social;
+    justify-content: center;
   }
 
   .nav {

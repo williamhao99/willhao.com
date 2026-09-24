@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  // Stop next dev from appending its agent-rules block to the local CLAUDE.md
+  agentRules: false,
   async headers() {
     return [
       {
