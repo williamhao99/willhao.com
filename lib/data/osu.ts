@@ -1,4 +1,3 @@
-// Type definition for the osu! stats we return to UI components
 export interface OsuStats {
   globalRank: number | null;
   peakRank: number | null;
@@ -18,7 +17,6 @@ let cachedToken: { token: string; expires: number } | null = null;
 // Data cache
 let cachedStats: { data: OsuStats; expires: number } | null = null;
 
-// Get cached data if available and not expired
 export function getCachedOsuStats(): OsuStats | null {
   if (cachedStats && Date.now() < cachedStats.expires) {
     return cachedStats.data;
@@ -113,7 +111,6 @@ export async function fetchOsuStats(): Promise<OsuStats> {
 
 // Fetch fresh stats from the osu! API and update the cache
 async function fetchFreshOsuStats(): Promise<OsuStats> {
-  // Set up timeout handling (5 second limit)
   const controller = new AbortController();
 
   function abortRequest() {
@@ -148,7 +145,6 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
 
     const data = await response.json();
 
-    // Extract global rank from statistics
     let globalRank = null;
     if (
       data.statistics &&
@@ -158,7 +154,6 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
       globalRank = data.statistics.global_rank;
     }
 
-    // Extract pp (performance points), rounded to integer
     let pp = null;
     if (
       data.statistics &&
@@ -168,7 +163,6 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
       pp = Math.round(data.statistics.pp);
     }
 
-    // Extract play time, converted from seconds to hours
     let playTime = null;
     if (
       data.statistics &&
@@ -178,7 +172,6 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
       playTime = Math.round(data.statistics.play_time / 3600);
     }
 
-    // Extract peak rank from rank_highest
     let peakRank = null;
     if (
       data.rank_highest &&
@@ -195,7 +188,6 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
       playTime: playTime,
     };
 
-    // Cache the stats
     cachedStats = {
       data: stats,
       expires: Date.now() + CACHE_DURATION,
@@ -203,7 +195,6 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
 
     return stats;
   } catch (error) {
-    // Handle timeout vs other errors differently
     if (error instanceof Error && error.name === "AbortError") {
       console.error("osu! API timeout after 5 seconds");
       throw new Error("osu! API request timed out");
@@ -211,7 +202,6 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
     console.error("osu! API error:", error);
     throw error;
   } finally {
-    // Always clean up the timeout
     clearTimeout(timeoutId);
   }
 }

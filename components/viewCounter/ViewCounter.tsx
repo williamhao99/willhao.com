@@ -21,11 +21,10 @@ function markAsViewed(slug: string): void {
 
 interface ViewCounterProps {
   slug: string;
-  initialViews?: number;
 }
 
-export default function ViewCounter({ slug, initialViews }: ViewCounterProps) {
-  const [views, setViews] = useState<number | null>(initialViews ?? null);
+export default function ViewCounter({ slug }: ViewCounterProps) {
+  const [views, setViews] = useState<number | null>(null);
   const hasFetchedRef = useRef(false);
 
   useEffect(

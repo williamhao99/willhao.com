@@ -1,9 +1,5 @@
 import { getDb } from "@/lib/firebase";
 
-export interface ViewsResponse {
-  views: number;
-}
-
 // Get view count for a page; null means view counts are unavailable
 export async function getViews(slug: string): Promise<number | null> {
   try {

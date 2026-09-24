@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { blogPosts } from "./blogs";
+import { blogPosts } from "@/app/blog/blogs";
 import styles from "./Blog.module.css";
 
 export const metadata: Metadata = {

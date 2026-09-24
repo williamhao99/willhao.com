@@ -30,8 +30,6 @@ const SCOPES = [
   "user-read-playback-state",
 ].join(" ");
 
-// VM details live in .env.local, not here - this file is tracked by git:
-// VM_SSH_TARGET=user@host  VM_ENV_PATH=/path/to/.env.local  VM_PM2_APP=name
 const LIVE_URL = "https://willhao.com/api/spotify";
 
 function readEnvFile() {
@@ -206,8 +204,7 @@ function icsDate(d) {
   return d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate());
 }
 
-// Refresh tokens hard-expire 6 months after authorization (Spotify policy
-// since Jun 2026) - drop a calendar reminder 2 weeks before that
+// Remind 2 weeks before the 6-month refresh-token expiry
 function createReauthReminder() {
   const expiry = new Date();
   expiry.setMonth(expiry.getMonth() + 6);
@@ -255,6 +252,8 @@ function createReauthReminder() {
 const env = readEnvFile();
 const CLIENT_ID = env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = env.SPOTIFY_CLIENT_SECRET;
+// VM details live in .env.local, not here - this file is tracked by git:
+// VM_SSH_TARGET=user@host  VM_ENV_PATH=/path/to/.env.local  VM_PM2_APP=name
 const VM_SSH_TARGET = env.VM_SSH_TARGET;
 const VM_ENV_PATH = env.VM_ENV_PATH;
 const VM_PM2_APP = env.VM_PM2_APP;

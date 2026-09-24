@@ -25,7 +25,6 @@
     "shiki": "^4.0.2"
   },
   "devDependencies": {
-    "@types/katex": "^0.16.8",
     "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",

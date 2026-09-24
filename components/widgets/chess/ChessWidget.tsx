@@ -58,7 +58,6 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
       }
     }
 
-    // Start polling if page is visible
     if (document.visibilityState === "visible") {
       startPolling();
     }

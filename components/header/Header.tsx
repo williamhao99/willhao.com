@@ -12,7 +12,7 @@ const NAV = [
 ];
 
 export default function Header() {
-  const pathname = usePathname() || "/";
+  const pathname = usePathname();
 
   function isActive(href: string): boolean {
     if (pathname === href || pathname.startsWith(href + "/")) {
@@ -40,8 +40,6 @@ export default function Header() {
       let ariaCurrent: "page" | undefined;
       if (isActive(href)) {
         ariaCurrent = "page";
-      } else {
-        ariaCurrent = undefined;
       }
 
       navItems.push(

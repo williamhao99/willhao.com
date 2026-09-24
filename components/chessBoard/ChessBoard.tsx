@@ -97,11 +97,8 @@ export default function ChessBoard({
     };
   }, []);
 
-  // Prevent board-internal elements from receiving tab focus.
-  // react-chessboard renders many focusable elements (squares, pieces);
-  // tabbing through them shifts the board due to scroll-into-view inside overflow:clip.
-  // Non-interactive boards use the `inert` attribute (set in JSX).
-  // Interactive boards need click/drag, so we strip tabIndex via MutationObserver instead.
+  // Tabbing into react-chessboard's squares scrolls the clipped board:
+  // static boards use inert (JSX); interactive ones need click/drag, so strip tabIndex here
   useEffect(
     function preventBoardTabbing() {
       if (!interactive) return;

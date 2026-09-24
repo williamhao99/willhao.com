@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
-import { getViews, incrementViews } from "../../../../lib/data/views";
+import { getViews, incrementViews } from "@/lib/data/views";
 
 interface RouteParams {
   params: Promise<{ slug: string }>;
 }
 
-// Valid slugs: home, about, works, blog, works-*, blog-*
 const VALID_SLUG_PATTERN = /^(home|about|works|blog|works-[\w-]+|blog-[\w-]+)$/;
 
 function isValidSlug(slug: string): boolean {

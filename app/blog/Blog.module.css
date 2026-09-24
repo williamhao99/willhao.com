@@ -59,7 +59,7 @@
 /* Mobile styles */
 @media (max-width: 768px) {
   .feed {
-    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-columns: 1fr;
     gap: var(--space-1rem);
   }
 

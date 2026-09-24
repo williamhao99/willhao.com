@@ -17,12 +17,11 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     },
     "target": "ES2017",
-    // Strictest possible TypeScript checks beyond "strict": true
+    // Extra checks beyond "strict"
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
     "verbatimModuleSyntax": true

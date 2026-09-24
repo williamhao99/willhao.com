@@ -6,7 +6,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // Year-long caching for images since they're versioned by filename
+        // Year-long immutable caching: rename an image when replacing it
         source: "/:all*(png|jpg|jpeg|gif|webp|avif|svg|ico)",
         headers: [
           {

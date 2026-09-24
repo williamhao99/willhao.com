@@ -23,7 +23,7 @@ export default function WorkListItem({ project }: WorkListItemProps) {
       <>
         <div className={styles.left}>
           <h3 className={styles.title}>{project.title}</h3>
-          {project.date && <time className={styles.date}>{project.date}</time>}
+          <time className={styles.date}>{project.date}</time>
         </div>
         <div className={styles.right}>
           <span className={styles.description}>{project.description}</span>

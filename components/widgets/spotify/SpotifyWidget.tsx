@@ -113,7 +113,6 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
       }
     }
 
-    // Start polling if page is visible
     if (document.visibilityState === "visible") {
       startPolling();
     }

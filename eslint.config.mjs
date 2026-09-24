@@ -8,8 +8,7 @@ export default defineConfig([
       "react/no-unescaped-entities": "off",
     },
   },
-  // House conventions (see CLAUDE.md), enforced so they survive tooling and
-  // contributors instead of relying on manual discipline
+  // House conventions (see CLAUDE.md)
   {
     files: ["**/*.ts", "**/*.tsx"],
     rules: {
@@ -39,5 +38,5 @@ export default defineConfig([
       ],
     },
   },
-  globalIgnores([".next/**", "node_modules/**", "temp-stash/**"]),
+  globalIgnores(["temp-stash/**"]),
 ]);

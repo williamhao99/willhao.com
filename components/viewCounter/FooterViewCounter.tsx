@@ -115,7 +115,6 @@ export default function FooterViewCounter() {
     [slug],
   );
 
-  // Don't render anything if not on a footer-view page
   if (!slug) {
     return null;
   }

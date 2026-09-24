@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import struct
 
 def create_ico_from_png(png_path, ico_path):
@@ -34,4 +35,6 @@ def create_ico_from_png(png_path, ico_path):
     print(f"Created {ico_path} with transparency support")
 
 if __name__ == "__main__":
-    create_ico_from_png('favicon-32x32.png', 'favicon.ico')
+    # Resolve from this file so it runs from any cwd
+    favicons = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "public", "favicons"))
+    create_ico_from_png(os.path.join(favicons, "favicon-32x32.png"), os.path.join(favicons, "favicon.ico"))

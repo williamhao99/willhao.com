@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  fetchSpotifyData,
-  getCachedSpotifyData,
-  type SpotifyData,
-} from "@/lib/data/spotify";
+import { fetchSpotifyData, type SpotifyData } from "@/lib/data/spotify";
 
 const DEFAULT_DATA: SpotifyData = {
   isPlaying: false,
@@ -12,13 +8,7 @@ const DEFAULT_DATA: SpotifyData = {
 };
 
 export async function GET() {
-  // Try cached data first (instant response)
-  const cached = getCachedSpotifyData();
-  if (cached) {
-    return NextResponse.json(cached);
-  }
-
-  // No cache - fetch fresh (serves stale data on upstream failure)
+  // Cache-first; serves stale data on upstream failure
   try {
     const data = await fetchSpotifyData();
     return NextResponse.json(data);

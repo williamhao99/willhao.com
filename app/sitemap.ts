@@ -1,14 +1,7 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/app/blog/blogs";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://willhao.com";
-
-interface SitemapItem {
-  path: string;
-  lastModified: string;
-  changeFrequency: "monthly" | "yearly";
-  priority: number;
-}
+const siteUrl = "https://willhao.com";
 
 const dates = {
   home: "2026-08-17",
@@ -19,37 +12,37 @@ const dates = {
 } as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const items: SitemapItem[] = [
+  const entries: MetadataRoute.Sitemap = [
     // Main pages
     {
-      path: "/",
+      url: siteUrl + "/",
       lastModified: dates.home,
-      changeFrequency: "monthly" as const,
+      changeFrequency: "monthly",
       priority: 1.0,
     },
     {
-      path: "/about",
+      url: siteUrl + "/about",
       lastModified: dates.about,
-      changeFrequency: "monthly" as const,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      path: "/works",
+      url: siteUrl + "/works",
       lastModified: dates.works,
-      changeFrequency: "monthly" as const,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      path: "/blog",
+      url: siteUrl + "/blog",
       lastModified: dates.blogIndex,
-      changeFrequency: "monthly" as const,
+      changeFrequency: "monthly",
       priority: 0.7,
     },
     // Project pages
     {
-      path: "/works/ut-math-drp",
+      url: siteUrl + "/works/ut-math-drp",
       lastModified: dates.utMathDrp,
-      changeFrequency: "yearly" as const,
+      changeFrequency: "yearly",
       priority: 0.5,
     },
   ];
@@ -58,25 +51,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (let i = 0; i < blogPosts.length; i++) {
     const post = blogPosts[i];
     if (!post) continue;
-    items.push({
-      path: post.link,
+    entries.push({
+      url: siteUrl + post.link,
       lastModified: post.lastModified,
       changeFrequency: "yearly",
       priority: 0.5,
     });
   }
 
-  const sitemapEntries = [];
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    if (!item) continue;
-    sitemapEntries.push({
-      url: siteUrl + item.path,
-      lastModified: item.lastModified,
-      changeFrequency: item.changeFrequency,
-      priority: item.priority,
-    });
-  }
-
-  return sitemapEntries;
+  return entries;
 }

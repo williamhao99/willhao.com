@@ -1,10 +1,9 @@
-// Type definition for the data we return to the UI components
 export interface SpotifyData {
   isPlaying: boolean;
   songTitle: string;
   artist: string;
-  lastPlayed?: string; // Optional - only when not currently playing
-  backoff?: boolean; // Optional - set while an upstream fetch is failing
+  lastPlayed?: string; // Only when not currently playing
+  backoff?: boolean; // Set while an upstream fetch is failing
 }
 
 // Internal types matching Spotify API response structure
@@ -34,10 +33,8 @@ let cachedToken: { token: string; expires: number } | null = null;
 // Store rotated refresh token in memory (falls back to env var)
 let rotatedRefreshToken: string | null = null;
 
-// Store fetched data in memory for instant retrieval
-// Fresh TTL stays just above the tick - dev HMR can detach the ticker.
-// Idle recently-played calls are throttled - 2s polling exhausted that
-// endpoint's daily quota (429 QUOTA_EXCEEDED)
+// Fresh TTL stays just above the 2s tick (dev HMR can detach the ticker)
+// Idle recently-played is throttled: 2s polling hit 429 QUOTA_EXCEEDED
 const CACHE_DURATION = 3 * 1000;
 const STALE_DURATION = 5 * 60 * 1000;
 const IDLE_HISTORY_INTERVAL = 60 * 1000;
@@ -78,7 +75,6 @@ function buildData(entry: {
   return result;
 }
 
-// Get cached data if available and not expired
 export function getCachedSpotifyData(): SpotifyData | null {
   if (cachedStats && Date.now() - cachedStats.fetchedAt < CACHE_DURATION) {
     return buildData(cachedStats);
@@ -86,9 +82,8 @@ export function getCachedSpotifyData(): SpotifyData | null {
   return null;
 }
 
-// Backoff gates: backoffUntil covers token + currently-playing,
-// recentBackoffUntil covers recently-played (its quota exhausts alone).
-// A dead refresh token (400) is only fixable by re-auth, so gate long
+// backoffUntil gates token + currently-playing, recentBackoffUntil gates recently-played
+// (its quota exhausts alone). A dead refresh token (400) needs re-auth, so gate long
 const NON_429_BACKOFF = 5 * 1000;
 const RATE_LIMIT_BACKOFF = 30 * 1000;
 const MAX_RETRY_AFTER = 60 * 60 * 1000;
@@ -148,7 +143,6 @@ export function startBackgroundRefresh() {
   }, REFRESH_INTERVAL);
 }
 
-// Helper function to get/refresh Spotify access token
 async function getAccessToken(
   signal: AbortSignal | null = null,
 ): Promise<string> {
@@ -156,7 +150,6 @@ async function getAccessToken(
     return cachedToken.token;
   }
 
-  // Get credentials from environment variables
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
   const refreshToken = rotatedRefreshToken || process.env.SPOTIFY_REFRESH_TOKEN;
@@ -165,7 +158,6 @@ async function getAccessToken(
     throw new Error("Missing Spotify credentials");
   }
 
-  // Exchange refresh token for new access token using Spotify OAuth
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -198,13 +190,11 @@ async function getAccessToken(
 
   const data = await response.json();
 
-  // Cache the new token with expiration time
   cachedToken = {
     token: data.access_token,
     expires: Date.now() + (data.expires_in - 60) * 1000,
   };
 
-  // Store rotated refresh token if Spotify issued a new one
   if (data.refresh_token) {
     rotatedRefreshToken = data.refresh_token;
   }
@@ -212,7 +202,6 @@ async function getAccessToken(
   return data.access_token;
 }
 
-// Extract artist names from a Spotify track
 function getArtistNames(track: SpotifyTrack): string {
   const names = [];
   const artists = track.artists || [];
@@ -224,7 +213,6 @@ function getArtistNames(track: SpotifyTrack): string {
   return names.join(", ");
 }
 
-// Helper to format time difference as human-readable string
 function formatTimeSince(timestamp: number): string {
   const diffMs = Date.now() - timestamp;
   const diffMins = Math.floor(diffMs / 60000);
@@ -401,9 +389,8 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
         fetchedAt: cachedStats.fetchedAt,
       };
     }
-    // Serve last-known-good through upstream failures - last-played
-    // entries indefinitely (marked checked-now so the SSR reader agrees),
-    // playing/paused claims only within the window
+    // Serve last-known-good: last-played indefinitely (re-stamped so SSR agrees),
+    // playing/paused claims only within STALE_DURATION
     if (cachedStats && cachedStats.playedAt !== null) {
       cachedStats.fetchedAt = Date.now();
       return buildData(cachedStats);
@@ -421,7 +408,6 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
     throw new Error("Spotify backoff active, skipping fetch");
   }
 
-  // Set up timeout handling (5 second limit)
   const controller = new AbortController();
 
   function abortRequest() {
@@ -436,7 +422,6 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
   try {
     let accessToken = await getAccessToken(controller.signal);
 
-    // Try to get currently playing track
     let currentResponse = await fetch(
       "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode",
       {
@@ -473,9 +458,8 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
       }
       backoffUntil = Date.now() + wait;
       currentFailing = true;
-      // With no cache at all, a healthy history endpoint still beats a
-      // 503 - the pre-throttle code always had this fallback (throttled,
-      // so a dual cold-start outage cannot spin the history endpoint)
+      // With no cache, a healthy history endpoint beats a 503
+      // (throttled, so a cold-start outage cannot spin it)
       if (
         !cachedStats &&
         Date.now() - lastRecentlyPlayedAt >= IDLE_HISTORY_INTERVAL
@@ -550,9 +534,8 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
       };
     }
 
-    // While idle the last-played track cannot change, so throttle the
-    // recently-played call - its quota is what the 2s cadence exhausted.
-    // The gate holds with or without a cache, or cold starts spin
+    // Idle: last-played cannot change, so throttle recently-played
+    // The gate holds even with no cache, or cold starts spin
     if (Date.now() - lastRecentlyPlayedAt < IDLE_HISTORY_INTERVAL) {
       if (cachedStats) {
         cachedStats.fetchedAt = Date.now();
@@ -572,7 +555,6 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
         backoffUntil = gate;
       }
     }
-    // Handle timeout vs other errors differently
     if (error instanceof Error && error.name === "AbortError") {
       console.error("Spotify API timeout after 5 seconds");
       throw new Error("Spotify API request timed out");

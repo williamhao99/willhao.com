@@ -24,9 +24,7 @@ export default function WorkCard({ project }: WorkCardProps) {
         <div className={styles.top}>
           <div className={styles.header}>
             <h3 className={styles.title}>{project.title}</h3>
-            {project.date && (
-              <time className={styles.date}>{project.date}</time>
-            )}
+            <time className={styles.date}>{project.date}</time>
           </div>
           <span
             className={styles.icon}

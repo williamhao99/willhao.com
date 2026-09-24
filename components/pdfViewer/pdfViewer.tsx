@@ -10,15 +10,13 @@ interface PdfTab {
 
 interface PdfViewerProps {
   tabs: PdfTab[];
-  customHeight?: string;
 }
 
-export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
+export default function PdfViewer({ tabs }: PdfViewerProps) {
   const viewerId = "pdf-viewer-" + useId();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   function checkIfMobile() {
-    if (typeof window === "undefined") return false;
     const userAgent = navigator.userAgent;
     const mobilePatterns = ["iPad", "iPhone", "iPod", "Android"];
     for (let i = 0; i < mobilePatterns.length; i++) {
@@ -35,7 +33,6 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
   }
 
   function isSafePdf(src: string): boolean {
-    // Security feature
     try {
       // Block protocol-relative or full URLs
       if (
@@ -122,17 +119,13 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
 
     // Only the iframe fills the fixed height; the link and error fit their content
     let viewerClassName = styles.viewer;
-    let viewerStyle = {};
     if (isMobile || !safeSrc) {
       viewerClassName = viewerClassName + " " + styles.compact;
-    } else if (customHeight) {
-      viewerStyle = { height: customHeight };
     }
 
     return (
       <div
         className={viewerClassName}
-        style={viewerStyle}
         id={viewerId + "-" + selectedIndex}
         role="region"
         aria-label={"PDF viewer: " + currentTab.label}
