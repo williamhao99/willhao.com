@@ -118,16 +118,20 @@ export default function PdfViewer({ tabs, customHeight }: PdfViewerProps) {
       safeSrc = currentTab.src;
     }
 
+    const isMobile = checkIfMobile();
+
+    // Only the iframe fills the fixed height; the link and error fit their content
+    let viewerClassName = styles.viewer;
     let viewerStyle = {};
-    if (customHeight) {
+    if (isMobile || !safeSrc) {
+      viewerClassName = viewerClassName + " " + styles.compact;
+    } else if (customHeight) {
       viewerStyle = { height: customHeight };
     }
 
-    const isMobile = checkIfMobile();
-
     return (
       <div
-        className={styles.viewer}
+        className={viewerClassName}
         style={viewerStyle}
         id={viewerId + "-" + selectedIndex}
         role="region"

@@ -58,6 +58,11 @@
   background: var(--color-background);
 }
 
+.viewer.compact {
+  height: auto;
+  min-height: 0;
+}
+
 /* PDF iframe */
 .iframe {
   width: 100%;
@@ -85,11 +90,4 @@
 .errorMessage {
   padding: var(--space-1rem);
   color: var(--color-text-muted);
-}
-/* Mobile styles */
-@media (max-width: 768px) {
-  .viewer {
-    height: auto;
-    min-height: 0;
-  }
 }
