@@ -72,25 +72,36 @@ export default function OsuWidget({ initialData }: OsuWidgetProps) {
     };
   }, []);
 
+  // Pinned locale so server and client render the same separators
   let rankDisplay = "—";
   if (data.globalRank !== null) {
-    rankDisplay = "#" + data.globalRank.toLocaleString();
+    rankDisplay = "#" + data.globalRank.toLocaleString("en-US");
   }
 
   let peakDisplay = "—";
   if (data.peakRank !== null) {
-    peakDisplay = "#" + data.peakRank.toLocaleString();
+    peakDisplay = "#" + data.peakRank.toLocaleString("en-US");
   }
 
   let ppDisplay = "—";
   if (data.pp !== null) {
-    ppDisplay = data.pp.toLocaleString();
+    ppDisplay = data.pp.toLocaleString("en-US");
   }
 
   let playTimeDisplay = "—";
   if (data.playTime !== null) {
-    playTimeDisplay = data.playTime.toLocaleString() + "h";
+    playTimeDisplay = data.playTime.toLocaleString("en-US") + "h";
   }
+
+  const ariaLabel =
+    "osu! stats: rank " +
+    rankDisplay +
+    ", peak " +
+    peakDisplay +
+    ", pp " +
+    ppDisplay +
+    ", playtime " +
+    playTimeDisplay;
 
   return (
     <a
@@ -98,7 +109,7 @@ export default function OsuWidget({ initialData }: OsuWidgetProps) {
       className={styles.link}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="osu! profile and statistics"
+      aria-label={ariaLabel}
     >
       <div className={styles.widget}>
         <div className={styles.icon}>

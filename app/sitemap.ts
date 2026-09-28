@@ -12,6 +12,16 @@ const dates = {
 } as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // The index lists every post, so it changes whenever the newest post does
+  let blogIndexLastModified: string = dates.blogIndex;
+  for (let i = 0; i < blogPosts.length; i++) {
+    const post = blogPosts[i];
+    if (!post) continue;
+    if (post.lastModified > blogIndexLastModified) {
+      blogIndexLastModified = post.lastModified;
+    }
+  }
+
   const entries: MetadataRoute.Sitemap = [
     // Main pages
     {
@@ -34,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: siteUrl + "/blog",
-      lastModified: dates.blogIndex,
+      lastModified: blogIndexLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },

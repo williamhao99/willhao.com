@@ -3,10 +3,10 @@
 import styles from "./error.module.css";
 
 export default function Error({
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
+  retry: () => void;
 }) {
   return (
     <div className={styles.container}>
@@ -14,7 +14,7 @@ export default function Error({
       <p className={styles.message}>Something went wrong</p>
       <button
         className={styles.button}
-        onClick={reset}
+        onClick={retry}
       >
         <strong>↻ Try again</strong>
       </button>

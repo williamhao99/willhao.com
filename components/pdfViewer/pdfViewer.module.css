@@ -84,7 +84,6 @@
 
 .openButton {
   color: var(--color-brand-blue-text);
-  text-decoration: underline;
 }
 
 .errorMessage {

@@ -89,13 +89,23 @@ export default function ChessWidget({ initialData }: ChessWidgetProps) {
   // USCF rating is not available via API; updated manually
   const uscfRating = 1815;
 
+  const ariaLabel =
+    "Chess.com ratings: rapid " +
+    rapidRating +
+    ", blitz " +
+    blitzRating +
+    ", bullet " +
+    bulletRating +
+    ", USCF " +
+    uscfRating;
+
   return (
     <a
       href="https://www.chess.com/member/javablob"
       className={styles.link}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chess.com profile and ratings"
+      aria-label={ariaLabel}
     >
       <div className={styles.widget}>
         <div className={styles.icon}>

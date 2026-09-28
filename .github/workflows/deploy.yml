@@ -12,7 +12,7 @@ concurrency:
 jobs:
   # Gate the deploy: a commit that fails lint/type-check/build never reaches the VM
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
@@ -27,7 +27,7 @@ jobs:
 
   deploy:
     needs: check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Deploy via SSH

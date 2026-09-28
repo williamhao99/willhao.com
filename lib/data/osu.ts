@@ -140,6 +140,10 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
     );
 
     if (!response.ok) {
+      // Revoked token - drop it so the next tick mints a fresh one
+      if (response.status === 401) {
+        cachedToken = null;
+      }
       throw new Error("osu! API returned " + response.status);
     }
 

@@ -1,4 +1,6 @@
 module.exports = {
+  // Deploys run `pm2 reload willhao.com`, which never re-reads this file: apply edits
+  // on the VM as the deploy user with pm2 delete willhao.com, pm2 start ecosystem.config.js, pm2 save
   apps: [
     {
       name: "willhao.com",
