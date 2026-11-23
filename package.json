@@ -17,7 +17,7 @@
     "chess.js": "^1.4.0",
     "firebase-admin": "^13.6.0",
     "katex": "^0.16.27",
-    "next": "^16.3.8",
+    "next": "^16.4.6",
     "react": "^19.2.3",
     "react-chessboard": "^5.8.6",
     "react-dom": "^19.2.3",
@@ -30,7 +30,7 @@
     "@types/react-dom": "^19",
     "@types/react-katex": "^3.0.4",
     "eslint": "^9",
-    "eslint-config-next": "^16.3.8",
+    "eslint-config-next": "^16.4.6",
     "prettier": "^3.8.0",
     "typescript": "^5"
   }
