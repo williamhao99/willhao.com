@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Newsreader, JetBrains_Mono } from "next/font/google";
-import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import GoogleAnalytics from "@/components/googleAnalytics/GoogleAnalytics";
 import "./globals.css";
@@ -13,11 +12,8 @@ const spaceGrotesk = Space_Grotesk({
 const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
-  // True italic for the experience ledger's dates (no synthesized slant)
-  style: ["normal", "italic"],
   variable: "--font-serif",
 });
-// Only prose code uses it, so fetch on demand instead of on every page
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
@@ -25,21 +21,18 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false,
 });
 
+// No description on purpose
 export const metadata: Metadata = {
   metadataBase: new URL("https://willhao.com"),
   title: {
     template: "%s - Will Hao",
-    default: "Will Hao - Portfolio",
+    default: "Will Hao",
   },
-  description:
-    "CS and Math student at UT Austin. Portfolio, projects, and blog.",
   openGraph: {
     title: {
       template: "%s - Will Hao",
-      default: "Will Hao - Portfolio",
+      default: "Will Hao",
     },
-    description:
-      "CS and Math student at UT Austin. Portfolio, projects, and blog.",
     url: "https://willhao.com",
     siteName: "Will Hao",
     type: "website",
@@ -69,7 +62,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0f172a",
+  themeColor: "#0b1224",
   colorScheme: "dark",
 };
 
@@ -93,11 +86,10 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
       <body suppressHydrationWarning>
-        <Header />
-        <main className="main-content">
-          <div className="container">{children}</div>
-        </main>
-        <Footer />
+        <div className="page">
+          <main className="main">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

@@ -1,131 +1,62 @@
 :root {
   /* === Colors === */
-  /* Base colors */
-  --color-background: #0f172a;
-  --color-text-primary: rgba(250, 250, 250, 0.95);
-  --color-text-secondary: rgba(250, 250, 250, 0.8);
-  --color-text-dim: rgba(250, 250, 250, 0.6);
-  --color-text-muted: rgba(156, 163, 175, 1);
-  /* --color-border: hover emphasis only (chess board nav) */
-  --color-border: rgba(255, 255, 255, 0.25);
-  --color-border-medium: rgba(255, 255, 255, 0.15);
-  --color-border-subtle: rgba(255, 255, 255, 0.1);
-
-  /* Brand colors */
-  --color-brand-blue-bright: #2d7bd6; /* Interactive accent: hover, active, links */
-  --color-brand-blue-text: #438dde; /* Accent for resting text: AA 5.2:1 where -bright is 4.2:1 */
-  --color-award: rgba(217, 183, 86, 1);
-
-  /* Component backgrounds */
-  --color-card-bg-hover: rgba(255, 255, 255, 0.03);
+  --color-background: #0b1224;
+  --color-ink: #eeeff0;
+  --color-grey: #9ca3af;
+  --color-accent: #438dde;
+  --color-live: #1db954;
+  --color-line: rgba(255, 255, 255, 0.1);
 
   /* === Typography === */
-  /* Font fallbacks */
   --font-sans-fallback:
     system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-serif-fallback: Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono-fallback: ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* Text size multipliers  */
-  --multiplier-sm: 0.875; /* 14px */
-  --multiplier-xl: 1.25; /* 20px */
-  --multiplier-section: 1.5; /* 24px */
-  --multiplier-2xl: 2.25; /* 36px */
+  --text-small: 1.4rem;
+  --text-body: 1.6rem;
+  --text-mid: 2rem;
+  --text-heading: 2.2rem;
+  --text-title: 3.6rem;
 
-  /* Prose heading multipliers */
-  --multiplier-deck: 1.15; /* h2 used as deck under h1 */
-  --multiplier-h3: 1.35; /* section heading inside prose */
-
-  /* Font sizes */
-  --text-base: 1.6rem;
-  --text-sm: 1.3rem;
-  --text-md: 1.4rem;
-  --text-lg: 1.8rem;
-  --text-h1: calc(var(--text-base) * var(--multiplier-2xl));
-  --text-h2: calc(var(--text-base) * var(--multiplier-xl));
-  --text-section: calc(var(--text-base) * var(--multiplier-section));
-  --text-deck: calc(var(--text-base) * var(--multiplier-deck));
-  --text-h3: calc(var(--text-base) * var(--multiplier-h3));
-
-  /* Font weights */
   --font-normal: 400;
   --font-medium: 500;
-  --font-semibold: 600;
 
-  /* Line heights */
-  --line-height-none: 1;
-  --line-height-tight: 1.2;
-  --line-height-relaxed: 1.6;
+  --leading-title: 1.2;
+  --leading-snug: 1.35;
+  --leading-body: 1.625;
 
-  /* Letter spacing ("wide-sm" = slight positive tracking for small labels:
-     dates, awards, copyright - not for headings) */
-  --letter-spacing-wide-sm: 0.02em;
-  --letter-spacing-normal: 0.05em;
+  --tracking-tight: -0.01em;
 
-  /* === Spacing === */
-  /* REM spacing */
-  --space-0-5rem: 0.5rem;
-  --space-1rem: 1rem;
-  --space-1-5rem: 1.5rem;
-  --space-1-75rem: 1.75rem;
-  --space-2rem: 2rem;
-  --space-2-5rem: 2.5rem;
-  --space-3rem: 3rem;
-  --space-3-5rem: 3.5rem;
-  --space-4rem: 4rem;
+  /* === Spacing (1rem = 10px) === */
+  --space-6: 0.6rem;
+  --space-10: 1rem;
+  --space-14: 1.4rem;
+  --space-18: 1.8rem;
+  --space-24: 2.4rem;
+  --space-28: 2.8rem;
+  --space-32: 3.2rem;
+  --space-40: 4rem;
+  --space-48: 4.8rem;
+  --space-72: 7.2rem;
 
-  /* Pixel spacing */
-  --space-2px: 2px;
-  --space-3px: 3px;
-  --space-4px: 4px;
-  --space-6px: 6px;
-  --space-8px: 8px;
-  --space-10px: 10px;
+  /* === Layout === */
+  --column: 68rem;
+  --rail: 14.4rem;
+  --page-top: var(--space-72);
+  --page-pad: var(--space-24);
 
-  /* === Layout & Dimensions === */
-  --container-max: 128rem; /* 1280px */
-  --content-max-width: 80ch;
+  /* === Lines === */
+  --line-thin: 1px;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 4px;
+  --underline-offset: 4px;
 
-  /* === Prose === */
-  --prose-code-size: 0.95em;
-  --prose-code-weight: 600;
-  --prose-code-gutter-color: color-mix(
-    in srgb,
-    var(--color-brand-blue-bright) 55%,
-    transparent
-  );
-  --prose-code-gutter-width: var(--space-3px);
-  --prose-link-underline: rgba(255, 255, 255, 0.55);
-  --prose-link-underline-thickness: 1px;
-  --prose-katex-scale: 1.08em;
-
-  /* Grid layouts */
-  --grid-gap-md: var(--space-2rem);
-
-  /* === Borders & Radius === */
-  /* Border widths */
-  --border-width-thin: 1px;
-
-  /* Keyboard focus */
-  --focus-ring-width: var(--space-2px);
-  --focus-ring-offset: var(--space-4px);
-  --focus-ring-color: var(--color-brand-blue-text);
-
-  /* Border radius - controls only (pdf tabs, buttons).
-     Surfaces (cards, widgets, rows) are square: border-radius 0. */
-  --radius-xs: 3px;
-  --radius-sm: 6px;
-
-  /* === Effects & Animations === */
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 200ms ease;
-
-  /* Opacity */
-  --opacity-medium: 0.7;
-
-  /* === Mobile === */
-  --mobile-text-multiplier: 0.9;
+  /* === Details === */
+  --transition: 150ms ease;
+  --mark-gap: 0.32em;
+  --code-size: 0.95em;
+  --katex-scale: 1.08em;
 }
 
 /* Reset */
@@ -143,243 +74,205 @@
 html {
   font-size: 62.5%; /* 1rem = 10px */
   color-scheme: dark;
+  background-color: var(--color-background);
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  color: var(--color-text-primary);
+  color: var(--color-ink);
   background-color: var(--color-background);
   font-family: var(--font-sans), var(--font-sans-fallback);
-  font-size: var(--text-base);
-  min-height: 100vh;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-background);
+}
+
+/* Element defaults */
+:where(:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+:where(a) {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+:where(a:hover) {
+  color: var(--color-accent);
+}
+
+/* Underlined links */
+:where(
+  a[target="_blank"],
+  a[href^="mailto:"],
+  .prose p a,
+  .prose li a,
+  .prose .meta a
+) {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
+  text-decoration-thickness: var(--line-thin);
+  text-underline-offset: var(--underline-offset);
+}
+
+:where(h1) {
+  font-family: var(--font-serif), var(--font-serif-fallback);
+  font-size: var(--text-title);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-title);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-18);
+  text-wrap: balance;
+}
+
+:where(h2) {
+  font-family: var(--font-serif), var(--font-serif-fallback);
+  font-size: var(--text-heading);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+/* Page frame */
+.page {
+  position: relative;
+  max-width: calc(var(--column) + 2 * var(--page-pad));
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
   display: flex;
   flex-direction: column;
 }
 
-::selection {
-  background: var(--color-brand-blue-bright);
-  color: var(--color-text-primary);
-}
-
-:where(:focus-visible) {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
-}
-
-/* Main content area */
-.main-content {
+.main {
   flex: 1;
-  padding: var(--space-2rem) 0;
+  padding-top: var(--page-top);
 }
 
-/* Element defaults are :where() (zero specificity) so module classes win;
-   opt-in classes and KaTeX overrides keep theirs. Ties: base, .prose, mobile */
-
-/* Links in main content */
-:where(.main-content a) {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--transition-fast);
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-:where(.main-content a:visited) {
-  color: inherit;
+/* Prose */
+:where(.prose h1:has(+ .deck)) {
+  margin-bottom: var(--space-10);
 }
 
-:where(.main-content a:hover) {
-  color: var(--color-brand-blue-bright);
+.prose .deck {
+  font-size: var(--text-mid);
+  line-height: var(--leading-snug);
+  color: var(--color-grey);
+  margin-bottom: var(--space-18);
+  text-wrap: balance;
 }
 
-/* Typography for main content only */
-:where(.main-content h1) {
-  font-family: var(--font-serif), var(--font-serif-fallback);
-  font-size: var(--text-h1);
-  line-height: var(--line-height-tight);
-  font-weight: var(--font-medium);
-  margin-bottom: var(--space-2-5rem);
+.prose .meta {
+  font-size: var(--text-small);
+  color: var(--color-grey);
+  margin-bottom: var(--space-32);
 }
 
-:where(.main-content h2) {
-  font-size: var(--text-h2);
-  line-height: var(--line-height-tight);
-  font-weight: var(--font-medium);
-  margin-bottom: var(--space-1rem);
+:where(.prose h2) {
+  margin: var(--space-32) 0 var(--space-10);
 }
 
-:where(.main-content p) {
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-1-5rem);
+:where(.prose p) {
+  margin-bottom: var(--space-18);
+  text-wrap: pretty;
 }
 
-:where(.main-content p:last-child) {
+:where(.prose p:last-child) {
   margin-bottom: 0;
 }
 
-:where(.main-content ul, .main-content ol) {
-  margin-bottom: var(--space-1rem);
-  padding-left: var(--space-2rem);
+:where(.prose ul, .prose ol) {
+  margin-bottom: var(--space-18);
+  padding-left: var(--space-24);
 }
 
-:where(.main-content li) {
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-0-5rem);
+:where(.prose li) {
+  margin-bottom: var(--space-6);
 }
 
-:where(.main-content li:last-child) {
-  margin-bottom: 0;
+.prose .back {
+  margin-top: var(--space-32);
+  color: var(--color-grey);
 }
 
-:where(.main-content figcaption) {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  font-style: italic;
-  text-align: center;
-  margin-top: var(--space-1rem);
+:where(.prose hr) {
+  border: 0;
+  border-top: var(--line-thin) solid var(--color-line);
+  margin: var(--space-32) 0;
 }
 
-/* Back link - top and bottom of content pages */
-.main-content .back-link {
-  display: inline-block;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  text-decoration: none;
-  margin-bottom: var(--space-2rem);
-  transition: color var(--transition-fast);
+:where(.prose hr + h2) {
+  margin-top: 0;
 }
 
-.main-content .back-link:hover {
-  color: var(--color-brand-blue-bright);
-}
-
-/* Prose - content pages opt in via the <Prose> component.
-   Convention: h1 = title, h2 = deck, h3 = section headers. */
-
-.main-content .prose {
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-}
-
-:where(.main-content .prose h1) {
-  margin-bottom: var(--space-1rem);
-}
-
-:where(.main-content .prose h2) {
-  font-size: var(--text-deck);
-  font-weight: var(--font-normal);
-  color: var(--color-text-dim);
-  margin-bottom: var(--space-3rem);
-}
-
-:where(.main-content .prose h3) {
-  font-size: var(--text-h3);
-  line-height: var(--line-height-tight);
-  font-weight: var(--font-semibold);
-  letter-spacing: -0.01em;
-  margin-top: var(--space-3rem);
-  margin-bottom: var(--space-1rem);
-}
-
-:where(
-  .main-content .prose p,
-  .main-content .prose ul,
-  .main-content .prose ol
-) {
-  margin-bottom: var(--space-1-75rem);
-}
-
-:where(.main-content .prose p a, .main-content .prose li a) {
-  text-decoration: underline;
-  text-decoration-color: var(--prose-link-underline);
-  text-decoration-thickness: var(--prose-link-underline-thickness);
-  text-underline-offset: var(--space-4px);
-}
-
-:where(.main-content .prose p a:hover, .main-content .prose li a:hover) {
-  text-decoration-color: var(--color-brand-blue-bright);
-}
-
-:where(.main-content .prose code) {
+:where(.prose code) {
   font-family: var(--font-mono), var(--font-mono-fallback);
-  font-size: var(--prose-code-size);
-  font-weight: var(--prose-code-weight);
-  color: var(--color-brand-blue-text);
+  font-size: var(--code-size);
   font-variant-ligatures: none;
 }
 
-:where(.main-content .prose pre code) {
-  font-size: inherit;
-  font-weight: inherit;
-  color: inherit;
-}
-
-:where(.main-content .prose pre) {
-  margin: var(--space-2rem) 0;
-  padding: var(--space-0-5rem) 0 var(--space-0-5rem) var(--space-1-5rem);
-  border-left: var(--prose-code-gutter-width) solid
-    var(--prose-code-gutter-color);
+:where(.prose pre) {
+  margin: var(--space-24) 0;
+  padding-left: var(--space-14);
+  border-left: var(--line-thin) solid var(--color-line);
   overflow-x: auto;
   font-family: var(--font-mono), var(--font-mono-fallback);
-  font-size: var(--text-md);
-  line-height: var(--line-height-relaxed);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
 }
 
-/* KaTeX overrides keep full specificity on purpose: they must outrank
-   the (0,1,0) selectors that ship inside katex.min.css. */
-.main-content .prose .katex {
-  font-size: var(--prose-katex-scale);
+:where(.prose pre code) {
+  font-size: inherit;
 }
 
-.main-content .prose .katex-display {
-  margin-top: var(--space-2-5rem);
-  margin-bottom: var(--space-2-5rem);
+:where(.prose figure) {
+  margin: var(--space-24) 0;
 }
 
-/* Content containers */
-.container {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--space-2rem);
+:where(.prose img) {
+  width: 100%;
+  height: auto;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 var(--space-1-5rem);
-  }
+:where(.prose figcaption) {
+  font-size: var(--text-small);
+  color: var(--color-grey);
+  margin-top: var(--space-10);
+}
 
-  .main-content {
-    padding: var(--space-1-5rem) 0;
-  }
+/* KaTeX */
+.prose .katex {
+  font-size: var(--katex-scale);
+}
 
-  :where(.main-content h1) {
-    font-size: calc(var(--text-h1) * var(--mobile-text-multiplier));
-    margin-bottom: var(--space-2rem);
-  }
+.prose .katex-display {
+  margin-top: var(--space-24);
+  margin-bottom: var(--space-24);
+}
 
-  :where(.main-content h2) {
-    font-size: calc(var(--text-h2) * var(--mobile-text-multiplier));
-  }
-
-  :where(.main-content p) {
-    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
-  }
-
-  /* Re-assert prose title margin after the mobile h1 rule above - within
-     the zero-specificity layer, source order decides. */
-  :where(.main-content .prose h1) {
-    margin-bottom: var(--space-1rem);
-  }
-
-  :where(.main-content .prose h2) {
-    font-size: calc(var(--text-deck) * var(--mobile-text-multiplier));
-    margin-bottom: var(--space-2rem);
-  }
-
-  :where(.main-content .prose h3) {
-    font-size: calc(var(--text-h3) * var(--mobile-text-multiplier));
-    margin-top: var(--space-2-5rem);
-  }
-
-  :where(.main-content li) {
-    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
+/* Mobile */
+@media (max-width: 35em) {
+  :root {
+    --text-title: 3.2rem;
+    --rail: 11.6rem;
+    --page-top: var(--space-48);
+    --page-pad: var(--space-18);
   }
 }
