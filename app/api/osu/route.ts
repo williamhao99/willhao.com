@@ -1,18 +1,11 @@
 import { NextResponse } from "next/server";
-import { fetchOsuStats, type OsuStats } from "@/lib/data/osu";
-
-const DEFAULT_DATA: OsuStats = {
-  globalRank: null,
-  peakRank: null,
-  pp: null,
-  playTime: null,
-};
+import { fetchOsuStats } from "@/lib/data/osu";
 
 export async function GET() {
   try {
     const data = await fetchOsuStats();
     return NextResponse.json(data);
   } catch {
-    return NextResponse.json(DEFAULT_DATA, { status: 503 });
+    return new NextResponse(null, { status: 503 });
   }
 }

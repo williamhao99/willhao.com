@@ -1,17 +1,11 @@
 import { NextResponse } from "next/server";
-import { fetchChessStats, type ChessStats } from "@/lib/data/chess";
-
-const DEFAULT_DATA: ChessStats = {
-  rapid: null,
-  blitz: null,
-  bullet: null,
-};
+import { fetchChessStats } from "@/lib/data/chess";
 
 export async function GET() {
   try {
     const data = await fetchChessStats();
     return NextResponse.json(data);
   } catch {
-    return NextResponse.json(DEFAULT_DATA, { status: 503 });
+    return new NextResponse(null, { status: 503 });
   }
 }

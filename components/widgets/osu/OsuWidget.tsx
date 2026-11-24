@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import OsuIcon from "@/components/icons/OsuIcon";
 import type { OsuStats } from "@/lib/data/osu";
-import styles from "./OsuWidget.module.css";
+import ledger from "@/components/ledger/Ledger.module.css";
 
 interface OsuWidgetProps {
   initialData: OsuStats | null;
@@ -39,7 +38,6 @@ export default function OsuWidget({ initialData }: OsuWidgetProps) {
 
     function startPolling() {
       if (intervalId) return;
-      // Fetch immediately so tab returns catch up
       fetchData();
       intervalId = setInterval(fetchData, 60000);
     }
@@ -72,24 +70,23 @@ export default function OsuWidget({ initialData }: OsuWidgetProps) {
     };
   }, []);
 
-  // Pinned locale so server and client render the same separators
   let rankDisplay = "—";
-  if (data.globalRank !== null) {
+  if (typeof data.globalRank === "number") {
     rankDisplay = "#" + data.globalRank.toLocaleString("en-US");
   }
 
   let peakDisplay = "—";
-  if (data.peakRank !== null) {
+  if (typeof data.peakRank === "number") {
     peakDisplay = "#" + data.peakRank.toLocaleString("en-US");
   }
 
   let ppDisplay = "—";
-  if (data.pp !== null) {
+  if (typeof data.pp === "number") {
     ppDisplay = data.pp.toLocaleString("en-US");
   }
 
   let playTimeDisplay = "—";
-  if (data.playTime !== null) {
+  if (typeof data.playTime === "number") {
     playTimeDisplay = data.playTime.toLocaleString("en-US") + "h";
   }
 
@@ -104,36 +101,37 @@ export default function OsuWidget({ initialData }: OsuWidgetProps) {
     playTimeDisplay;
 
   return (
-    <a
-      href="https://osu.ppy.sh/users/whao"
-      className={styles.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={ariaLabel}
-    >
-      <div className={styles.widget}>
-        <div className={styles.icon}>
-          <OsuIcon />
-        </div>
-        <div className={styles.content}>
-          <div className={styles.item}>
-            <span className={styles.label}>RANK</span>
-            <span className={styles.value}>{rankDisplay}</span>
-          </div>
-          <div className={styles.item}>
-            <span className={styles.label}>PEAK</span>
-            <span className={styles.value}>{peakDisplay}</span>
-          </div>
-          <div className={styles.item}>
-            <span className={styles.label}>PP</span>
-            <span className={styles.value}>{ppDisplay}</span>
-          </div>
-          <div className={styles.item}>
-            <span className={styles.label}>PLAYTIME</span>
-            <span className={styles.value}>{playTimeDisplay}</span>
-          </div>
-        </div>
-      </div>
-    </a>
+    <li className={ledger.row}>
+      <a
+        href="https://osu.ppy.sh/users/whao"
+        className={ledger.when + " " + ledger.rowLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={ariaLabel + " (opens in new tab)"}
+      >
+        osu!
+      </a>
+      <span
+        className={ledger.stats}
+        aria-hidden="true"
+      >
+        <span>
+          {rankDisplay}
+          <span className={ledger.unit}>rank</span>
+        </span>
+        <span>
+          {peakDisplay}
+          <span className={ledger.unit}>peak</span>
+        </span>
+        <span>
+          {ppDisplay}
+          <span className={ledger.unit}>pp</span>
+        </span>
+        <span>
+          {playTimeDisplay}
+          <span className={ledger.unit}>played</span>
+        </span>
+      </span>
+    </li>
   );
 }

@@ -1,18 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef, type CSSProperties } from "react";
-import SpotifyIcon from "@/components/icons/SpotifyIcon";
+import { useState, useEffect } from "react";
 import type { SpotifyData } from "@/lib/data/spotify";
+import ledger from "@/components/ledger/Ledger.module.css";
 import styles from "./SpotifyWidget.module.css";
 
 interface SpotifyWidgetProps {
   initialData: SpotifyData | null;
-}
-
-interface MarqueeTextProps {
-  text: string;
-  className: string | undefined;
-  resetKey: string;
 }
 
 const DEFAULT_DATA: SpotifyData = {
@@ -21,7 +15,6 @@ const DEFAULT_DATA: SpotifyData = {
   artist: "—",
 };
 
-// Keep the shown data on a failed poll, but surface the retry state
 function markBackoff(prev: SpotifyData): SpotifyData {
   if (prev.backoff) {
     return prev;
@@ -32,26 +25,32 @@ function markBackoff(prev: SpotifyData): SpotifyData {
     artist: prev.artist,
     backoff: true,
   };
+  if (prev.songUrl) {
+    next.songUrl = prev.songUrl;
+  }
   if (prev.lastPlayed) {
     next.lastPlayed = prev.lastPlayed;
   }
   return next;
 }
 
-// After ~5min of failed polls, stop asserting live playback the server
-// would no longer vouch for
+// About 5 min of failed polls
 const STALE_POLL_LIMIT = 150;
 
 function demoteStale(prev: SpotifyData): SpotifyData {
   if (!prev.isPlaying && prev.lastPlayed !== "(paused)") {
     return markBackoff(prev);
   }
-  return {
+  const next: SpotifyData = {
     isPlaying: false,
     songTitle: prev.songTitle,
     artist: prev.artist,
     backoff: true,
   };
+  if (prev.songUrl) {
+    next.songUrl = prev.songUrl;
+  }
+  return next;
 }
 
 export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
@@ -93,7 +92,6 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
 
     function startPolling() {
       if (intervalId) return;
-      // Fetch immediately so tab returns catch up
       fetchData();
       intervalId = setInterval(fetchData, 2000);
     }
@@ -126,113 +124,80 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
     };
   }, []);
 
-  let isPlaying = data.isPlaying;
-  let songTitle = data.songTitle;
-  let artist = data.artist;
-  let lastPlayed = data.lastPlayed;
+  const isPlaying = data.isPlaying;
+  const songTitle = data.songTitle;
+  const artist = data.artist;
+  const lastPlayed = data.lastPlayed;
 
-  let statusText = "Last played";
+  let statusText = "played recently";
   if (isPlaying) {
-    statusText = "Now playing";
+    statusText = "playing now";
+  } else if (lastPlayed === "(paused)") {
+    statusText = "paused";
   } else if (lastPlayed) {
-    statusText = "Last played " + lastPlayed;
+    statusText = "played " + lastPlayed;
   }
   if (data.backoff) {
     statusText = statusText + " (retrying)";
   }
 
-  let widgetClassName = styles.widget;
-  if (isPlaying) {
-    widgetClassName = styles.widget + " " + styles.playing;
-  }
+  const linked = Boolean(data.songUrl);
 
-  const songKey = songTitle + "_" + artist;
-
-  return (
-    <a
-      href="https://open.spotify.com/user/williamhao99"
-      className={styles.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={"Spotify, " + statusText + ": " + songTitle + " by " + artist}
-    >
-      <div className={widgetClassName}>
-        <div className={styles.icon}>
-          <SpotifyIcon />
-        </div>
-        <div className={styles.content}>
-          <span className={styles.status}>{statusText}</span>
-          <MarqueeText
-            text={songTitle}
-            className={styles.title}
-            resetKey={songKey}
-          />
-          <MarqueeText
-            text={artist}
-            className={styles.artist}
-            resetKey={songKey}
-          />
-        </div>
-      </div>
-    </a>
-  );
-}
-
-function MarqueeText({ text, className, resetKey }: MarqueeTextProps) {
-  const outerRef = useRef<HTMLSpanElement>(null);
-  const innerRef = useRef<HTMLSpanElement>(null);
-  const [overflow, setOverflow] = useState(0);
-
-  useEffect(
-    function measureOverflow() {
-      function measure() {
-        const outer = outerRef.current;
-        const inner = innerRef.current;
-        if (!outer || !inner) return;
-        let diff = inner.offsetWidth - outer.clientWidth;
-        if (diff < 0) {
-          diff = 0;
-        }
-        setOverflow(diff);
-      }
-
-      measure();
-
-      // Re-measure after fonts finish loading — Newsreader may shift widths
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(function onFontsReady() {
-          measure();
-        });
-      }
-
-      window.addEventListener("resize", measure);
-      return function cleanup() {
-        window.removeEventListener("resize", measure);
-      };
-    },
-    [text],
-  );
-
-  let innerClassName = styles.scrollInner;
-  let innerStyle: CSSProperties = {};
-  if (overflow > 0) {
-    innerClassName = styles.scrollInner + " " + styles.marquee;
-    innerStyle = { "--overflow-distance": overflow + "px" } as CSSProperties;
-  }
-
-  return (
-    <span
-      ref={outerRef}
-      className={className}
-    >
+  let by = null;
+  let tip;
+  let spoken = songTitle;
+  if (artist !== "—") {
+    tip = songTitle + " by " + artist;
+    spoken = tip + ", " + statusText;
+    let statusClass = styles.status;
+    if (isPlaying && !data.backoff) {
+      statusClass = styles.status + " " + styles.playing;
+    }
+    by = (
       <span
-        key={resetKey}
-        ref={innerRef}
-        className={innerClassName}
-        style={innerStyle}
+        className={styles.by}
+        aria-hidden={linked}
       >
-        {text}
+        <span className={styles.artist}>{artist}</span>
+        <span className={statusClass}>{statusText}</span>
       </span>
-    </span>
+    );
+  }
+
+  // The link speaks the whole row, so the second line is hidden from it
+  let title = <span className={styles.title}>{songTitle}</span>;
+  if (data.songUrl) {
+    title = (
+      <a
+        href={data.songUrl}
+        className={styles.title + " " + styles.song}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={spoken + " (opens in new tab)"}
+      >
+        {songTitle}
+      </a>
+    );
+  }
+
+  return (
+    <li className={ledger.row}>
+      <a
+        href="https://open.spotify.com/user/williamhao99"
+        className={ledger.when}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Spotify
+        <span className="visually-hidden"> (opens in new tab)</span>
+      </a>
+      <span
+        className={styles.track}
+        title={tip}
+      >
+        {title}
+        {by}
+      </span>
+    </li>
   );
 }

@@ -1,263 +1,91 @@
-/* Hero section */
-.heroSection {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
-  align-items: start;
-  column-gap: var(--space-3rem);
-  margin-bottom: var(--space-4rem);
-}
+/* Header */
+.front {
+  /* 32px sprite - whole multiples only */
+  --knight-size: 64px;
+  --knight-pixel: calc(var(--knight-size) / 32);
+  /* Empty margins of the sprite, in sprite pixels */
+  --knight-inset-right: calc(4 * var(--knight-pixel));
+  --knight-inset-left: calc(5 * var(--knight-pixel));
+  --knight-inset-bottom: calc(2 * var(--knight-pixel));
+  /* Cap heights in em: Newsreader, Space Grotesk */
+  --name-cap: 0.676;
+  --link-cap: 0.7;
+  /* The drawing is 28 sprite pixels tall */
+  --knight-drop: calc(
+    (28 * var(--knight-pixel) - var(--name-cap) * var(--text-title)) / 2
+  );
 
-.title {
-  grid-column: 1;
-  grid-row: 1;
-  margin: 0 0 var(--space-1-5rem);
-  color: var(--color-text-primary);
-}
-
-.subtitle {
-  margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-0-5rem);
-  font-size: var(--text-lg);
-  font-weight: var(--font-normal);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-secondary);
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-28);
+  margin-bottom: var(--space-18);
 }
 
-.titleIcon {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  /* Match the text block: height 0 keeps the knight out of row sizing
-     (a plain percentage still contributes its intrinsic 96px), then
-     min-height stretches it to the title + subtitle span. */
+.front h1,
+.links a {
+  white-space: nowrap;
+}
+
+.front h1 {
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+.links {
+  position: relative;
+  bottom: calc(
+    (var(--name-cap) * var(--text-title) - var(--link-cap) * 1em) / 2
+  );
+  display: flex;
+  gap: var(--space-28);
+  color: var(--color-grey);
+}
+
+.knightSlot {
+  position: relative;
+  flex: none;
+  width: calc(
+    var(--knight-size) - var(--knight-inset-left) - var(--knight-inset-right)
+  );
   height: 0;
-  min-height: 100%;
-  width: auto;
-  user-select: none;
-  -webkit-user-drag: none;
-  pointer-events: none;
+}
+
+.knight {
+  position: absolute;
+  left: calc(-1 * var(--knight-inset-left));
+  bottom: calc(-1 * (var(--knight-inset-bottom) + var(--knight-drop)));
+  width: var(--knight-size);
+  max-width: none;
+  height: var(--knight-size);
   image-rendering: pixelated;
 }
 
-.subtitleRow {
-  grid-column: 1;
-  grid-row: 2;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2rem);
-  flex-wrap: wrap;
+.intro,
+.personal {
+  text-wrap: pretty;
 }
 
-/* 2.6rem is the largest icon inside the claim's line box */
-.quickLinks {
-  --icon-size-inline: 2.6rem;
-  --opacity-icon: 0.55;
-  --icon-mono-brightness: 1.5;
-
-  display: flex;
-  align-items: center;
-  gap: var(--space-1rem);
+.personal {
+  margin-bottom: var(--space-10);
 }
 
-/* Hit-area padding; the negative margin keeps it out of row sizing */
-.quickLink {
-  display: flex;
-  align-items: center;
-  padding: var(--space-4px);
-  margin: calc(-1 * var(--space-4px)) 0;
+/* Mobile */
+@media (max-width: 35em) {
+  .front,
+  .links {
+    gap: var(--space-18);
+  }
 }
 
-.quickLinkIcon {
-  width: var(--icon-size-inline);
-  height: var(--icon-size-inline);
-  opacity: var(--opacity-icon);
-  filter: grayscale(1) brightness(var(--icon-mono-brightness));
-  transition:
-    opacity var(--transition-fast),
-    filter var(--transition-fast);
-}
-
-.quickLink:hover .quickLinkIcon,
-.quickLink:focus-visible .quickLinkIcon {
-  opacity: 1;
-  filter: none;
-}
-
-/* Experience section */
-.experienceSection {
-  margin-bottom: var(--space-4rem);
-}
-
-.sectionHeading {
-  font-family: var(--font-serif), var(--font-serif-fallback);
-  font-size: var(--text-section);
-  font-weight: var(--font-medium);
-  line-height: var(--line-height-tight);
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-2rem);
-}
-
-.experienceList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1rem);
-}
-
-.experienceRow {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2rem);
-  /* Blocks the globals li margin from adding to the list gap */
-  margin-bottom: 0;
-}
-
-/* 1.5rem italic is the optical match for the sans 1.3rem; line-height
-   must match the text cell or the taller box governs the row. */
-.experienceDate {
-  --date-rail-width: 11rem;
-  --date-serif-size: 1.5rem;
-
-  flex-shrink: 0;
-  width: var(--date-rail-width);
-  font-family: var(--font-serif), var(--font-serif-fallback);
-  font-style: italic;
-  font-size: var(--date-serif-size);
-  color: var(--color-text-muted);
-  font-variant-numeric: oldstyle-nums;
-  line-height: var(--line-height-tight);
-}
-
-.experienceText {
-  font-size: var(--text-base);
-  line-height: var(--line-height-tight);
-  text-wrap: balance;
-}
-
-.experienceCompany {
-  font-weight: var(--font-medium);
-  color: var(--color-text-primary);
-}
-
-/* Dim parens mark a self-directed entry as a qualifier, not a name */
-.experienceQualifier {
-  color: var(--color-text-dim);
-  font-weight: var(--font-normal);
-}
-
-.experienceSeparator {
-  color: var(--color-text-dim);
-}
-
-.experienceRole {
-  color: var(--color-text-secondary);
-}
-
-/* Works section */
-.worksSection {
-  --card-width: 40rem;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fit, min(var(--card-width), 100%));
-  gap: var(--grid-gap-md);
-  margin-bottom: var(--space-2rem);
-}
-
-.worksHeadingRow {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-2rem);
-}
-
-.worksHeadingRow .sectionHeading {
-  margin-bottom: 0;
-}
-
-.cardsGrid {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-auto-rows: 1fr;
-  gap: var(--grid-gap-md);
-}
-
-.allWorksLink {
-  font-size: var(--text-md);
-  color: var(--color-text-secondary);
-  transition: color var(--transition-fast);
-}
-
-.allWorksLink:hover,
-.allWorksLink:focus-visible {
-  color: var(--color-brand-blue-bright);
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-  .heroSection {
-    column-gap: var(--space-1rem);
+/* Under 360px */
+@media (max-width: 22.4375em) {
+  .front {
+    --knight-size: 32px;
   }
 
-  /* Definite size: the derived span balloons when the subtitle wraps */
-  .titleIcon {
-    --knight-size-mobile: 8rem;
-
-    height: var(--knight-size-mobile);
-    min-height: 0;
-  }
-
-  /* 386px is the measured fit threshold for the current claim, icons,
-     and knight - re-measure if they change. */
-  .subtitleRow {
-    --claim-icons-gap-fluid: clamp(
-      var(--space-1rem),
-      calc(var(--space-1rem) + (100vw - 386px) / 2),
-      var(--space-2rem)
-    );
-
-    column-gap: var(--claim-icons-gap-fluid);
-    row-gap: var(--space-1rem);
-  }
-
-  .quickLinks {
-    --icon-size-inline: 2rem;
-  }
-
-  .quickLink {
-    margin: calc(-1 * var(--space-4px));
-  }
-
-  .quickLink:focus-visible {
-    outline-offset: calc(-1 * var(--focus-ring-width));
-  }
-
-  .subtitle {
-    font-size: calc(var(--text-lg) * var(--mobile-text-multiplier));
-  }
-
-  .sectionHeading {
-    font-size: calc(var(--text-section) * var(--mobile-text-multiplier));
-  }
-
-  .experienceDate {
-    font-size: calc(var(--date-serif-size) * var(--mobile-text-multiplier));
-  }
-
-  .experienceText {
-    font-size: calc(var(--text-base) * var(--mobile-text-multiplier));
-  }
-
-  .allWorksLink {
-    font-size: calc(var(--text-md) * var(--mobile-text-multiplier));
-  }
-
-  .cardsGrid {
-    gap: var(--space-1-5rem);
+  .front,
+  .links {
+    gap: var(--space-10);
   }
 }

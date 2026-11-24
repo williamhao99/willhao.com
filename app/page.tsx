@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import WorkCard from "@/components/workCards/WorkCard";
-import { projects } from "@/app/works/projects";
-import { experience } from "@/app/experience";
-import type { ExperienceEntry } from "@/app/experience";
-import LinkedInIcon from "@/components/icons/LinkedInIcon";
-import GitHubIcon from "@/components/icons/GitHubIcon";
+import Ledger from "@/components/ledger/Ledger";
+import ProjectRows from "@/components/projectRows/ProjectRows";
+import SpotifyWidget from "@/components/widgets/spotify/SpotifyWidget";
+import ChessWidget from "@/components/widgets/chess/ChessWidget";
+import OsuWidget from "@/components/widgets/osu/OsuWidget";
+import { projects } from "@/app/projects/projects";
+import type { Project } from "@/app/projects/projects";
+import ledger from "@/components/ledger/Ledger.module.css";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -15,7 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Structured data tying the site to "William Hao" in search engines
 const PROFILE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
@@ -35,71 +36,60 @@ const PROFILE_SCHEMA = {
   },
 };
 
-const QUICK_LINKS = [
+// Newest first
+const EXPERIENCE = [
   {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/william-a-hao/",
-    Icon: LinkedInIcon,
+    id: "optiver-qt-intern-2027",
+    role: "Quantitative Trading Intern",
+    company: "Optiver",
+    date: "Summer 2027",
   },
   {
-    name: "GitHub",
-    href: "https://github.com/williamhao99",
-    Icon: GitHubIcon,
+    id: "citi-swe-intern-2026",
+    role: "Software Engineering Intern",
+    company: "Citi",
+    date: "Jun - Aug 2026",
   },
 ];
 
-export default function Home() {
-  function renderQuickLinks() {
-    const links = [];
-    for (let i = 0; i < QUICK_LINKS.length; i++) {
-      const link = QUICK_LINKS[i];
-      if (!link) continue;
+// Update "junior" each fall
+const INTRO =
+  "Hi! I'm Will, a junior at UT Austin studying CS and math. I've always enjoyed solving puzzles and building things, mostly in software, finance, and machine learning.";
 
-      links.push(
-        <a
-          key={link.name}
-          href={link.href}
-          className={styles.quickLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={link.name}
-        >
-          <link.Icon className={styles.quickLinkIcon} />
-        </a>,
-      );
-    }
-    return links;
+export default function Home() {
+  function renderPageLink(href: string, label: string) {
+    return (
+      <Link
+        key={href}
+        href={href}
+      >
+        {label}
+      </Link>
+    );
   }
 
-  function renderCompany(entry: ExperienceEntry) {
-    if (!entry.selfDirected) {
-      return <span className={styles.experienceCompany}>{entry.company}</span>;
-    }
-    return (
-      <span className={styles.experienceCompany}>
-        <span className={styles.experienceQualifier}>(</span>
-        {entry.company}
-        <span className={styles.experienceQualifier}>)</span>
-      </span>
-    );
+  function renderPageLinks() {
+    return [
+      renderPageLink("/projects", "Projects"),
+      renderPageLink("/blog", "Blog"),
+    ];
   }
 
   function renderExperience() {
     const rows = [];
-    for (let i = 0; i < experience.length; i++) {
-      const entry = experience[i];
+    for (let i = 0; i < EXPERIENCE.length; i++) {
+      const entry = EXPERIENCE[i];
       if (!entry) continue;
 
       rows.push(
         <li
           key={entry.id}
-          className={styles.experienceRow}
+          className={ledger.row}
         >
-          <span className={styles.experienceDate}>{entry.date}</span>
-          <span className={styles.experienceText}>
-            {renderCompany(entry)}
-            <span className={styles.experienceSeparator}> - </span>
-            <span className={styles.experienceRole}>{entry.role}</span>
+          <span className={ledger.when}>{entry.date}</span>
+          <span>
+            <span className={ledger.name}>{entry.company}</span>
+            <span className={ledger.detail}>{entry.role}</span>
           </span>
         </li>,
       );
@@ -107,21 +97,16 @@ export default function Home() {
     return rows;
   }
 
-  function renderFeaturedProjects() {
-    const cards = [];
+  function featuredProjects() {
+    const featured: Project[] = [];
     for (let i = 0; i < projects.length; i++) {
       const project = projects[i];
       if (!project) continue;
       if (project.featured) {
-        cards.push(
-          <WorkCard
-            key={project.id}
-            project={project}
-          />,
-        );
+        featured.push(project);
       }
     }
-    return cards;
+    return featured;
   }
 
   return (
@@ -130,47 +115,56 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(PROFILE_SCHEMA) }}
       />
-      <section className={styles.heroSection}>
-        <h1 className={styles.title}>Will Hao</h1>
-        <Image
-          src="/favicons/hero-knight-96x96.png"
-          alt=""
-          className={styles.titleIcon}
-          width={96}
-          height={96}
-          unoptimized
-          priority
-        />
-        <div className={styles.subtitleRow}>
-          <h2 className={styles.subtitle}>
-            <span>CS + Math '28 @ UT Austin</span>
-          </h2>
-          <div className={styles.quickLinks}>{renderQuickLinks()}</div>
-        </div>
-      </section>
+      <header className={styles.front}>
+        <h1>Will Hao</h1>
+        <nav
+          className={styles.links}
+          aria-label="Pages"
+        >
+          {renderPageLinks()}
+        </nav>
+        <span className={styles.knightSlot}>
+          <Image
+            src="/favicons/hero-knight-32x32.png"
+            alt=""
+            className={styles.knight}
+            width={64}
+            height={64}
+            unoptimized
+            priority
+          />
+        </span>
+      </header>
+      <p className={styles.intro}>{INTRO}</p>
 
-      <section className={styles.experienceSection}>
-        <h2 className={styles.sectionHeading}>Experience</h2>
-        {/* list-style: none strips list semantics in Safari/VoiceOver */}
+      <Ledger
+        label="Experience"
+        loose
+      >
+        {renderExperience()}
+      </Ledger>
+      <Ledger
+        label="Featured projects"
+        loose
+      >
+        <ProjectRows projects={featuredProjects()} />
+      </Ledger>
+
+      <section className={ledger.block}>
+        <h2 className={ledger.label}>Interests</h2>
+        <p className={styles.personal}>
+          In my free time, I'm usually doing one of: lifting, running, tennis,
+          pickleball, swimming, playing chess or osu!, or solving Rubik's cubes.
+          Some live stats:
+        </p>
         <ul
-          className={styles.experienceList}
+          className={ledger.ledger}
           role="list"
         >
-          {renderExperience()}
+          <ChessWidget initialData={null} />
+          <OsuWidget initialData={null} />
+          <SpotifyWidget initialData={null} />
         </ul>
-      </section>
-
-      <section className={styles.worksSection}>
-        <div className={styles.worksHeadingRow}>
-          <h2 className={styles.sectionHeading}>Featured Works</h2>
-          <Link
-            href="/works"
-            className={styles.allWorksLink}
-          >
-            All works →
-          </Link>
-        </div>
-        <div className={styles.cardsGrid}>{renderFeaturedProjects()}</div>
       </section>
     </>
   );

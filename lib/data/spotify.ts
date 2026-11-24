@@ -2,11 +2,12 @@ export interface SpotifyData {
   isPlaying: boolean;
   songTitle: string;
   artist: string;
-  lastPlayed?: string; // Only when not currently playing
-  backoff?: boolean; // Set while an upstream fetch is failing
+  songUrl?: string; // Its page on Spotify
+  lastPlayed?: string; // Only when not playing
+  backoff?: boolean; // Upstream is failing
 }
 
-// Internal types matching Spotify API response structure
+// Spotify API response types
 interface SpotifyArtist {
   name: string;
 }
@@ -14,11 +15,13 @@ interface SpotifyArtist {
 interface SpotifyTrack {
   name: string;
   artists: SpotifyArtist[];
+  external_urls?: { spotify?: string };
 }
 
 interface SpotifyEpisode {
   name: string;
   show: { name: string };
+  external_urls?: { spotify?: string };
 }
 
 interface SpotifyCurrentlyPlaying {
@@ -27,28 +30,21 @@ interface SpotifyCurrentlyPlaying {
   item: SpotifyTrack | SpotifyEpisode;
 }
 
-// Store access token in memory to avoid unnecessary refresh calls
 let cachedToken: { token: string; expires: number } | null = null;
 
-// Store rotated refresh token in memory (falls back to env var)
 let rotatedRefreshToken: string | null = null;
 
-// Fresh TTL stays just above the 2s tick (dev HMR can detach the ticker)
-// Idle recently-played is throttled: 2s polling hit 429 QUOTA_EXCEEDED
 const CACHE_DURATION = 3 * 1000;
 const STALE_DURATION = 5 * 60 * 1000;
-const IDLE_HISTORY_INTERVAL = 60 * 1000;
+const IDLE_HISTORY_INTERVAL = 60 * 1000; // 2s polling hit 429 QUOTA_EXCEEDED
 const REFRESH_INTERVAL = 2 * 1000;
 
-// playedAt keeps the raw timestamp so lastPlayed is formatted at read time
-// and stays accurate however old the entry is
 let cachedStats: {
   data: SpotifyData;
   playedAt: number | null;
   fetchedAt: number;
 } | null = null;
 
-// Rebuild the wire object - lastPlayed and backoff are computed at read time
 function buildData(entry: {
   data: SpotifyData;
   playedAt: number | null;
@@ -58,12 +54,14 @@ function buildData(entry: {
     songTitle: entry.data.songTitle,
     artist: entry.data.artist,
   };
+  if (entry.data.songUrl) {
+    result.songUrl = entry.data.songUrl;
+  }
   if (entry.playedAt !== null) {
     result.lastPlayed = formatTimeSince(entry.playedAt);
   } else if (entry.data.lastPlayed) {
     result.lastPlayed = entry.data.lastPlayed;
   }
-  // recentFailing only taints history-derived entries, not live player data
   if (
     currentFailing ||
     (recentFailing &&
@@ -82,21 +80,17 @@ export function getCachedSpotifyData(): SpotifyData | null {
   return null;
 }
 
-// backoffUntil gates token + currently-playing, recentBackoffUntil gates recently-played
-// (its quota exhausts alone). A dead refresh token (400) needs re-auth, so gate long
 const NON_429_BACKOFF = 5 * 1000;
 const RATE_LIMIT_BACKOFF = 30 * 1000;
 const MAX_RETRY_AFTER = 60 * 60 * 1000;
 const DEAD_TOKEN_BACKOFF = 60 * 60 * 1000;
 let backoffUntil = 0;
-let recentBackoffUntil = 0;
+let recentBackoffUntil = 0; // recently-played has its own quota
 
-// Failure state drives the widget's backoff flag - gates only pace retries
 let currentFailing = false;
 let recentFailing = false;
 
-// QUOTA_EXCEEDED bans run hours - honor Retry-After (capped at 1h; each
-// probe re-reads a fresh value, so longer bans still hold)
+// Honor Retry-After, capped at 1h
 async function rateLimitWait(response: Response): Promise<number> {
   if (response.status !== 429) {
     return 0;
@@ -109,7 +103,7 @@ async function rateLimitWait(response: Response): Promise<number> {
       reason = body.error.reason;
     }
   } catch {
-    // 429 body absent or not JSON - the header alone decides
+    // No JSON body
   }
   console.error(
     "Spotify 429, Retry-After: " + retryAfter + ", reason: " + reason,
@@ -128,7 +122,6 @@ async function rateLimitWait(response: Response): Promise<number> {
   return waitMs;
 }
 
-// Background refresh to keep cache warm
 let backgroundRefreshStarted = false;
 
 export function startBackgroundRefresh() {
@@ -176,11 +169,9 @@ async function getAccessToken(
   if (!response.ok) {
     let wait = await rateLimitWait(response);
     if (wait === 0) {
-      // Brief gate so a non-429 failure isn't retried every tick
       wait = NON_429_BACKOFF;
     }
-    // 400 means the refresh token itself is dead (revoked, or past
-    // Spotify's 6-month expiry) - only re-auth + a restart can fix it
+    // 400 = dead refresh token - run npm run spotify-auth
     if (response.status === 400) {
       wait = DEAD_TOKEN_BACKOFF;
     }
@@ -213,6 +204,16 @@ function getArtistNames(track: SpotifyTrack): string {
   return names.join(", ");
 }
 
+// Local files have no page
+function getSongUrl(item: SpotifyTrack | SpotifyEpisode): string | null {
+  if (!item.external_urls) return null;
+  const url = item.external_urls.spotify;
+  if (typeof url === "string" && url.startsWith("https://open.spotify.com/")) {
+    return url;
+  }
+  return null;
+}
+
 function formatTimeSince(timestamp: number): string {
   const diffMs = Date.now() - timestamp;
   const diffMins = Math.floor(diffMs / 60000);
@@ -231,14 +232,10 @@ function formatTimeSince(timestamp: number): string {
   return "just now";
 }
 
-// When recently-played was last actually queried (any status)
 let lastRecentlyPlayedAt = 0;
 
-// Last tick where Spotify reported is_playing - anchors demotion times,
-// since a track can sit paused for hours before its session dies
 let lastConfirmedPlayingAt = 0;
 
-// Serve the cached entry (marked checked-now) or give up with an error
 function serveCachedOrThrow(message: string): SpotifyData {
   if (cachedStats) {
     cachedStats.fetchedAt = Date.now();
@@ -247,7 +244,6 @@ function serveCachedOrThrow(message: string): SpotifyData {
   throw new Error(message);
 }
 
-// Fetch the most recently played track from Spotify's history API
 async function fetchRecentlyPlayed(
   accessToken: string,
   controller: AbortController,
@@ -256,8 +252,7 @@ async function fetchRecentlyPlayed(
     return serveCachedOrThrow("Spotify recently-played backoff active");
   }
 
-  // Stamp before the request - a thrown attempt (timeout, network) must
-  // consume the idle throttle window too, or it retries every tick
+  // Stamp first so failed attempts count too
   lastRecentlyPlayedAt = Date.now();
 
   let response: Response;
@@ -281,7 +276,6 @@ async function fetchRecentlyPlayed(
   if (!response.ok) {
     let wait = await rateLimitWait(response);
     if (wait === 0) {
-      // Brief gate so a non-429 failure isn't retried every tick
       wait = NON_429_BACKOFF;
       console.error("Spotify recently-played returned " + response.status);
     }
@@ -306,16 +300,20 @@ async function fetchRecentlyPlayed(
     const item = recent.items[0];
     if (item) {
       let playedAt = new Date(item.played_at).getTime();
-      // A malformed played_at would cache NaN and render "just now" forever
       if (!Number.isFinite(playedAt)) {
         playedAt = Date.now();
       }
+      const data: SpotifyData = {
+        isPlaying: false,
+        songTitle: item.track.name,
+        artist: getArtistNames(item.track),
+      };
+      const songUrl = getSongUrl(item.track);
+      if (songUrl) {
+        data.songUrl = songUrl;
+      }
       const entry = {
-        data: {
-          isPlaying: false,
-          songTitle: item.track.name,
-          artist: getArtistNames(item.track),
-        },
+        data: data,
         playedAt: playedAt,
         fetchedAt: Date.now(),
       };
@@ -324,8 +322,7 @@ async function fetchRecentlyPlayed(
     }
   }
 
-  // Spotify intermittently returns an empty 200 for accounts with history
-  // (known API bug) - keep the cached entry over a sudden "no history"
+  // Spotify sometimes sends an empty 200 - keep the cache
   if (cachedStats) {
     console.error("Spotify recently-played returned 200 with no items");
     cachedStats.fetchedAt = Date.now();
@@ -341,10 +338,8 @@ async function fetchRecentlyPlayed(
   return empty;
 }
 
-// Single-flight guard so concurrent cache misses share one upstream request
 let inFlightFetch: Promise<SpotifyData> | null = null;
 
-// Always fetches (bypasses the TTL check) - used by the background refresh
 async function startFetch(): Promise<SpotifyData> {
   if (inFlightFetch) {
     return inFlightFetch;
@@ -359,7 +354,6 @@ async function startFetch(): Promise<SpotifyData> {
   }
 }
 
-// Cache-first read used by the API route and instrumentation warm-up
 export async function fetchSpotifyData(): Promise<SpotifyData> {
   if (cachedStats && Date.now() - cachedStats.fetchedAt < CACHE_DURATION) {
     return buildData(cachedStats);
@@ -367,8 +361,6 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
   try {
     return await startFetch();
   } catch (error) {
-    // An expired playing/paused claim demotes to last-played instead of
-    // dropping, so outages that start mid-playback keep the track
     if (
       cachedStats &&
       cachedStats.playedAt === null &&
@@ -379,18 +371,20 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
       if (lastConfirmedPlayingAt > 0) {
         playedAt = lastConfirmedPlayingAt;
       }
+      const demoted: SpotifyData = {
+        isPlaying: false,
+        songTitle: cachedStats.data.songTitle,
+        artist: cachedStats.data.artist,
+      };
+      if (cachedStats.data.songUrl) {
+        demoted.songUrl = cachedStats.data.songUrl;
+      }
       cachedStats = {
-        data: {
-          isPlaying: false,
-          songTitle: cachedStats.data.songTitle,
-          artist: cachedStats.data.artist,
-        },
+        data: demoted,
         playedAt: playedAt,
         fetchedAt: cachedStats.fetchedAt,
       };
     }
-    // Serve last-known-good: last-played indefinitely (re-stamped so SSR agrees),
-    // playing/paused claims only within STALE_DURATION
     if (cachedStats && cachedStats.playedAt !== null) {
       cachedStats.fetchedAt = Date.now();
       return buildData(cachedStats);
@@ -402,7 +396,6 @@ export async function fetchSpotifyData(): Promise<SpotifyData> {
   }
 }
 
-// Fetch fresh playing status from the Spotify API and update the cache
 async function fetchFreshSpotifyData(): Promise<SpotifyData> {
   if (Date.now() < backoffUntil) {
     throw new Error("Spotify backoff active, skipping fetch");
@@ -415,8 +408,6 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
   }
   const timeoutId = setTimeout(abortRequest, 5000);
 
-  // History-phase errors are recentFailing's job - the flag scopes the
-  // catch so they don't taint the live currently-playing state
   let historyPhase = false;
 
   try {
@@ -433,7 +424,6 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
       },
     );
 
-    // Handle expired token - clear cache and get fresh token
     if (currentResponse.status === 401) {
       cachedToken = null;
       accessToken = await getAccessToken(controller.signal);
@@ -449,17 +439,13 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
       );
     }
 
-    // Errors throw - callers fall back to the cached entry
     if (!currentResponse.ok) {
       let wait = await rateLimitWait(currentResponse);
       if (wait === 0) {
-        // Brief gate so a non-429 failure isn't retried every tick
         wait = NON_429_BACKOFF;
       }
       backoffUntil = Date.now() + wait;
       currentFailing = true;
-      // With no cache, a healthy history endpoint beats a 503
-      // (throttled, so a cold-start outage cannot spin it)
       if (
         !cachedStats &&
         Date.now() - lastRecentlyPlayedAt >= IDLE_HISTORY_INTERVAL
@@ -473,11 +459,10 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
     }
     currentFailing = false;
 
-    // Parse response if we got valid data (not 204 No Content)
+    // 204 = nothing playing
     if (currentResponse.status !== 204) {
       const current: SpotifyCurrentlyPlaying = await currentResponse.json();
 
-      // Skip ads and unknown types
       if (
         current.item &&
         current.currently_playing_type !== "ad" &&
@@ -500,6 +485,10 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
           songTitle: current.item.name,
           artist: artistName,
         };
+        const songUrl = getSongUrl(current.item);
+        if (songUrl) {
+          result.songUrl = songUrl;
+        }
         if (current.is_playing) {
           lastConfirmedPlayingAt = Date.now();
         } else {
@@ -512,8 +501,6 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
 
     historyPhase = true;
 
-    // Playback stopped - demote a lingering playing/paused entry so it
-    // survives as last-played even if the history call fails
     if (
       cachedStats &&
       cachedStats.playedAt === null &&
@@ -523,19 +510,22 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
       if (lastConfirmedPlayingAt > 0) {
         playedAt = lastConfirmedPlayingAt;
       }
+      const demoted: SpotifyData = {
+        isPlaying: false,
+        songTitle: cachedStats.data.songTitle,
+        artist: cachedStats.data.artist,
+      };
+      if (cachedStats.data.songUrl) {
+        demoted.songUrl = cachedStats.data.songUrl;
+      }
       cachedStats = {
-        data: {
-          isPlaying: false,
-          songTitle: cachedStats.data.songTitle,
-          artist: cachedStats.data.artist,
-        },
+        data: demoted,
         playedAt: playedAt,
         fetchedAt: Date.now(),
       };
     }
 
-    // Idle: last-played cannot change, so throttle recently-played
-    // The gate holds even with no cache, or cold starts spin
+    // Idle - throttle history
     if (Date.now() - lastRecentlyPlayedAt < IDLE_HISTORY_INTERVAL) {
       if (cachedStats) {
         cachedStats.fetchedAt = Date.now();
@@ -548,8 +538,6 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
   } catch (error) {
     if (!historyPhase) {
       currentFailing = true;
-      // Thrown failures (timeout, network) need pacing too - extend only,
-      // never shorten a longer gate set upstream
       const gate = Date.now() + NON_429_BACKOFF;
       if (gate > backoffUntil) {
         backoffUntil = gate;
