@@ -1,92 +1,28 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import type { OsuStats } from "@/lib/data/osu";
 import ledger from "@/components/ledger/Ledger.module.css";
 
 interface OsuWidgetProps {
-  initialData: OsuStats | null;
+  data: OsuStats | null;
 }
 
-const DEFAULT_DATA: OsuStats = {
-  globalRank: null,
-  peakRank: null,
-  pp: null,
-  playTime: null,
-};
-
-export default function OsuWidget({ initialData }: OsuWidgetProps) {
-  const [data, setData] = useState<OsuStats>(initialData || DEFAULT_DATA);
-
-  useEffect(function setupPolling() {
-    let isMounted = true;
-    let intervalId: NodeJS.Timeout | null = null;
-
-    async function fetchData() {
-      try {
-        const response = await fetch("/api/osu");
-        if (response.ok && isMounted) {
-          const newData: OsuStats = await response.json();
-          setData(newData);
-        }
-      } catch (error) {
-        if (isMounted) {
-          console.error("Failed to fetch osu! data:", error);
-        }
-      }
-    }
-
-    function startPolling() {
-      if (intervalId) return;
-      fetchData();
-      intervalId = setInterval(fetchData, 60000);
-    }
-
-    function stopPolling() {
-      if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
-      }
-    }
-
-    function handleVisibilityChange() {
-      if (document.visibilityState === "visible") {
-        startPolling();
-      } else {
-        stopPolling();
-      }
-    }
-
-    if (document.visibilityState === "visible") {
-      startPolling();
-    }
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return function cleanup() {
-      isMounted = false;
-      stopPolling();
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
-
+export default function OsuWidget({ data }: OsuWidgetProps) {
   let rankDisplay = "—";
-  if (typeof data.globalRank === "number") {
+  if (data && typeof data.globalRank === "number") {
     rankDisplay = "#" + data.globalRank.toLocaleString("en-US");
   }
 
   let peakDisplay = "—";
-  if (typeof data.peakRank === "number") {
+  if (data && typeof data.peakRank === "number") {
     peakDisplay = "#" + data.peakRank.toLocaleString("en-US");
   }
 
   let ppDisplay = "—";
-  if (typeof data.pp === "number") {
+  if (data && typeof data.pp === "number") {
     ppDisplay = data.pp.toLocaleString("en-US");
   }
 
   let playTimeDisplay = "—";
-  if (typeof data.playTime === "number") {
+  if (data && typeof data.playTime === "number") {
     playTimeDisplay = data.playTime.toLocaleString("en-US") + "h";
   }
 

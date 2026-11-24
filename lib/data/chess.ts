@@ -5,17 +5,13 @@ export interface ChessStats {
 }
 
 const CHESS_USERNAME = "javablob";
-// Keep the TTL above the refresh interval
-const CACHE_DURATION = 150 * 1000;
 const REFRESH_INTERVAL = 60 * 1000;
 
-let cachedStats: { data: ChessStats; expires: number } | null = null;
+// Last good value - a failed fetch never clears it
+let cachedStats: ChessStats | null = null;
 
 export function getCachedChessStats(): ChessStats | null {
-  if (cachedStats && Date.now() < cachedStats.expires) {
-    return cachedStats.data;
-  }
-  return null;
+  return cachedStats;
 }
 
 let backgroundRefreshStarted = false;
@@ -25,7 +21,7 @@ export function startBackgroundRefresh() {
   backgroundRefreshStarted = true;
 
   setInterval(function refreshCache() {
-    startFetch().catch(function handleError(error) {
+    fetchChessStats().catch(function handleError(error) {
       console.error("Chess background refresh error:", error);
     });
   }, REFRESH_INTERVAL);
@@ -33,7 +29,7 @@ export function startBackgroundRefresh() {
 
 let inFlightFetch: Promise<ChessStats> | null = null;
 
-async function startFetch(): Promise<ChessStats> {
+export async function fetchChessStats(): Promise<ChessStats> {
   if (inFlightFetch) {
     return inFlightFetch;
   }
@@ -45,13 +41,6 @@ async function startFetch(): Promise<ChessStats> {
   } finally {
     inFlightFetch = null;
   }
-}
-
-export async function fetchChessStats(): Promise<ChessStats> {
-  if (cachedStats && Date.now() < cachedStats.expires) {
-    return cachedStats.data;
-  }
-  return startFetch();
 }
 
 async function fetchFreshChessStats(): Promise<ChessStats> {
@@ -117,10 +106,7 @@ async function fetchFreshChessStats(): Promise<ChessStats> {
       bullet: bulletRating,
     };
 
-    cachedStats = {
-      data: stats,
-      expires: Date.now() + CACHE_DURATION,
-    };
+    cachedStats = stats;
 
     return stats;
   } catch (error) {

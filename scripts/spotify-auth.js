@@ -17,7 +17,7 @@ const SCOPES = [
   "user-read-playback-state",
 ].join(" ");
 
-const LIVE_URL = "https://willhao.com/api/spotify";
+const LIVE_URL = "https://willhao.com/api/live";
 
 function readEnvFile() {
   const vars = {};
@@ -149,8 +149,8 @@ async function verifyLive() {
     try {
       const response = await fetch(LIVE_URL, { cache: "no-store" });
       if (response.ok) {
-        const data = await response.json();
-        if (data.songTitle && data.songTitle !== "—" && !data.backoff) {
+        const data = (await response.json()).spotify;
+        if (data && data.songTitle !== "—" && !data.backoff) {
           let status = "Last played";
           if (data.isPlaying) {
             status = "Now playing";

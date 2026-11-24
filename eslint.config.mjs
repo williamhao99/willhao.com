@@ -38,5 +38,28 @@ export default defineConfig([
       ],
     },
   },
+  // One live copy of the data modules - see lib/data/live.ts
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    ignores: ["instrumentation.ts"],
+    rules: {
+      "@typescript-eslint/no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "@/lib/data/spotify",
+                "@/lib/data/chess",
+                "@/lib/data/osu",
+              ],
+              allowTypeImports: true,
+              message: "Import only types - instrumentation.ts runs these.",
+            },
+          ],
+        },
+      ],
+    },
+  },
   globalIgnores(["temp-stash/**"]),
 ]);

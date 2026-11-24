@@ -1,12 +1,9 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import type { SpotifyData } from "@/lib/data/spotify";
 import ledger from "@/components/ledger/Ledger.module.css";
 import styles from "./SpotifyWidget.module.css";
 
 interface SpotifyWidgetProps {
-  initialData: SpotifyData | null;
+  data: SpotifyData | null;
 }
 
 const DEFAULT_DATA: SpotifyData = {
@@ -15,119 +12,49 @@ const DEFAULT_DATA: SpotifyData = {
   artist: "—",
 };
 
-function markBackoff(prev: SpotifyData): SpotifyData {
-  if (prev.backoff) {
-    return prev;
+export function markBackoff(prev: SpotifyData | null): SpotifyData {
+  const base = prev || DEFAULT_DATA;
+  if (base.backoff) {
+    return base;
   }
   const next: SpotifyData = {
-    isPlaying: prev.isPlaying,
-    songTitle: prev.songTitle,
-    artist: prev.artist,
+    isPlaying: base.isPlaying,
+    songTitle: base.songTitle,
+    artist: base.artist,
     backoff: true,
   };
-  if (prev.songUrl) {
-    next.songUrl = prev.songUrl;
+  if (base.songUrl) {
+    next.songUrl = base.songUrl;
   }
-  if (prev.lastPlayed) {
-    next.lastPlayed = prev.lastPlayed;
+  if (base.lastPlayed) {
+    next.lastPlayed = base.lastPlayed;
   }
   return next;
 }
 
-// About 5 min of failed polls
-const STALE_POLL_LIMIT = 150;
-
-function demoteStale(prev: SpotifyData): SpotifyData {
-  if (!prev.isPlaying && prev.lastPlayed !== "(paused)") {
-    return markBackoff(prev);
+export function demoteStale(prev: SpotifyData | null): SpotifyData {
+  const base = prev || DEFAULT_DATA;
+  if (!base.isPlaying && base.lastPlayed !== "(paused)") {
+    return markBackoff(base);
   }
   const next: SpotifyData = {
     isPlaying: false,
-    songTitle: prev.songTitle,
-    artist: prev.artist,
+    songTitle: base.songTitle,
+    artist: base.artist,
     backoff: true,
   };
-  if (prev.songUrl) {
-    next.songUrl = prev.songUrl;
+  if (base.songUrl) {
+    next.songUrl = base.songUrl;
   }
   return next;
 }
 
-export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
-  const [data, setData] = useState<SpotifyData>(initialData || DEFAULT_DATA);
-
-  useEffect(function setupPolling() {
-    let isMounted = true;
-    let intervalId: NodeJS.Timeout | null = null;
-    let failedPolls = 0;
-
-    async function fetchData() {
-      try {
-        const response = await fetch("/api/spotify");
-        if (!isMounted) return;
-        if (response.ok) {
-          const newData: SpotifyData = await response.json();
-          failedPolls = 0;
-          setData(newData);
-        } else {
-          failedPolls = failedPolls + 1;
-          if (failedPolls >= STALE_POLL_LIMIT) {
-            setData(demoteStale);
-          } else {
-            setData(markBackoff);
-          }
-        }
-      } catch (error) {
-        if (isMounted) {
-          console.error("Failed to fetch Spotify data:", error);
-          failedPolls = failedPolls + 1;
-          if (failedPolls >= STALE_POLL_LIMIT) {
-            setData(demoteStale);
-          } else {
-            setData(markBackoff);
-          }
-        }
-      }
-    }
-
-    function startPolling() {
-      if (intervalId) return;
-      fetchData();
-      intervalId = setInterval(fetchData, 2000);
-    }
-
-    function stopPolling() {
-      if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
-      }
-    }
-
-    function handleVisibilityChange() {
-      if (document.visibilityState === "visible") {
-        startPolling();
-      } else {
-        stopPolling();
-      }
-    }
-
-    if (document.visibilityState === "visible") {
-      startPolling();
-    }
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return function cleanup() {
-      isMounted = false;
-      stopPolling();
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
-
-  const isPlaying = data.isPlaying;
-  const songTitle = data.songTitle;
-  const artist = data.artist;
-  const lastPlayed = data.lastPlayed;
+export default function SpotifyWidget({ data }: SpotifyWidgetProps) {
+  const shown = data || DEFAULT_DATA;
+  const isPlaying = shown.isPlaying;
+  const songTitle = shown.songTitle;
+  const artist = shown.artist;
+  const lastPlayed = shown.lastPlayed;
 
   let statusText = "played recently";
   if (isPlaying) {
@@ -137,11 +64,11 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
   } else if (lastPlayed) {
     statusText = "played " + lastPlayed;
   }
-  if (data.backoff) {
+  if (shown.backoff) {
     statusText = statusText + " (retrying)";
   }
 
-  const linked = Boolean(data.songUrl);
+  const linked = Boolean(shown.songUrl);
 
   let by = null;
   let tip;
@@ -150,7 +77,7 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
     tip = songTitle + " by " + artist;
     spoken = tip + ", " + statusText;
     let statusClass = styles.status;
-    if (isPlaying && !data.backoff) {
+    if (isPlaying && !shown.backoff) {
       statusClass = styles.status + " " + styles.playing;
     }
     by = (
@@ -166,10 +93,10 @@ export default function SpotifyWidget({ initialData }: SpotifyWidgetProps) {
 
   // The link speaks the whole row, so the second line is hidden from it
   let title = <span className={styles.title}>{songTitle}</span>;
-  if (data.songUrl) {
+  if (shown.songUrl) {
     title = (
       <a
-        href={data.songUrl}
+        href={shown.songUrl}
         className={styles.title + " " + styles.song}
         target="_blank"
         rel="noopener noreferrer"

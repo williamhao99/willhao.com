@@ -3,13 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import Ledger from "@/components/ledger/Ledger";
 import ProjectRows from "@/components/projectRows/ProjectRows";
-import SpotifyWidget from "@/components/widgets/spotify/SpotifyWidget";
-import ChessWidget from "@/components/widgets/chess/ChessWidget";
-import OsuWidget from "@/components/widgets/osu/OsuWidget";
+import LiveRows from "@/components/liveRows/LiveRows";
 import { projects } from "@/app/projects/projects";
 import type { Project } from "@/app/projects/projects";
+import { getCachedLive } from "@/lib/data/live";
 import ledger from "@/components/ledger/Ledger.module.css";
 import styles from "./page.module.css";
+
+// Live rows need request-time data
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   alternates: {
@@ -161,9 +163,7 @@ export default function Home() {
           className={ledger.ledger}
           role="list"
         >
-          <ChessWidget initialData={null} />
-          <OsuWidget initialData={null} />
-          <SpotifyWidget initialData={null} />
+          <LiveRows initialData={getCachedLive()} />
         </ul>
       </section>
     </>

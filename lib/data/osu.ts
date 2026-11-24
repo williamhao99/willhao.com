@@ -5,20 +5,16 @@ export interface OsuStats {
   playTime: number | null; // In hours
 }
 
-// Keep the TTL above the refresh interval
-const CACHE_DURATION = 150 * 1000;
 const REFRESH_INTERVAL = 60 * 1000;
 
 // Tokens last 24h
 let cachedToken: { token: string; expires: number } | null = null;
 
-let cachedStats: { data: OsuStats; expires: number } | null = null;
+// Last good value - a failed fetch never clears it
+let cachedStats: OsuStats | null = null;
 
 export function getCachedOsuStats(): OsuStats | null {
-  if (cachedStats && Date.now() < cachedStats.expires) {
-    return cachedStats.data;
-  }
-  return null;
+  return cachedStats;
 }
 
 let backgroundRefreshStarted = false;
@@ -28,7 +24,7 @@ export function startBackgroundRefresh() {
   backgroundRefreshStarted = true;
 
   setInterval(function refreshCache() {
-    startFetch().catch(function handleError(error) {
+    fetchOsuStats().catch(function handleError(error) {
       console.error("osu! background refresh error:", error);
     });
   }, REFRESH_INTERVAL);
@@ -79,7 +75,7 @@ async function getAccessToken(
 
 let inFlightFetch: Promise<OsuStats> | null = null;
 
-async function startFetch(): Promise<OsuStats> {
+export async function fetchOsuStats(): Promise<OsuStats> {
   if (inFlightFetch) {
     return inFlightFetch;
   }
@@ -91,13 +87,6 @@ async function startFetch(): Promise<OsuStats> {
   } finally {
     inFlightFetch = null;
   }
-}
-
-export async function fetchOsuStats(): Promise<OsuStats> {
-  if (cachedStats && Date.now() < cachedStats.expires) {
-    return cachedStats.data;
-  }
-  return startFetch();
 }
 
 async function fetchFreshOsuStats(): Promise<OsuStats> {
@@ -181,10 +170,7 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
       playTime: playTime,
     };
 
-    cachedStats = {
-      data: stats,
-      expires: Date.now() + CACHE_DURATION,
-    };
+    cachedStats = stats;
 
     return stats;
   } catch (error) {
