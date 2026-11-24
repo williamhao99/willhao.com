@@ -10,7 +10,6 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Gate the deploy: a commit that fails lint/type-check/build never reaches the VM
   check:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -35,7 +34,6 @@ jobs:
           VM_HOST: ${{ secrets.VM_HOST }}
           VM_USER: ${{ secrets.VM_USER }}
           VM_SSH_KEY: ${{ secrets.VM_SSH_KEY }}
-          # Pinned so a spoofed host can't receive the deploy (keyscan would trust anything)
           VM_HOST_KEY: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINlE6Vp40mOocdhvPvhtY+fdiAD93IbTnG/kXkF+gGP8
         run: |
           set -e
@@ -54,7 +52,6 @@ jobs:
             npm ci
             npm run build
             pm2 reload willhao.com
-            # Fail the run (and email) if the new build never comes up
             for attempt in 1 2 3 4 5 6 7 8 9 10; do
               if curl -fsS -o /dev/null http://127.0.0.1:3000/api/health; then
                 echo "=== DEPLOY OK ==="

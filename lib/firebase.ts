@@ -5,8 +5,7 @@ import type { Database } from "firebase-admin/database";
 let database: Database | null = null;
 let warnedMissingConfig = false;
 
-// Lazy init: getDatabase() throws when no app is configured, so resolve the
-// database on first use and return null when credentials are absent
+// Lazy init - null when creds are missing
 export function getDb(): Database | null {
   if (database) {
     return database;

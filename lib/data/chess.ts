@@ -4,10 +4,8 @@ export interface ChessStats {
   bullet: number | null;
 }
 
-// Configuration constants
 const CHESS_USERNAME = "javablob";
-// Cache TTL outlives the refresh interval so a failed background refresh
-// serves stale data instead of an empty cache
+// Keep the TTL above the refresh interval
 const CACHE_DURATION = 150 * 1000;
 const REFRESH_INTERVAL = 60 * 1000;
 
@@ -20,7 +18,6 @@ export function getCachedChessStats(): ChessStats | null {
   return null;
 }
 
-// Background refresh to keep cache warm
 let backgroundRefreshStarted = false;
 
 export function startBackgroundRefresh() {
@@ -34,10 +31,8 @@ export function startBackgroundRefresh() {
   }, REFRESH_INTERVAL);
 }
 
-// Single-flight guard so concurrent cache misses share one upstream request
 let inFlightFetch: Promise<ChessStats> | null = null;
 
-// Always fetches (bypasses the TTL check) - used by the background refresh
 async function startFetch(): Promise<ChessStats> {
   if (inFlightFetch) {
     return inFlightFetch;
@@ -52,7 +47,6 @@ async function startFetch(): Promise<ChessStats> {
   }
 }
 
-// Cache-first read used by the API route and instrumentation warm-up
 export async function fetchChessStats(): Promise<ChessStats> {
   if (cachedStats && Date.now() < cachedStats.expires) {
     return cachedStats.data;
@@ -60,7 +54,6 @@ export async function fetchChessStats(): Promise<ChessStats> {
   return startFetch();
 }
 
-// Fetch fresh ratings from the Chess.com API and update the cache
 async function fetchFreshChessStats(): Promise<ChessStats> {
   const controller = new AbortController();
 

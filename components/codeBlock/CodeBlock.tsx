@@ -12,7 +12,7 @@ export default async function CodeBlock({ code, lang }: CodeBlockProps) {
     theme: "github-dark-dimmed",
   });
 
-  // Shiki escapes code; HTML output is safe to inject.
+  // Safe - Shiki escapes the code
   return (
     <div
       className={styles.wrapper}

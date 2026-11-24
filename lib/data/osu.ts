@@ -2,19 +2,16 @@ export interface OsuStats {
   globalRank: number | null;
   peakRank: number | null;
   pp: number | null;
-  playTime: number | null; // in hours
+  playTime: number | null; // In hours
 }
 
-// Configuration constants
-// Cache TTL outlives the refresh interval so a failed background refresh
-// serves stale data instead of an empty cache
+// Keep the TTL above the refresh interval
 const CACHE_DURATION = 150 * 1000;
 const REFRESH_INTERVAL = 60 * 1000;
 
-// Token cache - osu! client credentials tokens last 24 hours
+// Tokens last 24h
 let cachedToken: { token: string; expires: number } | null = null;
 
-// Data cache
 let cachedStats: { data: OsuStats; expires: number } | null = null;
 
 export function getCachedOsuStats(): OsuStats | null {
@@ -24,7 +21,6 @@ export function getCachedOsuStats(): OsuStats | null {
   return null;
 }
 
-// Background refresh to keep cache warm
 let backgroundRefreshStarted = false;
 
 export function startBackgroundRefresh() {
@@ -38,7 +34,6 @@ export function startBackgroundRefresh() {
   }, REFRESH_INTERVAL);
 }
 
-// Get access token via OAuth2 client credentials grant
 async function getAccessToken(
   signal: AbortSignal | null = null,
 ): Promise<string> {
@@ -74,7 +69,6 @@ async function getAccessToken(
 
   const data = await response.json();
 
-  // Cache token with 60-second buffer before actual expiry
   cachedToken = {
     token: data.access_token,
     expires: Date.now() + (data.expires_in - 60) * 1000,
@@ -83,10 +77,8 @@ async function getAccessToken(
   return data.access_token;
 }
 
-// Single-flight guard so concurrent cache misses share one upstream request
 let inFlightFetch: Promise<OsuStats> | null = null;
 
-// Always fetches (bypasses the TTL check) - used by the background refresh
 async function startFetch(): Promise<OsuStats> {
   if (inFlightFetch) {
     return inFlightFetch;
@@ -101,7 +93,6 @@ async function startFetch(): Promise<OsuStats> {
   }
 }
 
-// Cache-first read used by the API route and instrumentation warm-up
 export async function fetchOsuStats(): Promise<OsuStats> {
   if (cachedStats && Date.now() < cachedStats.expires) {
     return cachedStats.data;
@@ -109,7 +100,6 @@ export async function fetchOsuStats(): Promise<OsuStats> {
   return startFetch();
 }
 
-// Fetch fresh stats from the osu! API and update the cache
 async function fetchFreshOsuStats(): Promise<OsuStats> {
   const controller = new AbortController();
 
@@ -126,7 +116,7 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
 
     const accessToken = await getAccessToken(controller.signal);
 
-    // Fetch user profile with osu! standard mode stats
+    // /osu = standard mode
     const response = await fetch(
       "https://osu.ppy.sh/api/v2/users/@" + username + "/osu",
       {
@@ -140,7 +130,6 @@ async function fetchFreshOsuStats(): Promise<OsuStats> {
     );
 
     if (!response.ok) {
-      // Revoked token - drop it so the next tick mints a fresh one
       if (response.status === 401) {
         cachedToken = null;
       }

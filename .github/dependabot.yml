@@ -1,6 +1,5 @@
 version: 2
 updates:
-  # Keep workflow actions current; one grouped PR a month at most
   - package-ecosystem: github-actions
     directory: /
     schedule:

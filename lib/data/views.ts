@@ -1,6 +1,5 @@
 import { getDb } from "@/lib/firebase";
 
-// Get view count for a page; null means view counts are unavailable
 export async function getViews(slug: string): Promise<number | null> {
   try {
     const db = getDb();
@@ -21,7 +20,6 @@ export async function getViews(slug: string): Promise<number | null> {
   }
 }
 
-// Increment view count atomically
 export async function incrementViews(slug: string): Promise<number | null> {
   try {
     const db = getDb();

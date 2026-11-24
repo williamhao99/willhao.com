@@ -1,19 +1,6 @@
 /**
- * Spotify OAuth helper - mints a new SPOTIFY_REFRESH_TOKEN, end to end.
- *
+ * Mints a new SPOTIFY_REFRESH_TOKEN and deploys it. Tokens expire after 6 months.
  * Usage: npm run spotify-auth
- *
- * Opens the Spotify consent page, catches the redirect on
- * http://127.0.0.1:8888/callback (the URI registered in the Spotify
- * developer dashboard for this app), exchanges the code for tokens,
- * writes the new refresh token into .env.local, deploys it to the
- * production server over SSH (one passphrase prompt), restarts PM2,
- * verifies the live site is serving data on the new token, and opens
- * a calendar reminder for the next re-auth (~6 months out - Spotify
- * refresh tokens hard-expire 6 months after authorization).
- *
- * If the SSH deploy fails, the local token is kept and the manual
- * steps are printed; the server keeps running on the old token.
  */
 
 const fs = require("fs");
@@ -87,8 +74,6 @@ function printManualSteps(token) {
   console.log("(The server keeps running on the old token until then.)");
 }
 
-// One ssh invocation (one passphrase prompt): verify env, swap token,
-// verify the write, restart PM2 as the deploy user
 function deployToServer(token) {
   if (!VM_SSH_TARGET || !VM_ENV_PATH || !VM_PM2_APP) {
     console.log(
@@ -157,7 +142,6 @@ function sleep(ms) {
   });
 }
 
-// Poll the live site until it serves real data on the new token
 async function verifyLive() {
   console.log("Verifying " + LIVE_URL + " ...");
   for (let attempt = 0; attempt < 30; attempt++) {
@@ -204,7 +188,6 @@ function icsDate(d) {
   return d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate());
 }
 
-// Remind 2 weeks before the 6-month refresh-token expiry
 function createReauthReminder() {
   const expiry = new Date();
   expiry.setMonth(expiry.getMonth() + 6);
@@ -252,7 +235,7 @@ function createReauthReminder() {
 const env = readEnvFile();
 const CLIENT_ID = env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = env.SPOTIFY_CLIENT_SECRET;
-// VM details live in .env.local, not here - this file is tracked by git:
+// VM details go in .env.local since this file is tracked:
 // VM_SSH_TARGET=user@host  VM_ENV_PATH=/path/to/.env.local  VM_PM2_APP=name
 const VM_SSH_TARGET = env.VM_SSH_TARGET;
 const VM_ENV_PATH = env.VM_ENV_PATH;
