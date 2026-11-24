@@ -1,13 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
-  // Stop next dev from appending its agent-rules block to the local CLAUDE.md
+  // Stop next dev from generating AGENTS.md
   agentRules: false,
+  async redirects() {
+    return [
+      {
+        source: "/about",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/works/:path*",
+        destination: "/projects/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
-        // Year-long immutable caching: rename an image when replacing it
-        source: "/:all*(png|jpg|jpeg|gif|webp|avif|svg|ico)",
+        // Cached for a year - rename an image when replacing it
+        source: "/:all*\\.(png|jpg|jpeg|gif|webp|avif|svg|ico)",
         headers: [
           {
             key: "Cache-Control",

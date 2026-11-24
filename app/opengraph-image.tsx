@@ -10,13 +10,10 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
-  const signatureData = await readFile(
-    join(process.cwd(), "public", "images", "opengraph-banner.svg"),
-    "utf-8",
+  const knightData = await readFile(
+    join(process.cwd(), "public", "favicons", "hero-knight-320x320.png"),
   );
-  const signatureSrc =
-    "data:image/svg+xml;base64," +
-    Buffer.from(signatureData).toString("base64");
+  const knightSrc = "data:image/png;base64," + knightData.toString("base64");
 
   return new ImageResponse(
     <div
@@ -26,13 +23,13 @@ export default async function Image() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#0f172a",
+        background: "#0b1224",
       }}
     >
       <img
-        src={signatureSrc}
-        width={1200}
-        height={630}
+        src={knightSrc}
+        width={320}
+        height={320}
         alt="Will Hao"
       />
     </div>,

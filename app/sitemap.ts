@@ -3,70 +3,25 @@ import { blogPosts } from "@/app/blog/blogs";
 
 const siteUrl = "https://willhao.com";
 
-const dates = {
-  home: "2026-08-17",
-  about: "2026-08-17",
-  works: "2026-08-18",
-  blogIndex: "2026-06-10",
-  utMathDrp: "2026-08-17",
-} as const;
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  // The index lists every post, so it changes whenever the newest post does
-  let blogIndexLastModified: string = dates.blogIndex;
-  for (let i = 0; i < blogPosts.length; i++) {
-    const post = blogPosts[i];
-    if (!post) continue;
-    if (post.lastModified > blogIndexLastModified) {
-      blogIndexLastModified = post.lastModified;
-    }
-  }
-
   const entries: MetadataRoute.Sitemap = [
-    // Main pages
-    {
-      url: siteUrl + "/",
-      lastModified: dates.home,
-      changeFrequency: "monthly",
-      priority: 1.0,
-    },
-    {
-      url: siteUrl + "/about",
-      lastModified: dates.about,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: siteUrl + "/works",
-      lastModified: dates.works,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: siteUrl + "/blog",
-      lastModified: blogIndexLastModified,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    // Project pages
-    {
-      url: siteUrl + "/works/ut-math-drp",
-      lastModified: dates.utMathDrp,
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
+    { url: siteUrl + "/", lastModified: "2026-11-24" },
+    { url: siteUrl + "/projects", lastModified: "2026-11-24" },
+    { url: siteUrl + "/projects/ut-math-drp", lastModified: "2026-11-24" },
   ];
 
-  // Blog posts are derived from blogs.ts so new posts are picked up automatically
+  // Blog, once it has posts
+  let latest = "";
   for (let i = 0; i < blogPosts.length; i++) {
     const post = blogPosts[i];
     if (!post) continue;
-    entries.push({
-      url: siteUrl + post.link,
-      lastModified: post.lastModified,
-      changeFrequency: "yearly",
-      priority: 0.5,
-    });
+    entries.push({ url: siteUrl + post.link, lastModified: post.lastModified });
+    if (post.lastModified > latest) {
+      latest = post.lastModified;
+    }
+  }
+  if (latest) {
+    entries.push({ url: siteUrl + "/blog", lastModified: latest });
   }
 
   return entries;

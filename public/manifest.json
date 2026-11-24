@@ -1,11 +1,10 @@
 {
-  "name": "Will Hao - Portfolio",
+  "name": "Will Hao",
   "short_name": "Will Hao",
-  "description": "CS and Math student at UT Austin. Portfolio, projects, and blog.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "background_color": "#0b1224",
+  "theme_color": "#0b1224",
   "icons": [
     {
       "src": "/favicons/android-chrome-192x192.png",
