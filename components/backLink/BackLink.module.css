@@ -1,0 +1,31 @@
+.back {
+  --back-width: var(--space-40);
+  --back-tucked-size: 3.2rem;
+
+  position: absolute;
+  top: calc(var(--page-top) - var(--space-6));
+  left: calc(var(--page-pad) - var(--back-width) - var(--space-6));
+  width: var(--back-width);
+  height: calc(var(--text-title) * var(--leading-title));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-mid);
+  line-height: 1;
+  color: var(--color-grey);
+}
+
+.back:hover {
+  color: var(--color-accent);
+}
+
+/* Narrow screens */
+@media (max-width: 50em) {
+  .back {
+    top: calc((var(--page-top) - var(--back-tucked-size)) / 2);
+    left: var(--page-pad);
+    width: var(--back-tucked-size);
+    height: var(--back-tucked-size);
+    justify-content: flex-start;
+  }
+}
