@@ -1,6 +1,7 @@
 "use client";
 
-import styles from "./error.module.css";
+import BackLink from "@/components/backLink/BackLink";
+import styles from "./status.module.css";
 
 export default function Error({
   retry,
@@ -9,15 +10,18 @@ export default function Error({
   retry: () => void;
 }) {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Error</h1>
-      <p className={styles.message}>Something went wrong</p>
+    <>
+      <BackLink
+        href="/"
+        label="Back to home"
+      />
+      <h1>Something went wrong</h1>
       <button
-        className={styles.button}
+        className={styles.action}
         onClick={retry}
       >
-        <strong>↻ Try again</strong>
+        Try again
       </button>
-    </div>
+    </>
   );
 }

@@ -1,0 +1,21 @@
+.message {
+  color: var(--color-grey);
+}
+
+.action {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-grey);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
+  text-decoration-thickness: var(--line-thin);
+  text-underline-offset: var(--underline-offset);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.action:hover {
+  color: var(--color-accent);
+}

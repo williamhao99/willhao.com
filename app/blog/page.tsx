@@ -1,65 +1,76 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BackLink from "@/components/backLink/BackLink";
+import Ledger from "@/components/ledger/Ledger";
 import { blogPosts } from "@/app/blog/blogs";
-import styles from "./Blog.module.css";
+import ledger from "@/components/ledger/Ledger.module.css";
+import status from "@/app/status.module.css";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Technical insights and occasional essays.",
   alternates: {
     canonical: "https://willhao.com/blog",
   },
   openGraph: {
     title: "Blog",
-    description: "Technical insights and occasional essays.",
     url: "https://willhao.com/blog",
     siteName: "Will Hao",
     type: "website",
   },
 };
 
-export default function BlogPage() {
-  function renderBlogPosts() {
-    if (blogPosts.length === 0) {
-      return <p className={styles.emptyState}>Nothing here yet.</p>;
-    }
+// Noindex while empty
+if (blogPosts.length === 0) {
+  metadata.robots = { index: false, follow: true };
+}
 
-    const posts = [];
+export default function BlogPage() {
+  function renderPosts() {
+    const rows = [];
     for (let i = 0; i < blogPosts.length; i++) {
       const post = blogPosts[i];
       if (!post) continue;
 
-      posts.push(
-        <div
+      rows.push(
+        <li
           key={post.slug}
-          className={styles.post}
+          className={ledger.row}
         >
-          <Link
-            href={post.link}
-            className={styles.postTitle}
-          >
-            {post.title}
-          </Link>
-          <p className={styles.postExcerpt}>
-            {post.excerpt}
+          <time className={ledger.when}>{post.date}</time>
+          <span>
             <Link
               href={post.link}
-              className={styles.moreButton}
+              className={ledger.name + " " + ledger.rowLink}
             >
-              More →
+              {post.title}
+              <span
+                className={ledger.mark}
+                aria-hidden="true"
+              >
+                →
+              </span>
             </Link>
-          </p>
-          <time className={styles.postDate}>{post.date}</time>
-        </div>,
+            <span className={ledger.detail}>{post.excerpt}</span>
+          </span>
+        </li>,
       );
     }
-    return posts;
+    return rows;
+  }
+
+  let content = <p className={status.message}>Nothing here yet.</p>;
+  if (blogPosts.length > 0) {
+    content = <Ledger loose>{renderPosts()}</Ledger>;
   }
 
   return (
     <>
+      <BackLink
+        href="/"
+        label="Back to home"
+      />
       <h1>Blog</h1>
-      <section className={styles.feed}>{renderBlogPosts()}</section>
+      {content}
     </>
   );
 }

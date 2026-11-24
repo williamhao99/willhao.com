@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import styles from "./not-found.module.css";
+import BackLink from "@/components/backLink/BackLink";
+import styles from "./status.module.css";
 
 export const metadata: Metadata = {
   title: "Page Not Found",
@@ -8,15 +8,13 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>404</h1>
-      <p className={styles.message}>Page not found</p>
-      <Link
+    <>
+      <BackLink
         href="/"
-        className={styles.link}
-      >
-        <strong>← Return home</strong>
-      </Link>
-    </div>
+        label="Back to home"
+      />
+      <h1>Page not found</h1>
+      <p className={styles.message}>There is nothing at this address.</p>
+    </>
   );
 }

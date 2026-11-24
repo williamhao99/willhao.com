@@ -1,13 +1,10 @@
-// Copy to app/blog/{slug}/page.tsx, then add its blogs.ts entry (sitemap reads it) and
-// opengraph-image.tsx + twitter-image.tsx, or it shares with no image. h2 = deck, h3 = sections
+// Copy to app/blog/{slug}/page.tsx and add an entry in app/blog/blogs.ts
 
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import BackLink from "@/components/backLink/BackLink";
 import CodeBlock from "@/components/codeBlock/CodeBlock";
-import Prose from "@/components/prose/Prose";
-import ViewCounter from "@/components/viewCounter/ViewCounter";
-import styles from "@/app/blog/BlogPost.module.css";
 
 export const metadata: Metadata = {
   title: "Post Title",
@@ -26,26 +23,22 @@ export const metadata: Metadata = {
 
 export default function PostNamePage() {
   return (
-    <Prose>
-      <Link
+    <article className="prose">
+      <BackLink
         href="/blog"
-        className="back-link"
-      >
-        ← Back to Blog
-      </Link>
+        label="Back to blog"
+      />
 
       <h1>Post Title</h1>
-      <h2>Subtitle or one-line deck describing the post.</h2>
+      <p className="deck">Subtitle or one-line deck describing the post.</p>
 
-      <div className={styles.meta}>
+      <p className="meta">
         <time dateTime="YYYY-MM-DD">Month DD, YYYY</time>
-        <span className={styles.dot}>·</span>
-        <ViewCounter slug="blog-post-slug" />
-      </div>
+      </p>
 
       <p>
         Opening paragraph. Inline code like <code>useState</code> renders in
-        mono brand blue. Inline links to{" "}
+        mono. Inline links to{" "}
         <a
           href="https://example.com"
           target="_blank"
@@ -53,13 +46,13 @@ export default function PostNamePage() {
         >
           other resources
         </a>{" "}
-        get the muted underline at rest, brand-blue on hover.
+        get a thin underline at rest, blue on hover.
       </p>
 
-      <h3>A Section Header</h3>
+      <h2>A Section Header</h2>
       <p>
-        Body paragraph. Use <code>h3</code> for section headers - h2 is reserved
-        for the deck above the meta line. Lists work as expected:
+        Body paragraph. Use <code>h2</code> for section headers. Lists work as
+        expected:
       </p>
       <ul>
         <li>First item</li>
@@ -68,35 +61,27 @@ export default function PostNamePage() {
       </ul>
 
       {/* Optional: Featured image
-      <figure className={styles.figure}>
-        <div className={styles.imageWrapper}>
-          <Image
-            src="/images/image-name.jpg"
-            alt="Image description"
-            width={800}
-            height={600}
-            className={styles.image}
-          />
-        </div>
-        <figcaption className={styles.figcaption}>
-          Caption text
-        </figcaption>
+      <figure>
+        <Image
+          src="/images/image-name.jpg"
+          alt="Image description"
+          width={640}
+          height={480}
+        />
+        <figcaption>Caption text</figcaption>
       </figure>
       */}
 
-      {/* Optional: Code block (Shiki, github-dark-dimmed theme)
+      {/* Optional: Code block
       <CodeBlock
         code={"const greeting = \"hello, world\";"}
         lang="typescript"
       />
       */}
 
-      <Link
-        href="/blog"
-        className={"back-link " + styles.backBottom}
-      >
-        ← Back to Blog
-      </Link>
-    </Prose>
+      <nav className="back">
+        <Link href="/blog">← Blog</Link>
+      </nav>
+    </article>
   );
 }
