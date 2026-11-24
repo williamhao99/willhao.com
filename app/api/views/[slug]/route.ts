@@ -5,13 +5,12 @@ interface RouteParams {
   params: Promise<{ slug: string }>;
 }
 
-const VALID_SLUG_PATTERN = /^(home|about|works|blog|works-[\w-]+|blog-[\w-]+)$/;
+const VALID_SLUG_PATTERN = /^(home|projects|blog|projects-[\w-]+|blog-[\w-]+)$/;
 
 function isValidSlug(slug: string): boolean {
   return VALID_SLUG_PATTERN.test(slug);
 }
 
-// GET /api/views/[slug] - Returns view count
 export async function GET(
   request: Request,
   context: RouteParams,
@@ -31,7 +30,6 @@ export async function GET(
   return NextResponse.json({ views: views });
 }
 
-// POST /api/views/[slug] - Increments and returns view count
 export async function POST(
   request: Request,
   context: RouteParams,

@@ -1,153 +1,26 @@
 .footer {
-  --text-size: calc(var(--text-base) * var(--multiplier-sm)); /* 14px */
-  --multiplier-xs: 0.75;
-  --copyright-size: calc(var(--text-base) * var(--multiplier-xs)); /* 12px */
-  --copyright-width: 22rem;
-  --nav-spacing: var(--space-2-5rem);
-  --icon-size-md: 2.4rem;
-  --opacity-icon: 0.55;
-  --icon-mono-brightness: 1.5;
-
-  margin-top: auto;
-  padding: var(--space-1-5rem) 0;
-}
-
-.content {
   display: grid;
-  /* Fixed middle track keeps the copyright centered as the count loads */
-  grid-template-columns: minmax(0, 1fr) var(--copyright-width) minmax(0, 1fr);
-  grid-template-areas: "nav copyright contact";
-  align-items: center;
-  column-gap: var(--space-2rem);
+  row-gap: var(--space-6);
+  margin-top: var(--space-32);
+  padding-bottom: var(--page-top);
+  font-size: var(--text-small);
+  color: var(--color-grey);
 }
 
-/* Left: Navigation */
-.nav {
-  grid-area: nav;
+.email {
+  justify-self: start;
+}
+
+.row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1rem) var(--nav-spacing);
+  justify-content: space-between;
+  gap: var(--space-6) var(--space-24);
+  font-variant-numeric: tabular-nums;
 }
 
-.navLink {
-  color: var(--color-text-muted);
-  font-size: var(--text-size);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.navLink:hover,
-.navLink:focus-visible {
-  color: var(--color-text-primary);
-}
-
-/* Center: Copyright */
-.copyright {
-  grid-area: copyright;
-  color: var(--color-text-muted);
-  font-size: var(--copyright-size);
-  letter-spacing: var(--letter-spacing-wide-sm);
-  text-align: center;
-}
-
-/* Right: Email + social */
-/* Wraps icons under the email when the column is too narrow (phones, enlarged text) */
-.contact {
-  grid-area: contact;
+.links {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-1rem) var(--space-2-5rem);
-}
-
-.emailLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--icon-size-md);
-  color: var(--color-text-muted);
-  font-size: var(--text-size);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.emailLink:hover,
-.emailLink:focus-visible {
-  color: var(--color-brand-blue-bright);
-}
-
-.social {
-  display: flex;
-  gap: var(--space-2rem);
-}
-
-.socialLink {
-  display: flex;
-  align-items: center;
-}
-
-/* All icons - monochrome and dimmed at rest, brand color on hover */
-.icon {
-  width: var(--icon-size-md);
-  height: var(--icon-size-md);
-  opacity: var(--opacity-icon);
-  filter: grayscale(1) brightness(var(--icon-mono-brightness));
-  transition:
-    opacity var(--transition-fast),
-    filter var(--transition-fast);
-}
-
-.socialLink:hover .icon,
-.socialLink:focus-visible .icon {
-  opacity: 1;
-  filter: none;
-}
-
-/* 3 columns need ~1032px incl. a classic scrollbar - re-measure if contact changes */
-@media (max-width: 1039px) {
-  .content {
-    grid-template-columns: minmax(0, 1fr) max-content;
-    grid-template-areas:
-      "nav contact"
-      "copyright copyright";
-    row-gap: var(--space-1rem);
-  }
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-  .footer {
-    --text-size: calc(
-      var(--text-base) * var(--multiplier-sm) * var(--mobile-text-multiplier)
-    );
-    --copyright-size: calc(
-      var(--text-base) * var(--multiplier-xs) * var(--mobile-text-multiplier)
-    );
-    --nav-spacing: var(--space-1-5rem);
-
-    padding: var(--space-1rem) 0;
-  }
-
-  .content {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "nav"
-      "contact"
-      "copyright";
-    justify-items: center;
-    gap: var(--space-1rem);
-  }
-
-  /* Email and icons share a row when they fit (~375px and up) */
-  .contact {
-    justify-content: center;
-  }
-
-  .nav {
-    justify-content: center;
-  }
-
-  .copyright {
-    margin: var(--space-0-5rem) 0;
-  }
+  gap: var(--space-6) var(--space-24);
 }
