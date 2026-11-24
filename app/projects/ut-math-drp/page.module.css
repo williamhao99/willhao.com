@@ -1,0 +1,12 @@
+.notes {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-24);
+  padding-left: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.notes li {
+  margin-bottom: 0;
+}

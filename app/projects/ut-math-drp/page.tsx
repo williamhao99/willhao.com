@@ -2,56 +2,89 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
-import PdfViewer from "@/components/pdfViewer/pdfViewer";
-import Prose from "@/components/prose/Prose";
-import ViewCounter from "@/components/viewCounter/ViewCounter";
+import BackLink from "@/components/backLink/BackLink";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Benford's Law and Ergodic Theory",
   description:
-    "Research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
+    "Reading project and symposium talk on Benford's Law and ergodic theory, through the UT Math Directed Reading Program.",
   alternates: {
-    canonical: "https://willhao.com/works/ut-math-drp",
+    canonical: "https://willhao.com/projects/ut-math-drp",
   },
   openGraph: {
     title: "Benford's Law and Ergodic Theory",
     description:
-      "Research on Benford's Law and ergodic theory through the UT Math Directed Reading Program.",
-    url: "https://willhao.com/works/ut-math-drp",
+      "Reading project and symposium talk on Benford's Law and ergodic theory, through the UT Math Directed Reading Program.",
+    url: "https://willhao.com/projects/ut-math-drp",
     siteName: "Will Hao",
     type: "article",
   },
 };
 
-export default function UTMathDRPPage() {
-  return (
-    <Prose>
-      <Link
-        href="/works"
-        className="back-link"
-      >
-        ← Back to Works
-      </Link>
-      <h1>Benford's Law and Ergodic Theory</h1>
-      <h2>Why does the digit 1 lead 30% of real-world numbers?</h2>
+// Keep the raw apostrophe - %27 404s in production
+const SLIDES_PDF =
+  "/documents/Benford's%20Law%20-%20From%20Logarithms%20to%20Dynamical%20Systems.pdf";
 
-      <div className={styles.meta}>
-        <div>
+const WEEKLY_NOTES = [
+  { label: "Feb 17", href: "/documents/DRP%20notes%2002-17-25.pdf" },
+  { label: "Feb 24", href: "/documents/DRP%20notes%2002-24-25.pdf" },
+  { label: "Mar 3", href: "/documents/DRP%20notes%2003-03-25.pdf" },
+  { label: "Mar 10", href: "/documents/DRP%20notes%2003-10-25.pdf" },
+  { label: "Mar 24", href: "/documents/DRP%20notes%2003-24-25.pdf" },
+  { label: "Apr 7", href: "/documents/DRP%20notes%2004-07-25.pdf" },
+];
+
+export default function UTMathDRPPage() {
+  function renderWeeklyNotes() {
+    const links = [];
+    for (let i = 0; i < WEEKLY_NOTES.length; i++) {
+      const note = WEEKLY_NOTES[i];
+      if (!note) continue;
+
+      links.push(
+        <li key={note.href}>
           <a
-            href="https://sites.google.com/view/utmathdrp"
+            href={note.href}
             target="_blank"
             rel="noopener noreferrer"
           >
-            UT Math DRP
-          </a>{" "}
-          Symposium, April 24, 2025
-          <span className={styles.dot}>·</span>
-          <ViewCounter slug="works-ut-math-drp" />
-        </div>
-      </div>
+            {note.label}
+            <span className="visually-hidden">
+              {" "}
+              notes (PDF, opens in new tab)
+            </span>
+          </a>
+        </li>,
+      );
+    }
+    return links;
+  }
 
-      <p className={styles.abstract}>
+  return (
+    <article className="prose">
+      <BackLink
+        href="/projects"
+        label="Back to projects"
+      />
+      <h1>Benford's Law and Ergodic Theory</h1>
+      <p className="deck">
+        Why does the digit 1 lead 30% of real-world numbers?
+      </p>
+
+      <p className="meta">
+        <a
+          href="https://sites.google.com/view/utmathdrp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          UT Math DRP
+          <span className="visually-hidden"> (opens in new tab)</span>
+        </a>{" "}
+        Symposium, April 24, 2025
+      </p>
+
+      <p>
         <strong>Abstract:</strong> Working from Nillsen's{" "}
         <em>Randomness and Recurrence in Dynamical Systems</em>, I presented a
         proof sketch of Benford's Law using dynamical systems: leading digits
@@ -62,16 +95,18 @@ export default function UTMathDRPPage() {
         &ldquo;random-looking&rdquo; digit behavior.
       </p>
 
-      <PdfViewer
-        tabs={[
-          {
-            label: "Presentation",
-            src: "/documents/Benford's Law - From Logarithms to Dynamical Systems.pdf",
-          },
-        ]}
-      />
+      <p>
+        <a
+          href={SLIDES_PDF}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Presentation slides (PDF)
+          <span className="visually-hidden"> (opens in new tab)</span>
+        </a>
+      </p>
 
-      <h3>The Phenomenon</h3>
+      <h2>The Phenomenon</h2>
       <p>
         Benford's Law shows up in tax returns, stock prices, physical constants,
         population data - anywhere numbers span orders of magnitude. The leading
@@ -80,7 +115,7 @@ export default function UTMathDRPPage() {
         1 leads 30.1% of the time and 9 just 4.6%.
       </p>
 
-      <h3>Why It Happens</h3>
+      <h2>Why It Happens</h2>
       <p>
         Take <InlineMath math="2^n" />. Any real number can be written as{" "}
         <InlineMath math="10^k \cdot m" /> where{" "}
@@ -108,6 +143,7 @@ export default function UTMathDRPPage() {
           rel="noopener noreferrer"
         >
           Kronecker system
+          <span className="visually-hidden"> (opens in new tab)</span>
         </a>
         : rotation on <InlineMath math="[0,1)" /> by the irrational angle{" "}
         <InlineMath math="\log_{10}(2)" />.{" "}
@@ -117,6 +153,7 @@ export default function UTMathDRPPage() {
           rel="noopener noreferrer"
         >
           Weyl's Equidistribution Theorem
+          <span className="visually-hidden"> (opens in new tab)</span>
         </a>{" "}
         says such orbits are uniformly distributed. Since the orbit visits
         intervals in proportion to their length,{" "}
@@ -130,7 +167,7 @@ export default function UTMathDRPPage() {
         multiplicative processes spend more time with smaller leading digits.
       </p>
 
-      <h3>Scale Invariance</h3>
+      <h2>Scale Invariance</h2>
       <p>
         Scale invariance gives a different perspective. Units are arbitrary - a
         natural leading-digit law shouldn't care whether we measure in miles or
@@ -141,9 +178,9 @@ export default function UTMathDRPPage() {
         Benford's formula.
       </p>
 
-      <hr className={styles.sectionBreak} />
+      <hr />
 
-      <h3>Recurrence and Waiting Times</h3>
+      <h2>Recurrence and Waiting Times</h2>
       <p>
         The Kronecker system above is one example of a dynamical system - a
         model of how states evolve over time. A natural question: how often do
@@ -154,6 +191,7 @@ export default function UTMathDRPPage() {
           rel="noopener noreferrer"
         >
           Poincaré's recurrence theorem
+          <span className="visually-hidden"> (opens in new tab)</span>
         </a>
         : for a measure-preserving transformation on a finite-measure space
         (e.g., a length-preserving map on a bounded interval), almost every
@@ -172,7 +210,7 @@ export default function UTMathDRPPage() {
         every 10 iterations.
       </p>
 
-      <h3>Randomness and Normal Numbers</h3>
+      <h2>Randomness and Normal Numbers</h2>
       <p>
         Benford's Law shows that first digits aren't uniformly distributed
         across datasets. But what about all digits within a single number? When
@@ -186,6 +224,7 @@ export default function UTMathDRPPage() {
           rel="noopener noreferrer"
         >
           Borel's Normal Numbers Theorem
+          <span className="visually-hidden"> (opens in new tab)</span>
         </a>
         : almost all real numbers are normal. (This is a loose definition; the
         formal treatment involves measure theory and is worth exploring if
@@ -204,7 +243,7 @@ export default function UTMathDRPPage() {
         &ldquo;what does randomness look like?&rdquo; in different contexts.
       </p>
 
-      <h3>The Bigger Picture</h3>
+      <h2>The Bigger Picture</h2>
       <p>
         These seemingly distinct results share a common foundation in ergodic
         theory. A system is ergodic if a single trajectory, followed long
@@ -215,6 +254,7 @@ export default function UTMathDRPPage() {
           rel="noopener noreferrer"
         >
           Birkhoff's Ergodic Theorem
+          <span className="visually-hidden"> (opens in new tab)</span>
         </a>{" "}
         formalizes this: in ergodic systems, time averages equal space averages.
         Track one orbit over time, and the fraction of time it spends in any
@@ -227,23 +267,17 @@ export default function UTMathDRPPage() {
         <InlineMath math="\log_{10}(2) - \log_{10}(1) \approx 0.301" />.
       </p>
 
-      <h3>Weekly Notes</h3>
-      <PdfViewer
-        tabs={[
-          { label: "02/17/25", src: "/documents/DRP notes 02-17-25.pdf" },
-          { label: "02/24/25", src: "/documents/DRP notes 02-24-25.pdf" },
-          { label: "03/03/25", src: "/documents/DRP notes 03-03-25.pdf" },
-          { label: "03/10/25", src: "/documents/DRP notes 03-10-25.pdf" },
-          { label: "03/24/25", src: "/documents/DRP notes 03-24-25.pdf" },
-          { label: "04/07/25", src: "/documents/DRP notes 04-07-25.pdf" },
-        ]}
-      />
-      <Link
-        href="/works"
-        className={"back-link " + styles.backBottom}
+      <h2>Weekly Notes</h2>
+      <ul
+        className={styles.notes}
+        role="list"
       >
-        ← Back to Works
-      </Link>
-    </Prose>
+        {renderWeeklyNotes()}
+      </ul>
+
+      <nav className="back">
+        <Link href="/projects">← Projects</Link>
+      </nav>
+    </article>
   );
 }
