@@ -5,7 +5,6 @@ export interface ChessStats {
 }
 
 const CHESS_USERNAME = "javablob";
-const REFRESH_INTERVAL = 60 * 1000;
 
 // Last good value - a failed fetch never clears it
 let cachedStats: ChessStats | null = null;
@@ -14,27 +13,7 @@ export function getCachedChessStats(): ChessStats | null {
   return cachedStats;
 }
 
-let backgroundRefreshStarted = false;
-
-export function startBackgroundRefresh() {
-  if (backgroundRefreshStarted) return;
-  backgroundRefreshStarted = true;
-
-  setInterval(function refreshCache() {
-    fetchChessStats().catch(function handleError(error) {
-      console.error("Chess background refresh error:", error);
-    });
-  }, REFRESH_INTERVAL);
-}
-
 export async function fetchChessStats(): Promise<void> {
-  const controller = new AbortController();
-
-  function abortRequest() {
-    controller.abort();
-  }
-  const timeoutId = setTimeout(abortRequest, 5000);
-
   try {
     const response = await fetch(
       "https://api.chess.com/pub/player/" + CHESS_USERNAME + "/stats",
@@ -43,7 +22,7 @@ export async function fetchChessStats(): Promise<void> {
           "User-Agent": "willhao.com (william.hao.55@gmail.com)",
           Accept: "application/json",
         },
-        signal: controller.signal,
+        signal: AbortSignal.timeout(5000),
         cache: "no-store",
       },
     );
@@ -90,13 +69,6 @@ export async function fetchChessStats(): Promise<void> {
       bullet: bulletRating,
     };
   } catch (error) {
-    if (error instanceof Error && error.name === "AbortError") {
-      console.error("Chess.com API timeout after 5 seconds");
-      throw new Error("Chess.com API request timed out");
-    }
     console.error("Chess.com API error:", error);
-    throw error;
-  } finally {
-    clearTimeout(timeoutId);
   }
 }

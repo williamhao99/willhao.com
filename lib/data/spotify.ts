@@ -34,10 +34,8 @@ let cachedToken: { token: string; expires: number } | null = null;
 
 let rotatedRefreshToken: string | null = null;
 
-const CACHE_DURATION = 3 * 1000;
 const STALE_DURATION = 5 * 60 * 1000;
 const IDLE_HISTORY_INTERVAL = 60 * 1000; // 2s polling hit 429 QUOTA_EXCEEDED
-const REFRESH_INTERVAL = 2 * 1000;
 
 let cachedStats: {
   data: SpotifyData;
@@ -45,44 +43,24 @@ let cachedStats: {
   fetchedAt: number;
 } | null = null;
 
-function buildData(entry: {
-  data: SpotifyData;
-  playedAt: number | null;
-}): SpotifyData {
-  const result: SpotifyData = {
-    isPlaying: entry.data.isPlaying,
-    songTitle: entry.data.songTitle,
-    artist: entry.data.artist,
-  };
-  if (entry.data.songUrl) {
-    result.songUrl = entry.data.songUrl;
+// Last-played entries at any age; playing/paused for 5 min, then last played
+export function getCachedSpotifyData(): SpotifyData | null {
+  if (!cachedStats) return null;
+  const result = { ...cachedStats.data };
+  let current = result.isPlaying || result.lastPlayed === "(paused)";
+  let playedAt = cachedStats.playedAt;
+  if (current && Date.now() - cachedStats.fetchedAt >= STALE_DURATION) {
+    current = false;
+    result.isPlaying = false;
+    playedAt = lastConfirmedPlayingAt || cachedStats.fetchedAt;
   }
-  if (entry.playedAt !== null) {
-    result.lastPlayed = formatTimeSince(entry.playedAt);
-  } else if (entry.data.lastPlayed) {
-    result.lastPlayed = entry.data.lastPlayed;
+  if (playedAt !== null) {
+    result.lastPlayed = formatTimeSince(playedAt);
   }
-  if (
-    currentFailing ||
-    (recentFailing &&
-      !entry.data.isPlaying &&
-      entry.data.lastPlayed !== "(paused)")
-  ) {
+  if (currentFailing || (recentFailing && !current)) {
     result.backoff = true;
   }
   return result;
-}
-
-// Last-played entries at any age; playing/paused for 5 min
-export function getCachedSpotifyData(): SpotifyData | null {
-  if (
-    cachedStats &&
-    (cachedStats.playedAt !== null ||
-      Date.now() - cachedStats.fetchedAt < STALE_DURATION)
-  ) {
-    return buildData(cachedStats);
-  }
-  return null;
 }
 
 const NON_429_BACKOFF = 5 * 1000;
@@ -96,9 +74,9 @@ let currentFailing = false;
 let recentFailing = false;
 
 // Honor Retry-After, capped at 1h
-async function rateLimitWait(response: Response): Promise<number> {
+async function failureWait(response: Response): Promise<number> {
   if (response.status !== 429) {
-    return 0;
+    return NON_429_BACKOFF;
   }
   const retryAfter = response.headers.get("Retry-After");
   let reason = "";
@@ -125,20 +103,6 @@ async function rateLimitWait(response: Response): Promise<number> {
     waitMs = MAX_RETRY_AFTER;
   }
   return waitMs;
-}
-
-let backgroundRefreshStarted = false;
-
-export function startBackgroundRefresh() {
-  if (backgroundRefreshStarted) return;
-  backgroundRefreshStarted = true;
-
-  setInterval(function refreshCache() {
-    if (Date.now() < backoffUntil) return;
-    startFetch().catch(function handleError(error) {
-      console.error("Spotify background refresh error:", error);
-    });
-  }, REFRESH_INTERVAL);
 }
 
 async function getAccessToken(signal: AbortSignal): Promise<string> {
@@ -170,10 +134,7 @@ async function getAccessToken(signal: AbortSignal): Promise<string> {
   });
 
   if (!response.ok) {
-    let wait = await rateLimitWait(response);
-    if (wait === 0) {
-      wait = NON_429_BACKOFF;
-    }
+    let wait = await failureWait(response);
     // 400 = dead refresh token - run npm run spotify-auth
     if (response.status === 400) {
       wait = DEAD_TOKEN_BACKOFF;
@@ -239,21 +200,11 @@ let lastRecentlyPlayedAt = 0;
 
 let lastConfirmedPlayingAt = 0;
 
-function serveCachedOrThrow(message: string): SpotifyData {
-  if (cachedStats) {
-    cachedStats.fetchedAt = Date.now();
-    return buildData(cachedStats);
-  }
-  throw new Error(message);
-}
-
 async function fetchRecentlyPlayed(
   accessToken: string,
-  controller: AbortController,
-): Promise<SpotifyData> {
-  if (Date.now() < recentBackoffUntil) {
-    return serveCachedOrThrow("Spotify recently-played backoff active");
-  }
+  signal: AbortSignal,
+): Promise<void> {
+  if (Date.now() < recentBackoffUntil) return;
 
   // Stamp first so failed attempts count too
   lastRecentlyPlayedAt = Date.now();
@@ -266,7 +217,7 @@ async function fetchRecentlyPlayed(
         headers: {
           Authorization: "Bearer " + accessToken,
         },
-        signal: controller.signal,
+        signal: signal,
         cache: "no-store",
       },
     );
@@ -277,16 +228,10 @@ async function fetchRecentlyPlayed(
   }
 
   if (!response.ok) {
-    let wait = await rateLimitWait(response);
-    if (wait === 0) {
-      wait = NON_429_BACKOFF;
-      console.error("Spotify recently-played returned " + response.status);
-    }
+    const wait = await failureWait(response);
     recentBackoffUntil = Date.now() + wait;
     recentFailing = true;
-    return serveCachedOrThrow(
-      "Spotify recently-played returned " + response.status,
-    );
+    throw new Error("Spotify recently-played returned " + response.status);
   }
 
   let recent: { items: { track: SpotifyTrack; played_at: string }[] };
@@ -299,122 +244,45 @@ async function fetchRecentlyPlayed(
   }
   recentFailing = false;
 
-  if (recent.items && recent.items.length > 0) {
-    const item = recent.items[0];
-    if (item) {
-      let playedAt = new Date(item.played_at).getTime();
-      if (!Number.isFinite(playedAt)) {
-        playedAt = Date.now();
-      }
-      const data: SpotifyData = {
-        isPlaying: false,
-        songTitle: item.track.name,
-        artist: getArtistNames(item.track),
-      };
-      const songUrl = getSongUrl(item.track);
-      if (songUrl) {
-        data.songUrl = songUrl;
-      }
-      const entry = {
-        data: data,
-        playedAt: playedAt,
-        fetchedAt: Date.now(),
-      };
-      cachedStats = entry;
-      return buildData(entry);
+  const item = recent.items && recent.items[0];
+  if (item) {
+    let playedAt = new Date(item.played_at).getTime();
+    if (!Number.isFinite(playedAt)) {
+      playedAt = Date.now();
     }
-  }
-
-  // Spotify sometimes sends an empty 200 - keep the cache
-  if (cachedStats) {
+    const data: SpotifyData = {
+      isPlaying: false,
+      songTitle: item.track.name,
+      artist: getArtistNames(item.track),
+    };
+    const songUrl = getSongUrl(item.track);
+    if (songUrl) {
+      data.songUrl = songUrl;
+    }
+    cachedStats = { data: data, playedAt: playedAt, fetchedAt: Date.now() };
+  } else if (cachedStats) {
+    // Spotify sometimes sends an empty 200 - keep the cache
     console.error("Spotify recently-played returned 200 with no items");
-    cachedStats.fetchedAt = Date.now();
-    return buildData(cachedStats);
-  }
-
-  const empty: SpotifyData = {
-    isPlaying: false,
-    songTitle: "Nothing played yet",
-    artist: "—",
-  };
-  cachedStats = { data: empty, playedAt: null, fetchedAt: Date.now() };
-  return empty;
-}
-
-let inFlightFetch: Promise<SpotifyData> | null = null;
-
-async function startFetch(): Promise<SpotifyData> {
-  if (inFlightFetch) {
-    return inFlightFetch;
-  }
-
-  const fetchPromise = fetchFreshSpotifyData();
-  inFlightFetch = fetchPromise;
-  try {
-    return await fetchPromise;
-  } finally {
-    inFlightFetch = null;
+  } else {
+    cachedStats = {
+      data: { isPlaying: false, songTitle: "Nothing played yet", artist: "—" },
+      playedAt: null,
+      fetchedAt: Date.now(),
+    };
   }
 }
 
-export async function fetchSpotifyData(): Promise<SpotifyData> {
-  if (cachedStats && Date.now() - cachedStats.fetchedAt < CACHE_DURATION) {
-    return buildData(cachedStats);
-  }
-  try {
-    return await startFetch();
-  } catch (error) {
-    if (
-      cachedStats &&
-      cachedStats.playedAt === null &&
-      Date.now() - cachedStats.fetchedAt >= STALE_DURATION &&
-      (cachedStats.data.isPlaying || cachedStats.data.lastPlayed === "(paused)")
-    ) {
-      let playedAt = cachedStats.fetchedAt;
-      if (lastConfirmedPlayingAt > 0) {
-        playedAt = lastConfirmedPlayingAt;
-      }
-      const demoted: SpotifyData = {
-        isPlaying: false,
-        songTitle: cachedStats.data.songTitle,
-        artist: cachedStats.data.artist,
-      };
-      if (cachedStats.data.songUrl) {
-        demoted.songUrl = cachedStats.data.songUrl;
-      }
-      cachedStats = {
-        data: demoted,
-        playedAt: playedAt,
-        fetchedAt: cachedStats.fetchedAt,
-      };
-    }
-    if (cachedStats && cachedStats.playedAt !== null) {
-      cachedStats.fetchedAt = Date.now();
-      return buildData(cachedStats);
-    }
-    if (cachedStats && Date.now() - cachedStats.fetchedAt < STALE_DURATION) {
-      return buildData(cachedStats);
-    }
-    throw error;
-  }
-}
+let fetching = false;
 
-async function fetchFreshSpotifyData(): Promise<SpotifyData> {
-  if (Date.now() < backoffUntil) {
-    throw new Error("Spotify backoff active, skipping fetch");
-  }
+export async function fetchSpotifyData(): Promise<void> {
+  if (fetching || Date.now() < backoffUntil) return;
+  fetching = true;
 
-  const controller = new AbortController();
-
-  function abortRequest() {
-    controller.abort();
-  }
-  const timeoutId = setTimeout(abortRequest, 5000);
-
+  const signal = AbortSignal.timeout(5000);
   let historyPhase = false;
 
   try {
-    let accessToken = await getAccessToken(controller.signal);
+    let accessToken = await getAccessToken(signal);
 
     let currentResponse = await fetch(
       "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode",
@@ -422,31 +290,28 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
-        signal: controller.signal,
+        signal: signal,
         cache: "no-store",
       },
     );
 
     if (currentResponse.status === 401) {
       cachedToken = null;
-      accessToken = await getAccessToken(controller.signal);
+      accessToken = await getAccessToken(signal);
       currentResponse = await fetch(
         "https://api.spotify.com/v1/me/player/currently-playing?additional_types=episode",
         {
           headers: {
             Authorization: "Bearer " + accessToken,
           },
-          signal: controller.signal,
+          signal: signal,
           cache: "no-store",
         },
       );
     }
 
     if (!currentResponse.ok) {
-      let wait = await rateLimitWait(currentResponse);
-      if (wait === 0) {
-        wait = NON_429_BACKOFF;
-      }
+      const wait = await failureWait(currentResponse);
       backoffUntil = Date.now() + wait;
       currentFailing = true;
       if (
@@ -454,17 +319,18 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
         Date.now() - lastRecentlyPlayedAt >= IDLE_HISTORY_INTERVAL
       ) {
         historyPhase = true;
-        return await fetchRecentlyPlayed(accessToken, controller);
+        await fetchRecentlyPlayed(accessToken, signal);
+        return;
       }
       throw new Error(
         "Spotify currently-playing returned " + currentResponse.status,
       );
     }
-    currentFailing = false;
 
     // 204 = nothing playing
     if (currentResponse.status !== 204) {
       const current: SpotifyCurrentlyPlaying = await currentResponse.json();
+      currentFailing = false;
 
       if (
         current.item &&
@@ -498,44 +364,26 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
           result.lastPlayed = "(paused)";
         }
         cachedStats = { data: result, playedAt: null, fetchedAt: Date.now() };
-        return result;
+        return;
       }
     }
 
+    currentFailing = false;
     historyPhase = true;
 
     if (
       cachedStats &&
-      cachedStats.playedAt === null &&
       (cachedStats.data.isPlaying || cachedStats.data.lastPlayed === "(paused)")
     ) {
-      let playedAt = Date.now();
-      if (lastConfirmedPlayingAt > 0) {
-        playedAt = lastConfirmedPlayingAt;
-      }
-      const demoted: SpotifyData = {
-        isPlaying: false,
-        songTitle: cachedStats.data.songTitle,
-        artist: cachedStats.data.artist,
-      };
-      if (cachedStats.data.songUrl) {
-        demoted.songUrl = cachedStats.data.songUrl;
-      }
-      cachedStats = {
-        data: demoted,
-        playedAt: playedAt,
-        fetchedAt: Date.now(),
-      };
+      cachedStats.data = { ...cachedStats.data, isPlaying: false };
+      delete cachedStats.data.lastPlayed;
+      cachedStats.playedAt = lastConfirmedPlayingAt || cachedStats.fetchedAt;
     }
 
     // Idle - throttle history
-    if (Date.now() - lastRecentlyPlayedAt < IDLE_HISTORY_INTERVAL) {
-      return serveCachedOrThrow(
-        "Spotify recently-played throttled with no cache",
-      );
-    }
+    if (Date.now() - lastRecentlyPlayedAt < IDLE_HISTORY_INTERVAL) return;
 
-    return await fetchRecentlyPlayed(accessToken, controller);
+    await fetchRecentlyPlayed(accessToken, signal);
   } catch (error) {
     if (!historyPhase) {
       currentFailing = true;
@@ -544,13 +392,8 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
         backoffUntil = gate;
       }
     }
-    if (error instanceof Error && error.name === "AbortError") {
-      console.error("Spotify API timeout after 5 seconds");
-      throw new Error("Spotify API request timed out");
-    }
     console.error("Spotify API error:", error);
-    throw error;
   } finally {
-    clearTimeout(timeoutId);
+    fetching = false;
   }
 }

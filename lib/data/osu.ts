@@ -5,8 +5,6 @@ export interface OsuStats {
   playTime: number | null; // In hours
 }
 
-const REFRESH_INTERVAL = 60 * 1000;
-
 // Tokens last 24h
 let cachedToken: { token: string; expires: number } | null = null;
 
@@ -15,19 +13,6 @@ let cachedStats: OsuStats | null = null;
 
 export function getCachedOsuStats(): OsuStats | null {
   return cachedStats;
-}
-
-let backgroundRefreshStarted = false;
-
-export function startBackgroundRefresh() {
-  if (backgroundRefreshStarted) return;
-  backgroundRefreshStarted = true;
-
-  setInterval(function refreshCache() {
-    fetchOsuStats().catch(function handleError(error) {
-      console.error("osu! background refresh error:", error);
-    });
-  }, REFRESH_INTERVAL);
 }
 
 async function getAccessToken(signal: AbortSignal): Promise<string> {
@@ -72,12 +57,7 @@ async function getAccessToken(signal: AbortSignal): Promise<string> {
 }
 
 export async function fetchOsuStats(): Promise<void> {
-  const controller = new AbortController();
-
-  function abortRequest() {
-    controller.abort();
-  }
-  const timeoutId = setTimeout(abortRequest, 5000);
+  const signal = AbortSignal.timeout(5000);
 
   try {
     const username = process.env.OSU_USERNAME;
@@ -85,7 +65,7 @@ export async function fetchOsuStats(): Promise<void> {
       throw new Error("Missing OSU_USERNAME");
     }
 
-    const accessToken = await getAccessToken(controller.signal);
+    const accessToken = await getAccessToken(signal);
 
     // /osu = standard mode
     const response = await fetch(
@@ -95,7 +75,7 @@ export async function fetchOsuStats(): Promise<void> {
           Authorization: "Bearer " + accessToken,
           Accept: "application/json",
         },
-        signal: controller.signal,
+        signal: signal,
         cache: "no-store",
       },
     );
@@ -152,13 +132,6 @@ export async function fetchOsuStats(): Promise<void> {
       playTime: playTime,
     };
   } catch (error) {
-    if (error instanceof Error && error.name === "AbortError") {
-      console.error("osu! API timeout after 5 seconds");
-      throw new Error("osu! API request timed out");
-    }
     console.error("osu! API error:", error);
-    throw error;
-  } finally {
-    clearTimeout(timeoutId);
   }
 }

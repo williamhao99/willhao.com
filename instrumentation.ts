@@ -5,33 +5,17 @@ export async function register() {
     const osu = await import("@/lib/data/osu");
     const live = await import("@/lib/data/live");
 
-    live.shareLive({
-      getCached: function getCached() {
-        return {
-          spotify: spotify.getCachedSpotifyData(),
-          chess: chess.getCachedChessStats(),
-          osu: osu.getCachedOsuStats(),
-        };
-      },
-      // Only Spotify may wait on its API - the others answer from memory
-      fetch: async function fetchAll() {
-        let spotifyData = null;
-        try {
-          spotifyData = await spotify.fetchSpotifyData();
-        } catch {
-          // Row keeps its last value
-        }
-        return {
-          spotify: spotifyData,
-          chess: chess.getCachedChessStats(),
-          osu: osu.getCachedOsuStats(),
-        };
-      },
+    live.shareLive(function getLive() {
+      return {
+        spotify: spotify.getCachedSpotifyData(),
+        chess: chess.getCachedChessStats(),
+        osu: osu.getCachedOsuStats(),
+      };
     });
 
-    spotify.startBackgroundRefresh();
-    chess.startBackgroundRefresh();
-    osu.startBackgroundRefresh();
+    setInterval(spotify.fetchSpotifyData, 2 * 1000);
+    setInterval(chess.fetchChessStats, 60 * 1000);
+    setInterval(osu.fetchOsuStats, 60 * 1000);
 
     // Warm caches
     await Promise.allSettled([

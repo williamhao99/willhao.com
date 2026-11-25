@@ -9,31 +9,17 @@ export interface LiveData {
   osu: OsuStats | null;
 }
 
-interface LiveSource {
-  getCached(): LiveData;
-  fetch(): Promise<LiveData>;
-}
-
 // Every page and route bundle gets its own copy of a module, so the data
 // modules run once, in instrumentation.ts, and are shared through globalThis
-const shared = globalThis as typeof globalThis & { liveSource?: LiveSource };
+const shared = globalThis as typeof globalThis & { getLive?(): LiveData };
 
-const EMPTY: LiveData = { spotify: null, chess: null, osu: null };
-
-export function shareLive(source: LiveSource) {
-  shared.liveSource = source;
+export function shareLive(getLive: () => LiveData) {
+  shared.getLive = getLive;
 }
 
 export function getCachedLive(): LiveData {
-  if (shared.liveSource) {
-    return shared.liveSource.getCached();
+  if (shared.getLive) {
+    return shared.getLive();
   }
-  return EMPTY;
-}
-
-export async function fetchLive(): Promise<LiveData> {
-  if (shared.liveSource) {
-    return shared.liveSource.fetch();
-  }
-  return EMPTY;
+  return { spotify: null, chess: null, osu: null };
 }
