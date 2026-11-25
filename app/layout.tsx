@@ -37,9 +37,6 @@ export const metadata: Metadata = {
     siteName: "Will Hao",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-  },
   icons: {
     icon: [
       { url: "/favicons/favicon.ico", sizes: "32x32" },
@@ -60,8 +57,6 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
   themeColor: "#0b1224",
   colorScheme: "dark",
 };

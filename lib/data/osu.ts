@@ -30,9 +30,7 @@ export function startBackgroundRefresh() {
   }, REFRESH_INTERVAL);
 }
 
-async function getAccessToken(
-  signal: AbortSignal | null = null,
-): Promise<string> {
+async function getAccessToken(signal: AbortSignal): Promise<string> {
   if (cachedToken && Date.now() < cachedToken.expires) {
     return cachedToken.token;
   }
@@ -73,7 +71,7 @@ async function getAccessToken(
   return data.access_token;
 }
 
-export async function fetchOsuStats(): Promise<OsuStats> {
+export async function fetchOsuStats(): Promise<void> {
   const controller = new AbortController();
 
   function abortRequest() {
@@ -147,16 +145,12 @@ export async function fetchOsuStats(): Promise<OsuStats> {
       peakRank = data.rank_highest.rank;
     }
 
-    const stats = {
+    cachedStats = {
       globalRank: globalRank,
       peakRank: peakRank,
       pp: pp,
       playTime: playTime,
     };
-
-    cachedStats = stats;
-
-    return stats;
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
       console.error("osu! API timeout after 5 seconds");

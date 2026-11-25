@@ -27,7 +27,7 @@ export function startBackgroundRefresh() {
   }, REFRESH_INTERVAL);
 }
 
-export async function fetchChessStats(): Promise<ChessStats> {
+export async function fetchChessStats(): Promise<void> {
   const controller = new AbortController();
 
   function abortRequest() {
@@ -84,15 +84,11 @@ export async function fetchChessStats(): Promise<ChessStats> {
       bulletRating = data.chess_bullet.last.rating;
     }
 
-    const stats = {
+    cachedStats = {
       rapid: rapidRating,
       blitz: blitzRating,
       bullet: bulletRating,
     };
-
-    cachedStats = stats;
-
-    return stats;
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
       console.error("Chess.com API timeout after 5 seconds");

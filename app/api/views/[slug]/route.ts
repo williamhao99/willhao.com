@@ -27,10 +27,6 @@ function buildValidSlugs(): Set<string> {
 
 const VALID_SLUGS = buildValidSlugs();
 
-function isValidSlug(slug: string): boolean {
-  return VALID_SLUGS.has(slug);
-}
-
 export async function GET(
   request: Request,
   context: RouteParams,
@@ -38,7 +34,7 @@ export async function GET(
   const params = await context.params;
   const slug = params.slug;
 
-  if (!isValidSlug(slug)) {
+  if (!VALID_SLUGS.has(slug)) {
     return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
   }
 
@@ -57,7 +53,7 @@ export async function POST(
   const params = await context.params;
   const slug = params.slug;
 
-  if (!isValidSlug(slug)) {
+  if (!VALID_SLUGS.has(slug)) {
     return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
   }
 

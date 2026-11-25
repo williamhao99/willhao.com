@@ -55,7 +55,7 @@ export const projects: Project[] = [
     description: "Scan a barcode, get repair steps on your smart glasses",
     link: "https://github.com/williamhao99/marvis-hackMIT2025",
     date: "Sep 2025",
-    award: "1st Place Winner - Mentra Sponsor Track",
+    award: "1st Place - Mentra Track",
     featured: true,
   },
   {

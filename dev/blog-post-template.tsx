@@ -1,4 +1,4 @@
-// Copy to app/blog/{slug}/page.tsx and add an entry in app/blog/blogs.ts
+// Copy to app/blog/{slug}/page.tsx; add a blogs.ts entry and an opengraph-image.tsx
 
 import type { Metadata } from "next";
 import Image from "next/image";

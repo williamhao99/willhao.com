@@ -73,23 +73,11 @@
 
 /* Mobile */
 @media (max-width: 35em) {
-  .title {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    white-space: normal;
-  }
-
   .by {
-    flex-wrap: wrap;
-  }
-
-  .artist {
-    max-width: 100%;
+    flex-direction: column;
   }
 
   .status {
-    flex: 0 1 auto;
     white-space: normal;
   }
 }

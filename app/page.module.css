@@ -79,12 +79,7 @@
 
 /* Under 360px */
 @media (max-width: 22.4375em) {
-  .front {
-    --knight-size: 32px;
-  }
-
-  .front,
-  .links {
-    gap: var(--space-10);
+  .knightSlot {
+    display: none;
   }
 }

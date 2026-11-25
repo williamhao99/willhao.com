@@ -109,13 +109,7 @@ body {
 }
 
 /* Underlined links */
-:where(
-  a[target="_blank"],
-  a[href^="mailto:"],
-  .prose p a,
-  .prose li a,
-  .prose .meta a
-) {
+:where(a[target="_blank"], a[href^="mailto:"], .prose p a, .prose li a) {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
   text-decoration-thickness: var(--line-thin);
@@ -175,7 +169,6 @@ body {
   font-size: var(--text-mid);
   line-height: var(--leading-snug);
   color: var(--color-grey);
-  margin-bottom: var(--space-18);
   text-wrap: balance;
 }
 
@@ -218,10 +211,6 @@ body {
   margin: var(--space-32) 0;
 }
 
-:where(.prose hr + h2) {
-  margin-top: 0;
-}
-
 :where(.prose code) {
   font-family: var(--font-mono), var(--font-mono-fallback);
   font-size: var(--code-size);
@@ -235,7 +224,6 @@ body {
   overflow-x: auto;
   font-family: var(--font-mono), var(--font-mono-fallback);
   font-size: var(--text-small);
-  line-height: var(--leading-body);
 }
 
 :where(.prose pre code) {

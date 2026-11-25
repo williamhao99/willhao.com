@@ -3,7 +3,6 @@ import Link from "next/link";
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import BackLink from "@/components/backLink/BackLink";
-import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Benford's Law and Ergodic Theory",
@@ -266,12 +265,7 @@ export default function UTMathDRPPage() {
       </p>
 
       <h2>Weekly Notes</h2>
-      <ul
-        className={styles.notes}
-        role="list"
-      >
-        {renderWeeklyNotes()}
-      </ul>
+      <ul>{renderWeeklyNotes()}</ul>
 
       <nav className="back">
         <Link href="/projects">← Projects</Link>

@@ -141,9 +141,7 @@ export function startBackgroundRefresh() {
   }, REFRESH_INTERVAL);
 }
 
-async function getAccessToken(
-  signal: AbortSignal | null = null,
-): Promise<string> {
+async function getAccessToken(signal: AbortSignal): Promise<string> {
   if (cachedToken && Date.now() < cachedToken.expires) {
     return cachedToken.token;
   }
@@ -532,11 +530,9 @@ async function fetchFreshSpotifyData(): Promise<SpotifyData> {
 
     // Idle - throttle history
     if (Date.now() - lastRecentlyPlayedAt < IDLE_HISTORY_INTERVAL) {
-      if (cachedStats) {
-        cachedStats.fetchedAt = Date.now();
-        return buildData(cachedStats);
-      }
-      throw new Error("Spotify recently-played throttled with no cache");
+      return serveCachedOrThrow(
+        "Spotify recently-played throttled with no cache",
+      );
     }
 
     return await fetchRecentlyPlayed(accessToken, controller);
