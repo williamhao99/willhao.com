@@ -97,7 +97,10 @@ a.when:hover {
     font-size: var(--text-small);
   }
 
+  /* 34% stops a third column */
   .stats {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(max(var(--rail), 34%), 1fr));
+    column-gap: 0;
   }
 }
