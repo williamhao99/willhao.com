@@ -13,38 +13,14 @@ const DEFAULT_DATA: SpotifyData = {
 };
 
 export function markBackoff(prev: SpotifyData | null): SpotifyData {
-  const base = prev || DEFAULT_DATA;
-  if (base.backoff) {
-    return base;
-  }
-  const next: SpotifyData = {
-    isPlaying: base.isPlaying,
-    songTitle: base.songTitle,
-    artist: base.artist,
-    backoff: true,
-  };
-  if (base.songUrl) {
-    next.songUrl = base.songUrl;
-  }
-  if (base.lastPlayed) {
-    next.lastPlayed = base.lastPlayed;
-  }
-  return next;
+  return { ...(prev || DEFAULT_DATA), backoff: true };
 }
 
 export function demoteStale(prev: SpotifyData | null): SpotifyData {
-  const base = prev || DEFAULT_DATA;
-  if (!base.isPlaying && base.lastPlayed !== "(paused)") {
-    return markBackoff(base);
-  }
-  const next: SpotifyData = {
-    isPlaying: false,
-    songTitle: base.songTitle,
-    artist: base.artist,
-    backoff: true,
-  };
-  if (base.songUrl) {
-    next.songUrl = base.songUrl;
+  const next = markBackoff(prev);
+  if (next.isPlaying || next.lastPlayed === "(paused)") {
+    next.isPlaying = false;
+    delete next.lastPlayed;
   }
   return next;
 }
@@ -97,7 +73,7 @@ export default function SpotifyWidget({ data }: SpotifyWidgetProps) {
     title = (
       <a
         href={shown.songUrl}
-        className={styles.title + " " + styles.song}
+        className={styles.title + " " + ledger.rowLink}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={spoken + " (opens in new tab)"}

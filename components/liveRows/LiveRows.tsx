@@ -37,11 +37,7 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
       const retrying = failedSpotifyPolls > 1;
 
       setData(function merge(prev) {
-        const merged: LiveData = {
-          spotify: prev.spotify,
-          chess: prev.chess,
-          osu: prev.osu,
-        };
+        const merged = { ...prev };
         if (next && next.chess) {
           merged.chess = next.chess;
         }

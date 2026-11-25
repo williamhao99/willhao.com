@@ -58,7 +58,7 @@ export default function ProjectRows({ projects }: ProjectRowsProps) {
 
     rows.push(
       <li
-        key={project.id}
+        key={project.title}
         className={ledger.row}
       >
         <span className={ledger.when}>{project.date}</span>

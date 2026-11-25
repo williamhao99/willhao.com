@@ -12,16 +12,11 @@ export const metadata: Metadata = {
     canonical: "https://willhao.com/projects/ut-math-drp",
   },
   openGraph: {
-    title: "Benford's Law and Ergodic Theory",
-    description:
-      "Reading project and symposium talk on Benford's Law and ergodic theory, through the UT Math Directed Reading Program.",
     url: "https://willhao.com/projects/ut-math-drp",
     siteName: "Will Hao",
     type: "article",
   },
 };
-
-const SLIDES_PDF = "/documents/benfords-law-slides.pdf";
 
 const WEEKLY_NOTES = [
   { label: "Feb 17", href: "/documents/DRP%20notes%2002-17-25.pdf" },
@@ -94,7 +89,7 @@ export default function UTMathDRPPage() {
 
       <p>
         <a
-          href={SLIDES_PDF}
+          href="/documents/benfords-law-slides.pdf"
           target="_blank"
           rel="noopener noreferrer"
         >

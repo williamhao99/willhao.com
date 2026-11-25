@@ -13,8 +13,6 @@ export const metadata: Metadata = {
     canonical: "https://willhao.com/blog/post-slug",
   },
   openGraph: {
-    title: "Post Title",
-    description: "Brief description for SEO and link previews.",
     url: "https://willhao.com/blog/post-slug",
     siteName: "Will Hao",
     type: "article",

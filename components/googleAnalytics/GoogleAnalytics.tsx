@@ -12,13 +12,9 @@ export default function GoogleAnalytics() {
 
   return (
     <>
-      <Script
-        src={"https://www.googletagmanager.com/gtag/js?id=" + GATag}
-        strategy="afterInteractive"
-      />
+      <Script src={"https://www.googletagmanager.com/gtag/js?id=" + GATag} />
       <Script
         id="google-analytics"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html:
             "window.dataLayer = window.dataLayer || [];" +

@@ -41,13 +41,11 @@ const PROFILE_SCHEMA = {
 // Newest first
 const EXPERIENCE = [
   {
-    id: "optiver-qt-intern-2027",
     role: "Quantitative Trading Intern",
     company: "Optiver",
     date: "Summer 2027",
   },
   {
-    id: "citi-swe-intern-2026",
     role: "Software Engineering Intern",
     company: "Citi",
     date: "Jun - Aug 2026",
@@ -67,7 +65,7 @@ export default function Home() {
 
       rows.push(
         <li
-          key={entry.id}
+          key={entry.company + entry.date}
           className={ledger.row}
         >
           <span className={ledger.when}>{entry.date}</span>
@@ -119,7 +117,7 @@ export default function Home() {
           />
         </span>
       </header>
-      <p className={styles.intro}>{INTRO}</p>
+      <p>{INTRO}</p>
 
       <Ledger label="Experience">{renderExperience()}</Ledger>
       <Ledger label="Featured projects">

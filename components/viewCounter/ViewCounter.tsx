@@ -26,12 +26,6 @@ function markAsViewed(slug: string): void {
   }
 }
 
-function wait(ms: number): Promise<void> {
-  return new Promise(function resolveLater(resolve) {
-    setTimeout(resolve, ms);
-  });
-}
-
 function buildSlugMap(): Record<string, string> {
   const map: Record<string, string> = {
     "/": "home",
@@ -62,7 +56,9 @@ const VIEW_TIMEOUT_MS = 5000;
 async function loadViews(slug: string): Promise<number | null> {
   for (let attempt = 0; attempt < MAX_VIEW_ATTEMPTS; attempt++) {
     if (attempt > 0) {
-      await wait(VIEW_RETRY_DELAY_MS * attempt);
+      await new Promise(function wait(resolve) {
+        setTimeout(resolve, VIEW_RETRY_DELAY_MS * attempt);
+      });
     }
 
     try {
@@ -94,8 +90,7 @@ async function loadViews(slug: string): Promise<number | null> {
 
 export default function ViewCounter() {
   const pathname = usePathname();
-  // null = every attempt failed
-  const [viewsMap, setViewsMap] = useState<Record<string, number | null>>({});
+  const [viewsMap, setViewsMap] = useState<Record<string, number>>({});
   const startedRef = useRef<Set<string>>(new Set());
 
   const slug = VIEW_PAGES[pathname] || null;
@@ -114,12 +109,11 @@ export default function ViewCounter() {
         if (views === null) {
           startedRef.current.delete(currentSlug);
           console.error("Failed to fetch view count for " + currentSlug);
+          return;
         }
 
         setViewsMap(function updateMap(prev) {
-          const next: Record<string, number | null> = Object.assign({}, prev);
-          next[currentSlug] = views;
-          return next;
+          return { ...prev, [currentSlug]: views };
         });
       }
 
@@ -134,7 +128,7 @@ export default function ViewCounter() {
 
   const views = viewsMap[slug];
 
-  if (views === null || views === undefined) {
+  if (views === undefined) {
     return null;
   }
 

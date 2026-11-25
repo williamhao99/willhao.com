@@ -1,12 +1,7 @@
 /* Header */
 .front {
-  /* 32px sprite - whole multiples only */
-  --knight-size: 64px;
-  --knight-pixel: calc(var(--knight-size) / 32);
-  /* Empty margins of the sprite, in sprite pixels */
-  --knight-inset-right: calc(4 * var(--knight-pixel));
-  --knight-inset-left: calc(5 * var(--knight-pixel));
-  --knight-inset-bottom: calc(2 * var(--knight-pixel));
+  /* 32px sprite, empty 5 left, 4 right, 2 below */
+  --knight-pixel: 2px;
   /* Cap heights in em: Newsreader, Space Grotesk */
   --name-cap: 0.676;
   --link-cap: 0.7;
@@ -20,11 +15,6 @@
   align-items: baseline;
   gap: var(--space-28);
   margin-bottom: var(--space-18);
-}
-
-.front h1,
-.links a {
-  white-space: nowrap;
 }
 
 .front h1 {
@@ -44,25 +34,14 @@
 
 .knightSlot {
   position: relative;
-  flex: none;
-  width: calc(
-    var(--knight-size) - var(--knight-inset-left) - var(--knight-inset-right)
-  );
-  height: 0;
+  width: calc(23 * var(--knight-pixel));
 }
 
 .knight {
   position: absolute;
-  left: calc(-1 * var(--knight-inset-left));
-  bottom: calc(-1 * (var(--knight-inset-bottom) + var(--knight-drop)));
-  width: var(--knight-size);
-  height: var(--knight-size);
+  left: calc(-5 * var(--knight-pixel));
+  bottom: calc(-2 * var(--knight-pixel) - var(--knight-drop));
   image-rendering: pixelated;
-}
-
-.intro,
-.personal {
-  text-wrap: pretty;
 }
 
 .personal {

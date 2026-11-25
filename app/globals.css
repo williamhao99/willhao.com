@@ -73,7 +73,6 @@
 
 html {
   font-size: 62.5%; /* 1rem = 10px */
-  color-scheme: dark;
   background-color: var(--color-background);
   scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
@@ -85,6 +84,8 @@ body {
   font-family: var(--font-sans), var(--font-sans-fallback);
   font-size: var(--text-body);
   line-height: var(--leading-body);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 ::selection {
@@ -184,7 +185,6 @@ body {
 
 :where(.prose p) {
   margin-bottom: var(--space-18);
-  text-wrap: pretty;
 }
 
 :where(.prose p:last-child) {

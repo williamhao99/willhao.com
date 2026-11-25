@@ -4,12 +4,7 @@ import { usePathname } from "next/navigation";
 import BackLink from "@/components/backLink/BackLink";
 import styles from "./status.module.css";
 
-export default function Error({
-  retry,
-}: {
-  error: Error & { digest?: string };
-  retry: () => void;
-}) {
+export default function Error({ retry }: { retry: () => void }) {
   const pathname = usePathname();
 
   let back = null;

@@ -50,20 +50,16 @@ export default function ChessWidget({ data }: ChessWidgetProps) {
         aria-hidden="true"
       >
         <span>
-          {rapidRating}
-          <span className={ledger.unit}>rapid</span>
+          {rapidRating} <span className={ledger.unit}>rapid</span>
         </span>
         <span>
-          {blitzRating}
-          <span className={ledger.unit}>blitz</span>
+          {blitzRating} <span className={ledger.unit}>blitz</span>
         </span>
         <span>
-          {bulletRating}
-          <span className={ledger.unit}>bullet</span>
+          {bulletRating} <span className={ledger.unit}>bullet</span>
         </span>
         <span>
-          {uscfRating}
-          <span className={ledger.unit}>USCF</span>
+          {uscfRating} <span className={ledger.unit}>USCF</span>
         </span>
       </span>
     </li>

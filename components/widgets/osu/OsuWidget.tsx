@@ -23,7 +23,7 @@ export default function OsuWidget({ data }: OsuWidgetProps) {
 
   let playTimeDisplay = "—";
   if (data && typeof data.playTime === "number") {
-    playTimeDisplay = data.playTime.toLocaleString("en-US") + "h";
+    playTimeDisplay = data.playTime.toLocaleString("en-US");
   }
 
   const ariaLabel =
@@ -33,7 +33,7 @@ export default function OsuWidget({ data }: OsuWidgetProps) {
     peakDisplay +
     ", pp " +
     ppDisplay +
-    ", playtime " +
+    ", hours played " +
     playTimeDisplay;
 
   return (
@@ -52,20 +52,16 @@ export default function OsuWidget({ data }: OsuWidgetProps) {
         aria-hidden="true"
       >
         <span>
-          {rankDisplay}
-          <span className={ledger.unit}>rank</span>
+          {rankDisplay} <span className={ledger.unit}>rank</span>
         </span>
         <span>
-          {peakDisplay}
-          <span className={ledger.unit}>peak</span>
+          {peakDisplay} <span className={ledger.unit}>peak</span>
         </span>
         <span>
-          {ppDisplay}
-          <span className={ledger.unit}>pp</span>
+          {ppDisplay} <span className={ledger.unit}>pp</span>
         </span>
         <span>
-          {playTimeDisplay}
-          <span className={ledger.unit}>played</span>
+          {playTimeDisplay} <span className={ledger.unit}>hours</span>
         </span>
       </span>
     </li>

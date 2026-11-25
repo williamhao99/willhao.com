@@ -2,7 +2,6 @@
   position: relative;
   display: grid;
   justify-items: start;
-  min-width: 0;
 }
 
 .title {
@@ -11,14 +10,6 @@
   font-weight: var(--font-medium);
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-/* The whole track opens the song */
-.song::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
 }
 
 .by {
@@ -30,7 +21,6 @@
 }
 
 .artist {
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -38,7 +28,6 @@
 
 .status {
   flex: none;
-  white-space: nowrap;
 }
 
 .status::before {
@@ -75,9 +64,5 @@
 @media (max-width: 35em) {
   .by {
     flex-direction: column;
-  }
-
-  .status {
-    white-space: normal;
   }
 }

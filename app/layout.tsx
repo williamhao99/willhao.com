@@ -29,10 +29,6 @@ export const metadata: Metadata = {
     default: "Will Hao",
   },
   openGraph: {
-    title: {
-      template: "%s - Will Hao",
-      default: "Will Hao",
-    },
     url: "https://willhao.com",
     siteName: "Will Hao",
     type: "website",

@@ -11,7 +11,6 @@ h1 + .block {
 }
 
 .ledger {
-  list-style: none;
   display: grid;
   row-gap: var(--space-10);
 }
@@ -25,11 +24,10 @@ h1 + .block {
   display: grid;
   grid-template-columns: var(--rail) minmax(0, 1fr);
   align-items: baseline;
-  text-wrap: pretty;
-  overflow-wrap: break-word;
 }
 
 .when {
+  justify-self: start;
   color: var(--color-grey);
   font-variant-numeric: tabular-nums;
 }
@@ -52,10 +50,7 @@ h1 + .block {
   content: "";
   position: absolute;
   inset: 0;
-}
-
-a.when {
-  justify-self: start;
+  z-index: 1;
 }
 
 a.when:hover {
@@ -64,9 +59,6 @@ a.when:hover {
 
 .mark {
   margin-left: var(--mark-gap);
-}
-
-.name .mark {
   font-weight: var(--font-normal);
   color: var(--color-grey);
   transition: color var(--transition);
@@ -85,7 +77,6 @@ a.when:hover {
 
 .unit {
   color: var(--color-grey);
-  margin-left: var(--space-6);
 }
 
 @media (max-width: 35em) {
@@ -102,7 +93,7 @@ a.when:hover {
     display: grid;
     grid-template-columns: repeat(
       auto-fit,
-      minmax(min(100%, max(var(--rail), 34%)), 1fr)
+      minmax(min(100%, max(6.25em, 34%)), 1fr)
     );
     column-gap: 0;
   }
