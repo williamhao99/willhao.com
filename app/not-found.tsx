@@ -3,7 +3,7 @@ import BackLink from "@/components/backLink/BackLink";
 import styles from "./status.module.css";
 
 export const metadata: Metadata = {
-  title: "Page Not Found",
+  title: "Page not found",
 };
 
 export default function NotFound() {

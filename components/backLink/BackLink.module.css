@@ -4,7 +4,7 @@
 
   position: absolute;
   top: calc(var(--page-top) - var(--space-6));
-  left: calc(var(--page-pad) - var(--back-width) - var(--space-6));
+  left: calc(var(--page-pad) - var(--back-width) - var(--space-10));
   width: var(--back-width);
   height: calc(var(--text-title) * var(--leading-title));
   display: flex;

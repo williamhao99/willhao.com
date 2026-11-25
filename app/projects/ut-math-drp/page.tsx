@@ -22,9 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Keep the raw apostrophe - %27 404s in production
-const SLIDES_PDF =
-  "/documents/Benford's%20Law%20-%20From%20Logarithms%20to%20Dynamical%20Systems.pdf";
+const SLIDES_PDF = "/documents/benfords-law-slides.pdf";
 
 const WEEKLY_NOTES = [
   { label: "Feb 17", href: "/documents/DRP%20notes%2002-17-25.pdf" },

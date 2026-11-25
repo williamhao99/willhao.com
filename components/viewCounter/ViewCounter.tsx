@@ -134,15 +134,14 @@ export default function ViewCounter() {
 
   const views = viewsMap[slug];
 
-  if (views === null) {
+  // undefined = still loading
+  if (views === null || views === undefined) {
     return null;
   }
 
-  let viewsText = "— views";
+  let viewsText = views.toLocaleString("en-US") + " views";
   if (views === 1) {
     viewsText = "1 view";
-  } else if (views !== undefined) {
-    viewsText = views.toLocaleString("en-US") + " views";
   }
 
   return <span>{viewsText}</span>;

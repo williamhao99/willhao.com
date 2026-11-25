@@ -49,9 +49,9 @@ export default defineConfig([
           patterns: [
             {
               group: [
-                "@/lib/data/spotify",
-                "@/lib/data/chess",
-                "@/lib/data/osu",
+                "**/lib/data/spotify",
+                "**/lib/data/chess",
+                "**/lib/data/osu",
               ],
               allowTypeImports: true,
               message: "Import only types - instrumentation.ts runs these.",

@@ -15,6 +15,7 @@ interface LiveRowsProps {
 
 // About 5 min of failed polls
 const STALE_POLL_LIMIT = 150;
+const POLL_TIMEOUT_MS = 8000;
 
 export default function LiveRows({ initialData }: LiveRowsProps) {
   const [data, setData] = useState<LiveData>(initialData);
@@ -23,6 +24,7 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
     let isMounted = true;
     let intervalId: NodeJS.Timeout | null = null;
     let failedSpotifyPolls = 0;
+    let pending = false;
 
     // next = null when the whole request failed
     function applyPoll(next: LiveData | null) {
@@ -32,6 +34,8 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
         failedSpotifyPolls = failedSpotifyPolls + 1;
       }
       const stale = failedSpotifyPolls >= STALE_POLL_LIMIT;
+      // One missed poll is not shown
+      const retrying = failedSpotifyPolls > 1;
 
       setData(function merge(prev) {
         const merged: LiveData = {
@@ -49,7 +53,7 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
           merged.spotify = next.spotify;
         } else if (stale) {
           merged.spotify = demoteStale(prev.spotify);
-        } else {
+        } else if (retrying) {
           merged.spotify = markBackoff(prev.spotify);
         }
         return merged;
@@ -57,8 +61,12 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
     }
 
     async function fetchData() {
+      if (pending) return;
+      pending = true;
       try {
-        const response = await fetch("/api/live");
+        const response = await fetch("/api/live", {
+          signal: AbortSignal.timeout(POLL_TIMEOUT_MS),
+        });
         if (!isMounted) return;
         if (response.ok) {
           applyPoll(await response.json());
@@ -70,6 +78,8 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
           console.error("Failed to fetch live data:", error);
           applyPoll(null);
         }
+      } finally {
+        pending = false;
       }
     }
 

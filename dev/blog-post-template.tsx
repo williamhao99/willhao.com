@@ -45,6 +45,7 @@ export default function PostNamePage() {
           rel="noopener noreferrer"
         >
           other resources
+          <span className="visually-hidden"> (opens in new tab)</span>
         </a>{" "}
         get a thin underline at rest, blue on hover.
       </p>

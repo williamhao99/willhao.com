@@ -132,8 +132,7 @@ export default function Home() {
             className={styles.knight}
             width={64}
             height={64}
-            unoptimized
-            priority
+            preload
           />
         </span>
       </header>

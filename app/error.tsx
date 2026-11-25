@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import BackLink from "@/components/backLink/BackLink";
 import styles from "./status.module.css";
 
@@ -9,12 +10,22 @@ export default function Error({
   error: Error & { digest?: string };
   retry: () => void;
 }) {
-  return (
-    <>
+  const pathname = usePathname();
+
+  // On home the arrow would lead back here
+  let back = null;
+  if (pathname !== "/") {
+    back = (
       <BackLink
         href="/"
         label="Back to home"
       />
+    );
+  }
+
+  return (
+    <>
+      {back}
       <h1>Something went wrong</h1>
       <button
         className={styles.action}

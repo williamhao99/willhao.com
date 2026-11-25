@@ -73,8 +73,13 @@ function buildData(entry: {
   return result;
 }
 
+// Last-played entries at any age; playing/paused for 5 min
 export function getCachedSpotifyData(): SpotifyData | null {
-  if (cachedStats && Date.now() - cachedStats.fetchedAt < CACHE_DURATION) {
+  if (
+    cachedStats &&
+    (cachedStats.playedAt !== null ||
+      Date.now() - cachedStats.fetchedAt < STALE_DURATION)
+  ) {
     return buildData(cachedStats);
   }
   return null;

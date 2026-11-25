@@ -36,7 +36,7 @@ export default function BlogPage() {
           key={post.slug}
           className={ledger.row}
         >
-          <time className={ledger.when}>{post.date}</time>
+          <span className={ledger.when}>{post.date}</span>
           <span>
             <Link
               href={post.link}
