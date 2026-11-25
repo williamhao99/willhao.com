@@ -1,22 +1,5 @@
 /* !important: Shiki sets an inline background */
 
-.wrapper {
-  margin: var(--space-24) 0;
-}
-
 .wrapper pre {
   background: transparent !important;
-  margin: 0;
-  padding-left: var(--space-14);
-  border-left: var(--line-thin) solid var(--color-line);
-  overflow-x: auto;
-  font-family: var(--font-mono), var(--font-mono-fallback);
-  font-size: var(--text-small);
-  line-height: var(--leading-body);
-}
-
-.wrapper pre code {
-  background: transparent !important;
-  font-family: inherit;
-  font-size: inherit;
 }

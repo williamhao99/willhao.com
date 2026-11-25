@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Noindex while empty
 if (blogPosts.length === 0) {
   metadata.robots = { index: false, follow: true };
 }
@@ -60,7 +59,7 @@ export default function BlogPage() {
 
   let content = <p className={status.message}>Nothing here yet.</p>;
   if (blogPosts.length > 0) {
-    content = <Ledger loose>{renderPosts()}</Ledger>;
+    content = <Ledger>{renderPosts()}</Ledger>;
   }
 
   return (

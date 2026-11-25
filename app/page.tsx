@@ -59,24 +59,6 @@ const INTRO =
   "Hi! I'm Will, a junior at UT Austin studying CS and math. I've always enjoyed solving puzzles and building things, mostly in software, finance, and machine learning.";
 
 export default function Home() {
-  function renderPageLink(href: string, label: string) {
-    return (
-      <Link
-        key={href}
-        href={href}
-      >
-        {label}
-      </Link>
-    );
-  }
-
-  function renderPageLinks() {
-    return [
-      renderPageLink("/projects", "Projects"),
-      renderPageLink("/blog", "Blog"),
-    ];
-  }
-
   function renderExperience() {
     const rows = [];
     for (let i = 0; i < EXPERIENCE.length; i++) {
@@ -123,7 +105,8 @@ export default function Home() {
           className={styles.links}
           aria-label="Pages"
         >
-          {renderPageLinks()}
+          <Link href="/projects">Projects</Link>
+          <Link href="/blog">Blog</Link>
         </nav>
         <span className={styles.knightSlot}>
           <Image
@@ -138,16 +121,8 @@ export default function Home() {
       </header>
       <p className={styles.intro}>{INTRO}</p>
 
-      <Ledger
-        label="Experience"
-        loose
-      >
-        {renderExperience()}
-      </Ledger>
-      <Ledger
-        label="Featured projects"
-        loose
-      >
+      <Ledger label="Experience">{renderExperience()}</Ledger>
+      <Ledger label="Featured projects">
         <ProjectRows projects={featuredProjects()} />
       </Ledger>
 

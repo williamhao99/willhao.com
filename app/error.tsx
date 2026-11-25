@@ -12,7 +12,6 @@ export default function Error({
 }) {
   const pathname = usePathname();
 
-  // On home the arrow would lead back here
   let back = null;
   if (pathname !== "/") {
     back = (

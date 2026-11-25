@@ -134,7 +134,6 @@ export default function ViewCounter() {
 
   const views = viewsMap[slug];
 
-  // undefined = still loading
   if (views === null || views === undefined) {
     return null;
   }

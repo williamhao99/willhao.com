@@ -34,7 +34,6 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
         failedSpotifyPolls = failedSpotifyPolls + 1;
       }
       const stale = failedSpotifyPolls >= STALE_POLL_LIMIT;
-      // One missed poll is not shown
       const retrying = failedSpotifyPolls > 1;
 
       setData(function merge(prev) {

@@ -56,7 +56,6 @@
   left: calc(-1 * var(--knight-inset-left));
   bottom: calc(-1 * (var(--knight-inset-bottom) + var(--knight-drop)));
   width: var(--knight-size);
-  max-width: none;
   height: var(--knight-size);
   image-rendering: pixelated;
 }

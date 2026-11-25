@@ -1,6 +1,6 @@
 .back {
   --back-width: var(--space-40);
-  --back-tucked-size: 3.2rem;
+  --back-tucked-size: var(--space-32);
 
   position: absolute;
   top: calc(var(--page-top) - var(--space-6));

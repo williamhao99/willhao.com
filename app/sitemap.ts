@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: siteUrl + "/projects/ut-math-drp", lastModified: "2026-11-24" },
   ];
 
-  // Blog, once it has posts
   let latest = "";
   for (let i = 0; i < blogPosts.length; i++) {
     const post = blogPosts[i];

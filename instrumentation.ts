@@ -33,7 +33,7 @@ export async function register() {
     chess.startBackgroundRefresh();
     osu.startBackgroundRefresh();
 
-    // Warm caches - each module logs its own failure
+    // Warm caches
     await Promise.allSettled([
       spotify.fetchSpotifyData(),
       chess.fetchChessStats(),

@@ -27,23 +27,7 @@ export function startBackgroundRefresh() {
   }, REFRESH_INTERVAL);
 }
 
-let inFlightFetch: Promise<ChessStats> | null = null;
-
 export async function fetchChessStats(): Promise<ChessStats> {
-  if (inFlightFetch) {
-    return inFlightFetch;
-  }
-
-  const fetchPromise = fetchFreshChessStats();
-  inFlightFetch = fetchPromise;
-  try {
-    return await fetchPromise;
-  } finally {
-    inFlightFetch = null;
-  }
-}
-
-async function fetchFreshChessStats(): Promise<ChessStats> {
   const controller = new AbortController();
 
   function abortRequest() {

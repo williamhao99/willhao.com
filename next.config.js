@@ -3,7 +3,6 @@ const nextConfig = {
   poweredByHeader: false,
   // Stop next dev from generating AGENTS.md
   agentRules: false,
-  // Images are served as files - no optimizer
   images: { unoptimized: true },
   async redirects() {
     return [

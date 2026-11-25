@@ -73,23 +73,7 @@ async function getAccessToken(
   return data.access_token;
 }
 
-let inFlightFetch: Promise<OsuStats> | null = null;
-
 export async function fetchOsuStats(): Promise<OsuStats> {
-  if (inFlightFetch) {
-    return inFlightFetch;
-  }
-
-  const fetchPromise = fetchFreshOsuStats();
-  inFlightFetch = fetchPromise;
-  try {
-    return await fetchPromise;
-  } finally {
-    inFlightFetch = null;
-  }
-}
-
-async function fetchFreshOsuStats(): Promise<OsuStats> {
   const controller = new AbortController();
 
   function abortRequest() {

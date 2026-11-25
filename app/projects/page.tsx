@@ -25,7 +25,7 @@ export default function ProjectsPage() {
         label="Back to home"
       />
       <h1>Projects</h1>
-      <Ledger loose>
+      <Ledger>
         <ProjectRows projects={projects} />
       </Ledger>
     </>

@@ -36,7 +36,6 @@ h1 + .block {
 
 .name {
   font-weight: var(--font-medium);
-  transition: color var(--transition);
 }
 
 .detail {

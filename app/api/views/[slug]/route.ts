@@ -62,11 +62,7 @@ export async function POST(
   }
 
   if (process.env.NODE_ENV === "development") {
-    const views = await getViews(slug);
-    if (views === null) {
-      return new NextResponse(null, { status: 503 });
-    }
-    return NextResponse.json({ views: views });
+    return GET(request, context);
   }
 
   const views = await incrementViews(slug);

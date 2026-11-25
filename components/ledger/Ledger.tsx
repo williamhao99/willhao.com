@@ -3,16 +3,10 @@ import styles from "./Ledger.module.css";
 
 interface LedgerProps {
   label?: string;
-  loose?: boolean;
   children: ReactNode;
 }
 
-export default function Ledger({ label, loose, children }: LedgerProps) {
-  let listClassName = styles.ledger;
-  if (loose) {
-    listClassName = styles.ledger + " " + styles.loose;
-  }
-
+export default function Ledger({ label, children }: LedgerProps) {
   let heading = null;
   if (label) {
     heading = <h2 className={styles.label}>{label}</h2>;
@@ -23,7 +17,7 @@ export default function Ledger({ label, loose, children }: LedgerProps) {
       {heading}
       {/* Safari drops list semantics when list-style is none */}
       <ul
-        className={listClassName}
+        className={styles.ledger + " " + styles.loose}
         role="list"
       >
         {children}
