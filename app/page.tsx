@@ -36,47 +36,11 @@ const PROFILE_SCHEMA = {
   },
 };
 
-// Newest first
-const EXPERIENCE = [
-  {
-    role: "Quantitative Trading Intern",
-    company: "Optiver",
-    date: "Summer 2027",
-  },
-  {
-    role: "Software Engineering Intern",
-    company: "Citi",
-    date: "Jun - Aug 2026",
-  },
-];
-
 // Update "junior" each fall
 const INTRO =
   "Hi! I'm Will, a junior at UT Austin studying CS and math. I've always enjoyed solving puzzles and building things, mostly in software, finance, and machine learning.";
 
 export default function Home() {
-  function renderExperience() {
-    const rows = [];
-    for (let i = 0; i < EXPERIENCE.length; i++) {
-      const entry = EXPERIENCE[i];
-      if (!entry) continue;
-
-      rows.push(
-        <li
-          key={entry.company + entry.date}
-          className={ledger.row}
-        >
-          <span className={ledger.when}>{entry.date}</span>
-          <div>
-            <span className={ledger.name}>{entry.company}</span>
-            <div className={ledger.detail}>{entry.role}</div>
-          </div>
-        </li>,
-      );
-    }
-    return rows;
-  }
-
   return (
     <>
       <script
@@ -105,7 +69,22 @@ export default function Home() {
       </header>
       <p>{INTRO}</p>
 
-      <Ledger label="Experience">{renderExperience()}</Ledger>
+      <Ledger label="Experience">
+        <li className={ledger.row}>
+          <span className={ledger.when}>Summer 2027</span>
+          <div>
+            <span className={ledger.name}>Optiver</span>
+            <div className={ledger.detail}>Quantitative Trading Intern</div>
+          </div>
+        </li>
+        <li className={ledger.row}>
+          <span className={ledger.when}>Jun - Aug 2026</span>
+          <div>
+            <span className={ledger.name}>Citi</span>
+            <div className={ledger.detail}>Software Engineering Intern</div>
+          </div>
+        </li>
+      </Ledger>
       <Ledger label="Featured projects">
         <ProjectRows featured />
       </Ledger>
