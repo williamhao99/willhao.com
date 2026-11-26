@@ -187,6 +187,10 @@ body {
   margin-bottom: var(--space-18);
 }
 
+:where(.prose p:has(+ ul, + ol)) {
+  margin-bottom: var(--space-10);
+}
+
 :where(.prose p:last-child) {
   margin-bottom: 0;
 }

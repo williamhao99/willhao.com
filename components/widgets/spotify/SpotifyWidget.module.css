@@ -4,12 +4,16 @@
   justify-items: start;
 }
 
-.title {
-  max-width: 100%;
+.title,
+.artist {
   overflow: hidden;
-  font-weight: var(--font-medium);
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.title {
+  max-width: 100%;
+  font-weight: var(--font-medium);
 }
 
 .by {
@@ -18,12 +22,6 @@
   min-width: 0;
   max-width: 100%;
   color: var(--color-grey);
-}
-
-.artist {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .status {

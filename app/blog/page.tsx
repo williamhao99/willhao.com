@@ -23,7 +23,8 @@ if (blogPosts.length === 0) {
 }
 
 export default function BlogPage() {
-  function renderPosts() {
+  let content = <p className={status.message}>Nothing here yet.</p>;
+  if (blogPosts.length > 0) {
     const rows = [];
     for (let i = 0; i < blogPosts.length; i++) {
       const post = blogPosts[i];
@@ -53,12 +54,7 @@ export default function BlogPage() {
         </li>,
       );
     }
-    return rows;
-  }
-
-  let content = <p className={status.message}>Nothing here yet.</p>;
-  if (blogPosts.length > 0) {
-    content = <Ledger>{renderPosts()}</Ledger>;
+    content = <Ledger>{rows}</Ledger>;
   }
 
   return (

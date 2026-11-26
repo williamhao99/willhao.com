@@ -49,20 +49,16 @@ function buildSlugMap(): Record<string, string> {
 
 const VIEW_PAGES = buildSlugMap();
 
-const MAX_VIEW_ATTEMPTS = 3;
-const VIEW_RETRY_DELAY_MS = 1000;
-const VIEW_TIMEOUT_MS = 5000;
-
 async function loadViews(slug: string): Promise<number | null> {
-  for (let attempt = 0; attempt < MAX_VIEW_ATTEMPTS; attempt++) {
+  for (let attempt = 0; attempt < 3; attempt++) {
     if (attempt > 0) {
       await new Promise(function wait(resolve) {
-        setTimeout(resolve, VIEW_RETRY_DELAY_MS * attempt);
+        setTimeout(resolve, 1000 * attempt);
       });
     }
 
     try {
-      const signal = AbortSignal.timeout(VIEW_TIMEOUT_MS);
+      const signal = AbortSignal.timeout(5000);
       let response;
       if (hasViewedThisSession(slug)) {
         response = await fetch("/api/views/" + slug, { signal: signal });

@@ -128,7 +128,7 @@ async function verifyLive() {
       const response = await fetch(LIVE_URL, { cache: "no-store" });
       if (response.ok) {
         const data = (await response.json()).spotify;
-        if (data && data.songTitle !== "—" && !data.backoff) {
+        if (data && !data.backoff) {
           let status = "Last played";
           if (data.isPlaying) {
             status = "Now playing";

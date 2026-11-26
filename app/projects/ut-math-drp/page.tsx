@@ -28,29 +28,26 @@ const WEEKLY_NOTES = [
 ];
 
 export default function UTMathDRPPage() {
-  function renderWeeklyNotes() {
-    const links = [];
-    for (let i = 0; i < WEEKLY_NOTES.length; i++) {
-      const note = WEEKLY_NOTES[i];
-      if (!note) continue;
+  const notes = [];
+  for (let i = 0; i < WEEKLY_NOTES.length; i++) {
+    const note = WEEKLY_NOTES[i];
+    if (!note) continue;
 
-      links.push(
-        <li key={note.href}>
-          <a
-            href={note.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {note.label}
-            <span className="visually-hidden">
-              {" "}
-              notes (PDF, opens in new tab)
-            </span>
-          </a>
-        </li>,
-      );
-    }
-    return links;
+    notes.push(
+      <li key={note.href}>
+        <a
+          href={note.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {note.label}
+          <span className="visually-hidden">
+            {" "}
+            notes (PDF, opens in new tab)
+          </span>
+        </a>
+      </li>,
+    );
   }
 
   return (
@@ -260,7 +257,7 @@ export default function UTMathDRPPage() {
       </p>
 
       <h2>Weekly Notes</h2>
-      <ul>{renderWeeklyNotes()}</ul>
+      <ul>{notes}</ul>
 
       <nav className="back">
         <Link href="/projects">← Projects</Link>

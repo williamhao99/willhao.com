@@ -15,7 +15,6 @@ interface LiveRowsProps {
 
 // About 5 min of failed polls
 const STALE_POLL_LIMIT = 150;
-const POLL_TIMEOUT_MS = 8000;
 
 export default function LiveRows({ initialData }: LiveRowsProps) {
   const [data, setData] = useState<LiveData>(initialData);
@@ -59,7 +58,7 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
       pending = true;
       try {
         const response = await fetch("/api/live", {
-          signal: AbortSignal.timeout(POLL_TIMEOUT_MS),
+          signal: AbortSignal.timeout(8000),
         });
         if (!response.ok) {
           throw new Error("/api/live returned " + response.status);
