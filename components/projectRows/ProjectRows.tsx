@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { projects } from "@/app/projects/projects";
 import type { Project } from "@/app/projects/projects";
 import ledger from "@/components/ledger/Ledger.module.css";
 
 interface ProjectRowsProps {
-  projects: Project[];
+  featured?: boolean;
 }
 
 function renderName(project: Project) {
@@ -41,19 +42,16 @@ function renderName(project: Project) {
   );
 }
 
-export default function ProjectRows({ projects }: ProjectRowsProps) {
+export default function ProjectRows({ featured }: ProjectRowsProps) {
   const rows = [];
   for (let i = 0; i < projects.length; i++) {
     const project = projects[i];
     if (!project) continue;
+    if (featured && !project.featured) continue;
 
     let award = null;
     if (project.award) {
-      award = (
-        <span className={ledger.detail + " " + ledger.plain}>
-          {project.award}
-        </span>
-      );
+      award = <div>{project.award}</div>;
     }
 
     rows.push(
@@ -62,11 +60,11 @@ export default function ProjectRows({ projects }: ProjectRowsProps) {
         className={ledger.row}
       >
         <span className={ledger.when}>{project.date}</span>
-        <span>
+        <div>
           {renderName(project)}
-          <span className={ledger.detail}>{project.description}</span>
+          <div className={ledger.detail}>{project.description}</div>
           {award}
-        </span>
+        </div>
       </li>,
     );
   }

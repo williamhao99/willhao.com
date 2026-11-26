@@ -4,8 +4,6 @@ import Image from "next/image";
 import Ledger from "@/components/ledger/Ledger";
 import ProjectRows from "@/components/projectRows/ProjectRows";
 import LiveRows from "@/components/liveRows/LiveRows";
-import { projects } from "@/app/projects/projects";
-import type { Project } from "@/app/projects/projects";
 import { getCachedLive } from "@/lib/data/live";
 import ledger from "@/components/ledger/Ledger.module.css";
 import styles from "./page.module.css";
@@ -69,26 +67,14 @@ export default function Home() {
           className={ledger.row}
         >
           <span className={ledger.when}>{entry.date}</span>
-          <span>
+          <div>
             <span className={ledger.name}>{entry.company}</span>
-            <span className={ledger.detail}>{entry.role}</span>
-          </span>
+            <div className={ledger.detail}>{entry.role}</div>
+          </div>
         </li>,
       );
     }
     return rows;
-  }
-
-  function featuredProjects() {
-    const featured: Project[] = [];
-    for (let i = 0; i < projects.length; i++) {
-      const project = projects[i];
-      if (!project) continue;
-      if (project.featured) {
-        featured.push(project);
-      }
-    }
-    return featured;
   }
 
   return (
@@ -121,7 +107,7 @@ export default function Home() {
 
       <Ledger label="Experience">{renderExperience()}</Ledger>
       <Ledger label="Featured projects">
-        <ProjectRows projects={featuredProjects()} />
+        <ProjectRows featured />
       </Ledger>
 
       <section className={ledger.block}>

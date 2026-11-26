@@ -4,8 +4,6 @@ export interface ChessStats {
   bullet: number | null;
 }
 
-const CHESS_USERNAME = "javablob";
-
 // Last good value - a failed fetch never clears it
 let cachedStats: ChessStats | null = null;
 
@@ -16,7 +14,7 @@ export function getCachedChessStats(): ChessStats | null {
 export async function fetchChessStats(): Promise<void> {
   try {
     const response = await fetch(
-      "https://api.chess.com/pub/player/" + CHESS_USERNAME + "/stats",
+      "https://api.chess.com/pub/player/javablob/stats",
       {
         headers: {
           "User-Agent": "willhao.com (william.hao.55@gmail.com)",
@@ -34,32 +32,17 @@ export async function fetchChessStats(): Promise<void> {
     const data = await response.json();
 
     let rapidRating = null;
-    if (
-      data.chess_rapid &&
-      data.chess_rapid.last &&
-      data.chess_rapid.last.rating !== null &&
-      data.chess_rapid.last.rating !== undefined
-    ) {
+    if (data.chess_rapid && data.chess_rapid.last) {
       rapidRating = data.chess_rapid.last.rating;
     }
 
     let blitzRating = null;
-    if (
-      data.chess_blitz &&
-      data.chess_blitz.last &&
-      data.chess_blitz.last.rating !== null &&
-      data.chess_blitz.last.rating !== undefined
-    ) {
+    if (data.chess_blitz && data.chess_blitz.last) {
       blitzRating = data.chess_blitz.last.rating;
     }
 
     let bulletRating = null;
-    if (
-      data.chess_bullet &&
-      data.chess_bullet.last &&
-      data.chess_bullet.last.rating !== null &&
-      data.chess_bullet.last.rating !== undefined
-    ) {
+    if (data.chess_bullet && data.chess_bullet.last) {
       bulletRating = data.chess_bullet.last.rating;
     }
 

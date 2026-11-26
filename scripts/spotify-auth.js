@@ -7,6 +7,7 @@ const fs = require("fs");
 const http = require("http");
 const os = require("os");
 const path = require("path");
+const { parseEnv } = require("util");
 const { exec, spawnSync } = require("child_process");
 
 const ENV_PATH = path.join(__dirname, "..", ".env.local");
@@ -19,29 +20,10 @@ const SCOPES = [
 
 const LIVE_URL = "https://willhao.com/api/live";
 
-function readEnvFile() {
-  const vars = {};
-  if (!fs.existsSync(ENV_PATH)) {
-    return vars;
-  }
-  const lines = fs.readFileSync(ENV_PATH, "utf8").split("\n");
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (!line) continue;
-    const eq = line.indexOf("=");
-    if (eq < 1 || line.trim().startsWith("#")) continue;
-    vars[line.slice(0, eq).trim()] = line.slice(eq + 1).trim();
-  }
-  return vars;
-}
-
 function writeRefreshToken(token) {
   const line = "SPOTIFY_REFRESH_TOKEN=" + token;
-  let content = "";
-  if (fs.existsSync(ENV_PATH)) {
-    content = fs.readFileSync(ENV_PATH, "utf8");
-  }
-  if (content.includes("SPOTIFY_REFRESH_TOKEN=")) {
+  let content = fs.readFileSync(ENV_PATH, "utf8");
+  if (/^SPOTIFY_REFRESH_TOKEN=/m.test(content)) {
     content = content.replace(/^SPOTIFY_REFRESH_TOKEN=.*$/m, line);
   } else {
     if (content.length > 0 && !content.endsWith("\n")) {
@@ -136,16 +118,12 @@ function deployToServer(token) {
   return true;
 }
 
-function sleep(ms) {
-  return new Promise(function resolveLater(resolve) {
-    setTimeout(resolve, ms);
-  });
-}
-
 async function verifyLive() {
   console.log("Verifying " + LIVE_URL + " ...");
   for (let attempt = 0; attempt < 30; attempt++) {
-    await sleep(3000);
+    await new Promise(function wait(resolve) {
+      setTimeout(resolve, 3000);
+    });
     try {
       const response = await fetch(LIVE_URL, { cache: "no-store" });
       if (response.ok) {
@@ -177,15 +155,12 @@ async function verifyLive() {
   );
 }
 
-function pad2(n) {
-  if (n < 10) {
-    return "0" + n;
-  }
-  return String(n);
-}
-
 function icsDate(d) {
-  return d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate());
+  return (
+    d.getFullYear() +
+    String(d.getMonth() + 1).padStart(2, "0") +
+    String(d.getDate()).padStart(2, "0")
+  );
 }
 
 function createReauthReminder() {
@@ -232,7 +207,10 @@ function createReauthReminder() {
   });
 }
 
-const env = readEnvFile();
+let env = {};
+if (fs.existsSync(ENV_PATH)) {
+  env = parseEnv(fs.readFileSync(ENV_PATH, "utf8"));
+}
 const CLIENT_ID = env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = env.SPOTIFY_CLIENT_SECRET;
 // VM details go in .env.local since this file is tracked:
@@ -248,7 +226,7 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
   process.exit(1);
 }
 
-async function handleCallback(req, res, server) {
+async function handleCallback(req, res) {
   const parsed = new URL(req.url, "http://127.0.0.1:8888");
   if (parsed.pathname !== "/callback") {
     res.writeHead(404, { "Content-Type": "text/html" });
@@ -327,9 +305,7 @@ async function handleCallback(req, res, server) {
   }
 }
 
-const server = http.createServer(function onRequest(req, res) {
-  handleCallback(req, res, server);
-});
+const server = http.createServer(handleCallback);
 
 server.listen(8888, "127.0.0.1", function onListen() {
   const authUrl =

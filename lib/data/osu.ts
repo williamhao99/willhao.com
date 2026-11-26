@@ -90,11 +90,7 @@ export async function fetchOsuStats(): Promise<void> {
     const data = await response.json();
 
     let globalRank = null;
-    if (
-      data.statistics &&
-      data.statistics.global_rank !== null &&
-      data.statistics.global_rank !== undefined
-    ) {
+    if (data.statistics) {
       globalRank = data.statistics.global_rank;
     }
 
@@ -117,11 +113,7 @@ export async function fetchOsuStats(): Promise<void> {
     }
 
     let peakRank = null;
-    if (
-      data.rank_highest &&
-      data.rank_highest.rank !== null &&
-      data.rank_highest.rank !== undefined
-    ) {
+    if (data.rank_highest) {
       peakRank = data.rank_highest.rank;
     }
 

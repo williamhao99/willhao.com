@@ -21,7 +21,6 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
   const [data, setData] = useState<LiveData>(initialData);
 
   useEffect(function setupPolling() {
-    let isMounted = true;
     let intervalId: NodeJS.Timeout | null = null;
     let failedSpotifyPolls = 0;
     let pending = false;
@@ -62,17 +61,13 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
         const response = await fetch("/api/live", {
           signal: AbortSignal.timeout(POLL_TIMEOUT_MS),
         });
-        if (!isMounted) return;
-        if (response.ok) {
-          applyPoll(await response.json());
-        } else {
-          applyPoll(null);
+        if (!response.ok) {
+          throw new Error("/api/live returned " + response.status);
         }
+        applyPoll(await response.json());
       } catch (error) {
-        if (isMounted) {
-          console.error("Failed to fetch live data:", error);
-          applyPoll(null);
-        }
+        console.error("Failed to fetch live data:", error);
+        applyPoll(null);
       } finally {
         pending = false;
       }
@@ -106,7 +101,6 @@ export default function LiveRows({ initialData }: LiveRowsProps) {
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return function cleanup() {
-      isMounted = false;
       stopPolling();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };

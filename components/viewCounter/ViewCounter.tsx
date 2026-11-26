@@ -101,23 +101,17 @@ export default function ViewCounter() {
       if (startedRef.current.has(slug)) return;
       startedRef.current.add(slug);
 
-      const currentSlug = slug;
-
-      async function recordView() {
-        const views = await loadViews(currentSlug);
-
+      loadViews(slug).then(function showViews(views) {
         if (views === null) {
-          startedRef.current.delete(currentSlug);
-          console.error("Failed to fetch view count for " + currentSlug);
+          startedRef.current.delete(slug);
+          console.error("Failed to fetch view count for " + slug);
           return;
         }
 
         setViewsMap(function updateMap(prev) {
-          return { ...prev, [currentSlug]: views };
+          return { ...prev, [slug]: views };
         });
-      }
-
-      recordView();
+      });
     },
     [slug],
   );

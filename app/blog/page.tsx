@@ -35,7 +35,7 @@ export default function BlogPage() {
           className={ledger.row}
         >
           <span className={ledger.when}>{post.date}</span>
-          <span>
+          <div>
             <Link
               href={post.link}
               className={ledger.name + " " + ledger.rowLink}
@@ -48,8 +48,8 @@ export default function BlogPage() {
                 →
               </span>
             </Link>
-            <span className={ledger.detail}>{post.excerpt}</span>
-          </span>
+            <div className={ledger.detail}>{post.excerpt}</div>
+          </div>
         </li>,
       );
     }

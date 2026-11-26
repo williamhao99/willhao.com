@@ -6,17 +6,13 @@ import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-sans",
 });
 const newsreader = Newsreader({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-serif",
 });
 const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  display: "swap",
   variable: "--font-mono",
   preload: false,
 });

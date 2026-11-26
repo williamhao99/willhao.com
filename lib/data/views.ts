@@ -13,9 +13,7 @@ export async function getViews(slug: string): Promise<number | null> {
     }
     return 0;
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error getting views for " + slug + ":", error.message);
-    }
+    console.error("Error getting views for " + slug + ":", error);
     return null;
   }
 }
@@ -39,12 +37,7 @@ export async function incrementViews(slug: string): Promise<number | null> {
 
     return newCount;
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(
-        "Error incrementing views for " + slug + ":",
-        error.message,
-      );
-    }
+    console.error("Error incrementing views for " + slug + ":", error);
     return null;
   }
 }

@@ -37,12 +37,7 @@ h1 + .block {
 }
 
 .detail {
-  display: block;
   color: var(--color-grey);
-}
-
-.plain {
-  color: var(--color-ink);
 }
 
 /* Whole row is clickable */

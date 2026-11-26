@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { getViews, incrementViews } from "@/lib/data/views";
 import { projects } from "@/app/projects/projects";
 import { blogPosts } from "@/app/blog/blogs";
@@ -30,31 +29,29 @@ const VALID_SLUGS = buildValidSlugs();
 export async function GET(
   request: Request,
   context: RouteParams,
-): Promise<NextResponse> {
-  const params = await context.params;
-  const slug = params.slug;
+): Promise<Response> {
+  const { slug } = await context.params;
 
   if (!VALID_SLUGS.has(slug)) {
-    return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
+    return Response.json({ error: "Invalid slug" }, { status: 400 });
   }
 
   const views = await getViews(slug);
   if (views === null) {
-    return new NextResponse(null, { status: 503 });
+    return new Response(null, { status: 503 });
   }
 
-  return NextResponse.json({ views: views });
+  return Response.json({ views: views });
 }
 
 export async function POST(
   request: Request,
   context: RouteParams,
-): Promise<NextResponse> {
-  const params = await context.params;
-  const slug = params.slug;
+): Promise<Response> {
+  const { slug } = await context.params;
 
   if (!VALID_SLUGS.has(slug)) {
-    return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
+    return Response.json({ error: "Invalid slug" }, { status: 400 });
   }
 
   if (process.env.NODE_ENV === "development") {
@@ -63,8 +60,8 @@ export async function POST(
 
   const views = await incrementViews(slug);
   if (views === null) {
-    return new NextResponse(null, { status: 503 });
+    return new Response(null, { status: 503 });
   }
 
-  return NextResponse.json({ views: views });
+  return Response.json({ views: views });
 }

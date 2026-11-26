@@ -8,13 +8,9 @@ export interface SpotifyData {
 }
 
 // Spotify API response types
-interface SpotifyArtist {
-  name: string;
-}
-
 interface SpotifyTrack {
   name: string;
-  artists: SpotifyArtist[];
+  artists: { name: string }[];
   external_urls?: { spotify?: string };
 }
 
@@ -99,10 +95,7 @@ async function failureWait(response: Response): Promise<number> {
   if (seconds > 0) {
     waitMs = seconds * 1000;
   }
-  if (waitMs > MAX_RETRY_AFTER) {
-    waitMs = MAX_RETRY_AFTER;
-  }
-  return waitMs;
+  return Math.min(waitMs, MAX_RETRY_AFTER);
 }
 
 async function getAccessToken(signal: AbortSignal): Promise<string> {
@@ -209,9 +202,9 @@ async function fetchRecentlyPlayed(
   // Stamp first so failed attempts count too
   lastRecentlyPlayedAt = Date.now();
 
-  let response: Response;
+  let recent: { items: { track: SpotifyTrack; played_at: string }[] };
   try {
-    response = await fetch(
+    const response = await fetch(
       "https://api.spotify.com/v1/me/player/recently-played?limit=1",
       {
         headers: {
@@ -221,24 +214,15 @@ async function fetchRecentlyPlayed(
         cache: "no-store",
       },
     );
-  } catch (error) {
-    recentBackoffUntil = Date.now() + NON_429_BACKOFF;
-    recentFailing = true;
-    throw error;
-  }
 
-  if (!response.ok) {
-    const wait = await failureWait(response);
-    recentBackoffUntil = Date.now() + wait;
-    recentFailing = true;
-    throw new Error("Spotify recently-played returned " + response.status);
-  }
+    if (!response.ok) {
+      const wait = await failureWait(response);
+      recentBackoffUntil = Date.now() + wait;
+      throw new Error("Spotify recently-played returned " + response.status);
+    }
 
-  let recent: { items: { track: SpotifyTrack; played_at: string }[] };
-  try {
     recent = await response.json();
   } catch (error) {
-    recentBackoffUntil = Date.now() + NON_429_BACKOFF;
     recentFailing = true;
     throw error;
   }
@@ -387,10 +371,7 @@ export async function fetchSpotifyData(): Promise<void> {
   } catch (error) {
     if (!historyPhase) {
       currentFailing = true;
-      const gate = Date.now() + NON_429_BACKOFF;
-      if (gate > backoffUntil) {
-        backoffUntil = gate;
-      }
+      backoffUntil = Math.max(backoffUntil, Date.now() + NON_429_BACKOFF);
     }
     console.error("Spotify API error:", error);
   } finally {

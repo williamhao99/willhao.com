@@ -27,10 +27,7 @@ export function demoteStale(prev: SpotifyData | null): SpotifyData {
 
 export default function SpotifyWidget({ data }: SpotifyWidgetProps) {
   const shown = data || DEFAULT_DATA;
-  const isPlaying = shown.isPlaying;
-  const songTitle = shown.songTitle;
-  const artist = shown.artist;
-  const lastPlayed = shown.lastPlayed;
+  const { isPlaying, songTitle, artist, lastPlayed } = shown;
 
   let statusText = "played recently";
   if (isPlaying) {
@@ -43,8 +40,6 @@ export default function SpotifyWidget({ data }: SpotifyWidgetProps) {
   if (shown.backoff) {
     statusText = statusText + " (retrying)";
   }
-
-  const linked = Boolean(shown.songUrl);
 
   let by = null;
   let tip;
@@ -59,7 +54,7 @@ export default function SpotifyWidget({ data }: SpotifyWidgetProps) {
     by = (
       <span
         className={styles.by}
-        aria-hidden={linked}
+        aria-hidden={Boolean(shown.songUrl)}
       >
         <span className={styles.artist}>{artist}</span>
         <span className={statusClass}>{statusText}</span>
