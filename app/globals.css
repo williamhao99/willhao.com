@@ -235,6 +235,7 @@ body {
 }
 
 :where(.prose img) {
+  display: block;
   width: 100%;
   height: auto;
 }
@@ -259,7 +260,7 @@ body {
 @media (max-width: 35em) {
   :root {
     --text-title: 3.2rem;
-    --rail: 11.6rem;
+    --rail: min(11.6rem, 40%);
     --page-top: var(--space-48);
     --page-pad: var(--space-18);
   }

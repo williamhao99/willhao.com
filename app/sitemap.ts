@@ -5,9 +5,9 @@ const siteUrl = "https://willhao.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [
-    { url: siteUrl + "/", lastModified: "2026-11-24" },
-    { url: siteUrl + "/projects", lastModified: "2026-11-24" },
-    { url: siteUrl + "/projects/ut-math-drp", lastModified: "2026-11-24" },
+    { url: siteUrl + "/" },
+    { url: siteUrl + "/projects" },
+    { url: siteUrl + "/projects/ut-math-drp" },
   ];
 
   let latest = "";

@@ -64,8 +64,8 @@ export default function PostNamePage() {
         <Image
           src="/images/image-name.jpg"
           alt="Image description"
-          width={640}
-          height={480}
+          width={1360}
+          height={1020}
         />
         <figcaption>Caption text</figcaption>
       </figure>

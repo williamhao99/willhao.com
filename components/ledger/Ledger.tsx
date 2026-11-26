@@ -15,7 +15,7 @@ export default function Ledger({ label, children }: LedgerProps) {
   return (
     <section className={styles.block}>
       {heading}
-      {/* Safari drops list semantics when list-style is none */}
+      {/* Safari drops list semantics when rows have no markers */}
       <ul
         className={styles.ledger + " " + styles.loose}
         role="list"
